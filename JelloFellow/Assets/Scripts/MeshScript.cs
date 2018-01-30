@@ -27,59 +27,21 @@ public class MeshScript : MonoBehaviour
 
         _vertices = new Vector3[_size];
 
-
         _mesh.vertices = _vertices;
-
 
         var tri = new int[(_size - 1) * 3];
 
-        tri[0] = 1;
-        tri[1] = 0;
-        tri[2] = 2;
+        var n = 1;
+        for (var i = 0; i < tri.Length; i++)
+        {
+            if (n >= _size) n = 1;
 
-        tri[3] = 2;
-        tri[4] = 0;
-        tri[5] = 3;
-
-        tri[6] = 3;
-        tri[7] = 0;
-        tri[8] = 4;
-
-        tri[9] = 4;
-        tri[10] = 0;
-        tri[11] = 5;
-
-        tri[12] = 5;
-        tri[13] = 0;
-        tri[14] = 6;
-
-        tri[15] = 6;
-        tri[16] = 0;
-        tri[17] = 7;
-
-        tri[18] = 7;
-        tri[19] = 0;
-        tri[20] = 8;
-
-        tri[21] = 8;
-        tri[22] = 0;
-        tri[23] = 9;
-
-        tri[24] = 9;
-        tri[25] = 0;
-        tri[26] = 10;
-
-        tri[27] = 10;
-        tri[28] = 0;
-        tri[29] = 11;
-
-        tri[30] = 11;
-        tri[31] = 0;
-        tri[32] = 12;
-
-        tri[33] = 12;
-        tri[34] = 0;
-        tri[35] = 1;
+            if (i % 3 == 0) tri[i] = n++;
+            else if (i % 3 == 1)
+                tri[i] = 0;
+            else
+                tri[i] = n;
+        }
 
         _mesh.triangles = tri;
     }
