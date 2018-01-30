@@ -114,13 +114,18 @@ public class Fellow : MonoBehaviour {
 			Debug.Log ("Jumping!");
 			curJumpCd = jumpCd;
 		}
-
-		if (Mathf.Abs (hor_m) > 0 || Mathf.Abs(ver_m)>0 && grounded) {
+		//WORK IN PROGRESS 
+		if (Mathf.Abs (hor_m) > 0 || Mathf.Abs(ver_m)>0 ) {
 			float moveToGAngle = Vector2.Angle (new Vector2 (hor_m, ver_m), Physics2D.gravity);
 			Debug.Log("Movement angle relative to G : " + moveToGAngle);
-
+			float airMod = 1;
+			if (!grounded) {
+				airMod = .5f;
+			}
 			if (_rigidbody2D.velocity.magnitude <= controlCutoff) {
-				_rigidbody2D.AddForce (new Vector2 (hor_m, 0) * moveSpeed);
+				
+				_rigidbody2D.AddForce (new Vector2 (hor_m * airMod,0) * moveSpeed);
+
 			}
 		}
 		// draw a ray in the direction of the gravity
