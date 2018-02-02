@@ -20,8 +20,9 @@ public class CameraController : MonoBehaviour
     [Range(0, 1f)] public float ZoomInSmoothTime = .1f; // approx time it takes to zoom in, smaller is faster
     [Range(0, 1f)] public float ZoomOutSmoothTime = .6f; // approx time it takes to zoom out, smaller is faster
 
-    private float _zoomRate;
+    private float _zoomSpeed;
 
+    // update camera after target movement has occurred in Update()
     private void LateUpdate()
     {
         Validate();
@@ -39,7 +40,7 @@ public class CameraController : MonoBehaviour
         var targetPos = tar - (tar - cur).normalized * DeadZone; // target position is the edge of the dead zone
         
         transform.position = Vector2.SmoothDamp(transform.position, targetPos, ref _velocity, MovementSmoothTime,
-            Mathf.Infinity, Time.deltaTime);
+            Mathf.Infinity, Time.deltaTime); // gradually move towards target
         
         transform.position = new Vector3(transform.position.x, transform.position.y, -10); // set z coordinate
     }
@@ -47,15 +48,16 @@ public class CameraController : MonoBehaviour
     private void Zoom()
     {
         var cam = GetComponent<Camera>();
-        var targetSize = Mathf.Clamp(_velocity.magnitude, MinSize, MaxSize); // 
+        var targetSize = Mathf.Clamp(_velocity.magnitude, MinSize, MaxSize); // use velocity as size, limit it
+                                                                             // to be between minSize and maxSize
 
-        var zoomSmoothTime = cam.orthographicSize < targetSize ? ZoomOutSmoothTime : ZoomInSmoothTime;
+        var zoomSmoothTime = cam.orthographicSize < targetSize ? ZoomOutSmoothTime : ZoomInSmoothTime; // zoom at the appropriate rate
         
-        cam.orthographicSize = Mathf.SmoothDamp(cam.orthographicSize, targetSize, ref _zoomRate, zoomSmoothTime);
+        cam.orthographicSize = Mathf.SmoothDamp(cam.orthographicSize, targetSize, ref _zoomSpeed, zoomSmoothTime); // gradually move towards target size
     }
 
     private void Validate()
     {
-        if (MaxSize < MinSize) MaxSize = MinSize;
+        if (MaxSize < MinSize) MaxSize = MinSize; // max should be >= min
     }
 }
