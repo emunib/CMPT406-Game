@@ -16,9 +16,9 @@ public class CameraController : MonoBehaviour
     // camera zoom
     [Header("Camera Zoom")]
     [Range(1, 40)] public float MinSize = 10;
-    [Range(1, 40)] public float MaxSize = 30;
-    [Range(0, 1f)] public float ZoomInSmoothTime = .1f; // approx time it takes to zoom in, smaller is faster
-    [Range(0, 1f)] public float ZoomOutSmoothTime = .6f; // approx time it takes to zoom out, smaller is faster
+    [Range(1, 40)] public float MaxSize = 20;
+    [Range(0, 1f)] public float ZoomInSmoothTime = .2f; // approx time it takes to zoom in, smaller is faster
+    [Range(0, 1f)] public float ZoomOutSmoothTime = .75f; // approx time it takes to zoom out, smaller is faster
 
     private float _zoomSpeed;
 
@@ -48,8 +48,10 @@ public class CameraController : MonoBehaviour
     private void Zoom()
     {
         var cam = GetComponent<Camera>();
-        var targetSize = Mathf.Clamp(_velocity.magnitude, MinSize, MaxSize); // use velocity as size, limit it
-                                                                             // to be between minSize and maxSize
+        var vel = Target.GetComponent<Rigidbody2D>().velocity.magnitude;
+        
+        var targetSize = Mathf.Clamp(vel, MinSize, MaxSize); // use velocity as size, limit it
+                                                             // to be between minSize and maxSize
 
         var zoomSmoothTime = cam.orthographicSize < targetSize ? ZoomOutSmoothTime : ZoomInSmoothTime; // zoom at the appropriate rate
         
