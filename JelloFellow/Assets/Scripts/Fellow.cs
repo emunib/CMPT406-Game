@@ -33,7 +33,6 @@ public class Fellow : MonoBehaviour {
 
 	public bool auto0Vel = false;
 	private void Start() {
-		cam = GameObject.FindGameObjectWithTag ("MainCamera").GetComponent<Camera>();
 		lr = GetComponent<LineRenderer> ();
 		_rigidbody2D = GetComponent<Rigidbody2D>();
 		player = ReInput.players.GetPlayer(playerID);
@@ -69,7 +68,6 @@ public class Fellow : MonoBehaviour {
 		return hit.collider != null;
 	}
 	private void Update () {
-		cam.transform.position = transform.position - new Vector3(0,0,1);
 		CooldownTick();
 		grounded = IsGrounded ();
 		// constant gravity
