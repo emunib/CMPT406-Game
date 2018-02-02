@@ -12,10 +12,21 @@ public class CameraController : MonoBehaviour
     [Range(0, 10f)] public float DeadZone = 3; // radius of zone where the camera doesn't follow the target
 
     private Vector2 _velocity = Vector2.zero; // current velocity of camera, do not modify
+    
+    // camera zoom
+    [Header("Camera Zoom")]
+    [Range(1, 40)] public float MinSize = 10;
+    [Range(1, 40)] public float MaxSize = 30;
+    [Range(0, 1f)] public float ZoomInSmoothTime = .1f; // approx time it takes to zoom in, smaller is faster
+    [Range(0, 1f)] public float ZoomOutSmoothTime = .6f; // approx time it takes to zoom out, smaller is faster
+
+    private float _zoomRate;
 
     private void LateUpdate()
     {
+        Validate();
         Move();
+        Zoom();
     }
 
     private void Move()
@@ -31,5 +42,20 @@ public class CameraController : MonoBehaviour
             Mathf.Infinity, Time.deltaTime);
         
         transform.position = new Vector3(transform.position.x, transform.position.y, -10); // set z coordinate
+    }
+
+    private void Zoom()
+    {
+        var cam = GetComponent<Camera>();
+        var targetSize = Mathf.Clamp(_velocity.magnitude, MinSize, MaxSize); // 
+
+        var zoomSmoothTime = cam.orthographicSize < targetSize ? ZoomOutSmoothTime : ZoomInSmoothTime;
+        
+        cam.orthographicSize = Mathf.SmoothDamp(cam.orthographicSize, targetSize, ref _zoomRate, zoomSmoothTime);
+    }
+
+    private void Validate()
+    {
+        if (MaxSize < MinSize) MaxSize = MinSize;
     }
 }
