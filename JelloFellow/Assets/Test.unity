@@ -606,6 +606,11 @@ Prefab:
       propertyPath: m_TagString
       value: Untagged
       objectReference: {fileID: 0}
+    - target: {fileID: 231653400780421234, guid: aab594a590f7184479cfdebeaa586ccb,
+        type: 2}
+      propertyPath: m_Frequency
+      value: 2.2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: aab594a590f7184479cfdebeaa586ccb, type: 2}
   m_IsPrefabParent: 0
@@ -1150,6 +1155,25 @@ GameObject:
   m_PrefabParentObject: {fileID: 1943673330092868, guid: aab594a590f7184479cfdebeaa586ccb,
     type: 2}
   m_PrefabInternal: {fileID: 459693620}
+--- !u!231 &671403078
+SpringJoint2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 671403077}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_EnableCollision: 0
+  m_ConnectedRigidBody: {fileID: 1330382670}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_AutoConfigureConnectedAnchor: 0
+  m_Anchor: {x: 0, y: 0}
+  m_ConnectedAnchor: {x: 0, y: 0}
+  m_AutoConfigureDistance: 0
+  m_Distance: 1
+  m_DampingRatio: 0
+  m_Frequency: 2.2
 --- !u!231 &671403082
 SpringJoint2D:
   m_ObjectHideFlags: 0
@@ -1738,7 +1762,8 @@ Prefab:
       propertyPath: m_TagString
       value: Untagged
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 231653400780421234, guid: aab594a590f7184479cfdebeaa586ccb, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: aab594a590f7184479cfdebeaa586ccb, type: 2}
   m_IsPrefabParent: 0
 --- !u!50 &1330382670 stripped
