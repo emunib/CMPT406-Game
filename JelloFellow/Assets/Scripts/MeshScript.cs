@@ -69,5 +69,7 @@ public class MeshScript : MonoBehaviour
         }
 
         _mesh.vertices = _vertices;
+        
+        _mesh.RecalculateBounds();
     }
 }
