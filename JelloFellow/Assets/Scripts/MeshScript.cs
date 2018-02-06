@@ -42,12 +42,6 @@ public class MeshScript : MonoBehaviour
             tris[n++] = triad.a;
         }
 
-        Debug.Log(_triads.Count);
-
-//        tris[0] = 0;
-//        tris[1] = 1;
-//        tris[2] = 2;
-
         _mesh = new Mesh
         {
             vertices = verts,
@@ -111,7 +105,7 @@ public class MeshScript : MonoBehaviour
     }
 
 
-    int Orientation(Vertex p1, Vertex p2, Vertex p3)
+    private static int Orientation(Vertex p1, Vertex p2, Vertex p3)
     {
         // See 10th slides from following link for derivation
         // of the formula
