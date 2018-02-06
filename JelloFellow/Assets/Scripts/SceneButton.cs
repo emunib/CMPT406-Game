@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 public class SceneButton : MonoBehaviour
 {
 
+    // in Unity add desired scene to the button throught the inspector
     public Object theSceneLinkedByThisButton;
     
     public void LoadByName()
