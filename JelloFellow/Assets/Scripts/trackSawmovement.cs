@@ -27,10 +27,13 @@ public class trackSawmovement : MonoBehaviour {
 		posB = transformB.localPosition;
 		nexPos = posB;
 
+		
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		move ();
+		
+		
 	}
 }
