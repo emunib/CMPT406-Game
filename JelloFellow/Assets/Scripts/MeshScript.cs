@@ -1,53 +1,21 @@
 ﻿using System.Collections.Generic;
-using DelaunayTriangulator;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MeshScript : MonoBehaviour
 {
-    private GameObject[] _nodes;
-
     private Mesh _mesh;
 
-    private readonly Triangulator _angulator = new Triangulator();
-    private readonly List<Vertex> _points = new List<Vertex>();
-    private List<Triad> _triads;
+    private GameObject[] _nodes;
+    private Vector3[] _vertices;
+    private int[] _triangles;
 
     private void Start()
     {
         _nodes = GameObject.FindGameObjectsWithTag("Node");
 
-        foreach (var node in _nodes)
-        {
-            _points.Add(new Vertex(node.transform.position.x, node.transform.position.y));
-        }
-
-
-        _triads = _angulator.Triangulation(_points);
-
-
-        var verts = new Vector3[_nodes.Length];
-
-        for (var i = 0; i < verts.Length; i++)
-        {
-            verts[i] = transform.position;
-        }
-
-        var tris = new int[_triads.Count * 3];
-
-        var n = 0;
-        foreach (var triad in _triads)
-        {
-            tris[n++] = triad.c;
-            tris[n++] = triad.b;
-            tris[n++] = triad.a;
-        }
-
-        _mesh = new Mesh
-        {
-            vertices = verts,
-            triangles = tris
-        };
-
+        _mesh = new Mesh();
 
         var mf = GetComponent<MeshFilter>();
         mf.mesh = _mesh;
@@ -55,65 +23,121 @@ public class MeshScript : MonoBehaviour
 
     private void LateUpdate()
     {
-        for (var i = 0; i < _nodes.Length; i++)
-        {
-            _points[i] = new Vertex(_nodes[i].transform.position.x, _nodes[i].transform.position.y);
-        }
+        var points = CircumPoints(_nodes, 0.5f, 10);
+        points = ConvexHull(points);
+        var triads = Triangulate(points);
 
-
-        _triads = _angulator.Triangulation(_points);
-
-        foreach (var triad in _triads)
-        {
-            var a = new Vector2(_points[triad.a].x, _points[triad.a].y);
-            var b = new Vector2(_points[triad.b].x, _points[triad.b].y);
-            var c = new Vector2(_points[triad.c].x, _points[triad.c].y);
-            Debug.DrawLine(a, b, Color.green);
-            Debug.DrawLine(b, c, Color.green);
-            Debug.DrawLine(c, a, Color.green);
-        }
-
-        var verts = new Vector3[_nodes.Length];
-
-        for (var i = 0; i < verts.Length; i++)
-        {
-            verts[i] = _nodes[i].transform.position;
-        }
-
-        var tris = new int[_triads.Count * 3];
-
-        var n = 0;
-        foreach (var triad in _triads)
-        {
-            if (Orientation(_points[triad.a], _points[triad.b], _points[triad.c]) < 0)
-            {
-                tris[n++] = triad.c;
-                tris[n++] = triad.b;
-                tris[n++] = triad.a;
-            }
-            else
-            {
-                tris[n++] = triad.a;
-                tris[n++] = triad.b;
-                tris[n++] = triad.c;
-            }
-        }
-
-        _mesh.vertices = verts;
-        _mesh.triangles = tris;
+        _mesh.Clear();
+        _mesh.vertices = ToVector3S(points);
+        _mesh.triangles = ToTriangles(triads);
         _mesh.RecalculateBounds();
     }
 
-
-    private static int Orientation(Vertex p1, Vertex p2, Vertex p3)
+    private static Vertex PointOnCircle(float radius, float angleInDegrees, Vertex origin)
     {
-        // See 10th slides from following link for derivation
-        // of the formula
-        var val = (p2.y - p1.y) * (p3.x - p2.x) -
-                  (p2.x - p1.x) * (p3.y - p2.y);
+        // Convert from degrees to radians via multiplication by PI/180        
+        var x = radius * Mathf.Cos(angleInDegrees * Mathf.Deg2Rad) + origin.x;
+        var y = radius * Mathf.Sin(angleInDegrees * Mathf.Deg2Rad) + origin.y;
 
-        if (val == 0) return 0; // colinear
+        return new Vertex(x, y);
+    }
 
-        return val > 0 ? 1 : -1; // clock or counterclock wise
+    private List<Vertex> CircumPoints(GameObject[] nodes, float radius, uint deg)
+    {
+        var points = new List<Vertex>();
+
+        foreach (var node in nodes)
+        {
+            var vert = ToVertex(node.transform);
+
+            for (uint i = 0; i < 360; i += deg)
+            {
+                points.Add(PointOnCircle(radius, i, vert));
+            }
+        }
+
+        return points;
+    }
+
+    private List<Vertex> ConvexHull(List<Vertex> vertices)
+    {
+        var triangulator = new Triangulator();
+        return triangulator.ConvexHull(vertices, true);
+    }
+
+    private List<Triad> Triangulate(List<Vertex> vertices)
+    {
+        var triangulator = new Triangulator();
+        var triads = triangulator.Triangulation(vertices, true);
+
+        foreach (var triad in triads)
+        {
+            triad.MakeClockwise(vertices);
+        }
+
+        return triads;
+    }
+
+    private int[] ToTriangles(List<Triad> triads)
+    {
+        var triangles = new int[triads.Count * 3];
+        var i = 0;
+
+        foreach (var triad in triads)
+        {
+            triangles[i++] = triad.a;
+            triangles[i++] = triad.b;
+            triangles[i++] = triad.c;
+        }
+
+        return triangles;
+    }
+
+    private Vector3[] ToVector3S(List<Vertex> vertices)
+    {
+        var vectors = new Vector3[vertices.Count];
+
+        for (var i = 0; i < vertices.Count; i++)
+        {
+            vectors[i] = new Vector2(vertices[i].x, vertices[i].y);
+        }
+
+        return vectors;
+    }
+
+    private void DrawTriangles(int[] triangles, Vector3[] vertices, Color color)
+    {
+        for (var i = 0; i < triangles.Length;)
+        {
+            var a = vertices[triangles[i++]];
+            var b = vertices[triangles[i++]];
+            var c = vertices[triangles[i++]];
+
+            DrawTriangle(a, b, c, color);
+        }
+    }
+
+    private void DrawTriangles(List<Triad> triads, List<Vertex> vertices, Color color)
+    {
+        foreach (var triad in triads)
+        {
+            var a = new Vector2(vertices[triad.a].x, vertices[triad.a].y);
+            var b = new Vector2(vertices[triad.b].x, vertices[triad.b].y);
+            var c = new Vector2(vertices[triad.c].x, vertices[triad.c].y);
+
+            DrawTriangle(a, b, c, color);
+        }
+    }
+
+    private void DrawTriangle(Vector3 a, Vector3 b, Vector3 c, Color color)
+    {
+        Debug.DrawLine(a, b, color);
+        Debug.DrawLine(b, c, color);
+        Debug.DrawLine(c, a, color);
+    }
+    
+    private Vertex ToVertex(Transform trans)
+    {
+        return new Vertex(trans.position.x, trans.position.y);
     }
 }
