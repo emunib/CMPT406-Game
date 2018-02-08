@@ -1,16 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Move : MonoBehaviour
 {
 	public float Power;
 	public float Speed;
-	private Rigidbody2D[] _children;
+	private GameObject[] _children;
 	// Use this for initialization
 	private void Start ()
 	{
-		_children = GetComponentsInChildren<Rigidbody2D>();
+		_children = GameObject.FindGameObjectsWithTag("Node");
 	}
 	
 	// Update is called once per frame
@@ -20,13 +21,15 @@ public class Move : MonoBehaviour
 		{
 			foreach (var child in _children)
 			{
-				child.AddForce(Vector2.up * Power, ForceMode2D.Impulse);
+				child.GetComponent<Rigidbody2D>().AddForce(Vector2.up * Power, ForceMode2D.Impulse);
 			}
 		}
 
-		foreach (var child in _children)
+		var temp = _children.OrderBy(o => o.transform.position.y).ToArray();
+
+		for (var i = 0; i < 6; i++)
 		{
-			child.AddForce(Input.GetAxis("Horizontal") * Vector2.right * Speed);
+			temp[i].GetComponent<Rigidbody2D>().AddForce(Input.GetAxis("Horizontal") * Vector2.right * Speed);
 		}
 	}
 }
