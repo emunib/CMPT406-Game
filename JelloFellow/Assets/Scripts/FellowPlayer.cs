@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class FellowPlayer : MonoBehaviour {
   private const float GravityFieldRadius = 2f;
+
   /// <summary>
   /// The input for this player.
   /// </summary>
@@ -10,24 +11,21 @@ public class FellowPlayer : MonoBehaviour {
 
   private void Start() {
     /* get the input from the controller */
-    InputController _inputcontroller = GameObject.FindGameObjectWithTag("InputController").GetComponent<InputController>();
+    InputController _inputcontroller =
+      GameObject.FindGameObjectWithTag("InputController").GetComponent<InputController>();
     input = _inputcontroller.GetInput();
   }
 
-  private void OnCollisionEnter2D(Collision2D other)
-  {
+  private void OnCollisionEnter2D(Collision2D other) {
     GravityComponent grav_component = other.gameObject.GetComponent<GravityComponent>();
-    if (grav_component != null)
-    {
+    if (grav_component != null) {
       grav_component.InGravityField();
     }
   }
 
-  private void OnCollisionExit2D(Collision2D other)
-  {
+  private void OnCollisionExit2D(Collision2D other) {
     GravityComponent grav_component = other.gameObject.GetComponent<GravityComponent>();
-    if (grav_component != null)
-    {
+    if (grav_component != null) {
       grav_component.OutsideGravityField();
     }
   }
