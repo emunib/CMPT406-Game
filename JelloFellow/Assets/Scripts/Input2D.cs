@@ -1,6 +1,12 @@
 ﻿using UnityEngine;
 
 public abstract class Input2D : MonoBehaviour {
+  protected InputControllerInfo ControllerInfo;
+
+  public void Init(InputControllerInfo _controllerInfo) {
+    ControllerInfo = _controllerInfo;
+  }
+  
   /// <summary>
   /// Gets the horizontal axis for the gravity.
   /// </summary>
