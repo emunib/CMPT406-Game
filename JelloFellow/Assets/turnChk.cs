@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class turnChk : MonoBehaviour {
+	
+	
+	[Range(1f,10f)]
+	public float groundchkrange;
+	
 	private Enemy _enemyscript;
-
 	private Transform parentTrans;
-
 	private int dir = 1;
 	// Use this for initialization
 	void Start () {
@@ -18,10 +21,10 @@ public class turnChk : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
-		Debug.DrawRay(transform.position,-transform.up*5);
+		Debug.DrawRay(transform.position,-transform.up*groundchkrange);
 		Debug.DrawRay(transform.position,transform.right*dir, Color.blue);
 
-		RaycastHit2D groundhit = Physics2D.Raycast(transform.position, -transform.up, 5);
+		RaycastHit2D groundhit = Physics2D.Raycast(transform.position, -transform.up, groundchkrange);
 
 		if (groundhit.collider == null) {
 			Debug.Log("Turning");
