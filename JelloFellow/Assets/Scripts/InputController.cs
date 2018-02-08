@@ -18,7 +18,7 @@ public class InputController : MonoBehaviour {
     
     /* get the the first controller in the joystick names (does not have
        to be the first connected controller */
-    string controller = Input.GetJoystickNames()[0];
+    string controller = Input.GetJoystickNames().Length > 0 ? Input.GetJoystickNames()[0] : null;
     if (controller != null) {
       /* check if it contains the word Xbox or PS4 which will
          determine the controller type */
@@ -29,12 +29,14 @@ public class InputController : MonoBehaviour {
       } else {
         Debug.LogError("The controller is not supported by our game.");
       }
-    }
-
-    if (info != null) {
-      /* output controller type */
-      Debug.Log("Controller: " + info.controller_type());
-      input.Init(info);
+      
+      if (info != null) {
+        /* output controller type */
+        Debug.Log("Controller: " + info.controller_type());
+        input.Init(info);
+      }
+    } else {
+      Debug.LogError("No controller connected.");
     }
   }
   

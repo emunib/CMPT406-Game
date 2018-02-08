@@ -108,9 +108,10 @@ public class Fellow : MonoBehaviour {
 		}
 
 		// For jello fellow grav-effected objects
+		/*
 		gravAffectedObjs = GameObject.FindGameObjectsWithTag("Movable");
 		foreach (GameObject g in gravAffectedObjs) {
-			Gravity obj_grav = g.gameObject.GetComponent<Gravity>();
+			GravityComponent obj_grav = g.gameObject.GetComponent<GravityComponent>();
 			if (Vector3.Distance(transform.position, g.transform.position) < 3)
 			{
 				obj_grav.ChangeGravity(new Vector2(hor, ver));
@@ -121,6 +122,7 @@ public class Fellow : MonoBehaviour {
 				obj_grav.in_radius = false;
 			}
 		}
+		*/
 
 
 		//Basic Movement Controls
