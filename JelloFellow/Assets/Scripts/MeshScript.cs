@@ -23,7 +23,7 @@ public class MeshScript : MonoBehaviour
 
     private void LateUpdate()
     {
-        var points = CircumPoints(_nodes, 0.75f, 10);
+        var points = CircumPoints(_nodes, 0.75f, 12);
         points = ConvexHull(points);
         var triads = Triangulate(points);
 
