@@ -24,11 +24,13 @@ public class FellowPlayer : MonoBehaviour {
     /* if the gameobject is within the GravityFieldRadius add it to the HashSet */
     /* Hashset only stores only unique values so it doesnt matter if it registers again */
     foreach (Collider2D object_in_radius in Physics2D.OverlapCircleAll(transform.position, GravityFieldRadius)) {
-      GravityComponent gravity_component = object_in_radius.gameObject.GetComponent<GravityComponent>();
-      if (gravity_component != null) {
-        gravity_component.InGravityField();
-        objects_in_gravityfield.Add(object_in_radius.gameObject);
-        Debug.Log(object_in_radius.gameObject.name);
+      if (object_in_radius.gameObject.Equals(gameObject)) {
+        GravityComponent gravity_component = object_in_radius.gameObject.GetComponent<GravityComponent>();
+        if (gravity_component != null) {
+          gravity_component.InGravityField();
+          objects_in_gravityfield.Add(object_in_radius.gameObject);
+          Debug.Log(object_in_radius.gameObject.name);
+        }
       }
     }
   }
