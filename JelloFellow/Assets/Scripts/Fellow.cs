@@ -79,6 +79,10 @@ public class Fellow : MonoBehaviour {
 		float hor_m = player.GetAxis ("Move_H");
 		float ver_m = player.GetAxis ("Move_V");
 
+		// Just using to test with keyboard
+		//float hor_m = Input.GetAxis ("Horizontal");
+		//float ver_m = Input.GetAxis ("Vertical");
+		
 
 		bool jump = player.GetButton ("Jump");
 		
@@ -102,6 +106,16 @@ public class Fellow : MonoBehaviour {
 
 			Physics2D.gravity = gDir * gravity * gravityChangePower;
 
+		}
+
+		GameObject[] gravAffectedObjs;
+
+		gravAffectedObjs = GameObject.FindGameObjectsWithTag("Movable");
+		foreach (GameObject g in gravAffectedObjs) {
+			if (Vector3.Distance(transform.position, g.transform.position) < 3)
+			{
+				// 
+			}
 		}
 
 
