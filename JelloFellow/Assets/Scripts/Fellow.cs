@@ -10,6 +10,8 @@ public class Fellow : MonoBehaviour {
 
 	private Rigidbody2D _rigidbody2D;
 	private LineRenderer lr;
+	
+	GameObject[] gravAffectedObjs;
 
 	[Header("Cooldowns")]
 	public float jumpCd;
@@ -108,19 +110,23 @@ public class Fellow : MonoBehaviour {
 
 		}
 
-		GameObject[] gravAffectedObjs;
-
+		// For jello fellow grav-effected objects
 		gravAffectedObjs = GameObject.FindGameObjectsWithTag("Movable");
 		foreach (GameObject g in gravAffectedObjs) {
+			Gravity obj_grav = g.gameObject.GetComponent<Gravity>();
 			if (Vector3.Distance(transform.position, g.transform.position) < 3)
 			{
-				// 
+				obj_grav.ChangeGravity(new Vector2(hor, ver));
+				obj_grav.in_radius = true;
+			}
+			else
+			{
+				obj_grav.in_radius = false;
 			}
 		}
 
 
 		//Basic Movement Controls
-
 		if (curJumpCd < 0 && jump && grounded) {
 			_rigidbody2D.AddForce (-Physics2D.gravity * jumpForce);
 			Debug.Log ("Jumping!");
