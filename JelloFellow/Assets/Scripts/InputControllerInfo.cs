@@ -6,9 +6,11 @@
 /// different controllers.
 /// </summary>
 public abstract class InputControllerInfo : MonoBehaviour {
-  //public bool isMac;
-
-  public bool isMac() {
+  /// <summary>
+  /// Checks if its a MacOSX or not using Preprocessor directives.
+  /// </summary>
+  /// <returns>True if MacOSX false otherwise</returns>
+  protected static bool isMac() {
     #if UNITY_EDITOR_WIN
       return false;
     #endif
@@ -30,7 +32,7 @@ public abstract class InputControllerInfo : MonoBehaviour {
   /// The controller type (mainly for debugging) currently being used to control the
   /// player.
   /// </summary>
-  /// <returns>The type of controller being used.</returns>
+  /// <returns>The type of controller being used</returns>
   public abstract string controller_type();
   
   /// <summary>
