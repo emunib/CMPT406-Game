@@ -1,12 +1,11 @@
 ﻿using UnityEngine;
-using Rewired;
+
 public class Fellow : MonoBehaviour {
+	private Input2D input;
+	
+	
 	//Camera
 	private Camera cam;
-
-	//REWIRED
-	private int playerID;
-	private Rewired.Player player;
 
 	private Rigidbody2D _rigidbody2D;
 	private LineRenderer lr;
@@ -37,11 +36,9 @@ public class Fellow : MonoBehaviour {
 	private void Start() {
 		lr = GetComponent<LineRenderer> ();
 		_rigidbody2D = GetComponent<Rigidbody2D>();
-		player = ReInput.players.GetPlayer(playerID);
+		input = GameObject.FindGameObjectWithTag("InputController").GetComponent<InputController>().GetInput();
 		InitCooldowns ();
 	}
-
-
 		
 	//Sets all curCDs to their full value
 	private void InitCooldowns(){
@@ -76,17 +73,17 @@ public class Fellow : MonoBehaviour {
 		float gravity = 9.81f;
 
 		// analog inputs
-		float hor = player.GetAxis("GravitySetX");
-		float ver = player.GetAxis ("GravitySetY");
-		float hor_m = player.GetAxis ("Move_H");
-		float ver_m = player.GetAxis ("Move_V");
+		float hor = input.GetHorizontalGravity();
+		float ver = input.GetVerticalGravity();
+		float hor_m = input.GetHorizontalMovement();
+		float ver_m = input.GetVerticalMovement();
 
 		// Just using to test with keyboard
 		//float hor_m = Input.GetAxis ("Horizontal");
 		//float ver_m = Input.GetAxis ("Vertical");
 		
 
-		bool jump = player.GetButton ("Jump");
+		bool jump = input.GetJumpButtonDown();
 		
 		// if they arent 0
 		// the velocity of the object pauses when we are selecting the gravity direction
