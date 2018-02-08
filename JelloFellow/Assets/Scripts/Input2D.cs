@@ -3,6 +3,11 @@
 public abstract class Input2D : MonoBehaviour {
   protected InputControllerInfo ControllerInfo;
 
+  /// <summary>
+  /// Initialize the Input2D class.
+  /// Mainly here to pass in important variables.
+  /// </summary>
+  /// <param name="_controllerInfo">Information about the controller being used.</param>
   public void Init(InputControllerInfo _controllerInfo) {
     ControllerInfo = _controllerInfo;
   }

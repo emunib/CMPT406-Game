@@ -1,19 +1,12 @@
 ﻿using UnityEngine;
 
+/// <inheritdoc />
+/// <summary>
+/// Recognizes different controllers, and sees if they are supported.
+/// </summary>
 public class InputController : MonoBehaviour {
-  /* timeout for recognizing the controller */
-  private const float timeout_time = 10f;
-  
   private Input2D input;
   private InputControllerInfo info;
-  
-  /* if the controller has been found yet */
-  private bool foundController;
-  /* if there has been a timeout yet */
-  private bool timeout;
-  /* has the player been instructed on pressing the jump button to
-     so we can find the controller */
-  private bool notified;
   
   private void Awake() {
     /* dont destroy this object when loaded */
@@ -21,70 +14,34 @@ public class InputController : MonoBehaviour {
     
     /* default values */
     input = gameObject.AddComponent<SimpleInput>();
-    foundController = false;
-    timeout = false;
-    notified = false;
     info = null;
     
-    /* let the player know we are trying to recognize the controller */
-    Debug.Log("Recognizing Controller...");
-    /* start the time to timeout */
-    Invoke("Timeout", timeout_time);
-  }
-
-  private void Timeout() {
-    timeout = true;
-  }
-
-  private void Update() {
-    if (!foundController) {
-      if (!notified) {
-        Debug.Log("Please Press A or X as seen on the controller.");
-        notified = true;
-      }
-      
-      if (Input.GetButton("Jump_X") || Input.GetButton("Jump_X_PC")) {
+    /* get the the first controller in the joystick names (does not have
+       to be the first connected controller */
+    string controller = Input.GetJoystickNames()[0];
+    if (controller != null) {
+      /* check if it contains the word Xbox or PS4 which will
+         determine the controller type */
+      if (controller.Contains("Xbox")) {
         info = gameObject.AddComponent<XBoxOneControllerInfo>();
-      } else if (Input.GetButton("Jump_P")) {
+      } else if(controller.Contains("PS4")) {
         info = gameObject.AddComponent<Ps4ControllerInfo>();
-      }
-
-      if (info != null) {
-        Debug.Log("Controller: " + info.controller_type());
-        input.Init(info);
-        foundController = true;
+      } else {
+        Debug.LogError("The controller is not supported by our game.");
       }
     }
 
-    if (timeout && !foundController) {
-      Debug.LogError("Controller not recognized please attach a supported controller and restart the game.");
-      /* Exit application */
+    if (info != null) {
+      /* output controller type */
+      Debug.Log("Controller: " + info.controller_type());
+      input.Init(info);
     }
-    
-    /*
-     float hor = input.GetHorizontalGravity();
-    float ver = input.GetVerticalGravity();
-    float hor_m = input.GetHorizontalMovement();
-    float ver_m = input.GetVerticalMovement();
-
-    //if (hor > 0 || ver > 0) {
-      Debug.Log("Horizontal Grav: " + hor + ", Vertical Grav: " + ver);
-    //}
-    
-    //if (hor_m > 0 || ver_m > 0) {
-      Debug.Log("Horizontal axis: " + hor_m + ", Vertical axis: " + ver_m);
-    //}
-    
-    if (input.GetJumpButtonDown()) {
-      Debug.Log("Jump button down.");
-    }
-    
-    if (input.GetJumpButtonUp()) {
-      Debug.Log("Jump button Up.");
-    }
-    */
   }
   
+  /// <summary>
+  /// Grabs the auto-assigned input based on the controller.
+  /// </summary>
+  /// <returns>Auto-assigned input.</returns>
   public Input2D GetInput() {
     return input;
   }
