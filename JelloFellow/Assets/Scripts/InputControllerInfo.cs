@@ -64,4 +64,16 @@ public abstract class InputControllerInfo : MonoBehaviour {
   /// </summary>
   /// <returns>Jump button name</returns>
   public abstract string Jump();
+
+  /// <summary>
+  /// Left bottom button on a controller.
+  /// </summary>
+  /// <returns>Button axis</returns>
+  public abstract string LeftTrigger();
+  
+  /// <summary>
+  /// Right bottom button on a controller.
+  /// </summary>
+  /// <returns>Button axis</returns>
+  public abstract string RightTrigger();
 }
