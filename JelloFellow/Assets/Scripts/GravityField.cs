@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 /// <inheritdoc/>
 /// <summary>
@@ -8,7 +9,9 @@
 public class GravityField : GravityPlayer {
 	private const float GravityFieldRadius = 1f;
 	private CircleCollider2D gravity_field;
-
+	private HashSet<GameObject> in_field;
+	private object _lock;
+	
 	protected override void Awake() {
 		base.Awake();
 		
@@ -18,16 +21,19 @@ public class GravityField : GravityPlayer {
 	}
 
 	private void OnTriggerEnter2D(Collider2D other) {
-		GravityComponent grav_component = other.gameObject.GetComponent<GravityComponent>();
-		if (grav_component != null) {
-			grav_component.InGravityField();
+		/* let the gravity object know its in our field */
+		Gravity grav = other.gameObject.GetComponent<Gravity>();
+		if (grav != null) {
+			print("Grav Component found! (" + other.gameObject.name + ")");
+			grav.InGravityField();
 		}
 	}
 
 	private void OnTriggerExit2D(Collider2D other) {
-		GravityComponent grav_component = other.gameObject.GetComponent<GravityComponent>();
-		if (grav_component != null) {
-			grav_component.OutsideGravityField();
+		/* let the gravity object know its leaving our field */
+		Gravity grav = other.gameObject.GetComponent<Gravity>();
+		if (grav != null) {
+			grav.OutsideGravityField();
 		}
 	}
 
