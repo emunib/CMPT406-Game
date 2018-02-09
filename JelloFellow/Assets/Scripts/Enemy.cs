@@ -62,6 +62,11 @@ public class Enemy : MonoBehaviour {
 		DecisionTree walkNode = this.gameObject.AddComponent<DecisionTree>();
 		walkNode.SetActionDelegate(Walk);
 
+		DecisionTree AgroChkNode = this.gameObject.AddComponent<DecisionTree>();
+		//TODO: Set this
+		
+		//
+
 		DecisionTree uprightCheckNode = gameObject.AddComponent<DecisionTree>();
 
 		DecisionTree orientateSelfNode = gameObject.AddComponent<DecisionTree>();
@@ -141,7 +146,7 @@ public class Enemy : MonoBehaviour {
 		}
 		
 		RaycastHit2D wallhit = Physics2D.Raycast(fwdchk.transform.position, fwdchk.transform.right*dir, WallchkRange);
-
+		
 		if (wallhit.collider != null) {
 			//Debug.Log("Turning");
 			transform.localScale = new Vector3(transform.localScale.x *-1, transform.localScale.y, transform.localScale.z);	
@@ -153,6 +158,10 @@ public class Enemy : MonoBehaviour {
 		
 	}
 
+	private void AgroCheck() {
+		
+	}
+	
 	private void OnDrawGizmos() {
 		Vector3 g = Physics2D.gravity;
 		Vector2 right = Vector3.Cross(g, -transform.forward);
