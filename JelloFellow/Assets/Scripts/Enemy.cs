@@ -65,8 +65,6 @@ public class Enemy : MonoBehaviour {
 		DecisionTree AgroChkNode = this.gameObject.AddComponent<DecisionTree>();
 		//TODO: Set this
 		
-		//
-
 		DecisionTree uprightCheckNode = gameObject.AddComponent<DecisionTree>();
 
 		DecisionTree orientateSelfNode = gameObject.AddComponent<DecisionTree>();
@@ -76,9 +74,6 @@ public class Enemy : MonoBehaviour {
 		groundChkNode.SetRightChild(iamnotgroundednode);
 
 		_root = groundChkNode;
-
-
-		
 
 	}
 

@@ -52,7 +52,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4243838457535400}
   - component: {fileID: 114441950641586694}
-  - component: {fileID: 58207249173052174}
+  - component: {fileID: 114292778171855672}
   m_Layer: 0
   m_Name: waypointSaw
   m_TagString: Untagged
@@ -70,6 +70,7 @@ GameObject:
   - component: {fileID: 4786798654961288}
   - component: {fileID: 212953731984928764}
   - component: {fileID: 114922996800094988}
+  - component: {fileID: 58007454621404124}
   m_Layer: 0
   m_Name: Saw
   m_TagString: Untagged
@@ -162,21 +163,21 @@ Transform:
   m_Father: {fileID: 4243838457535400}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &58207249173052174
+--- !u!58 &58007454621404124
 CircleCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1253367459196224}
+  m_GameObject: {fileID: 1759536780054860}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 1.36
+  m_Radius: 4.9649997
 --- !u!114 &114065148070891544
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -186,6 +187,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9c8c0b677766b42e89bb1047187b19af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114292778171855672
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1253367459196224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ada2c73d45b641dba796383649bd832, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114386605994685568
