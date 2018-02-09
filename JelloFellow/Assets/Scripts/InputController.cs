@@ -18,25 +18,30 @@ public class InputController : MonoBehaviour {
     
     /* get the the first controller in the joystick names (does not have
        to be the first connected controller */
-    string controller = Input.GetJoystickNames().Length > 0 ? Input.GetJoystickNames()[0] : null;
-    if (controller != null) {
-      /* check if it contains the word Xbox or PS4 which will
-         determine the controller type */
-      if (controller.Contains("Xbox")) {
+
+    //string controller = Input.GetJoystickNames()[0];
+    foreach (string controller in Input.GetJoystickNames()) {
+      string lower_controller = controller.ToLower();
+
+      /* xbox support */
+      if (lower_controller.Contains("xbox")) {
         info = gameObject.AddComponent<XBoxOneControllerInfo>();
-      } else if(controller.Contains("PS4")) {
-        info = gameObject.AddComponent<Ps4ControllerInfo>();
-      } else {
-        Debug.LogError("The controller is not supported by our game.");
-      }
+        break;
+      } 
       
-      if (info != null) {
-        /* output controller type */
-        Debug.Log("Controller: " + info.controller_type());
-        input.Init(info);
+      /* ps4 support */
+      if(lower_controller.Contains("ps4")) {
+        info = gameObject.AddComponent<Ps4ControllerInfo>();
+        break;
       }
+    }
+
+    if (info != null) {
+      /* output controller type */
+      Debug.Log("Controller: " + info.controller_type());
+      input.Init(info);
     } else {
-      Debug.LogError("No controller connected.");
+      Debug.LogError("Please plugin a valid controller, and restart the game.");
     }
   }
   
