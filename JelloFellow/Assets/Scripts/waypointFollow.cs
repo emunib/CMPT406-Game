@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using Rewired.ComponentControls.Effects;
 using UnityEngine;
 using UnityEngine.Experimental.UIElements;
 

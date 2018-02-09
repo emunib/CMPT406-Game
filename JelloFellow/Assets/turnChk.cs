@@ -6,25 +6,34 @@ public class turnChk : MonoBehaviour {
 	
 	
 	[Range(1f,10f)]
-	public float groundchkrange;
-	
+	public float Groundchkrange;
+
+
+	[Range(1f, 10f)] 
+	public float WallchkRange;
+		
 	private Enemy _enemyscript;
 	private Transform parentTrans;
 	private int dir = 1;
-	// Use this for initialization
-	void Start () {
+
+	
+	
+	private void Start () {
 		_enemyscript = transform.parent.GetComponent<Enemy>();
 
 		parentTrans = _enemyscript.transform;
 	}
 	
-	// Update is called once per frame
-	void Update () {
+	private void Update () {
 		
-		Debug.DrawRay(transform.position,-transform.up*groundchkrange);
-		Debug.DrawRay(transform.position,transform.right*dir, Color.blue);
-
-		RaycastHit2D groundhit = Physics2D.Raycast(transform.position, -transform.up, groundchkrange);
+		
+		//(start point, direction*direction facing * length, colour)
+		Debug.DrawRay(transform.position,-transform.up*Groundchkrange);
+		Debug.DrawRay(transform.position,transform.right*dir*WallchkRange, Color.blue);
+		
+		
+		//(start, direction, range)
+		RaycastHit2D groundhit = Physics2D.Raycast(transform.position, -transform.up, Groundchkrange);
 
 		if (groundhit.collider == null) {
 			Debug.Log("Turning");
@@ -33,7 +42,7 @@ public class turnChk : MonoBehaviour {
 			dir = -dir;
 		}
 		
-		RaycastHit2D wallhit = Physics2D.Raycast(transform.position, transform.right*dir, 1);
+		RaycastHit2D wallhit = Physics2D.Raycast(transform.position, transform.right*dir, WallchkRange);
 
 		if (wallhit.collider != null) {
 			Debug.Log("Turning");
