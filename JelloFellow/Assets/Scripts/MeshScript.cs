@@ -9,6 +9,11 @@ public class MeshScript : MonoBehaviour
     private Vector3[] _vertices;
     private int[] _triangles;
 
+    private void Awake()
+    {
+        transform.position = Vector3.zero;
+    }
+    
     private void Start()
     {
         _nodes = GameObject.FindGameObjectsWithTag("Node");
