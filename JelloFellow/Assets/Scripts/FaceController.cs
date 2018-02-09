@@ -3,13 +3,14 @@ using UnityEngine;
 
 public class FaceController : MonoBehaviour
 {
+	private Input2D _input;
 	private List<Transform> _nodes = new List<Transform>();
 	private Transform centre;
-	float offset;
-
 	
 	// Use this for initialization
 	private void Start () {
+		_input = GameObject.FindGameObjectWithTag("InputController").GetComponent<InputController>().GetInput();
+		
 		for (var i = 1; i <= 5; i++)
 		{
 			_nodes.Add(GameObject.Find("Softbody/C" + i).transform);
@@ -49,13 +50,8 @@ public class FaceController : MonoBehaviour
 		}
 		
 		Debug.Log(centre.GetComponent<Rigidbody2D>().velocity);
-
-		if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.LeftArrow))
-		{
-			offset = Input.GetAxis("Horizontal");
-		}
 		
-		transform.position = new Vector2((maxX - minX) * 0.5f + minX + offset * 0.5f, (maxY - minY) * 0.8f + minY);
+		transform.position = new Vector2((maxX - minX) * 0.5f + minX + _input.GetHorizontalMovement(), (maxY - minY) * 0.8f + minY + _input.GetVerticalMovement());
 			
 	}
 }

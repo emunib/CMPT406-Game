@@ -5,19 +5,21 @@ using UnityEngine;
 
 public class Move : MonoBehaviour
 {
+	private Input2D _input;
 	public float Power;
 	public float Speed;
 	private GameObject[] _children;
 	// Use this for initialization
 	private void Start ()
 	{
+		_input = GameObject.FindGameObjectWithTag("InputController").GetComponent<InputController>().GetInput();
 		_children = GameObject.FindGameObjectsWithTag("Node");
 	}
 	
 	// Update is called once per frame
 	private void Update () {
 
-		if (Input.GetButtonDown("Jump"))
+		if (_input.GetJumpButtonDown())
 		{
 			foreach (var child in _children)
 			{
@@ -29,7 +31,7 @@ public class Move : MonoBehaviour
 
 		for (var i = 0; i < 6; i++)
 		{
-			temp[i].GetComponent<Rigidbody2D>().AddForce(Input.GetAxis("Horizontal") * Vector2.right * Speed);
+			temp[i].GetComponent<Rigidbody2D>().AddForce(_input.GetHorizontalMovement() * Vector2.right * Speed);
 		}
 	}
 }
