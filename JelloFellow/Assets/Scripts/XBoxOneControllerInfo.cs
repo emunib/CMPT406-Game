@@ -9,7 +9,11 @@
 	private const string xbox_vertical_rstick_pc = "Vertical_GX_PC";
 	private const string xbox_jump = "Jump_X";
 	private const string xbox_jump_pc = "Jump_X_PC";
-		
+	private const string xbox_left_trigger = "LT_X";
+	private const string xbox_leftpc_trigger = "LT_X_PC";
+	private const string xbox_right_trigger = "RT_X";
+	private const string xbox_rightpc_trigger = "RT_X_PC";
+	
 	public override string controller_type() {
 		return "Xbox One" + (isMac() ? " (Mac)" : " (Windows)");
 	}
@@ -32,5 +36,13 @@
 	
 	public override string Jump() {
 		return isMac() ? xbox_jump : xbox_jump_pc;
+	}
+
+	public override string LeftTrigger() {
+		return isMac() ? xbox_left_trigger : xbox_leftpc_trigger;
+	}
+
+	public override string RightTrigger() {
+		return isMac() ? xbox_right_trigger : xbox_rightpc_trigger;
 	}
 }

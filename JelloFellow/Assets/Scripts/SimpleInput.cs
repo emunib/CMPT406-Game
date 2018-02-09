@@ -24,4 +24,12 @@ public class SimpleInput : Input2D {
   public override bool GetJumpButtonUp() {
     return Input.GetButtonUp(ControllerInfo.Jump());
   }
+  
+  public override float GetLeftTrigger() {
+    return Input.GetAxis(ControllerInfo.LeftTrigger());
+  }
+
+  public override float GetRightTrigger() {
+    return Input.GetAxis(ControllerInfo.RightTrigger());
+  }
 }
