@@ -57,6 +57,10 @@ public class GravityComponent : MonoBehaviour, Gravity {
   public void SetCustomGravity(Vector2 _custom_gravity) {
     gravity = _custom_gravity;
   }
+  
+  public Vector2 GetGravity() {
+    return !in_gravity_field ? default_gravity : gravity;
+  }
 
   private void OnBecameInvisible() {
     gravity_settable = false;

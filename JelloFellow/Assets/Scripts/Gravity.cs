@@ -16,4 +16,10 @@ public interface Gravity {
   /// This object has just left a gravity field.
   /// </summary>
   void OutsideGravityField();
+
+  /// <summary>
+  /// Get the gravity currently being applied to object.
+  /// </summary>
+  /// <returns>Current gravity being used.</returns>
+  Vector2 GetGravity();
 }

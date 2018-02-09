@@ -59,8 +59,12 @@ public class GravityPlayer : MonoBehaviour, Gravity {
 	/// Set the gravity of the player.
 	/// </summary>
 	/// <param name="_gravity">Gravity to be effected by.</param>
-	protected void SetGravity(Vector2 _gravity) {
+	protected virtual void SetGravity(Vector2 _gravity) {
 		gravity = _gravity;
+	}
+
+	public Vector2 GetGravity() {
+		return !in_gravity_field || ignore_other_fields ? gravity : custom_gravity;
 	}
 	
 	private void OnBecameInvisible() {

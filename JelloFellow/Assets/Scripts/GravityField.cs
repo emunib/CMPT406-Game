@@ -25,7 +25,7 @@ public class GravityField : GravityPlayer {
 		Gravity grav = other.gameObject.GetComponent<Gravity>();
 		if (grav != null) {
 			in_field.Add(other.gameObject);
-			//grav.SetCustomGravity(gravity);
+			grav.SetCustomGravity(GetGravity());
 			grav.InGravityField();
 		}
 	}
@@ -37,6 +37,15 @@ public class GravityField : GravityPlayer {
 			in_field.Remove(other.gameObject);
 			grav.OutsideGravityField();
 		}
+	}
+
+	protected override void SetGravity(Vector2 _gravity) {
+		foreach (GameObject gameObj in in_field) {
+			Gravity grav = gameObj.gameObject.GetComponent<Gravity>();
+			grav.SetCustomGravity(_gravity);
+		}
+		
+		base.SetGravity(_gravity);
 	}
 
 	/// <summary>

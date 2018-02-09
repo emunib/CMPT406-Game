@@ -16,10 +16,7 @@ public class InputController : MonoBehaviour {
     input = gameObject.AddComponent<SimpleInput>();
     info = null;
     
-    /* get the the first controller in the joystick names (does not have
-       to be the first connected controller */
-
-    //string controller = Input.GetJoystickNames()[0];
+    /* get the valid controller in the joystick names */
     foreach (string controller in Input.GetJoystickNames()) {
       string lower_controller = controller.ToLower();
 
