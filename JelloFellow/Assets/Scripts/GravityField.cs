@@ -24,7 +24,8 @@ public class GravityField : GravityPlayer {
 		/* let the gravity object know its in our field */
 		Gravity grav = other.gameObject.GetComponent<Gravity>();
 		if (grav != null) {
-			print("Grav Component found! (" + other.gameObject.name + ")");
+			in_field.Add(other.gameObject);
+			//grav.SetCustomGravity(gravity);
 			grav.InGravityField();
 		}
 	}
@@ -33,6 +34,7 @@ public class GravityField : GravityPlayer {
 		/* let the gravity object know its leaving our field */
 		Gravity grav = other.gameObject.GetComponent<Gravity>();
 		if (grav != null) {
+			in_field.Remove(other.gameObject);
 			grav.OutsideGravityField();
 		}
 	}
