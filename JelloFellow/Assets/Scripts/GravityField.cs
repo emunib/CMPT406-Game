@@ -80,10 +80,10 @@ public class GravityField : GravityPlayer {
 	}
 
 	/* uncomment to visualize without starting the scene */
-	
+	/*
 	private void OnDrawGizmos() {
 		Gizmos.color = new Color(1f, 0f, 0f, 0.2f);
 		Gizmos.DrawSphere(transform.position, GravityFieldRadius);
 	}
-	
+	*/
 }
