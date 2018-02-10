@@ -7,10 +7,7 @@
 /// Component will only have gravity acting upon it.
 /// </summary>
 [RequireComponent(typeof(Rigidbody2D))]
-public class GravityComponent : MonoBehaviour, Gravity {
-  /* Default gravity set when not in gravitation field */
-  private readonly Vector2 default_gravity = new Vector2(0f, -9.8f);
-  
+public class GravityComponent : Gravity {
   private new Rigidbody2D rigidbody;
   
   /* is the gravity settable (visible in screen
@@ -32,36 +29,32 @@ public class GravityComponent : MonoBehaviour, Gravity {
     /* default values */
     gravity_settable = false;
     in_gravity_field = false;
-    gravity = default_gravity;
+    gravity = DefaultGravity;
   }
 
   private void Update() {
     /* if it is in gravity field get affected by players gravity otherwise get effected by custom gravity */
     if (!in_gravity_field) {
-      rigidbody.velocity += default_gravity * Time.deltaTime;
-      Debug.DrawRay(transform.position, default_gravity, Color.red);
+      rigidbody.velocity += DefaultGravity * Time.deltaTime;
+      Debug.DrawRay(transform.position, DefaultGravity, Color.red);
     } else {
       rigidbody.velocity += gravity * Time.deltaTime;
       Debug.DrawRay(transform.position, gravity, Color.red);
     }
   }
 
-  public void InGravityField() {
+  public override void InGravityField() {
     if (gravity_settable) {
       in_gravity_field = true;
     }
   }
 
-  public void OutsideGravityField() {
+  public override void OutsideGravityField() {
     in_gravity_field = false;
   }
   
-  public void SetCustomGravity(Vector2 _custom_gravity) {
+  public override void SetCustomGravity(Vector2 _custom_gravity) {
     gravity = _custom_gravity;
-  }
-  
-  public Vector2 GetGravity() {
-    return !in_gravity_field ? default_gravity : gravity;
   }
 
   private void OnBecameInvisible() {

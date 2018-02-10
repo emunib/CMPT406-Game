@@ -9,6 +9,7 @@ using UnityEngine;
 public class GravityField : GravityPlayer {
 	private const string gravityfield_sprite_path = "Prefabs/GravityField";
 	private const float GravityFieldRadius = 2f;
+	private const float GravityDrag = 0.85f;
 	
 	private CircleCollider2D gravity_field;
 	private HashSet<GameObject> in_field;
@@ -42,7 +43,7 @@ public class GravityField : GravityPlayer {
 		if (grav != null) {
 			lock (_lock) {
 				in_field.Add(other.gameObject);
-				grav.SetCustomGravity(GetGravity());
+				grav.SetCustomGravity(GetGravity() * GravityDrag);
 				grav.InGravityField();
 			}
 		}
@@ -63,7 +64,7 @@ public class GravityField : GravityPlayer {
 		lock (_lock) {
 			foreach (GameObject gameObj in in_field) {
 				Gravity grav = gameObj.gameObject.GetComponent<Gravity>();
-				grav.SetCustomGravity(_gravity);
+				grav.SetCustomGravity(_gravity * GravityDrag);
 			}
 		}
 
@@ -74,7 +75,7 @@ public class GravityField : GravityPlayer {
 	/// Change the radius of the gravity field.
 	/// </summary>
 	/// <param name="radius">The radius to change the gravity field to.</param>
-	public void SetFieldRadius(float radius) {
+	protected void SetFieldRadius(float radius) {
 		gravity_field.radius = radius;
 		gravityfield_visualizer.transform.localScale = new Vector3(radius * 2, radius * 2, 1);
 	}

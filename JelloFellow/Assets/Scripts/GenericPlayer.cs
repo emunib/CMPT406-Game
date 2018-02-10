@@ -1,8 +1,11 @@
 ﻿using UnityEngine;
 
 public class GenericPlayer : GravityField {
-  private const float GravityForce = 9.8f;
-
+  private const float LinearDragGravity = 3f;
+  private const float AngularDragGravity = 0.5f;
+  private const float LinearDragMovement = 0f;
+  private const float AngularDragMovement = 0.5f;
+  
   /// <summary>
   /// The input for this player.
   /// </summary>
@@ -10,6 +13,7 @@ public class GenericPlayer : GravityField {
 
   private Vector2 new_gravity;
   private bool apply_constant_gravity;
+  private bool lock_movement;
   
   protected override void Awake() {
     base.Awake();
@@ -17,6 +21,7 @@ public class GenericPlayer : GravityField {
     /* get the default values */
     new_gravity = Vector2.zero;
     apply_constant_gravity = true;
+    lock_movement = false;
   }
 
   private float velocity_x_smoothing;
@@ -26,15 +31,19 @@ public class GenericPlayer : GravityField {
     
     /* make sure input is not null */
     if (input != null) {
+      lock_movement = false;
+      
       /* get the gravity vectors */
       float horizontal_gravity = input.GetHorizontalGravity();
       float vertical_gravity = input.GetVerticalGravity();
-
+      
       /* make sure gravity is not 0 or dont change */
-      if (horizontal_gravity != 0.0f || vertical_gravity != 0.0f) {        
+      if (horizontal_gravity != 0.0f || vertical_gravity != 0.0f) {
+        lock_movement = true;
+        
         if (apply_constant_gravity) {
           /* apply constant force by normalizing gravity vectors */
-          /* this normalizes by using the Sign function as it just gives you {-1, 0, 1} */
+          /* this normalizes by using the Sign function as it just gives you {-1, 1} */
           horizontal_gravity = Mathf.Sign(horizontal_gravity) == 1 ? (horizontal_gravity != 0 ? GravityForce : 0f) : -GravityForce;
           vertical_gravity = Mathf.Sign(vertical_gravity) == 1 ? (vertical_gravity != 0 ? GravityForce : 0f) : -GravityForce;
         } else {
@@ -45,6 +54,14 @@ public class GenericPlayer : GravityField {
 
         new_gravity = new Vector2(horizontal_gravity, vertical_gravity);
         if(!new_gravity.Equals(Vector2.zero)) ApplyGravity(new_gravity);
+      }
+
+      if (lock_movement) {
+        rigidbody.angularDrag = AngularDragGravity;
+        rigidbody.drag = LinearDragGravity;
+      } else {
+        rigidbody.angularDrag = AngularDragMovement;
+        rigidbody.drag = LinearDragMovement;
       }
     } else {
       Debug.LogWarning("Input has not been assigned for this player (" + gameObject.name + ")");

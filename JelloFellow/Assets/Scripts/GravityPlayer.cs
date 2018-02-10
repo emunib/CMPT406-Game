@@ -7,9 +7,9 @@
 /// Can be acted upon by other gravitional field and also effect it.
 /// </summary>
 [RequireComponent(typeof(Rigidbody2D))]
-public class GravityPlayer : MonoBehaviour, Gravity {
-	private Vector2 gravity = new Vector2(0f, -9.8f);
-	private Vector2 custom_gravity = new Vector2(0f, -9.8f);
+public class GravityPlayer : Gravity {
+	private Vector2 gravity;
+	private Vector2 custom_gravity;
 	
 	protected new Rigidbody2D rigidbody;
 	private bool gravity_settable;
@@ -21,9 +21,13 @@ public class GravityPlayer : MonoBehaviour, Gravity {
 		rigidbody = GetComponent<Rigidbody2D>();
 		rigidbody.gravityScale = 0f;
 
+		/* default values */
 		gravity_settable = false;
 		in_gravity_field = false;
 		ignore_other_fields = false;
+
+		gravity = DefaultGravity;
+		custom_gravity = DefaultGravity;
 	}
 
 	protected virtual void Update() {
@@ -37,17 +41,17 @@ public class GravityPlayer : MonoBehaviour, Gravity {
 		}
 	}
 
-	public void InGravityField() {
+	public override void InGravityField() {
 		if (gravity_settable) {
 			in_gravity_field = true;
 		}
 	}
 
-	public void OutsideGravityField() {
+	public override void OutsideGravityField() {
 		in_gravity_field = false;
 	}
 
-	public void SetCustomGravity(Vector2 _custom_gravity) {
+	public override void SetCustomGravity(Vector2 _custom_gravity) {
 		if (!ignore_other_fields) {
 			custom_gravity = _custom_gravity;
 		}
@@ -65,7 +69,7 @@ public class GravityPlayer : MonoBehaviour, Gravity {
 		gravity = _gravity;
 	}
 
-	public Vector2 GetGravity() {
+	protected Vector2 GetGravity() {
 		return !in_gravity_field || ignore_other_fields ? gravity : custom_gravity;
 	}
 	

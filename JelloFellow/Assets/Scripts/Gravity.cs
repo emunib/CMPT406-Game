@@ -1,25 +1,24 @@
 ﻿using UnityEngine;
 
-public interface Gravity {
+public abstract class Gravity : MonoBehaviour {
+  /* Force of the gravity to apply in which ever direction */
+  protected const float GravityForce = 9.81f;
+  /* Default gravity set when not in gravitation field */
+  protected readonly Vector2 DefaultGravity = new Vector2(0f, -GravityForce);
+  
   /// <summary>
   /// Set custom gravity to the object.
   /// </summary>
   /// <param name="_custom_gravity">Gravity to effect the object.</param>
-  void SetCustomGravity(Vector2 _custom_gravity);
+  public abstract void SetCustomGravity(Vector2 _custom_gravity);
   
   /// <summary>
   /// This object is in a gravity field.
   /// </summary>
-  void InGravityField();
+  public abstract void InGravityField();
   
   /// <summary>
   /// This object has just left a gravity field.
   /// </summary>
-  void OutsideGravityField();
-
-  /// <summary>
-  /// Get the gravity currently being applied to object.
-  /// </summary>
-  /// <returns>Current gravity being used.</returns>
-  Vector2 GetGravity();
+  public abstract void OutsideGravityField();
 }

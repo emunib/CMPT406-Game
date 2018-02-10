@@ -27,7 +27,7 @@ public class InputController : MonoBehaviour {
       } 
       
       /* ps4 support */
-      if(lower_controller.Contains("ps4")) {
+      if(lower_controller.Contains("sony")) {
         info = gameObject.AddComponent<Ps4ControllerInfo>();
         break;
       }
