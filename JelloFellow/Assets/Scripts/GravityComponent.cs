@@ -35,12 +35,12 @@ public class GravityComponent : MonoBehaviour, Gravity {
     gravity = default_gravity;
   }
 
-  private void FixedUpdate() {
+  private void Update() {
     /* if it is in gravity field get affected by players gravity otherwise get effected by custom gravity */
     if (!in_gravity_field) {
-      rigidbody.velocity += default_gravity * Time.fixedDeltaTime;
+      rigidbody.velocity += default_gravity * Time.deltaTime;
     } else {
-      rigidbody.velocity += gravity * Time.fixedDeltaTime;
+      rigidbody.velocity += gravity * Time.deltaTime;
     }
   }
 

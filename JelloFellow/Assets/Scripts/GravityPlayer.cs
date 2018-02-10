@@ -26,12 +26,13 @@ public class GravityPlayer : MonoBehaviour, Gravity {
 		ignore_other_fields = false;
 	}
 
-	protected virtual void FixedUpdate() {
+	protected virtual void Update() {
 		/* if it is in gravity field get affected by players gravity otherwise get effected by custom gravity */
 		if (!in_gravity_field || ignore_other_fields) {
-			rigidbody.velocity += gravity * Time.fixedDeltaTime;
+			rigidbody.velocity += gravity * Time.deltaTime;
+			Debug.DrawRay(transform.position, gravity, Color.red);
 		} else {
-			rigidbody.velocity += custom_gravity * Time.fixedDeltaTime;
+			rigidbody.velocity += custom_gravity * Time.deltaTime;
 		}
 	}
 

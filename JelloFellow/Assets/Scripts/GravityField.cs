@@ -15,6 +15,7 @@ public class GravityField : GravityPlayer {
 	protected override void Awake() {
 		base.Awake();
 		
+		in_field = new HashSet<GameObject>();
 		gravity_field = gameObject.AddComponent<CircleCollider2D>();
 		gravity_field.isTrigger = true;
 		gravity_field.radius = GravityFieldRadius;

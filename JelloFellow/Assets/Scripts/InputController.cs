@@ -42,10 +42,6 @@ public class InputController : MonoBehaviour {
     }
   }
   
-  private void Update() {
-    Debug.Log(Input.GetAxis("RT_X"));
-  }
-  
   /// <summary>
   /// Grabs the auto-assigned input based on the controller.
   /// </summary>
