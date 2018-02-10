@@ -11,7 +11,7 @@ public class Fellow : MonoBehaviour {
 	private LineRenderer lr;
 	
 	GameObject[] gravAffectedObjs;
-
+	public float leftStickAngle;
 	[Header("Cooldowns")]
 	public float jumpCd;
 	public float curJumpCd;
@@ -23,6 +23,9 @@ public class Fellow : MonoBehaviour {
 	[Header("Movement Settings")]
 	[Range(1f,1000f)]
 	public float moveSpeed;
+	public float airMod = 1;
+	[Range(10f,80f)]
+	public float angleLiniency = 30f;
 	[Range(1f,1000f)]
 	public float controlCutoff; //Movement influence stops if moving faster than this speed
 	[Range(1f,1000f)]
@@ -34,6 +37,11 @@ public class Fellow : MonoBehaviour {
 
 	public bool auto0Vel = false;
 	private void Start() {
+
+		//Testing arcbetween function
+		if (!OnShortestArcBetween (0, 355, 5) || !OnShortestArcBetween(5,4,10)) {
+			Debug.Log ("WRONG");
+		}
 		lr = GetComponent<LineRenderer> ();
 		_rigidbody2D = GetComponent<Rigidbody2D>();
 		input = GameObject.FindGameObjectWithTag("InputController").GetComponent<InputController>().GetInput();
@@ -54,6 +62,59 @@ public class Fellow : MonoBehaviour {
 	private float gravityAngle(){
 		return Mathf.Atan2 (Physics2D.gravity.y, Physics2D.gravity.x);
 	}
+
+
+
+	public GameObject GetFirstPlat(){
+		float angle = gravityAngle ();
+		groundCheckVector.x = transform.position.x + Mathf.Cos(angle);
+		groundCheckVector.y = transform.position.y + Mathf.Sin(angle);
+	
+		RaycastHit2D hit = Physics2D.Raycast(transform.position,new Vector2(Mathf.Cos(angle),Mathf.Sin(angle)), groundedDistance, theFloor);
+
+
+		if (hit && hit.collider.gameObject.tag == "Platform") {
+			Debug.Log ("Hit a platform.");
+			return hit.collider.gameObject;
+		} else {
+			
+			return null;
+		}
+	}
+
+	//Returns true if a1 is on the shortest arc between a2 and a3
+	public bool OnShortestArcBetween(float a1, float a2, float a3){
+		a1 %= 360;
+		a2 %= 360;
+		a3 %= 360;
+
+		float diff = a2 - a3;
+		float smaller, bigger;
+		if (a2 == a3) {
+			return false;
+		}
+		if (a2 > a3) {
+			bigger = a2;
+			smaller = a3;
+		
+		} else {
+			smaller = a2;
+			bigger = a3;
+		}
+			
+		if (diff > 180) {
+			return a1 > bigger || a1 < smaller;
+				
+			
+		}
+		else{
+			return a1 <bigger && a1> smaller;
+
+		}
+		
+
+
+	}
 	//Simply returns whether the character can jump
 	public bool IsGrounded() {
 		
@@ -68,6 +129,8 @@ public class Fellow : MonoBehaviour {
 	}
 	private void Update () {
 		CooldownTick();
+
+	
 		grounded = IsGrounded ();
 		// constant gravity
 		float gravity = 9.81f;
@@ -78,6 +141,7 @@ public class Fellow : MonoBehaviour {
 		float hor_m = input.GetHorizontalMovement();
 		float ver_m = input.GetVerticalMovement();
 
+		leftStickAngle =  (Mathf.Atan2 (ver_m,hor_m)*Mathf.Rad2Deg + 360) %360;
 		// Just using to test with keyboard
 		//float hor_m = Input.GetAxis ("Horizontal");
 		//float ver_m = Input.GetAxis ("Vertical");
@@ -107,6 +171,8 @@ public class Fellow : MonoBehaviour {
 
 		}
 
+
+
 		// For jello fellow grav-effected objects
 		/*
 <<<<<<< HEAD
@@ -132,22 +198,46 @@ public class Fellow : MonoBehaviour {
 		//Basic Movement Controls
 		if (curJumpCd < 0 && jump && grounded) {
 			_rigidbody2D.AddForce (-Physics2D.gravity * jumpForce);
+
 			Debug.Log ("Jumping!");
 			curJumpCd = jumpCd;
 		}
 		//WORK IN PROGRESS 
-		if (Mathf.Abs (hor_m) > 0 || Mathf.Abs(ver_m)>0 ) {
-			float moveToGAngle = Vector2.Angle (new Vector2 (hor_m, ver_m), Physics2D.gravity);
-			Debug.Log("Movement angle relative to G : " + moveToGAngle);
-			float airMod = 1;
-			if (!grounded) {
-				airMod = .5f;
-			}
-			if (_rigidbody2D.velocity.magnitude <= controlCutoff) {
-				
-				_rigidbody2D.AddForce (new Vector2 (hor_m * airMod,0) * moveSpeed);
+		Vector2 toApply;
+		GameObject plat = GetFirstPlat ();
+		float platAngle;
 
-			}
+
+		if (plat) {
+			platAngle = plat.transform.localEulerAngles.z;
+
+			if (Mathf.Abs (hor_m) > 0 || Mathf.Abs(ver_m)>0 ) {
+				
+			
+
+				if (!grounded) {
+					airMod = .5f;
+				}
+				Debug.Log("To move forward put stick between angles : (" + (platAngle - angleLiniency + 360)%360 + ","+ (platAngle + angleLiniency + 360)%360 + ")"  );
+				Debug.Log("To move backward put stick between angles : (" +(platAngle - angleLiniency + 180)%360 + ","+ (platAngle + angleLiniency + 180)%360 + ")" );
+
+				//Moving forwards
+				if (OnShortestArcBetween(leftStickAngle, (platAngle - angleLiniency + 360)%360, (platAngle + angleLiniency + 360)%360)) {
+					toApply = new Vector2 (Mathf.Cos(platAngle*Mathf.Deg2Rad)* moveSpeed, Mathf.Sin(platAngle*Mathf.Deg2Rad)* moveSpeed);
+					_rigidbody2D.velocity = _rigidbody2D.velocity + toApply;
+
+				}
+				//Moving backwards
+				else if(OnShortestArcBetween(leftStickAngle, platAngle + angleLiniency + 180, platAngle - angleLiniency + 180)){
+					toApply = new Vector2 (-Mathf.Cos(platAngle*Mathf.Deg2Rad) * moveSpeed, -Mathf.Sin(platAngle*Mathf.Deg2Rad)*moveSpeed);
+					_rigidbody2D.velocity = _rigidbody2D.velocity + toApply;
+
+					
+				}
+
+		}
+
+
 		}
 		// draw a ray in the direction of the gravity
 		lr.SetPositions (new Vector3[] { transform.position, transform.position + (Vector3)Physics2D.gravity  });
