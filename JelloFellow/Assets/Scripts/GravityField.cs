@@ -7,27 +7,44 @@ using UnityEngine;
 /// of objects within the field.
 /// </summary>
 public class GravityField : GravityPlayer {
-	private const float GravityFieldRadius = 1f;
+	private const string gravityfield_sprite_path = "Prefabs/GravityField";
+	private const float GravityFieldRadius = 2f;
+	
 	private CircleCollider2D gravity_field;
 	private HashSet<GameObject> in_field;
+	private GameObject gravityfield_visualizer;
 	private object _lock;
 	
 	protected override void Awake() {
 		base.Awake();
+
+		_lock = new object();
 		
-		in_field = new HashSet<GameObject>();
+		lock (_lock) {
+			in_field = new HashSet<GameObject>();
+		}
+
 		gravity_field = gameObject.AddComponent<CircleCollider2D>();
 		gravity_field.isTrigger = true;
 		gravity_field.radius = GravityFieldRadius;
+
+		gravityfield_visualizer = Resources.Load(gravityfield_sprite_path) as GameObject;
+		gravityfield_visualizer = Instantiate(gravityfield_visualizer);
+		gravityfield_visualizer.transform.parent = transform;
+		gravityfield_visualizer.transform.localPosition = Vector3.zero;
+		
+		SetFieldRadius(GravityFieldRadius);
 	}
 
-	private void OnTriggerEnter2D(Collider2D other) {
+	private void OnTriggerStay2D(Collider2D other) {
 		/* let the gravity object know its in our field */
 		Gravity grav = other.gameObject.GetComponent<Gravity>();
 		if (grav != null) {
-			in_field.Add(other.gameObject);
-			grav.SetCustomGravity(GetGravity());
-			grav.InGravityField();
+			lock (_lock) {
+				in_field.Add(other.gameObject);
+				grav.SetCustomGravity(GetGravity());
+				grav.InGravityField();
+			}
 		}
 	}
 
@@ -35,17 +52,21 @@ public class GravityField : GravityPlayer {
 		/* let the gravity object know its leaving our field */
 		Gravity grav = other.gameObject.GetComponent<Gravity>();
 		if (grav != null) {
-			in_field.Remove(other.gameObject);
-			grav.OutsideGravityField();
+			lock (_lock) {
+				in_field.Remove(other.gameObject);
+				grav.OutsideGravityField();
+			}			
 		}
 	}
 
 	protected override void SetGravity(Vector2 _gravity) {
-		foreach (GameObject gameObj in in_field) {
-			Gravity grav = gameObj.gameObject.GetComponent<Gravity>();
-			grav.SetCustomGravity(_gravity);
+		lock (_lock) {
+			foreach (GameObject gameObj in in_field) {
+				Gravity grav = gameObj.gameObject.GetComponent<Gravity>();
+				grav.SetCustomGravity(_gravity);
+			}
 		}
-		
+
 		base.SetGravity(_gravity);
 	}
 
@@ -55,10 +76,14 @@ public class GravityField : GravityPlayer {
 	/// <param name="radius">The radius to change the gravity field to.</param>
 	public void SetFieldRadius(float radius) {
 		gravity_field.radius = radius;
+		gravityfield_visualizer.transform.localScale = new Vector3(radius * 2, radius * 2, 1);
 	}
 
+	/* uncomment to visualize without starting the scene */
+	
 	private void OnDrawGizmos() {
 		Gizmos.color = new Color(1f, 0f, 0f, 0.2f);
 		Gizmos.DrawSphere(transform.position, GravityFieldRadius);
 	}
+	
 }

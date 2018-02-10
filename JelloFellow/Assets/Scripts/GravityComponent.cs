@@ -39,8 +39,10 @@ public class GravityComponent : MonoBehaviour, Gravity {
     /* if it is in gravity field get affected by players gravity otherwise get effected by custom gravity */
     if (!in_gravity_field) {
       rigidbody.velocity += default_gravity * Time.deltaTime;
+      Debug.DrawRay(transform.position, default_gravity, Color.red);
     } else {
       rigidbody.velocity += gravity * Time.deltaTime;
+      Debug.DrawRay(transform.position, gravity, Color.red);
     }
   }
 

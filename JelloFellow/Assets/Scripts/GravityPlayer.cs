@@ -33,6 +33,7 @@ public class GravityPlayer : MonoBehaviour, Gravity {
 			Debug.DrawRay(transform.position, gravity, Color.red);
 		} else {
 			rigidbody.velocity += custom_gravity * Time.deltaTime;
+			Debug.DrawRay(transform.position, custom_gravity, Color.red);
 		}
 	}
 
