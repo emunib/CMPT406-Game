@@ -21,6 +21,8 @@ public class GravityComponent : Gravity {
   /* custom gravity when in gravity field */
   private Vector2 gravity;
 
+  private bool remember_gravity;
+
   private void Awake() {
     /* get the rigidbody and make the component not be effected by Physics2D gravity */
     rigidbody = GetComponent<Rigidbody2D>();
@@ -29,12 +31,13 @@ public class GravityComponent : Gravity {
     /* default values */
     gravity_settable = false;
     in_gravity_field = false;
+    remember_gravity = true;
     gravity = DefaultGravity;
   }
 
   private void Update() {
     /* if it is in gravity field get affected by players gravity otherwise get effected by custom gravity */
-    if (!in_gravity_field) {
+    if (!in_gravity_field && !remember_gravity) {
       rigidbody.velocity += DefaultGravity * Time.deltaTime;
       Debug.DrawRay(transform.position, DefaultGravity, Color.red);
     } else {

@@ -54,7 +54,7 @@ public class GenericPlayer : GravityField {
         if(!new_gravity.Equals(Vector2.zero)) ApplyGravity(new_gravity);
       }
 
-      /* if the movement is locked change the angular and linear drag so we can easily throw components */
+      /* if changing gravity have more drag (useful to throw components and control gravity) */
       if (lock_movement) {
         rigidbody.angularDrag = AngularDragGravity;
         rigidbody.drag = LinearDragGravity;
