@@ -5,6 +5,7 @@ public class GenericPlayer : GravityField {
   private const float AngularDragGravity = 0.5f;
   private const float LinearDragMovement = 0f;
   private const float AngularDragMovement = 0.5f;
+  private const float TriggerSensitivity = 0.1f;
   
   /// <summary>
   /// The input for this player.
@@ -14,7 +15,7 @@ public class GenericPlayer : GravityField {
   private Vector2 new_gravity;
   private bool apply_constant_gravity;
   private bool lock_movement;
-  
+
   protected override void Awake() {
     base.Awake();
 
@@ -26,23 +27,24 @@ public class GenericPlayer : GravityField {
 
   private float velocity_x_smoothing;
   private float velocity_y_smoothing;
+
   protected override void Update() {
     base.Update();
-    
+
     /* make sure input is not null */
     if (input != null) {
       /* update lock movement to false */
       lock_movement = false;
-      
+
       /* get the gravity vectors */
       float horizontal_gravity = input.GetHorizontalGravity();
       float vertical_gravity = input.GetVerticalGravity();
-      
+
       /* make sure gravity is not 0 or dont change */
       if (horizontal_gravity != 0.0f || vertical_gravity != 0.0f) {
         /* update lock movement to true as we are actually changing gravity */
         lock_movement = true;
-        
+
         if (apply_constant_gravity) {
           new_gravity = new Vector2(horizontal_gravity, vertical_gravity).normalized * GravityForce;
         } else {
@@ -51,7 +53,7 @@ public class GenericPlayer : GravityField {
         }
 
         /* apply gravity when changed */
-        if(!new_gravity.Equals(Vector2.zero)) ApplyGravity(new_gravity);
+        ApplyGravity(new_gravity);
       }
 
       /* if changing gravity have more drag (useful to throw components and control gravity) */
@@ -63,15 +65,17 @@ public class GenericPlayer : GravityField {
         rigidbody.drag = LinearDragMovement;
       }
 
-      float val = 0.1f;
+      /* left and right trigger axis */
       float left_trigger = input.GetLeftTrigger();
-      if (left_trigger > 0) {
-        SetFieldRadius(GetFieldRadius() - val * left_trigger);
-      } 
-      
       float right_trigger = input.GetRightTrigger();
+      
+      /* we don't take negative numbers; Acts as a deadzone */
+      if (left_trigger > 0) {
+        SetFieldRadius(GetFieldRadius() - TriggerSensitivity * left_trigger);
+      }
+
       if (right_trigger > 0) {
-        SetFieldRadius(GetFieldRadius() + val * right_trigger);
+        SetFieldRadius(GetFieldRadius() + TriggerSensitivity * right_trigger);
       }
     } else {
       Debug.LogWarning("Input has not been assigned for this player (" + gameObject.name + ")");
