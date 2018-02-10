@@ -21,7 +21,7 @@ public class Fellow : MonoBehaviour {
 	public float gravityChangePower;
 
 	[Header("Movement Settings")]
-	[Range(0.01f,10f)]
+	[Range(0.01f,1f)]
 	public float moveSpeed;
 	public float airMod = 1;
 	[Range(10f,80f)]
@@ -31,13 +31,17 @@ public class Fellow : MonoBehaviour {
 	[Range(1f,1000f)]
 	public float jumpForce;
 	public bool grounded;
+	[Range(1f,8f)]
+	public float defaultGS = 2.5f;
+	[Range(0.1f,2f)]
+	public float floatiness = .5f;
 	public float groundedDistance;
 	private Vector2 groundCheckVector = new Vector2();
 	public LayerMask theFloor;
 
 	public bool auto0Vel = false;
 	private void Start() {
-
+		
 		//Testing arcbetween function
 		if (!OnShortestArcBetween (0, 355, 5) || !OnShortestArcBetween(5,4,10)) {
 			Debug.Log ("WRONG");
@@ -46,6 +50,7 @@ public class Fellow : MonoBehaviour {
 		_rigidbody2D = GetComponent<Rigidbody2D>();
 		input = GameObject.FindGameObjectWithTag("InputController").GetComponent<InputController>().GetInput();
 		InitCooldowns ();
+		_rigidbody2D.gravityScale = defaultGS;
 	}
 		
 	//Sets all curCDs to their full value
@@ -148,7 +153,10 @@ public class Fellow : MonoBehaviour {
 		
 
 		bool jump = input.GetJumpButtonDown();
-		
+		if (jump) {
+
+		}
+			
 		// if they arent 0
 		// the velocity of the object pauses when we are selecting the gravity direction
 		// because it goes in here as the hor and ver are not normalized...
@@ -197,7 +205,8 @@ public class Fellow : MonoBehaviour {
 
 		//Basic Movement Controls
 		if (curJumpCd < 0 && jump && grounded) {
-			_rigidbody2D.AddForce (-Physics2D.gravity * jumpForce);
+			_rigidbody2D.AddForce (-Physics2D.gravity * jumpForce ,ForceMode2D.Impulse);
+
 
 			Debug.Log ("Jumping!");
 			curJumpCd = jumpCd;
@@ -208,7 +217,7 @@ public class Fellow : MonoBehaviour {
 		float platAngle;
 
 
-		if (plat) {
+		if (plat && _rigidbody2D.velocity.magnitude <= controlCutoff) {
 			platAngle = plat.transform.localEulerAngles.z;
 
 			if (Mathf.Abs (hor_m) > 0 || Mathf.Abs(ver_m)>0 ) {
@@ -234,6 +243,7 @@ public class Fellow : MonoBehaviour {
 
 					
 				}
+		
 
 		}
 
