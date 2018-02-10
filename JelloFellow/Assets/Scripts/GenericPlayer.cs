@@ -31,6 +31,7 @@ public class GenericPlayer : GravityField {
     
     /* make sure input is not null */
     if (input != null) {
+      /* update lock movement to false */
       lock_movement = false;
       
       /* get the gravity vectors */
@@ -39,23 +40,21 @@ public class GenericPlayer : GravityField {
       
       /* make sure gravity is not 0 or dont change */
       if (horizontal_gravity != 0.0f || vertical_gravity != 0.0f) {
+        /* update lock movement to true as we are actually changing gravity */
         lock_movement = true;
         
         if (apply_constant_gravity) {
-          /* apply constant force by normalizing gravity vectors */
-          /* this normalizes by using the Sign function as it just gives you {-1, 1} */
-          horizontal_gravity = Mathf.Sign(horizontal_gravity) == 1 ? (horizontal_gravity != 0 ? GravityForce : 0f) : -GravityForce;
-          vertical_gravity = Mathf.Sign(vertical_gravity) == 1 ? (vertical_gravity != 0 ? GravityForce : 0f) : -GravityForce;
+          new_gravity = new Vector2(horizontal_gravity, vertical_gravity).normalized * GravityForce;
         } else {
           /* apply gravity with variable force */
-          horizontal_gravity *= GravityForce;
-          vertical_gravity *= GravityForce;
+          new_gravity = new Vector2(horizontal_gravity, vertical_gravity) * GravityForce;
         }
 
-        new_gravity = new Vector2(horizontal_gravity, vertical_gravity);
+        /* apply gravity when changed */
         if(!new_gravity.Equals(Vector2.zero)) ApplyGravity(new_gravity);
       }
 
+      /* if the movement is locked change the angular and linear drag so we can easily throw components */
       if (lock_movement) {
         rigidbody.angularDrag = AngularDragGravity;
         rigidbody.drag = LinearDragGravity;
