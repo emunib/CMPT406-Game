@@ -62,6 +62,17 @@ public class GenericPlayer : GravityField {
         rigidbody.angularDrag = AngularDragMovement;
         rigidbody.drag = LinearDragMovement;
       }
+
+      float val = 0.1f;
+      float left_trigger = input.GetLeftTrigger();
+      if (left_trigger > 0) {
+        SetFieldRadius(GetFieldRadius() - val * left_trigger);
+      } 
+      
+      float right_trigger = input.GetRightTrigger();
+      if (right_trigger > 0) {
+        SetFieldRadius(GetFieldRadius() + val * right_trigger);
+      }
     } else {
       Debug.LogWarning("Input has not been assigned for this player (" + gameObject.name + ")");
     }
