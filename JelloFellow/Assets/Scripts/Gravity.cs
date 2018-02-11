@@ -1,31 +1,24 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
-public class Gravity : MonoBehaviour
-{
-	private new Rigidbody2D r_body;
-	private Vector2 gravity;
-	public bool in_radius;
-
-	private void Awake()
-	{
-		r_body.GetComponent<Rigidbody2D>();
-		r_body.gravityScale = 0f;
-		
-		gravity = new Vector2(0f, -9.8f);
-	}
-	
-	// Update is called once per frame
-	void Update ()
-	{
-		r_body.velocity += gravity*Time.deltaTime;
-	}
-	
-	// Change to jello fellows cur grav
-	public void ChangeGravity(Vector2 jello_grav)
-	{
-		gravity = jello_grav;
-	}
+public abstract class Gravity : MonoBehaviour {
+  /* Force of the gravity to apply in which ever direction */
+  protected const float GravityForce = 9.81f;
+  /* Default gravity set when not in gravitation field */
+  protected readonly Vector2 DefaultGravity = new Vector2(0f, -GravityForce);
+  
+  /// <summary>
+  /// Set custom gravity to the object.
+  /// </summary>
+  /// <param name="_custom_gravity">Gravity to effect the object.</param>
+  public abstract void SetCustomGravity(Vector2 _custom_gravity);
+  
+  /// <summary>
+  /// This object is in a gravity field.
+  /// </summary>
+  public abstract void InGravityField();
+  
+  /// <summary>
+  /// This object has just left a gravity field.
+  /// </summary>
+  public abstract void OutsideGravityField();
 }
