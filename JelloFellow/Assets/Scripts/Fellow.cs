@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class Fellow : MonoBehaviour {
 	private Input2D input;
@@ -39,8 +40,20 @@ public class Fellow : MonoBehaviour {
 	private Vector2 groundCheckVector = new Vector2();
 	public LayerMask theFloor;
 
+	private List<Rigidbody2D> _nodes = new List<Rigidbody2D>();
+
 	public bool auto0Vel = false;
 	private void Start() {
+		
+		for (var i = 1; i <= 9; i++)
+		{
+			_nodes.Add(GameObject.Find("Softbody/O" + i).GetComponent<Rigidbody2D>());
+		}
+		for (var i = 1; i <= 6; i++)
+		{
+			_nodes.Add(GameObject.Find("Softbody/C" + i).GetComponent<Rigidbody2D>());
+		}
+		_nodes.Add(GameObject.Find("Softbody/Centre").GetComponent<Rigidbody2D>());
 		
 		//Testing arcbetween function
 		if (!OnShortestArcBetween (0, 355, 5) || !OnShortestArcBetween(5,4,10)) {
@@ -50,7 +63,11 @@ public class Fellow : MonoBehaviour {
 		_rigidbody2D = GetComponent<Rigidbody2D>();
 		input = GameObject.FindGameObjectWithTag("InputController").GetComponent<InputController>().GetInput();
 		InitCooldowns ();
-		_rigidbody2D.gravityScale = defaultGS;
+
+		foreach (var node in _nodes)
+		{
+			node.gravityScale = defaultGS;
+		}
 	}
 		
 	//Sets all curCDs to their full value
@@ -128,7 +145,7 @@ public class Fellow : MonoBehaviour {
 		groundCheckVector.x = transform.position.x + Mathf.Cos(angle);
 		groundCheckVector.y = transform.position.y + Mathf.Sin(angle);
 		Debug.DrawLine(transform.position, groundCheckVector, Color.red);
-		Debug.DrawRay(transform.position,new Vector2(Mathf.Cos(angle),Mathf.Sin(angle)),Color.green);
+		Debug.DrawRay(transform.position,new Vector2(Mathf.Cos(angle),Mathf.Sin(angle)).normalized * groundedDistance,Color.white);
 		RaycastHit2D hit = Physics2D.Raycast(transform.position,new Vector2(Mathf.Cos(angle),Mathf.Sin(angle)), groundedDistance, theFloor);
 		return hit.collider != null;
 	}
@@ -172,7 +189,11 @@ public class Fellow : MonoBehaviour {
 			}
 			// If the setting is enabled - before we change gravity stop the rigidbody.W
 			if (auto0Vel) {
-				_rigidbody2D.velocity = Vector3.zero;
+
+				foreach (var node in _nodes)
+				{
+					node.velocity = Vector2.zero;
+				}
 			}
 
 			Physics2D.gravity = gDir * gravity * gravityChangePower;
@@ -205,7 +226,10 @@ public class Fellow : MonoBehaviour {
 
 		//Basic Movement Controls
 		if (curJumpCd < 0 && jump && grounded) {
-			_rigidbody2D.AddForce (-Physics2D.gravity * jumpForce ,ForceMode2D.Impulse);
+			foreach (var node in _nodes)
+			{
+				node.AddForce (-Physics2D.gravity * jumpForce ,ForceMode2D.Impulse);
+			}
 
 
 			Debug.Log ("Jumping!");
@@ -233,13 +257,19 @@ public class Fellow : MonoBehaviour {
 				//Moving forwards
 				if (OnShortestArcBetween(leftStickAngle, (platAngle - angleLiniency + 360)%360, (platAngle + angleLiniency + 360)%360)) {
 					toApply = new Vector2 (Mathf.Cos(platAngle*Mathf.Deg2Rad)* moveSpeed, Mathf.Sin(platAngle*Mathf.Deg2Rad)* moveSpeed);
-					_rigidbody2D.velocity = _rigidbody2D.velocity + toApply;
+					foreach (var node in _nodes)
+					{
+						node.velocity = node.velocity + toApply;
+					}
 
 				}
 				//Moving backwards
 				else if(OnShortestArcBetween(leftStickAngle, platAngle + angleLiniency + 180, platAngle - angleLiniency + 180)){
 					toApply = new Vector2 (-Mathf.Cos(platAngle*Mathf.Deg2Rad) * moveSpeed, -Mathf.Sin(platAngle*Mathf.Deg2Rad)*moveSpeed);
-					_rigidbody2D.velocity = _rigidbody2D.velocity + toApply;
+					foreach (var node in _nodes)
+					{
+						node.velocity = node.velocity + toApply;
+					}
 
 					
 				}
@@ -254,4 +284,6 @@ public class Fellow : MonoBehaviour {
 
 
 	}
+	
+	
 }
