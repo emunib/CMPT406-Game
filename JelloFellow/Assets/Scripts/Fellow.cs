@@ -201,6 +201,19 @@ public class Fellow : MonoBehaviour {
 		}
 
 
+		if (!grounded) {
+
+			Vector2 toApplyAir = new Vector2 (Mathf.Cos(leftStickAngle *Mathf.Deg2Rad)* moveSpeed, Mathf.Sin(leftStickAngle * Mathf.Deg2Rad)* moveSpeed);
+			toApplyAir *= airMod;
+
+			{
+				foreach (var node in _nodes)
+				node.velocity = node.velocity + toApplyAir;
+			}
+
+		}
+
+
 
 		// For jello fellow grav-effected objects
 		/*
@@ -248,9 +261,7 @@ public class Fellow : MonoBehaviour {
 				
 			
 
-				if (!grounded) {
-					airMod = .5f;
-				}
+
 				Debug.Log("To move forward put stick between angles : (" + (platAngle - angleLiniency + 360)%360 + ","+ (platAngle + angleLiniency + 360)%360 + ")"  );
 				Debug.Log("To move backward put stick between angles : (" +(platAngle - angleLiniency + 180)%360 + ","+ (platAngle + angleLiniency + 180)%360 + ")" );
 
