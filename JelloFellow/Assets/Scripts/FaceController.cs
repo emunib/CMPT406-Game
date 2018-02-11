@@ -5,7 +5,6 @@ public class FaceController : MonoBehaviour
 {
 	private Input2D _input;
 	private List<Transform> _nodes = new List<Transform>();
-	private Transform _centre;
 	private Vector2 _vec;
 	private Vector2 _velocity;
 	
@@ -13,24 +12,10 @@ public class FaceController : MonoBehaviour
 	private void Start () {
 		_input = GameObject.FindGameObjectWithTag("InputController").GetComponent<InputController>().GetInput();
 		
-		for (var i = 1; i <= 5; i++)
+		for (var i = 1; i <= 9; i++)
 		{
-			_nodes.Add(GameObject.Find("Softbody/C" + i).transform);
+			_nodes.Add(GameObject.Find("Softbody/O" + i).transform);
 		}
-		for (var i = 1; i <= 3; i++)
-		{
-			_nodes.Add(GameObject.Find("Softbody/U" + i).transform);
-		}
-		for (var i = 1; i <= 3; i++)
-		{
-			_nodes.Add(GameObject.Find("Softbody/L" + i).transform);
-		}
-		for (var i = 1; i <= 3; i++)
-		{
-			_nodes.Add(GameObject.Find("Softbody/R" + i).transform);
-		}
-
-		_centre = GameObject.Find("Softbody/Centre").transform;
 	}
 	
 	// Update is called once per frame
@@ -51,7 +36,7 @@ public class FaceController : MonoBehaviour
 			maxY = Mathf.Max(maxY, node.position.y);
 		}
 		
-		_vec = Vector2.SmoothDamp(_vec, new Vector2(_input.GetHorizontalMovement(), Mathf.Clamp01(_centre.GetComponent<Rigidbody2D>().velocity.y)), ref _velocity, 0.5f,
+		_vec = Vector2.SmoothDamp(_vec, new Vector2(_input.GetHorizontalMovement(), 0), ref _velocity, 0.5f,
 			Mathf.Infinity, Time.deltaTime); // gradually move towards target
 		
 		transform.position = new Vector2((maxX - minX) * 0.5f + minX + _vec.x, (maxY - minY) * 0.8f + minY + _vec.y);
