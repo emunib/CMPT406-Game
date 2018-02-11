@@ -164,6 +164,12 @@ public class Fellow : MonoBehaviour {
 		float ver_m = input.GetVerticalMovement();
 
 		leftStickAngle =  (Mathf.Atan2 (ver_m,hor_m)*Mathf.Rad2Deg + 360) %360;
+
+		if (hor_m == 0 && ver_m == 0) {
+			leftStickAngle = 0;
+		}
+
+
 		// Just using to test with keyboard
 		//float hor_m = Input.GetAxis ("Horizontal");
 		//float ver_m = Input.GetAxis ("Vertical");
@@ -202,13 +208,14 @@ public class Fellow : MonoBehaviour {
 
 
 		if (!grounded) {
-
-			Vector2 toApplyAir = new Vector2 (Mathf.Cos(leftStickAngle *Mathf.Deg2Rad)* moveSpeed, Mathf.Sin(leftStickAngle * Mathf.Deg2Rad)* moveSpeed);
+			
+			Vector2 toApplyAir = new Vector2 (hor_m* moveSpeed,ver_m* moveSpeed);
 			toApplyAir *= airMod;
-
+			Debug.Log ("Applying " + toApplyAir.ToString() + " air velocity");
 			{
 				foreach (var node in _nodes)
 				node.velocity = node.velocity + toApplyAir;
+
 			}
 
 		}
@@ -257,28 +264,26 @@ public class Fellow : MonoBehaviour {
 		if (plat && _rigidbody2D.velocity.magnitude <= controlCutoff) {
 			platAngle = plat.transform.localEulerAngles.z;
 
-			if (Mathf.Abs (hor_m) > 0 || Mathf.Abs(ver_m)>0 ) {
+			if (Mathf.Abs (hor_m) > 0 || Mathf.Abs (ver_m) > 0) {
 				
 			
 
 
-				Debug.Log("To move forward put stick between angles : (" + (platAngle - angleLiniency + 360)%360 + ","+ (platAngle + angleLiniency + 360)%360 + ")"  );
-				Debug.Log("To move backward put stick between angles : (" +(platAngle - angleLiniency + 180)%360 + ","+ (platAngle + angleLiniency + 180)%360 + ")" );
+				Debug.Log ("To move forward put stick between angles : (" + (platAngle - angleLiniency + 360) % 360 + "," + (platAngle + angleLiniency + 360) % 360 + ")");
+				Debug.Log ("To move backward put stick between angles : (" + (platAngle - angleLiniency + 180) % 360 + "," + (platAngle + angleLiniency + 180) % 360 + ")");
 
 				//Moving forwards
-				if (OnShortestArcBetween(leftStickAngle, (platAngle - angleLiniency + 360)%360, (platAngle + angleLiniency + 360)%360)) {
-					toApply = new Vector2 (Mathf.Cos(platAngle*Mathf.Deg2Rad)* moveSpeed, Mathf.Sin(platAngle*Mathf.Deg2Rad)* moveSpeed);
-					foreach (var node in _nodes)
-					{
+				if (OnShortestArcBetween (leftStickAngle, (platAngle - angleLiniency + 360) % 360, (platAngle + angleLiniency + 360) % 360)) {
+					toApply = new Vector2 (Mathf.Cos (platAngle * Mathf.Deg2Rad) * moveSpeed, Mathf.Sin (platAngle * Mathf.Deg2Rad) * moveSpeed);
+					foreach (var node in _nodes) {
 						node.velocity = node.velocity + toApply;
 					}
 
 				}
 				//Moving backwards
-				else if(OnShortestArcBetween(leftStickAngle, platAngle + angleLiniency + 180, platAngle - angleLiniency + 180)){
-					toApply = new Vector2 (-Mathf.Cos(platAngle*Mathf.Deg2Rad) * moveSpeed, -Mathf.Sin(platAngle*Mathf.Deg2Rad)*moveSpeed);
-					foreach (var node in _nodes)
-					{
+				else if (OnShortestArcBetween (leftStickAngle, platAngle + angleLiniency + 180, platAngle - angleLiniency + 180)) {
+					toApply = new Vector2 (-Mathf.Cos (platAngle * Mathf.Deg2Rad) * moveSpeed, -Mathf.Sin (platAngle * Mathf.Deg2Rad) * moveSpeed);
+					foreach (var node in _nodes) {
 						node.velocity = node.velocity + toApply;
 					}
 
@@ -286,7 +291,7 @@ public class Fellow : MonoBehaviour {
 				}
 		
 
-		}
+			}
 
 
 		}
