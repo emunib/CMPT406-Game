@@ -19,6 +19,11 @@ public class Move : MonoBehaviour
 		{
 			_children.Add(GameObject.Find("Softbody/O" + i).transform);
 		}
+		for (var i = 1; i <= 6; i++)
+		{
+			_children.Add(GameObject.Find("Softbody/C" + i).transform);
+		}
+		_children.Add(GameObject.Find("Softbody/Centre").transform);
 	}
 	
 	// Update is called once per frame
@@ -34,9 +39,9 @@ public class Move : MonoBehaviour
 
 		var temp = _children.OrderBy(o => o.transform.position.y).ToArray();
 
-		for (var i = 0; i < 6; i++)
+		foreach (var node in _children)
 		{
-			temp[i].GetComponent<Rigidbody2D>().AddForce(_input.GetHorizontalMovement() * Vector2.right * Speed);
+			node.GetComponent<Rigidbody2D>().AddForce(_input.GetHorizontalMovement() * Vector2.right * Speed);
 		}
 	}
 }
