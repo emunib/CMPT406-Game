@@ -5,7 +5,7 @@ public class MeshScript : MonoBehaviour
 {
     private Mesh _mesh;
 
-    private GameObject[] _nodes;
+    private readonly List<Transform> _nodes = new List<Transform>();
     private Vector3[] _vertices;
     private int[] _triangles;
 
@@ -13,10 +13,13 @@ public class MeshScript : MonoBehaviour
     {
         transform.position = Vector3.zero;
     }
-    
+
     private void Start()
     {
-        _nodes = GameObject.FindGameObjectsWithTag("Node");
+        for (var i = 1; i <= 9; i++)
+        {
+            _nodes.Add(GameObject.Find("Softbody/O" + i).transform);
+        }
 
         _mesh = new Mesh();
 
@@ -36,26 +39,36 @@ public class MeshScript : MonoBehaviour
         _mesh.RecalculateBounds();
     }
 
-    private static Vertex PointOnCircle(float radius, float angleInDegrees, Vertex origin)
-    {
-        // Convert from degrees to radians via multiplication by PI/180        
-        var x = radius * Mathf.Cos(angleInDegrees * Mathf.Deg2Rad) + origin.x;
-        var y = radius * Mathf.Sin(angleInDegrees * Mathf.Deg2Rad) + origin.y;
-
-        return new Vertex(x, y);
-    }
-
-    private List<Vertex> CircumPoints(GameObject[] nodes, float radius, uint deg)
+    private List<Vertex> CircumPoints(List<Transform> nodes, float radius, uint deg)
     {
         var points = new List<Vertex>();
 
-        foreach (var node in nodes)
+        for (var i = 0; i < nodes.Count; i++)
         {
-            var vert = ToVertex(node.transform);
+            var p = i == 0 ? nodes.Count - 1 : i - 1;
+            var n = i == nodes.Count - 1 ? 0 : i + 1;
 
-            for (uint i = 0; i < 360; i += deg)
+            var prev = nodes[p].position;
+            var cur = nodes[i].position;
+            var next = nodes[n].position;
+
+            var from = next - cur;
+            var to = prev - cur;
+
+            var dot = Vector2.Dot(from, to); // dot product between [x1, y1] and [x2, y2]
+            var det = from.x * to.y - from.y * to.x; // determinant
+            var angle = Mathf.Atan2(det, dot); // atan2(y, x) or atan2(sin, cos)
+
+            angle *= Mathf.Rad2Deg;
+
+            if (angle < 0) angle += 360;
+
+            var dir = from;
+
+            for (uint d = 0; d <= angle; d += deg)
             {
-                points.Add(PointOnCircle(radius, i, vert));
+                dir = Quaternion.AngleAxis(deg, Vector3.forward) * dir;
+                points.Add(ToVertex(cur + dir.normalized * radius));
             }
         }
 
@@ -138,9 +151,9 @@ public class MeshScript : MonoBehaviour
         Debug.DrawLine(b, c, color);
         Debug.DrawLine(c, a, color);
     }
-    
-    private Vertex ToVertex(Transform trans)
+
+    private Vertex ToVertex(Vector3 vector3)
     {
-        return new Vertex(trans.position.x, trans.position.y);
+        return new Vertex(vector3.x, vector3.y);
     }
 }

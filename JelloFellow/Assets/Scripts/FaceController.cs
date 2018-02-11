@@ -5,7 +5,9 @@ public class FaceController : MonoBehaviour
 {
 	private Input2D _input;
 	private List<Transform> _nodes = new List<Transform>();
-	private Transform centre;
+	private Transform _centre;
+	private Vector2 _vec;
+	private Vector2 _velocity;
 	
 	// Use this for initialization
 	private void Start () {
@@ -28,7 +30,7 @@ public class FaceController : MonoBehaviour
 			_nodes.Add(GameObject.Find("Softbody/R" + i).transform);
 		}
 
-		centre = GameObject.Find("Softbody/Centre").transform;
+		_centre = GameObject.Find("Softbody/Centre").transform;
 	}
 	
 	// Update is called once per frame
@@ -49,9 +51,10 @@ public class FaceController : MonoBehaviour
 			maxY = Mathf.Max(maxY, node.position.y);
 		}
 		
-		Debug.Log(centre.GetComponent<Rigidbody2D>().velocity);
+		_vec = Vector2.SmoothDamp(_vec, new Vector2(_input.GetHorizontalMovement(), Mathf.Clamp01(_centre.GetComponent<Rigidbody2D>().velocity.y)), ref _velocity, 0.5f,
+			Mathf.Infinity, Time.deltaTime); // gradually move towards target
 		
-		transform.position = new Vector2((maxX - minX) * 0.5f + minX + _input.GetHorizontalMovement(), (maxY - minY) * 0.8f + minY + _input.GetVerticalMovement());
+		transform.position = new Vector2((maxX - minX) * 0.5f + minX + _vec.x, (maxY - minY) * 0.8f + minY + _vec.y);
 			
 	}
 }
