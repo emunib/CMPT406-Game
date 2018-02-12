@@ -9,10 +9,9 @@ public class Goomba : GenericPlayer {
     SetIgnoreFields(false);
   }
 
-  private void Update() {
-    if (IsGround()) {
-      
-    }
+  protected override void Update() {
+    base.Update();
+    
     // if I want to move
     input.horizontal = 1f;
   }

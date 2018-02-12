@@ -34,7 +34,7 @@ public class GravityPlayer : Gravity {
 		/* if it is in gravity field get affected by players gravity otherwise get effected by custom gravity */
 		if (!in_gravity_field || ignore_other_fields) {
 			rigidbody.velocity += gravity * Time.deltaTime;
-			Debug.DrawRay(transform.position, gravity, Color.red);
+			//Debug.DrawRay(transform.position, gravity, Color.red);
 		} else {
 			rigidbody.velocity += custom_gravity * Time.deltaTime;
 			Debug.DrawRay(transform.position, custom_gravity, Color.red);
