@@ -272,10 +272,13 @@ public class Fellow : MonoBehaviour {
 			{
 				//Modify the perpendicular based on the stick angle
 				Debug.Log("------------------------------------------------------------------------------------------------------------------------------------Angle diff :" + Vector2.Angle(leftStickVector,jumpAngle));
-				Vector2 adjustedJumpAngle = (jumpAngle + leftStickVector * jumpImpulseControl).normalized;
-				Debug.Log ("Normalized to " + adjustedJumpAngle);
+				Vector2 hybridJumpVector = jumpAngle + leftStickVector * jumpImpulseControl;
+				if (hybridJumpVector.magnitude > 1) {
+					hybridJumpVector.Normalize();
+				}
+				Debug.Log ("Normalized to " + hybridJumpVector);
 
-				node.AddForce (adjustedJumpAngle * jumpForce ,ForceMode2D.Impulse);
+				node.AddForce (hybridJumpVector * jumpForce ,ForceMode2D.Impulse);
 			}
 
 
