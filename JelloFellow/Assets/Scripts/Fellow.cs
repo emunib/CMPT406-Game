@@ -50,6 +50,10 @@ public class Fellow : MonoBehaviour {
 
 	private List<Rigidbody2D> _nodes = new List<Rigidbody2D>();
 
+	//CurrentPlatformColoring
+	Color curPlatDefault;
+	GameObject curPlat;
+
 	public bool auto0Vel = false;
 	private void Start() {
 		
@@ -104,6 +108,7 @@ public class Fellow : MonoBehaviour {
 
 		                   
 		if (hit && hit.collider.gameObject.tag == "Platform") {
+			
 			Debug.Log ("Hit a platform. and the normal vector is " + hit.normal);
 			return hit.collider.gameObject;
 		} else {
@@ -121,6 +126,13 @@ public class Fellow : MonoBehaviour {
 
 
 		if (hit && hit.collider.gameObject.tag == "Platform") {
+			if (curPlat != null) {
+				curPlat.GetComponent<SpriteRenderer> ().color = curPlatDefault;
+			}
+			curPlat = hit.collider.gameObject;
+
+			curPlatDefault = hit.collider.gameObject.GetComponent<SpriteRenderer> ().color;
+			hit.collider.gameObject.GetComponent<SpriteRenderer> ().color = Color.red;
 			//Debug.Log ("Hit a platform. and the normal vector is " + hit.normal);
 			return hit.normal;
 		} else {
