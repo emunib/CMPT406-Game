@@ -204,6 +204,7 @@ GameObject:
   - component: {fileID: 33353823476429014}
   - component: {fileID: 114650926080779366}
   - component: {fileID: 114578902162783472}
+  - component: {fileID: 114145448368580278}
   m_Layer: 0
   m_Name: Softbody
   m_TagString: Untagged
@@ -1220,6 +1221,20 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &114145448368580278
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1583574749334604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d99649f73a503924b88afff6d6a19fae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Resize: 0
+  RevertToDefaults: 0
+  Scale: 1
 --- !u!114 &114196626470225626
 MonoBehaviour:
   m_ObjectHideFlags: 1
