@@ -90,6 +90,12 @@ public class GravityField : GravityPlayer {
     return gravity_field.radius;
   }
 
+  protected void ChangeGravityAlpha(float alpha) {
+    SpriteRenderer gravityfield_renderer = gravityfield_visualizer.GetComponent<SpriteRenderer>();
+    Color current = gravityfield_renderer.color;
+    gravityfield_renderer.color = new Color(current.r, current.g, current.b, alpha);
+  }
+  
   /* uncomment to visualize without starting the scene */
   /*
   private void OnDrawGizmos() {
