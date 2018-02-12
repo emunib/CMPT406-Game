@@ -7,6 +7,17 @@ public class EyeController : MonoBehaviour {
 	private Vector2 _vec;
 	private Vector2 _velocity;
 
+	private float _xScale;
+	private float _yScale;
+
+	public float SoftbodyScale = 1;
+
+	private void Awake()
+	{
+		_xScale = Parent.transform.localScale.x * transform.localScale.x;
+		_yScale = Parent.transform.localScale.y * transform.localScale.y;
+	} 
+
 	private void Start()
 	{
 		_input = GameObject.FindGameObjectWithTag("InputController").GetComponent<InputController>().GetInput();
@@ -17,8 +28,8 @@ public class EyeController : MonoBehaviour {
 	{
 		var dir = new Vector2(_input.GetHorizontalMovement(), _input.GetVerticalMovement());
 		dir = dir.normalized ;
-		dir = new Vector2(dir.x * Parent.transform.localScale.x, dir.y * Parent.transform.localScale.y);
-		dir = new Vector2(dir.x * transform.localScale.x, dir.y * transform.localScale.y);
+		dir = new Vector2(dir.x * _xScale * SoftbodyScale, dir.y * _yScale * SoftbodyScale);
+		Debug.Log(dir.x);
 		
 		_vec = Vector2.SmoothDamp(_vec,
 			new Vector2(dir.x, dir.y), ref _velocity, 0.2f,

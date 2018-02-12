@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Xml.Schema;
 using UnityEngine;
 
 public class ScaleSoftbody : MonoBehaviour
@@ -12,8 +13,6 @@ public class ScaleSoftbody : MonoBehaviour
     private const float DefaultSpringDistance = 1f;
 
     private const float DefaultEyesScale = 1.4f;
-    private const float DefaultEyeXScale = 0.21f;
-    private const float DefaultEyeYScale = 0.218f;
 
     private void Start()
     {
@@ -23,18 +22,17 @@ public class ScaleSoftbody : MonoBehaviour
     private void Update()
     {
         if (RevertToDefaults) Scale = 1;
-        
+
         if (UpdateSize || RevertToDefaults) Resize();
-        
     }
 
     private void Resize()
     {
         UpdateSize = false;
         RevertToDefaults = false;
-            
+
         List<Transform> transforms = new List<Transform>();
-            
+
         transforms.Add(GameObject.Find("Softbody/Centre").transform);
         for (var i = 1; i <= 6; i++)
         {
@@ -45,9 +43,9 @@ public class ScaleSoftbody : MonoBehaviour
         {
             tf.localScale = new Vector3(DefaultInnerNodeSize * Scale, DefaultInnerNodeSize * Scale, 1);
         }
-            
+
         transforms.Clear();
-            
+
         for (var i = 1; i <= 9; i++)
         {
             transforms.Add(GameObject.Find("Softbody/O" + i).transform);
@@ -57,7 +55,7 @@ public class ScaleSoftbody : MonoBehaviour
         {
             tf.localScale = new Vector3(DefaultOuterNodeSize * Scale, DefaultOuterNodeSize * Scale, 1);
         }
-            
+
         var springs = GetComponentsInChildren<SpringJoint2D>();
 
         foreach (var sp in springs)
@@ -67,11 +65,11 @@ public class ScaleSoftbody : MonoBehaviour
 
         var eyes = GameObject.Find("Softbody/Eyes").transform;
         eyes.localScale = new Vector2(DefaultEyesScale * Scale, DefaultEyesScale * Scale);
+
+        var leftEye = GameObject.Find("Softbody/Eyes/Left").GetComponent<EyeController>();
+        leftEye.SoftbodyScale = Scale;
         
-        var leftEye = GameObject.Find("Softbody/Eyes/Left").transform;
-        leftEye.localScale = new Vector2(DefaultEyeXScale * Scale, DefaultEyeYScale * Scale);
-        
-        var rightEye = GameObject.Find("Softbody/Eyes/Right").transform;
-        rightEye.localScale = new Vector2(DefaultEyeXScale * Scale, DefaultEyeYScale * Scale);
-    } 
+        var rightEye = GameObject.Find("Softbody/Eyes/Right").GetComponent<EyeController>();
+        rightEye.SoftbodyScale = Scale;
+    }
 }
