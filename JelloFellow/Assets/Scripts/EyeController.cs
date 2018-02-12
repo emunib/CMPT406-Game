@@ -10,8 +10,6 @@ public class EyeController : MonoBehaviour {
 	private float _xScale;
 	private float _yScale;
 
-	public float SoftbodyScale = 1;
-
 	private void Awake()
 	{
 		_xScale = Parent.transform.localScale.x * transform.localScale.x;
@@ -28,8 +26,7 @@ public class EyeController : MonoBehaviour {
 	{
 		var dir = new Vector2(_input.GetHorizontalMovement(), _input.GetVerticalMovement());
 		dir = dir.normalized ;
-		dir = new Vector2(dir.x * _xScale * SoftbodyScale, dir.y * _yScale * SoftbodyScale);
-		Debug.Log(dir.x);
+		dir = new Vector2(dir.x * _xScale, dir.y * _yScale);
 		
 		_vec = Vector2.SmoothDamp(_vec,
 			new Vector2(dir.x, dir.y), ref _velocity, 0.2f,
