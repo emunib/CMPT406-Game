@@ -24,7 +24,12 @@ public class Fellow : MonoBehaviour {
 	[Header("Movement Settings")]
 	[Range(0.01f,1f)]
 	public float moveSpeed;
+	[Range(0.00f,1f)]
 	public float airMod = 1;
+	/*
+	[Range(0.01f,1f)]
+	public float airVerticalControl = 0.5f;
+	*/
 	[Range(10f,80f)]
 	public float angleLiniency = 30f;
 	[Range(1f,1000f)]
@@ -229,8 +234,9 @@ public class Fellow : MonoBehaviour {
 
 		if (!grounded) {
 			
-			Vector2 toApplyAir = new Vector2 (hor_m* moveSpeed,ver_m* moveSpeed);
+			Vector2 toApplyAir = new Vector2 (hor_m* moveSpeed,ver_m* moveSpeed );
 			toApplyAir *= airMod;
+			//toApplyAir += Physics2D.gravity * (1-airVerticalControl);
 			Debug.Log ("Applying " + toApplyAir.ToString() + " air velocity");
 			{
 				foreach (var node in _nodes)
