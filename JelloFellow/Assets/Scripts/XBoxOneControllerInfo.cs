@@ -14,35 +14,72 @@
 	private const string xbox_right_trigger = "RT_X";
 	private const string xbox_rightpc_trigger = "RT_X_PC";
 	
+	/* uisng preprocessor directives we have diffrentiated the OSX controls from the windows */
+#if UNITY_STANDALONE_OSX || UNITY_EDITOR_OSX
 	public override string controller_type() {
-		return "Xbox One" + (isMac() ? " (Mac)" : " (Windows)");
+		return "Xbox Controller (Mac)";
 	}
 
 	public override string Horizontal_LStick() {
-		return isMac() ? xbox_horizontal_lstick : xbox_horizontal_lstick_pc;
+		return xbox_horizontal_lstick;
 	}
 
 	public override string Vertical_LStick() {
-		return isMac() ? xbox_vertical_lstick : xbox_vertical_lstick_pc;
+		return xbox_vertical_lstick;
 	}
 
 	public override string Horizontal_RStick() {
-		return isMac() ? xbox_horizontal_rstick : xbox_horizontal_rstick_pc;
+		return xbox_horizontal_rstick;
 	}
 
 	public override string Vertical_RStick() {
-		return isMac() ? xbox_vertical_rstick : xbox_vertical_rstick_pc;
+		return xbox_vertical_rstick;
 	}
 	
 	public override string Jump() {
-		return isMac() ? xbox_jump : xbox_jump_pc;
+		return xbox_jump;
 	}
 
 	public override string LeftTrigger() {
-		return isMac() ? xbox_left_trigger : xbox_leftpc_trigger;
+		return xbox_left_trigger;
 	}
 
 	public override string RightTrigger() {
-		return isMac() ? xbox_right_trigger : xbox_rightpc_trigger;
+		return xbox_right_trigger;
 	}
+#endif
+	
+#if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
+	public override string controller_type() {
+		return "Xbox (Windows)");
+	}
+
+	public override string Horizontal_LStick() {
+		return xbox_horizontal_lstick_pc;
+	}
+
+	public override string Vertical_LStick() {
+		return xbox_vertical_lstick_pc;
+	}
+
+	public override string Horizontal_RStick() {
+		return xbox_horizontal_rstick_pc;
+	}
+
+	public override string Vertical_RStick() {
+		return xbox_vertical_rstick_pc;
+	}
+	
+	public override string Jump() {
+		return xbox_jump_pc;
+	}
+
+	public override string LeftTrigger() {
+		return xbox_leftpc_trigger;
+	}
+
+	public override string RightTrigger() {
+		return xbox_rightpc_trigger;
+	}
+#endif
 }
