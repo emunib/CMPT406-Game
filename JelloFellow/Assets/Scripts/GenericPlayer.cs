@@ -10,26 +10,30 @@ public class GenericPlayer : GravityField {
   private const float AngularDragMovement = 0.5f;
   private const float TriggerSensitivity = 0.1f;
 
+  private const float MaxGravityStamina = 100f;
+
   private Input2D input;
   private Vector2 new_gravity;
   private bool apply_constant_gravity;
   private bool lock_movement;
 
+  private float gravity_stamina;
+  private float gravity_depletion_rate = 10;
+
   [Header("Raycast Settings")]
   /* RaycastOrigins name does not match other name convention but mainly changed to show up
      nicely in the inspector */
   [Tooltip("Origins to cast rays from.")]
-  [SerializeField]
-  private Transform[] RaycastOrigins;
+  [SerializeField] private Transform[] RaycastOrigins;
 
-  [CustomRangeLabel("Ray Length", 0f, 20f)] [Tooltip("Length of the ray.")] [SerializeField]
-  private float ray_length;
+  [CustomRangeLabel("Ray Length", 0f, 20f)] [Tooltip("Length of the ray.")]
+  [SerializeField] private float ray_length;
 
-  [CustomRangeLabel("Ray Count", 0f, 20f)] [Tooltip("Number of rays to show in between main rays.")] [SerializeField]
-  private int ray_count;
+  [CustomRangeLabel("Ray Count", 0f, 20f)] [Tooltip("Number of rays to show in between main rays.")]
+  [SerializeField] private int ray_count;
 
-  [CustomRangeLabel("Angle FOV", 0f, 180f)] [Tooltip("Padding for the angle.")] [SerializeField]
-  private float ray_angle_fov;
+  [CustomRangeLabel("Angle FOV", 0f, 180f)] [Tooltip("Padding for the angle.")]
+  [SerializeField] private float ray_angle_fov;
 
   protected override void Awake() {
     base.Awake();
@@ -38,6 +42,29 @@ public class GenericPlayer : GravityField {
     new_gravity = Vector2.zero;
     apply_constant_gravity = true;
     lock_movement = false;
+    gravity_stamina = MaxGravityStamina;
+    InvokeRepeating("GravityStamina", 0f, 1f);
+  }
+
+  private void GravityStamina() {
+    if (lock_movement) {
+      if (gravity_stamina < 0) {
+        gravity_stamina = 0f;
+      } else {
+        gravity_stamina -= gravity_depletion_rate;
+      }
+    } else {
+      if (IsGrounded()) {
+        if (gravity_stamina < MaxGravityStamina) {
+          gravity_stamina += gravity_depletion_rate;
+        } else {
+          gravity_stamina = MaxGravityStamina;
+        }
+      }
+    }
+    
+    ChangeGravityAlpha(gravity_stamina/MaxGravityStamina);
+    Debug.Log("Gravity Stamina: " + gravity_stamina);
   }
 
   protected override void Update() {
@@ -52,20 +79,22 @@ public class GenericPlayer : GravityField {
       float horizontal_gravity = input.GetHorizontalGravity();
       float vertical_gravity = input.GetVerticalGravity();
 
-      /* make sure gravity is not 0 or dont change */
-      if (horizontal_gravity != 0.0f || vertical_gravity != 0.0f) {
-        /* update lock movement to true as we are actually changing gravity */
-        lock_movement = true;
+      if (gravity_stamina != 0f) {
+        /* make sure gravity is not 0 or dont change */
+        if (horizontal_gravity != 0.0f || vertical_gravity != 0.0f) {
+          /* update lock movement to true as we are actually changing gravity */
+          lock_movement = true;
 
-        if (apply_constant_gravity) {
-          new_gravity = new Vector2(horizontal_gravity, vertical_gravity).normalized * GravityForce;
-        } else {
-          /* apply gravity with variable force */
-          new_gravity = new Vector2(horizontal_gravity, vertical_gravity) * GravityForce;
+          if (apply_constant_gravity) {
+            new_gravity = new Vector2(horizontal_gravity, vertical_gravity).normalized * GravityForce;
+          } else {
+            /* apply gravity with variable force */
+            new_gravity = new Vector2(horizontal_gravity, vertical_gravity) * GravityForce;
+          }
+
+          /* apply gravity when changed */
+          ApplyGravity(new_gravity);
         }
-
-        /* apply gravity when changed */
-        ApplyGravity(new_gravity);
       }
 
       /* if changing gravity have more drag (useful to throw components and control gravity) */
@@ -89,6 +118,8 @@ public class GenericPlayer : GravityField {
       if (right_trigger > 0) {
         SetFieldRadius(GetFieldRadius() + TriggerSensitivity * right_trigger);
       }
+
+      IsGrounded();
     } else {
       Debug.LogWarning("Input has not been assigned for this player (" + gameObject.name + ")");
     }
