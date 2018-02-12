@@ -46,5 +46,17 @@ public abstract class Input2D : MonoBehaviour {
   /// Gets status of the jump button.
   /// </summary>
   /// <returns>True when status changing form pressed to unpressed, false otherwise</returns>
-  public abstract bool GetJumpButtonUp(); 
+  public abstract bool GetJumpButtonUp();
+
+  /// <summary>
+  /// Get status of the left trigger.
+  /// </summary>
+  /// <returns>Trigger axis</returns>
+  public abstract float GetLeftTrigger();
+
+  /// <summary>
+  /// Get status of the right trigger.
+  /// </summary>
+  /// <returns>Trigger axis</returns>
+  public abstract float GetRightTrigger();
 }

@@ -230,7 +230,7 @@ public class Fellow : MonoBehaviour {
 		 gravAffectedObjs = GameObject.FindGameObjectsWithTag("Movable");
 >>>>>>> master
 		foreach (GameObject g in gravAffectedObjs) {
-			Gravity obj_grav = g.gameObject.GetComponent<Gravity>();
+			GravityComponent obj_grav = g.gameObject.GetComponent<GravityComponent>();
 			if (Vector3.Distance(transform.position, g.transform.position) < 3)
 			{
 				obj_grav.ChangeGravity(new Vector2(hor, ver));
