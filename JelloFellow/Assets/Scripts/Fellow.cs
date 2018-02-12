@@ -36,6 +36,9 @@ public class Fellow : MonoBehaviour {
 	public float defaultGS = 2.5f;
 	[Range(0.1f,2f)]
 	public float floatiness = .5f;
+	[Range(0f,2f)]
+	[Tooltip("How much say the left stick has in the angle of the jump impulse. A value of 0 means the platform angle is all that contributes to the jump impulse vector.")]
+	public float jumpImpulseControl;
 	public float groundedDistance;
 	private Vector2 groundCheckVector = new Vector2();
 	public LayerMask theFloor;
@@ -203,11 +206,11 @@ public class Fellow : MonoBehaviour {
 		if (hor != 0 || ver != 0) {
 			// create gravity vector and normalize
 			Vector2 gDir = new Vector2(hor, ver).normalized;
-			Debug.Log("Gravity: " + gDir);
+			//Debug.Log("Gravity: " + gDir);
 			float angle;
 			if (hor != 0.0f || ver != 0.0f) {
 				angle = Mathf.Atan2(ver, hor) * Mathf.Rad2Deg;
-				Debug.Log("Angle of stick: " +  angle);
+				//Debug.Log("Angle of stick: " +  angle);
 
 			}
 			// If the setting is enabled - before we change gravity stop the rigidbody.W
@@ -263,11 +266,16 @@ public class Fellow : MonoBehaviour {
 
 		//Basic Movement Controls
 		Vector2 jumpAngle = GetFirstPlatNormal();
-
+		Vector2 leftStickVector = new Vector2 (hor_m, ver_m);
 		if (curJumpCd < 0 && jump && grounded && jumpAngle != null) {
 			foreach (var node in _nodes)
 			{
-				node.AddForce (jumpAngle * jumpForce ,ForceMode2D.Impulse);
+				//Modify the perpendicular based on the stick angle
+				Debug.Log("------------------------------------------------------------------------------------------------------------------------------------Angle diff :" + Vector2.Angle(leftStickVector,jumpAngle));
+				Vector2 adjustedJumpAngle = (jumpAngle + leftStickVector * jumpImpulseControl).normalized;
+				Debug.Log ("Normalized to " + adjustedJumpAngle);
+
+				node.AddForce (adjustedJumpAngle * jumpForce ,ForceMode2D.Impulse);
 			}
 
 
