@@ -1,8 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using JetBrains.Annotations;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Audio;
 
 public class ScaleSoftbody : MonoBehaviour
 {
@@ -13,6 +10,10 @@ public class ScaleSoftbody : MonoBehaviour
     private const float DefaultInnerNodeSize = 1f;
     private const float DefaultOuterNodeSize = 1.5f;
     private const float DefaultSpringDistance = 1f;
+
+    private const float DefaultEyesScale = 1.4f;
+    private const float DefaultEyeXScale = 0.21f;
+    private const float DefaultEyeYScale = 0.218f;
 
     private void Start()
     {
@@ -63,5 +64,14 @@ public class ScaleSoftbody : MonoBehaviour
         {
             sp.distance = DefaultSpringDistance * Scale;
         }
+
+        var eyes = GameObject.Find("Softbody/Eyes").transform;
+        eyes.localScale = new Vector2(DefaultEyesScale * Scale, DefaultEyesScale * Scale);
+        
+        var leftEye = GameObject.Find("Softbody/Eyes/Left").transform;
+        leftEye.localScale = new Vector2(DefaultEyeXScale * Scale, DefaultEyeYScale * Scale);
+        
+        var rightEye = GameObject.Find("Softbody/Eyes/Right").transform;
+        rightEye.localScale = new Vector2(DefaultEyeXScale * Scale, DefaultEyeYScale * Scale);
     } 
 }

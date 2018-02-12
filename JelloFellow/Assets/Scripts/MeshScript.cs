@@ -23,8 +23,6 @@ public class MeshScript : MonoBehaviour
             _nodes.Add(GameObject.Find("Softbody/O" + i).transform);
         }
 
-        _nodeRadius = _nodes[0].localScale.x / 2;
-
         _mesh = new Mesh();
 
         var mf = GetComponent<MeshFilter>();
@@ -33,6 +31,8 @@ public class MeshScript : MonoBehaviour
 
     private void LateUpdate()
     {
+        _nodeRadius = _nodes[0].localScale.x / 2;
+
         var points = CircumPoints(_nodes, _nodeRadius, 12);
         points = ConvexHull(points);
         var triads = Triangulate(points);
