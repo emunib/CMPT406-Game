@@ -94,13 +94,30 @@ public class Fellow : MonoBehaviour {
 	
 		RaycastHit2D hit = Physics2D.Raycast(transform.position,new Vector2(Mathf.Cos(angle),Mathf.Sin(angle)), groundedDistance, theFloor);
 
-
+		                   
 		if (hit && hit.collider.gameObject.tag == "Platform") {
-			Debug.Log ("Hit a platform.");
+			Debug.Log ("Hit a platform. and the normal vector is " + hit.normal);
 			return hit.collider.gameObject;
 		} else {
 			
 			return null;
+		}
+	}
+	//Get's the default jumping angle of the current platform if it exists
+	public Vector2 GetFirstPlatNormal(){
+		float angle = gravityAngle ();
+		groundCheckVector.x = transform.position.x + Mathf.Cos(angle);
+		groundCheckVector.y = transform.position.y + Mathf.Sin(angle);
+
+		RaycastHit2D hit = Physics2D.Raycast(transform.position,new Vector2(Mathf.Cos(angle),Mathf.Sin(angle)), groundedDistance, theFloor);
+
+
+		if (hit && hit.collider.gameObject.tag == "Platform") {
+			//Debug.Log ("Hit a platform. and the normal vector is " + hit.normal);
+			return hit.normal;
+		} else {
+
+			return new Vector2();
 		}
 	}
 
@@ -245,10 +262,12 @@ public class Fellow : MonoBehaviour {
 
 
 		//Basic Movement Controls
-		if (curJumpCd < 0 && jump && grounded) {
+		Vector2 jumpAngle = GetFirstPlatNormal();
+
+		if (curJumpCd < 0 && jump && grounded && jumpAngle != null) {
 			foreach (var node in _nodes)
 			{
-				node.AddForce (-Physics2D.gravity * jumpForce ,ForceMode2D.Impulse);
+				node.AddForce (jumpAngle * jumpForce ,ForceMode2D.Impulse);
 			}
 
 
