@@ -13,7 +13,7 @@ public class MeshScript : MonoBehaviour
 
     private void Awake()
     {
-        transform.position = Vector3.zero;
+        transform.position = new Vector3(0, 0, -1);
     }
 
     private void Start()
