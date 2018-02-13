@@ -22,7 +22,7 @@ public class Fellow : MonoBehaviour {
 	public float gravityChangePower;
 
 	[Header("Movement Settings")]
-	[Range(0.01f,1f)]
+	[Range(0.01f,2f)]
 	public float moveSpeed;
 	[Range(0.00f,1f)]
 	public float airMod = 1;
