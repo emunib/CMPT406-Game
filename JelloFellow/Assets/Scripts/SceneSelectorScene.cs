@@ -9,23 +9,27 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(ScrollRect))]
-public class ScrollWithSelection : MonoBehaviour 
+public class SceneSelectorScene : MonoBehaviour 
 {
 	[SerializeField]
 	private float		lerpTime;
 	private ScrollRect 	scrollRect;
 	private Button[]	buttonsArray;
-	public int			index;
-	public float		yPos;
+	private int			index;
+	private float		yPos;
 	private bool		upInput;
 	private bool		downInput;
 	private bool		leftInput;
 	private bool		rightInput;
-	public int			level;
-	public int			ammountOfLevels;
+	private bool 		select;
+	private Input2D 	_input;
+	private int			level;
+	private int			ammountOfLevels;
 
 	public void Start()
 	{
+		InvokeRepeating("CheckForControllerInput", 0.0f, 0.07f);
+		_input = GameObject.FindGameObjectWithTag("InputController").GetComponent<InputController>().GetInput();
 		scrollRect = GetComponent<ScrollRect>();
 		buttonsArray = GetComponentsInChildren<Button>();
 		buttonsArray[index].Select();
@@ -42,12 +46,21 @@ public class ScrollWithSelection : MonoBehaviour
 		
 	}
 
-	public void Update()
+	public void Update(){
+		select = _input.GetJumpButtonDown();
+
+		if (select)
+		{
+			buttonsArray[index].onClick.Invoke();
+		}
+	}
+
+	public void CheckForControllerInput()
 	{
-		upInput    = Input.GetKeyDown(KeyCode.UpArrow);
-		downInput  = Input.GetKeyDown(KeyCode.DownArrow);
-		leftInput    = Input.GetKeyDown(KeyCode.LeftArrow);
-		rightInput  = Input.GetKeyDown(KeyCode.RightArrow);
+		upInput = _input.GetVerticalMovement() > 0;
+		downInput = _input.GetVerticalMovement() < 0;
+		leftInput = _input.GetHorizontalMovement() < 0;
+		rightInput = _input.GetHorizontalMovement() > 0;
 
 		if (upInput ^ downInput ^ leftInput ^ rightInput)
 		{
@@ -75,14 +88,14 @@ public class ScrollWithSelection : MonoBehaviour
 					level++;
 				}
 			}
-			else if(leftInput)
+			else if (leftInput)
 			{
 				if (index % 4 != 0)
 				{
 					index = Mathf.Clamp(index - 1, 0, buttonsArray.Length - 1);
 				}
 			}
-			else
+			else if(rightInput)
 			{
 				if (index % 4 != 3)
 				{
@@ -97,6 +110,6 @@ public class ScrollWithSelection : MonoBehaviour
 			}
 
 		}
-		scrollRect.verticalNormalizedPosition = Mathf.Lerp(scrollRect.verticalNormalizedPosition, yPos, Time.deltaTime / lerpTime);
+		scrollRect.verticalNormalizedPosition = Mathf.Lerp(scrollRect.verticalNormalizedPosition, yPos, Time.deltaTime / lerpTime);	
 	}
 }
