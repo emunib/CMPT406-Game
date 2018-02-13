@@ -24,4 +24,9 @@ public class Timer : MonoBehaviour
 		timeText = "" + timeToDisplay;
 		timer.text = timeText;
 	}
+
+	public float getTime()
+	{
+		return timeToDisplay;
+	}
 }
