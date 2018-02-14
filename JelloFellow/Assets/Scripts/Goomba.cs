@@ -13,6 +13,17 @@ public class Goomba : GenericPlayer {
   [Range(.01f, 2)] public float fwdGroundChkRange = 1f;
   [Range(.01f, 2)] public float fwdWallChkRange = 1f;
   
+  [Header("AgroFOV Raycast Settings")]
+
+  [CustomRangeLabel("Ray Length", 0f, 20f)] [Tooltip("Length of the ray.")]
+  [SerializeField] private float agro_ray_length;
+
+  [CustomRangeLabel("Ray Count", 0f, 20f)] [Tooltip("Number of rays to show in between main rays.")]
+  [SerializeField] private int agro_ray_count;
+
+  [CustomRangeLabel("Angle FOV", 0f, 180f)] [Tooltip("Padding for the angle.")]
+  [SerializeField] private float agro_ray_angle_fov;
+  
   
   private GoombaInput input;
 
@@ -66,8 +77,7 @@ public class Goomba : GenericPlayer {
   private void FwdCheck() {
     float facing = Mathf.Sign(input.horizontal);
     Debug.DrawRay(fwdCheck.transform.position,facing*fwdCheck.transform.right*fwdWallChkRange, Color.yellow);
-		
-
+	
     
     RaycastHit2D wallhit = Physics2D.Raycast(fwdCheck.transform.position, facing*fwdCheck.transform.right, fwdWallChkRange);
     if (wallhit.collider != null) {
@@ -95,7 +105,7 @@ public class Goomba : GenericPlayer {
   
 
   private bool AgroCheck() {
-    HashSet<GameObject> game_objects = GetObjectsInView(transform.right, true);
+    HashSet<GameObject> game_objects = GetObjectsInView(transform.up,agro_ray_angle_fov, agro_ray_count,agro_ray_length, true);
     
     foreach (GameObject game_object in game_objects) {
       if (LayerMask.LayerToName(game_object.layer) == "Player") {

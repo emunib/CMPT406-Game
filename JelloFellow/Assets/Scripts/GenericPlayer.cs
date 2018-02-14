@@ -147,7 +147,7 @@ public class GenericPlayer : GravityField {
   /// </summary>
   /// <returns>True if touching ground otherwise false.</returns>
   protected bool IsGrounded() {
-    HashSet<GameObject> game_objects = GetObjectsInView(GetGravity(), true);
+    HashSet<GameObject> game_objects = GetObjectsInView(GetGravity(), ray_angle_fov, ray_count, ray_length, true);
     foreach (GameObject game_object in game_objects) {
       if (LayerMask.LayerToName(game_object.layer) == GroundLayerName) {
         return true;
@@ -164,7 +164,7 @@ public class GenericPlayer : GravityField {
   /// <param name="direction">The direction to point the cone.</param>
   /// <param name="visualize">If you want to see the cone shape in the editor.</param>
   /// <returns>Hashset containing all the game objects within FOV.</returns>
-  protected HashSet<GameObject> GetObjectsInView(Vector2 direction, bool visualize = false) {
+  protected HashSet<GameObject> GetObjectsInView(Vector2 direction, float ray_angle_fov, int ray_count, float ray_length, bool visualize = false) {
     /* hashset is useful as it only stores unique values so repeated hits won't be registered */
     HashSet<GameObject> game_objects = new HashSet<GameObject>();
     
