@@ -213,15 +213,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RaycastOrigins:
   - {fileID: 759967735}
-  ray_length: 5.6
-  ray_count: 4
-  ray_angle_fov: 29
-  movespeed: 0.01
+  grounded_ray_length: 3.4
+  grounded_ray_count: 0
+  grounded_ray_angle_fov: 33
+  movespeed: 0.3
   jumpCD: 0.7
   jumpForce: 150
   fwdCheck: {fileID: 1763052840}
   fwdGroundChkRange: 1
   fwdWallChkRange: 1
+  agro_ray_length: 5
+  agro_ray_count: 7
+  agro_ray_angle_fov: 180
 --- !u!50 &759967733
 Rigidbody2D:
   serializedVersion: 4
@@ -235,7 +238,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0.3
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
@@ -549,7 +552,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1836556246}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.4633, y: 4.34, z: 0}
+  m_LocalPosition: {x: -0.784, y: 4.23, z: 0}
   m_LocalScale: {x: 0.08196699, y: 9.679675, z: 1}
   m_Children: []
   m_Father: {fileID: 1028629500}
@@ -791,7 +794,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2072412965}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.44, y: 3.91, z: 0}
+  m_LocalPosition: {x: -3.62, y: -0.43, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

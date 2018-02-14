@@ -30,7 +30,7 @@ public class Goomba : GenericPlayer {
   private DecisionTree root;
 
   private Rigidbody2D rb;
-  private bool jumpOnCD;
+  private bool jumpOffCD = true;
  
   
   
@@ -53,25 +53,43 @@ public class Goomba : GenericPlayer {
   private void Attack() {
     Debug.Log("Im attacking");
     // Presumably use with this input.GetJumpButtonDown();
-    if (IsGrounded() &&jumpOnCD ==false) {
-      jumpOnCD = true;
-      //using addforce for now
-      rb.AddForce(transform.up*jumpForce);   
-      //Invoke("ResetJumpCD",.7f);
+    Transform target = GameObject.FindGameObjectWithTag("Player").transform;
+
+    Vector2 targetray = target.position - transform.position;
+    
+    Debug.DrawRay(transform.position,targetray*5, Color.cyan);
+    
+    
+    //Only Jump If I can
+    if (IsGrounded() &&jumpOffCD) {
+      jumpOffCD = false;
+      
+      /*TODO:Attack Attacking isn't great right now. Until I understand how enemies are moving on the side 
+      using addforce for now
+      rb.AddForce(targetray*jumpForce);   
+      */
     }
-    else if (IsGrounded() == false &&jumpOnCD == true) {
-      jumpOnCD = false;
+    
+    //Wait till goomba is grounded before hes able to attack again
+    else if (IsGrounded() && !jumpOffCD) {
+      Invoke("ResetJumpCD",.7f);
+
+      
     }
     
   }
-
+  private void ResetJumpCD() {
+    jumpOffCD = true;
+  }
 
   private void Walk() {
     input.horizontal = movespeed;
     Debug.Log("Im walking");
 
-    FwdCheck();
-    
+    if (IsGrounded()) {
+      FwdCheck();
+    }
+
   }
 
   private void FwdCheck() {

@@ -23,17 +23,17 @@ public class GenericPlayer : GravityField {
   [Header("Raycast Settings")]
   /* RaycastOrigins name does not match other name convention but mainly changed to show up
      nicely in the inspector */
-  [Tooltip("Origins to cast rays from.")]
+  [Tooltip("Grounded Origins to cast rays from.")]
   [SerializeField] private Transform[] RaycastOrigins;
 
   [CustomRangeLabel("Ray Length", 0f, 20f)] [Tooltip("Length of the ray.")]
-  [SerializeField] private float ray_length;
+  [SerializeField] private float grounded_ray_length;
 
   [CustomRangeLabel("Ray Count", 0f, 20f)] [Tooltip("Number of rays to show in between main rays.")]
-  [SerializeField] private int ray_count;
+  [SerializeField] private int grounded_ray_count;
 
   [CustomRangeLabel("Angle FOV", 0f, 180f)] [Tooltip("Padding for the angle.")]
-  [SerializeField] private float ray_angle_fov;
+  [SerializeField] private float grounded_ray_angle_fov;
 
   protected override void Awake() {
     base.Awake();
@@ -147,7 +147,7 @@ public class GenericPlayer : GravityField {
   /// </summary>
   /// <returns>True if touching ground otherwise false.</returns>
   protected bool IsGrounded() {
-    HashSet<GameObject> game_objects = GetObjectsInView(GetGravity(), ray_angle_fov, ray_count, ray_length, true);
+    HashSet<GameObject> game_objects = GetObjectsInView(GetGravity(), grounded_ray_angle_fov, grounded_ray_count, grounded_ray_length, true);
     foreach (GameObject game_object in game_objects) {
       if (LayerMask.LayerToName(game_object.layer) == GroundLayerName) {
         return true;
