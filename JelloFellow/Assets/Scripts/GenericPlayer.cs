@@ -97,6 +97,13 @@ public class GenericPlayer : GravityField {
         }
       }
 
+      float horizontal_movement = input.GetHorizontalMovement();
+      float vertical_movement = input.GetVerticalMovement();
+      
+      rigidbody.velocity+= new Vector2(horizontal_movement,vertical_movement);
+      
+      
+      
       /* if changing gravity have more drag (useful to throw components and control gravity) */
       if (lock_movement) {
         rigidbody.angularDrag = AngularDragGravity;
@@ -157,7 +164,7 @@ public class GenericPlayer : GravityField {
   /// <param name="direction">The direction to point the cone.</param>
   /// <param name="visualize">If you want to see the cone shape in the editor.</param>
   /// <returns>Hashset containing all the game objects within FOV.</returns>
-  private HashSet<GameObject> GetObjectsInView(Vector2 direction, bool visualize = false) {
+  protected HashSet<GameObject> GetObjectsInView(Vector2 direction, bool visualize = false) {
     /* hashset is useful as it only stores unique values so repeated hits won't be registered */
     HashSet<GameObject> game_objects = new HashSet<GameObject>();
     
