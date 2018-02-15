@@ -6,12 +6,14 @@ public class MeshScript : MonoBehaviour
     private Mesh _mesh;
 
     private readonly List<Transform> _nodes = new List<Transform>();
+    private float _nodeRadius;
+
     private Vector3[] _vertices;
     private int[] _triangles;
 
     private void Awake()
     {
-        transform.position = Vector3.zero;
+        transform.position = new Vector3(0, 0, -1);
     }
 
     private void Start()
@@ -29,7 +31,9 @@ public class MeshScript : MonoBehaviour
 
     private void LateUpdate()
     {
-        var points = CircumPoints(_nodes, 0.75f, 12);
+        _nodeRadius = _nodes[0].localScale.x / 2;
+
+        var points = CircumPoints(_nodes, _nodeRadius, 12);
         points = ConvexHull(points);
         var triads = Triangulate(points);
 
