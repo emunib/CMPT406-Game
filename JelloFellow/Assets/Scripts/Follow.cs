@@ -5,9 +5,11 @@ using UnityEngine;
 public class Follow : MonoBehaviour
 {
 	public Transform Target;
+
+	public Camera follower;
 	
 	// Update is called once per frame
 	void LateUpdate () {
-		Camera.main.transform.position = new Vector3(Target.position.x, Target.position.y, -10);
+		follower.transform.position = new Vector3(Target.position.x, Target.position.y, -10);
 	}
 }
