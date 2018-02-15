@@ -13,7 +13,7 @@ public class InputController : MonoBehaviour {
     DontDestroyOnLoad(gameObject);
     
     /* default values */
-    input = gameObject.AddComponent<SimpleInput>();
+		input = gameObject.AddComponent<SimpleInput>();
     info = null;
     
     /* get the valid controller in the joystick names */

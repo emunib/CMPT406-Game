@@ -2,17 +2,21 @@
 
 public class GoombaInput : Input2D {
   public float horizontal;
+  public float vertical;
+
+  public float horg;
+  public float verg;
   
   private void Start() {
     horizontal = 1f;
   }
 
   public override float GetHorizontalGravity() {
-    return 0f;
+    return horg;
   }
   
   public override float GetVerticalGravity() {
-    return 0f;
+    return verg;
   }
   
   public override float GetHorizontalMovement() {
@@ -20,11 +24,11 @@ public class GoombaInput : Input2D {
   }
   
   public override float GetVerticalMovement() {
-    return 0f;
+    return vertical;
   }
   
   public override bool GetJumpButtonDown() {
-    return false;
+    return true;
   }
   
   public override bool GetJumpButtonUp() {

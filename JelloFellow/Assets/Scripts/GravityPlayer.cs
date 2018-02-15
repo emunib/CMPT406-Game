@@ -15,6 +15,7 @@ public class GravityPlayer : Gravity {
 	private bool gravity_settable;
 	private bool in_gravity_field;
 	private bool ignore_other_fields;
+	private Transform[] objects;
 
 	protected virtual void Awake() {
 		/* get the rigidbody and make the component not be effected by Physics2D gravity */
@@ -34,10 +35,41 @@ public class GravityPlayer : Gravity {
 		/* if it is in gravity field get affected by players gravity otherwise get effected by custom gravity */
 		if (!in_gravity_field || ignore_other_fields) {
 			rigidbody.velocity += gravity * Time.deltaTime;
+
+			if (objects != null) {
+				foreach (Transform node in objects) {
+					Rigidbody2D rigidbody_node = node.gameObject.GetComponent<Rigidbody2D>();
+					if (rigidbody_node) {
+						rigidbody_node.velocity += gravity * Time.deltaTime;
+						//Debug.DrawRay(node.position, gravity, Color.red);
+					}
+				}
+			}
+
 			//Debug.DrawRay(transform.position, gravity, Color.red);
 		} else {
 			rigidbody.velocity += custom_gravity * Time.deltaTime;
-			Debug.DrawRay(transform.position, custom_gravity, Color.red);
+
+			if (objects != null) {
+				foreach (Transform node in objects) {
+					Rigidbody2D rigidbody_node = node.gameObject.GetComponent<Rigidbody2D>();
+					if (rigidbody_node) {
+						rigidbody_node.velocity += custom_gravity * Time.deltaTime;
+					}
+				}
+			}
+
+			//Debug.DrawRay(transform.position, custom_gravity, Color.red);
+		}
+	}
+
+	protected void ApplyGravityTo(Transform[] _objects) {
+		objects = _objects;
+		foreach (Transform node in objects) {
+			Rigidbody2D rigidbody_node = node.gameObject.GetComponent<Rigidbody2D>();
+			if (rigidbody_node) {
+				rigidbody_node.gravityScale = 0f;
+			}
 		}
 	}
 
