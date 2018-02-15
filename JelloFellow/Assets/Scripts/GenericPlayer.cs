@@ -36,13 +36,13 @@ public class GenericPlayer : GravityField {
   [SerializeField] private Transform[] RaycastOrigins;
 
   [CustomRangeLabel("Ray Length", 0f, 20f)] [Tooltip("Length of the ray.")]
-  [SerializeField] private float ray_length;
+  [SerializeField] protected float ray_length;
 
   [CustomRangeLabel("Ray Count", 0f, 20f)] [Tooltip("Number of rays to show in between main rays.")]
-  [SerializeField] private int ray_count;
+  [SerializeField] protected int ray_count;
 
   [CustomRangeLabel("Angle FOV", 0f, 180f)] [Tooltip("Padding for the angle.")]
-  [SerializeField] private float ray_angle_fov;
+  [SerializeField] protected float ray_angle_fov;
 
   [Header("Movement Settings")]
   [CustomRangeLabel("Angle Buffer", 0.01f, 1f)] [Tooltip("The angle at which to accept inputs (mainly used for angled platforms)")]
@@ -183,7 +183,7 @@ public class GenericPlayer : GravityField {
   /// <param name="_ray_length">The length of the rays.</param>
   /// <param name="visualize">If you want to see the cone shape in the editor.</param>
   /// <returns>Hashset containing all the game objects within FOV.</returns>
-  private HashSet<RaycastHit2D> GetObjectsInView(Vector2 direction, float _ray_angle_fov, int _ray_count, float _ray_length, bool visualize = false) {
+  protected HashSet<RaycastHit2D> GetObjectsInView(Vector2 direction, float _ray_angle_fov, int _ray_count, float _ray_length, bool visualize = false) {
     /* hashset is useful as it only stores unique values so repeated hits won't be registered */
     HashSet<RaycastHit2D> game_objects = new HashSet<RaycastHit2D>();
     
