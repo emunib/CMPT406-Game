@@ -39,6 +39,15 @@ public class GravityField : GravityPlayer {
     SetFieldRadius(GravityFieldRadius);
   }
 
+  protected override void Update() {
+    base.Update();
+
+    /* rotate gravity field to point the marker towards gravity */
+    Vector2 _gravity = GetGravity();
+    float angle = Mathf.Atan2(_gravity.y, _gravity.x) * Mathf.Rad2Deg;
+    gravityfield_visualizer.transform.rotation = Quaternion.Euler(0f, 0f, angle - 90f);
+  }
+
   private void OnTriggerStay2D(Collider2D other) {
     /* let the gravity object know its in our field */
     Gravity grav = other.gameObject.GetComponent<Gravity>();
