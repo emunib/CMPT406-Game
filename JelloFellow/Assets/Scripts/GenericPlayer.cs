@@ -59,10 +59,6 @@ public class GenericPlayer : GravityField {
   
   [CustomLabel("Ground Acceleration")] [Tooltip("The rate at which to switch sides of velocity when on ground.")]
   [SerializeField] private float ground_Acceleration = 0.1f;
-
-  [CustomLabel("Apply Transforms")]
-  [Tooltip("Apply movement to all rigidbodies within the given transforms this excludes self as we already apply to it.")]
-  [SerializeField] private bool apply_to_transforms;
   
   [Header("Debug Settings")]
   [CustomLabel("Show Movement Rays")] [Tooltip("Shows the movement rays while moving.")]
@@ -80,9 +76,6 @@ public class GenericPlayer : GravityField {
     apply_constant_gravity = true;
     lock_movement = false;
     gravity_stamina = MaxGravityStamina;
-    
-    if(apply_to_transforms) ApplyGravityTo(RaycastOrigins);
-    
   }
 
   protected override void Update() {
@@ -200,6 +193,9 @@ public class GenericPlayer : GravityField {
       /* angles to start and end with */
       float start_angle = Mathf.Deg2Rad * initial_angle + angle_fov;
       float end_angle = Mathf.Deg2Rad * initial_angle - angle_fov;
+
+      /* detect every layer but self */
+      LayerMask everything = ~1 << gameObject.layer;
       
       /* get the start direction by adding FOV to the angle (left side when gravity is normal) */
       Vector2 start_direction = new Vector2(Mathf.Sin(start_angle), Mathf.Cos(start_angle));
@@ -211,7 +207,7 @@ public class GenericPlayer : GravityField {
         Vector2 angle_direction = new Vector2(Mathf.Sin(start_angle), Mathf.Cos(start_angle));
 
         /* check if we hit something in that direction by the set length in the inspector */
-        RaycastHit2D hit = Physics2D.Raycast(start_position, angle_direction, _ray_length);
+        RaycastHit2D hit = Physics2D.Raycast(start_position, angle_direction, _ray_length, everything);
         if (hit) {
           /* add to the hashset */
           if(hit.transform.gameObject != gameObject) game_objects.Add(hit);
@@ -221,14 +217,14 @@ public class GenericPlayer : GravityField {
       }
 
       /* check if we hit something in the start direction */
-      RaycastHit2D start_hit = Physics2D.Raycast(start_position, start_direction, _ray_length);
+      RaycastHit2D start_hit = Physics2D.Raycast(start_position, start_direction, _ray_length, everything);
       if (start_hit) {
         /* add to the hashset */
         if(start_hit.transform.gameObject != gameObject) game_objects.Add(start_hit);
       }
       
       /* check if we hit something in the end direction */
-      RaycastHit2D end_hit = Physics2D.Raycast(start_position, end_direction, _ray_length);
+      RaycastHit2D end_hit = Physics2D.Raycast(start_position, end_direction, _ray_length, everything);
       if (end_hit) {
         /* add to the hashset */
         if(end_hit.transform.gameObject != gameObject) game_objects.Add(end_hit);
@@ -282,7 +278,6 @@ public class GenericPlayer : GravityField {
     HashSet<RaycastHit2D> hits = GetObjectsInView(GetGravity(), ray_angle_fov, ray_count, ray_length);
     foreach (RaycastHit2D hit in hits) {
       if (LayerMask.LayerToName(hit.transform.gameObject.layer) == GroundLayerName) {
-        Debug.Log("We did hit a platform");
         /* calculate angle of the platform we are on */
         current_platform = hit.transform.gameObject;
         platform_angle = (Mathf.Atan2(hit.normal.x, hit.normal.y) * Mathf.Rad2Deg + 360) % 360;
@@ -367,30 +362,15 @@ public class GenericPlayer : GravityField {
       
       /* apply changed velocity */
       rigidbody.velocity = velocity;
-
-      /* should the node jump */
-      bool node_jump = false;
+      
       /* get jump direction, and add jump impulse when jump button clicked */
       Vector2 direction_jump = new Vector2(Mathf.Sin(platform_angle * Mathf.Deg2Rad), Mathf.Cos(platform_angle * Mathf.Deg2Rad));
       if(movement_rays) Debug.DrawRay(transform.position, direction_jump * ray_length, Color.white); /* draw the ray for debugging */
       if(verbose_movement) Debug.Log("Jump Direction: " + direction_jump);
       if (input.GetJumpButtonDown() && is_grounded) {
-        rigidbody.AddForce (direction_jump * jump_force , ForceMode2D.Impulse);
-        node_jump = true;
+        rigidbody.AddForce (direction_jump * jump_force ,ForceMode2D.Impulse);
+        
         if(verbose_movement) Debug.Log("Jump velocity: " + direction_jump * jump_force);
-      }
-
-      
-      
-      /* apply velocity and jump to every node */
-      if (apply_to_transforms) {
-        foreach (Transform node in RaycastOrigins) {
-          Rigidbody2D rigidbody_node = node.gameObject.GetComponent<Rigidbody2D>();
-          if (rigidbody_node) {
-            rigidbody_node.velocity = velocity;
-            if (node_jump) rigidbody_node.AddForce(direction_jump * jump_force, ForceMode2D.Impulse);
-          }
-        }
       }
     }
   }
