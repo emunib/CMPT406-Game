@@ -24,16 +24,16 @@ public class GenericPlayer : GravityField {
   /* RaycastOrigins name does not match other name convention but mainly changed to show up
      nicely in the inspector */
   [Tooltip("Grounded Origins to cast rays from.")]
-  [SerializeField] private Transform[] RaycastOrigins;
+  [SerializeField] protected Transform[] RaycastOrigins;
 
   [CustomRangeLabel("Ray Length", 0f, 20f)] [Tooltip("Length of the ray.")]
-  [SerializeField] private float grounded_ray_length;
+  [SerializeField] protected float grounded_ray_length;
 
   [CustomRangeLabel("Ray Count", 0f, 20f)] [Tooltip("Number of rays to show in between main rays.")]
-  [SerializeField] private int grounded_ray_count;
+  [SerializeField] protected int grounded_ray_count;
 
   [CustomRangeLabel("Angle FOV", 0f, 180f)] [Tooltip("Padding for the angle.")]
-  [SerializeField] private float grounded_ray_angle_fov;
+  [SerializeField] protected float grounded_ray_angle_fov;
 
   protected override void Awake() {
     base.Awake();

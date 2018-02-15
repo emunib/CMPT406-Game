@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.Remoting.Messaging;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Goomba : GenericPlayer {
   [Header("Stats")]
@@ -31,8 +32,10 @@ public class Goomba : GenericPlayer {
 
   private Rigidbody2D rb;
   private bool jumpOffCD = true;
- 
-  
+  private HashSet<GameObject> agro_game_objects;
+  private HashSet<GameObject> grounded_game_objects;
+  private bool grounded;
+  private bool attacking; 
   
   
   
@@ -61,7 +64,7 @@ public class Goomba : GenericPlayer {
     
     
     //Only Jump If I can
-    if (IsGrounded() &&jumpOffCD) {
+    if (grounded &&jumpOffCD) {
       jumpOffCD = false;
       
       /*TODO:Attack Attacking isn't great right now. Until I understand how enemies are moving on the side 
@@ -71,9 +74,11 @@ public class Goomba : GenericPlayer {
     }
     
     //Wait till goomba is grounded before hes able to attack again
-    else if (IsGrounded() && !jumpOffCD) {
+    else if (grounded && !jumpOffCD) {
+      //Dont know if it should be instant or not
       Invoke("ResetJumpCD",.7f);
-
+      
+      //jumpOffCD = true;
       
     }
     
@@ -86,7 +91,7 @@ public class Goomba : GenericPlayer {
     input.horizontal = movespeed;
     Debug.Log("Im walking");
 
-    if (IsGrounded()) {
+    if (grounded) {
       FwdCheck();
     }
 
@@ -123,9 +128,9 @@ public class Goomba : GenericPlayer {
   
 
   private bool AgroCheck() {
-    HashSet<GameObject> game_objects = GetObjectsInView(transform.up,agro_ray_angle_fov, agro_ray_count,agro_ray_length, true);
+   agro_game_objects= GetObjectsInView(transform.up,agro_ray_angle_fov, agro_ray_count,agro_ray_length, true);
     
-    foreach (GameObject game_object in game_objects) {
+    foreach (GameObject game_object in agro_game_objects) {
       if (LayerMask.LayerToName(game_object.layer) == "Player") {
         return true;
       }
@@ -133,6 +138,72 @@ public class Goomba : GenericPlayer {
     return false;
     
   }
+
+  private Vector2 groundedNormalVector;
+  private bool UprightCheck() {
+    
+    foreach (GameObject gobject in grounded_game_objects) {
+      RaycastHit2D groundhit = Physics2D.Raycast(transform.position,
+      gobject.transform.position - transform.position * grounded_ray_length);
+
+      
+      if (groundhit.normal == (Vector2)transform.up) {
+        groundedNormalVector = groundhit.normal;
+        return true;
+      }
+
+    }
+    
+    return false;
+  }
+
+  private void Upright() {
+
+    transform.up = groundedNormalVector;
+
+  }
+
+  
+  /*To prevent merge issues just going to put this here for now. Does the same thing as IsGrounded() in generic player, 
+  but saves the game objects it gets. Also just sets a field. This will save computation rather than having to recheck 
+  everything mutiple times*/
+  private bool GroundedCheck() {
+    
+    grounded_game_objects = GetObjectsInView(GetGravity(), grounded_ray_angle_fov, grounded_ray_count, grounded_ray_length, true);
+    foreach (GameObject game_object in grounded_game_objects) {
+      if (LayerMask.LayerToName(game_object.layer) == "Ground") {
+            
+        grounded = true;
+        return true;
+
+      }
+    }
+
+    grounded = false;
+    return false;
+    
+  }
+
+  /* This checks if we may be in the air because we are already attacking as goombas are going to jump towards the player
+   !!MAY CHANGE!!*/
+  private bool AttackingCheck() {
+    
+    
+    if (attacking) {
+      return true;
+    }
+    
+    return false;
+  }
+
+  
+  //For now does nothing. Maybe like a funny panic animation in the air
+  private void Panic() {
+    Debug.Log("Panicking");
+  }
+  
+  
+  
   
   private void BuildDecisionTree() {
 
@@ -144,12 +215,30 @@ public class Goomba : GenericPlayer {
 
     DecisionTree attackNode = gameObject.AddComponent<DecisionTree>();
     attackNode.SetActionDelegate(Attack);
+
+    DecisionTree uprightCheckNode = gameObject.AddComponent<DecisionTree>();
+    uprightCheckNode.SetDecisionDelegate(UprightCheck);
+
+    DecisionTree uprightNode = gameObject.AddComponent<DecisionTree>();
+    uprightNode.SetActionDelegate(Upright);
+
+    DecisionTree groundedCheckNode = gameObject.AddComponent<DecisionTree>();
+    groundedCheckNode.SetDecisionDelegate(GroundedCheck);
+
+    DecisionTree PanicNode = gameObject.AddComponent<DecisionTree>();
+    PanicNode.SetActionDelegate(Panic);
+    
+    groundedCheckNode.SetLeftChild(uprightCheckNode);
+    groundedCheckNode.SetRightChild(PanicNode);
+    
+    uprightCheckNode.SetLeftChild(agroCheckNode);
+    uprightCheckNode.SetRightChild(uprightNode);
     
     
     agroCheckNode.SetLeftChild(attackNode);
     agroCheckNode.SetRightChild(walkNode);
     
-    root = agroCheckNode;
+    root = groundedCheckNode;
     
 
 
