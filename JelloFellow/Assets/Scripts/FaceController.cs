@@ -4,21 +4,21 @@ using UnityEngine;
 public class FaceController : MonoBehaviour
 {
     private Input2D _input;
-    private List<Transform> _nodes = new List<Transform>();
+    private List<Transform> _nodes;
     private Vector2 _vec;
     private Vector2 _velocity;
     private Vector2 _velocity2;
     private Vector2 _vec2;
+    
+    [Tooltip("Outer nodes of the slime.")]
+    [SerializeField] private Transform[] nodes;
 
     // Use this for initialization
     private void Start()
     {
         _input = GameObject.FindGameObjectWithTag("InputController").GetComponent<InputController>().GetInput();
 
-        for (var i = 1; i <= 9; i++)
-        {
-            _nodes.Add(GameObject.Find("Softbody/O" + i).transform);
-        }
+        _nodes = new List<Transform>(nodes);
     }
 
     // Update is called once per frame
@@ -54,6 +54,6 @@ public class FaceController : MonoBehaviour
         transform.position = new Vector2((maxX - minX) * 0.5f + minX + _vec.x + _vec2.x
             , (maxY - minY) * 0.5f + minY + _vec.y + _vec2.y);
         
-        transform.position = new Vector3(transform.position.x, transform.position.y, -3);
+        transform.position = new Vector3(transform.position.x, transform.position.y);
     }
 }
