@@ -51,7 +51,7 @@
 	
 #if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
 	public override string controller_type() {
-		return "Xbox (Windows)");
+		return "Xbox (Windows)";
 	}
 
 	public override string Horizontal_LStick() {
