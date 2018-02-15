@@ -18,7 +18,7 @@ public class MenuScript : MonoBehaviour {
 	}
 	//Level Selector Button
 	public void Levels(){
-		//SceneManager.LoadScene(1);
+		SceneManager.LoadScene("SceneSelector");
 	}
 		
 	//Options Button
