@@ -8,9 +8,8 @@ using UnityEngine;
 /// </summary>
 public class GravityField : GravityPlayer {
   private const string gravityfield_sprite_path = "Prefabs/GravityField";
-  private const float GravityFieldRadius = 2f;
   private const float GravityDrag = 0.85f;
-  private const float MinRadius = 2f;
+  private const float MinRadius = 3f;
   private const float MaxRadius = 5f;
 
   private CircleCollider2D gravity_field;
@@ -29,14 +28,14 @@ public class GravityField : GravityPlayer {
 
     gravity_field = gameObject.AddComponent<CircleCollider2D>();
     gravity_field.isTrigger = true;
-    gravity_field.radius = GravityFieldRadius;
+    gravity_field.radius = MinRadius;
 
     gravityfield_visualizer = Resources.Load(gravityfield_sprite_path) as GameObject;
     gravityfield_visualizer = Instantiate(gravityfield_visualizer);
     gravityfield_visualizer.transform.parent = transform;
-    gravityfield_visualizer.transform.localPosition = Vector3.zero;
+    gravityfield_visualizer.transform.localPosition = new Vector3(0f, 0f, gravityfield_visualizer.transform.position.z);
 
-    SetFieldRadius(GravityFieldRadius);
+    SetFieldRadius(MinRadius);
   }
 
   protected override void Update() {
