@@ -13,7 +13,7 @@ public class MenuScript : MonoBehaviour {
 	}
 	// Start game from level 1
 	public void PlayGame () {
-		SceneManager.LoadScene("TestingGravity");
+		SceneManager.LoadScene("TestLevel");
 
 	}
 	//Level Selector Button

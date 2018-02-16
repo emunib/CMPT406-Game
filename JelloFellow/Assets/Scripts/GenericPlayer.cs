@@ -294,7 +294,7 @@ public class GenericPlayer : GravityField {
     if (current_platform != null) {
       Vector2 velocity = rigidbody.velocity;
 
-      bool is_grounded = IsGrounded(true);
+      bool is_grounded = IsGrounded();
       
       /* if verbose mode is on */
       if(verbose_movement) Debug.Log("Platform found, Angle of Platform: " + platform_angle);
