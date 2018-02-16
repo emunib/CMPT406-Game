@@ -294,7 +294,7 @@ public class GenericPlayer : GravityField {
     if (current_platform != null) {
       Vector2 velocity = rigidbody.velocity;
 
-      bool is_grounded = IsGrounded();
+      bool is_grounded = IsGrounded(true);
       
       /* if verbose mode is on */
       if(verbose_movement) Debug.Log("Platform found, Angle of Platform: " + platform_angle);
@@ -302,7 +302,7 @@ public class GenericPlayer : GravityField {
       float horizontal_movement = input.GetHorizontalMovement();      
       float vertical_movement = input.GetVerticalMovement();
       
-      if (horizontal_movement != 0f || vertical_movement != 0f) {
+      if (is_grounded && (horizontal_movement != 0f || vertical_movement != 0f)) {
         /* angle of the movement joystick */
         float movement_angle = (Mathf.Atan2(horizontal_movement, vertical_movement) * Mathf.Rad2Deg + 360) % 360;
         
@@ -363,32 +363,41 @@ public class GenericPlayer : GravityField {
             }
           }
         }
+      } else {
+        /* if player in air apply this velocity */
+        Vector2 in_air = new Vector2 (horizontal_movement * move_speed, vertical_movement * move_speed);
+        in_air *= air_acceleration;
+        velocity += in_air;
       }
       
       /* apply changed velocity */
       rigidbody.velocity = velocity;
 
-      /* should the node jump */
+      /* should the nodes jump too */
       bool node_jump = false;
-      /* get jump direction, and add jump impulse when jump button clicked */
+      /* direction of the platform */
       Vector2 direction_jump = new Vector2(Mathf.Sin(platform_angle * Mathf.Deg2Rad), Mathf.Cos(platform_angle * Mathf.Deg2Rad));
-      if(movement_rays) Debug.DrawRay(transform.position, direction_jump * ray_length, Color.white); /* draw the ray for debugging */
-      if(verbose_movement) Debug.Log("Jump Direction: " + direction_jump);
+      Vector2 hybrid_jump = Vector2.zero;
+      /* vector of the movement */
+      Vector2 movement_vector = new Vector2(horizontal_movement, vertical_movement);
       if (input.GetJumpButtonDown() && is_grounded) {
-        rigidbody.AddForce (direction_jump * jump_force , ForceMode2D.Impulse);
+        hybrid_jump = direction_jump + movement_vector * 1.5f;
+        if (hybrid_jump.magnitude > 1f) {
+          hybrid_jump.Normalize();
+        }
+
+        if (verbose_movement) Debug.Log("Jump: " + hybrid_jump * jump_force);
+        rigidbody.AddForce(hybrid_jump * jump_force, ForceMode2D.Impulse);
         node_jump = true;
-        if(verbose_movement) Debug.Log("Jump velocity: " + direction_jump * jump_force);
       }
 
-      
-      
       /* apply velocity and jump to every node */
       if (apply_to_transforms) {
         foreach (Transform node in RaycastOrigins) {
           Rigidbody2D rigidbody_node = node.gameObject.GetComponent<Rigidbody2D>();
           if (rigidbody_node) {
             rigidbody_node.velocity = velocity;
-            if (node_jump) rigidbody_node.AddForce(direction_jump * jump_force, ForceMode2D.Impulse);
+            if (node_jump) rigidbody_node.AddForce(hybrid_jump * jump_force, ForceMode2D.Impulse);
           }
         }
       }
