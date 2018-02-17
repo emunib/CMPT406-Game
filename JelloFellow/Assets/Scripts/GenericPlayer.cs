@@ -15,9 +15,9 @@ public class GenericPlayer : GravityField {
   private const float TriggerSensitivity = 0.1f;
 
   /* max stamina for the gravity field */
-  private const float MaxGravityStamina = 100f;
-  /* the depletion rate for the gravity field (depletion rate / maxgravity -> per frame) */
-  private const float GravityDepletionRate = 1f;
+  private const float MaxGravityStamina = 200f;
+  /* the depletion rate for the gravity field (depletion rate / maxstamina -> per frame) */
+  private const float GravityDepletionRate = 0.5f;
   
   private Input2D input;
   private Vector2 new_gravity;
@@ -372,10 +372,12 @@ public class GenericPlayer : GravityField {
           }
         }
       } else {
-        /* if player in air apply this velocity */
-        Vector2 in_air = new Vector2 (horizontal_movement * move_speed, vertical_movement * move_speed);
-        in_air *= air_acceleration;
-        velocity += in_air;
+        if (!is_grounded) {
+          /* if player in air apply this velocity */
+          Vector2 in_air = new Vector2 (horizontal_movement * move_speed, vertical_movement * move_speed);
+          in_air *= air_acceleration;
+          velocity += in_air;
+        }
       }
       
       /* apply changed velocity */
