@@ -374,7 +374,7 @@ public class GenericPlayer : GravityField {
       } else {
         if (!is_grounded) {
           /* if player in air apply this velocity */
-          Vector2 in_air = new Vector2 (horizontal_movement * move_speed, vertical_movement * move_speed);
+          Vector2 in_air = new Vector2 (horizontal_movement, vertical_movement);
           in_air *= air_acceleration;
           velocity += in_air;
         }
