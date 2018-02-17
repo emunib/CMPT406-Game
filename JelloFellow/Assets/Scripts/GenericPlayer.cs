@@ -310,7 +310,7 @@ public class GenericPlayer : GravityField {
       float horizontal_movement = input.GetHorizontalMovement();      
       float vertical_movement = input.GetVerticalMovement();
       
-      if (is_grounded && (horizontal_movement != 0f || vertical_movement != 0f)) {
+      if (horizontal_movement != 0f || vertical_movement != 0f) {
         /* angle of the movement joystick */
         float movement_angle = (Mathf.Atan2(horizontal_movement, vertical_movement) * Mathf.Rad2Deg + 360) % 360;
         
@@ -370,13 +370,6 @@ public class GenericPlayer : GravityField {
               velocity.y = Mathf.SmoothDamp(velocity.y, velocity_updated.y * move_speed, ref velocity_y_smoothing, is_grounded ? ground_Acceleration : air_acceleration); 
             }
           }
-        }
-      } else {
-        if (!is_grounded) {
-          /* if player in air apply this velocity */
-          Vector2 in_air = new Vector2 (horizontal_movement, vertical_movement);
-          in_air *= air_acceleration;
-          velocity += in_air;
         }
       }
       
