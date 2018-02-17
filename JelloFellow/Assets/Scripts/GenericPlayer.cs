@@ -53,6 +53,9 @@ public class GenericPlayer : GravityField {
   
   [CustomLabel("Jump Force")] [Tooltip("Force to apply in order to jump.")]
   [SerializeField] private float jump_force = 6f;
+
+  [CustomLabel("Impulse Control")] [Tooltip("The impulse control when jumping")]
+  [SerializeField] private float impulse_control;
   
   [CustomLabel("Air Acceleration")] [Tooltip("The rate at which to switch sides of velocity while in the air.")]
   [SerializeField] private float air_acceleration = 0.1f;
@@ -272,6 +275,8 @@ public class GenericPlayer : GravityField {
     ChangeGravityAlpha(gravity_stamina/MaxGravityStamina);
   }
 
+  private GameObject old_platform;
+  
   /// <summary>
   /// Handles all movement done by the player.
   /// </summary>
@@ -289,6 +294,9 @@ public class GenericPlayer : GravityField {
         break;
       }
     }
+
+    /* this allows us to change directions even in air but only according to the old platform */
+    if (current_platform == null) current_platform = old_platform;
     
     /* if platform was found */
     if (current_platform != null) {
@@ -381,7 +389,7 @@ public class GenericPlayer : GravityField {
       /* vector of the movement */
       Vector2 movement_vector = new Vector2(horizontal_movement, vertical_movement);
       if (input.GetJumpButtonDown() && is_grounded) {
-        hybrid_jump = direction_jump + movement_vector * 1.5f;
+        hybrid_jump = direction_jump + movement_vector * impulse_control;
         if (hybrid_jump.magnitude > 1f) {
           hybrid_jump.Normalize();
         }
@@ -401,6 +409,8 @@ public class GenericPlayer : GravityField {
           }
         }
       }
+
+      old_platform = current_platform;
     }
   }
 }
