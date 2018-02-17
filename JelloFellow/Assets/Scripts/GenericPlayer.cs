@@ -390,7 +390,7 @@ public class GenericPlayer : GravityField {
         }
 
         if (verbose_movement) Debug.Log("Jump: " + hybrid_jump * jump_force);
-        rigidbody.AddForce(hybrid_jump * jump_force, ForceMode2D.Impulse);
+        rigidbody.velocity += hybrid_jump * jump_force;
         node_jump = true;
       }
 
@@ -400,7 +400,7 @@ public class GenericPlayer : GravityField {
           Rigidbody2D rigidbody_node = node.gameObject.GetComponent<Rigidbody2D>();
           if (rigidbody_node) {
             rigidbody_node.velocity = velocity;
-            if (node_jump) rigidbody_node.AddForce(hybrid_jump * jump_force, ForceMode2D.Impulse);
+            if(node_jump) rigidbody_node.velocity += hybrid_jump * jump_force;
           }
         }
       }
