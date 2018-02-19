@@ -1,40 +1,77 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GenericPlayer : GravityField {
+  /* name of the ground layer */
   private const string GroundLayerName = "Ground";
   
+  /* gravity field values for angular and linear drags and for the trigger sensitivity
+     at which effects the rate of increasing and decreasing the field */
   private const float LinearDragGravity = 3f;
   private const float AngularDragGravity = 0.5f;
   private const float LinearDragMovement = 0f;
   private const float AngularDragMovement = 0.5f;
   private const float TriggerSensitivity = 0.1f;
 
+  /* max stamina for the gravity field */
   private const float MaxGravityStamina = 100f;
-
+  /* the depletion rate for the gravity field (depletion rate / maxgravity -> per frame) */
+  private const float GravityDepletionRate = 1f;
+  
   private Input2D input;
   private Vector2 new_gravity;
   private bool apply_constant_gravity;
   private bool lock_movement;
 
   private float gravity_stamina;
-  private float gravity_depletion_rate = 10;
 
-  [Header("Raycast Settings")]
+  private float velocity_x_smoothing;
+  private float velocity_y_smoothing;
+  
+  [Header("Grounded Settings")]
   /* RaycastOrigins name does not match other name convention but mainly changed to show up
      nicely in the inspector */
-  [Tooltip("Grounded Origins to cast rays from.")]
-  [SerializeField] protected Transform[] RaycastOrigins;
+  [Tooltip("Origins to cast rays from.")]
+  [SerializeField] private Transform[] RaycastOrigins;
 
   [CustomRangeLabel("Ray Length", 0f, 20f)] [Tooltip("Length of the ray.")]
-  [SerializeField] protected float grounded_ray_length;
+  [SerializeField] protected float ray_length;
 
   [CustomRangeLabel("Ray Count", 0f, 20f)] [Tooltip("Number of rays to show in between main rays.")]
-  [SerializeField] protected int grounded_ray_count;
+  [SerializeField] protected int ray_count;
 
   [CustomRangeLabel("Angle FOV", 0f, 180f)] [Tooltip("Padding for the angle.")]
-  [SerializeField] protected float grounded_ray_angle_fov;
+  [SerializeField] protected float ray_angle_fov;
 
+  [Header("Movement Settings")]
+  [CustomRangeLabel("Angle Buffer", 0.01f, 1f)] [Tooltip("The angle at which to accept inputs (mainly used for angled platforms)")]
+  [SerializeField] private float angle_buffer = 0.2f;
+  
+  [CustomLabel("Move Speed")] [Tooltip("The speed at which the player will move.")]
+  [SerializeField] private float move_speed = 4f;
+  
+  [CustomLabel("Jump Force")] [Tooltip("Force to apply in order to jump.")]
+  [SerializeField] private float jump_force = 6f;
+  
+  [CustomLabel("Air Acceleration")] [Tooltip("The rate at which to switch sides of velocity while in the air.")]
+  [SerializeField] private float air_acceleration = 0.1f;
+  
+  [CustomLabel("Ground Acceleration")] [Tooltip("The rate at which to switch sides of velocity when on ground.")]
+  [SerializeField] private float ground_Acceleration = 0.1f;
+
+  [CustomLabel("Apply Transforms")]
+  [Tooltip("Apply movement to all rigidbodies within the given transforms this excludes self as we already apply to it.")]
+  [SerializeField] private bool apply_to_transforms;
+  
+  [Header("Debug Settings")]
+  [CustomLabel("Show Movement Rays")] [Tooltip("Shows the movement rays while moving.")]
+  [SerializeField] private bool movement_rays;
+
+  [CustomLabel("Verbose Movement")] [Tooltip("Print out all the movement information.")]
+  [SerializeField] private bool verbose_movement;
+
+  
   protected override void Awake() {
     base.Awake();
 
@@ -43,33 +80,12 @@ public class GenericPlayer : GravityField {
     apply_constant_gravity = true;
     lock_movement = false;
     gravity_stamina = MaxGravityStamina;
-    InvokeRepeating("GravityStamina", 0f, 1f);
-  }
-
-  private void GravityStamina() {
-    if (lock_movement) {
-      if (gravity_stamina < 0) {
-        gravity_stamina = 0f;
-      } else {
-        gravity_stamina -= gravity_depletion_rate;
-      }
-    } else {
-      if (IsGrounded()) {
-        if (gravity_stamina < MaxGravityStamina) {
-          gravity_stamina += gravity_depletion_rate;
-        } else {
-          gravity_stamina = MaxGravityStamina;
-        }
-      }
-    }
     
-    ChangeGravityAlpha(gravity_stamina/MaxGravityStamina);
-    Debug.Log("Gravity Stamina: " + gravity_stamina);
+    if(apply_to_transforms) ApplyGravityTo(RaycastOrigins);
+    
   }
 
   protected override void Update() {
-    base.Update();
-
     /* make sure input is not null */
     if (input != null) {
       /* update lock movement to false */
@@ -97,13 +113,6 @@ public class GenericPlayer : GravityField {
         }
       }
 
-      float horizontal_movement = input.GetHorizontalMovement();
-      float vertical_movement = input.GetVerticalMovement();
-      
-      rigidbody.velocity+= new Vector2(horizontal_movement,vertical_movement);
-      
-      
-      
       /* if changing gravity have more drag (useful to throw components and control gravity) */
       if (lock_movement) {
         rigidbody.angularDrag = AngularDragGravity;
@@ -126,10 +135,17 @@ public class GenericPlayer : GravityField {
         SetFieldRadius(GetFieldRadius() + TriggerSensitivity * right_trigger);
       }
 
-      IsGrounded();
+      Movement();
     } else {
       Debug.LogWarning("Input has not been assigned for this player (" + gameObject.name + ")");
     }
+    
+    
+    base.Update();
+  }
+
+  private void FixedUpdate() {
+    GravityStamina();
   }
 
   /// <summary>
@@ -146,10 +162,10 @@ public class GenericPlayer : GravityField {
   /// Check if the player is touching Ground layer.
   /// </summary>
   /// <returns>True if touching ground otherwise false.</returns>
-  protected bool IsGrounded() {
-    HashSet<GameObject> game_objects = GetObjectsInView(GetGravity(), grounded_ray_angle_fov, grounded_ray_count, grounded_ray_length, true);
-    foreach (GameObject game_object in game_objects) {
-      if (LayerMask.LayerToName(game_object.layer) == GroundLayerName) {
+  protected bool IsGrounded(bool visualize = false) {
+    HashSet<RaycastHit2D> hits = GetObjectsInView(GetGravity(), ray_angle_fov, ray_count, ray_length, visualize);
+    foreach (RaycastHit2D hit in hits) {
+      if (LayerMask.LayerToName(hit.transform.gameObject.layer) == GroundLayerName) {
         return true;
       }
     }
@@ -162,11 +178,14 @@ public class GenericPlayer : GravityField {
   /// starting from the center of the given Transforms to the provided length of the ray to check for collisions.
   /// </summary>
   /// <param name="direction">The direction to point the cone.</param>
+  /// <param name="_ray_angle_fov">The field of view angle.</param>
+  /// <param name="_ray_count">The ray count within the field of view.</param>
+  /// <param name="_ray_length">The length of the rays.</param>
   /// <param name="visualize">If you want to see the cone shape in the editor.</param>
   /// <returns>Hashset containing all the game objects within FOV.</returns>
-  protected HashSet<GameObject> GetObjectsInView(Vector2 direction, float ray_angle_fov, int ray_count, float ray_length, bool visualize = false) {
+  protected HashSet<RaycastHit2D> GetObjectsInView(Vector2 direction, float _ray_angle_fov, int _ray_count, float _ray_length, bool visualize = false) {
     /* hashset is useful as it only stores unique values so repeated hits won't be registered */
-    HashSet<GameObject> game_objects = new HashSet<GameObject>();
+    HashSet<RaycastHit2D> game_objects = new HashSet<RaycastHit2D>();
     
     foreach (Transform origins in RaycastOrigins) {
       /* the center of the transform */
@@ -174,16 +193,13 @@ public class GenericPlayer : GravityField {
       /* the angle of direction relative to the transforms 'up' position */
       float initial_angle = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg;
       /* cut the field of view angle in half to add to both sides of the initial angle */
-      float angle_fov = ray_angle_fov / 2f * Mathf.Deg2Rad;
+      float angle_fov = _ray_angle_fov / 2f * Mathf.Deg2Rad;
       /* calculate the distance between rays (plus 1 to match the number shown in inspector,
          one is actually hidden under the start direction) */
-      float distance_between_rays = ray_angle_fov / (ray_count + 1) * Mathf.Deg2Rad;
+      float distance_between_rays = _ray_angle_fov / (_ray_count + 1) * Mathf.Deg2Rad;
       /* angles to start and end with */
       float start_angle = Mathf.Deg2Rad * initial_angle + angle_fov;
       float end_angle = Mathf.Deg2Rad * initial_angle - angle_fov;
-
-      /* detect every layer but self */
-      LayerMask everything = ~1 << gameObject.layer;
       
       /* get the start direction by adding FOV to the angle (left side when gravity is normal) */
       Vector2 start_direction = new Vector2(Mathf.Sin(start_angle), Mathf.Cos(start_angle));
@@ -195,41 +211,187 @@ public class GenericPlayer : GravityField {
         Vector2 angle_direction = new Vector2(Mathf.Sin(start_angle), Mathf.Cos(start_angle));
 
         /* check if we hit something in that direction by the set length in the inspector */
-        RaycastHit2D hit = Physics2D.Raycast(start_position, angle_direction, ray_length, everything);
+        RaycastHit2D hit = Physics2D.Raycast(start_position, angle_direction, _ray_length);
         if (hit) {
           /* add to the hashset */
-          if(hit.transform.gameObject != gameObject) game_objects.Add(hit.transform.gameObject);
+          if(hit.transform.gameObject != gameObject) game_objects.Add(hit);
         }
         
-        if(visualize) Debug.DrawRay(start_position, angle_direction * ray_length, Color.red);
+        if(visualize) Debug.DrawRay(start_position, angle_direction * _ray_length, Color.red);
       }
 
       /* check if we hit something in the start direction */
-      RaycastHit2D start_hit = Physics2D.Raycast(start_position, start_direction, ray_length, everything);
+      RaycastHit2D start_hit = Physics2D.Raycast(start_position, start_direction, _ray_length);
       if (start_hit) {
         /* add to the hashset */
-        if(start_hit.transform.gameObject != gameObject) game_objects.Add(start_hit.transform.gameObject);
+        if(start_hit.transform.gameObject != gameObject) game_objects.Add(start_hit);
       }
       
       /* check if we hit something in the end direction */
-      RaycastHit2D end_hit = Physics2D.Raycast(start_position, end_direction, ray_length, everything);
+      RaycastHit2D end_hit = Physics2D.Raycast(start_position, end_direction, _ray_length);
       if (end_hit) {
         /* add to the hashset */
-        if(end_hit.transform.gameObject != gameObject) game_objects.Add(end_hit.transform.gameObject);
+        if(end_hit.transform.gameObject != gameObject) game_objects.Add(end_hit);
       }
       
-      if(visualize) Debug.DrawRay(start_position, start_direction * ray_length, Color.blue);
-      if(visualize) Debug.DrawRay(start_position, end_direction * ray_length, Color.blue);
+      if(visualize) Debug.DrawRay(start_position, start_direction * _ray_length, Color.blue);
+      if(visualize) Debug.DrawRay(start_position, end_direction * _ray_length, Color.blue);
     }
 
     return game_objects;
   }
   
   /// <summary>
-  /// Applies gravity by calling its subclass method 'SetGravity'
+  /// Applies gravity by calling its subclass method 'SetGravity'.
   /// </summary>
   /// <param name="_gravity">The gravity to set.</param>
   private void ApplyGravity(Vector2 _gravity) {
     SetGravity(_gravity);
+  }
+  
+  /// <summary>
+  /// Handles the depletion and gaining for the gravity stamina.
+  /// </summary>
+  private void GravityStamina() {
+    if (lock_movement) {
+      if (gravity_stamina < 0) {
+        gravity_stamina = 0f;
+      } else {
+        gravity_stamina -= GravityDepletionRate;
+      }
+    } else {
+      if (IsGrounded()) {
+        if (gravity_stamina < MaxGravityStamina) {
+          gravity_stamina += GravityDepletionRate;
+        } else {
+          gravity_stamina = MaxGravityStamina;
+        }
+      }
+    }
+    
+    ChangeGravityAlpha(gravity_stamina/MaxGravityStamina);
+  }
+
+  /// <summary>
+  /// Handles all movement done by the player.
+  /// </summary>
+  private void Movement() {
+    /* get the platform */
+    float platform_angle = 0f;
+    GameObject current_platform = null;
+    HashSet<RaycastHit2D> hits = GetObjectsInView(GetGravity(), ray_angle_fov, ray_count, ray_length);
+    foreach (RaycastHit2D hit in hits) {
+      if (LayerMask.LayerToName(hit.transform.gameObject.layer) == GroundLayerName) {
+        Debug.Log("We did hit a platform");
+        /* calculate angle of the platform we are on */
+        current_platform = hit.transform.gameObject;
+        platform_angle = (Mathf.Atan2(hit.normal.x, hit.normal.y) * Mathf.Rad2Deg + 360) % 360;
+        break;
+      }
+    }
+    
+    /* if platform was found */
+    if (current_platform != null) {
+      Vector2 velocity = rigidbody.velocity;
+
+      bool is_grounded = IsGrounded();
+      
+      /* if verbose mode is on */
+      if(verbose_movement) Debug.Log("Platform found, Angle of Platform: " + platform_angle);
+      
+      float horizontal_movement = input.GetHorizontalMovement();      
+      float vertical_movement = input.GetVerticalMovement();
+      
+      if (horizontal_movement != 0f || vertical_movement != 0f) {
+        /* angle of the movement joystick */
+        float movement_angle = (Mathf.Atan2(horizontal_movement, vertical_movement) * Mathf.Rad2Deg + 360) % 360;
+        
+        /* if verbose mode is on */
+        if(verbose_movement) Debug.Log("Movement is requested, Movement Angle: " + movement_angle);
+
+        /* direction of the movement angle */
+        Vector2 direction_movement = new Vector2(Mathf.Sin(movement_angle * Mathf.Deg2Rad), Mathf.Cos(movement_angle * Mathf.Deg2Rad));
+        if(movement_rays) Debug.DrawRay(transform.position, direction_movement * ray_length, Color.yellow); /* draw the ray for debugging */
+        
+        /* direction of the platform angle */
+        Vector2 direction_platform = new Vector2(Mathf.Sin((platform_angle + 90) * Mathf.Deg2Rad), Mathf.Cos((platform_angle + 90) * Mathf.Deg2Rad));
+        if(movement_rays) Debug.DrawRay(transform.position, direction_platform * ray_length, Color.magenta); /* draw the ray for debugging */
+
+        /* the velocity to apply to the player */
+        Vector2 velocity_updated = new Vector2(direction_movement.x * Mathf.Abs(direction_platform.x), direction_movement.y * Mathf.Abs(direction_platform.y));
+        
+        /* if verbose mode is on */
+        if (verbose_movement) {
+          Debug.Log("Movement Direction: " + direction_movement);
+          Debug.Log("Platform Direction: " + direction_platform);
+        }
+        
+        /* check if the platform the player is on is straight or at an angle */
+        if (Mathf.Approximately(Mathf.Abs(direction_platform.x), 1f) || Mathf.Approximately(Mathf.Abs(direction_platform.y), 1f)) {
+          /* if verbose mode is on */
+          if(verbose_movement) Debug.Log("Platform is straight");
+          
+          velocity.x = Mathf.SmoothDamp(velocity.x, velocity_updated.x * move_speed, ref velocity_x_smoothing, is_grounded ? ground_Acceleration : air_acceleration);
+          velocity.y = Mathf.SmoothDamp(velocity.y, velocity_updated.y * move_speed, ref velocity_y_smoothing, is_grounded ? ground_Acceleration : air_acceleration);
+        } else {
+          /* if verbose mode is on */
+          if(verbose_movement) Debug.Log("Platform is at an angle");
+          
+          /* get the direction of the opposite angle of platform (seems redundunt as x and y are swapped but works so here for now) */
+          Vector2 direction_platform2 = new Vector2(Mathf.Sin((platform_angle - 90) * Mathf.Deg2Rad), Mathf.Cos((platform_angle - 90) * Mathf.Deg2Rad));
+          /* if verbose mode is on */
+          if(verbose_movement) Debug.Log("Platform Direction 2: " + direction_platform2);
+          
+          /* get the distance of the movement direction to the platforms direction */
+          float direction_distance = Vector2.Distance(direction_movement, direction_platform);
+          float direction_distance2 = Vector2.Distance(direction_movement, direction_platform2);
+          
+          /* if verbose mode is on */
+          if (verbose_movement) {
+            Debug.Log("Distance Direction: " + direction_distance);
+            Debug.Log("Distance Direction 2: " + direction_distance2);
+          }
+
+          /* this makes sure we only grab the angle with same direction sign as the 4 corners of an axis range from -1 to 1 */
+          bool platform_sign = Mathf.Sign(direction_platform.x) == Math.Sign(direction_platform.y);
+
+          if (platform_sign ? Mathf.Sign(direction_movement.x) == Mathf.Sign(direction_movement.y) : Mathf.Sign(direction_movement.x) != Mathf.Sign(direction_movement.y)) {
+            /* make sure we are in the range of the angle buffer (still think direction distance 2 is not needed but it works so here for now) */
+            if ((direction_distance < angle_buffer || direction_distance > 2 - angle_buffer) && (direction_distance2 < angle_buffer || direction_distance2 > 2 - angle_buffer)) {
+              velocity.x = Mathf.SmoothDamp(velocity.x, velocity_updated.x * move_speed, ref velocity_x_smoothing, is_grounded ? ground_Acceleration : air_acceleration);
+              velocity.y = Mathf.SmoothDamp(velocity.y, velocity_updated.y * move_speed, ref velocity_y_smoothing, is_grounded ? ground_Acceleration : air_acceleration); 
+            }
+          }
+        }
+      }
+      
+      /* apply changed velocity */
+      rigidbody.velocity = velocity;
+
+      /* should the node jump */
+      bool node_jump = false;
+      /* get jump direction, and add jump impulse when jump button clicked */
+      Vector2 direction_jump = new Vector2(Mathf.Sin(platform_angle * Mathf.Deg2Rad), Mathf.Cos(platform_angle * Mathf.Deg2Rad));
+      if(movement_rays) Debug.DrawRay(transform.position, direction_jump * ray_length, Color.white); /* draw the ray for debugging */
+      if(verbose_movement) Debug.Log("Jump Direction: " + direction_jump);
+      if (input.GetJumpButtonDown() && is_grounded) {
+        rigidbody.AddForce (direction_jump * jump_force , ForceMode2D.Impulse);
+        node_jump = true;
+        if(verbose_movement) Debug.Log("Jump velocity: " + direction_jump * jump_force);
+      }
+
+      
+      
+      /* apply velocity and jump to every node */
+      if (apply_to_transforms) {
+        foreach (Transform node in RaycastOrigins) {
+          Rigidbody2D rigidbody_node = node.gameObject.GetComponent<Rigidbody2D>();
+          if (rigidbody_node) {
+            rigidbody_node.velocity = velocity;
+            if (node_jump) rigidbody_node.AddForce(direction_jump * jump_force, ForceMode2D.Impulse);
+          }
+        }
+      }
+    }
   }
 }

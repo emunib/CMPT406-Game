@@ -26,14 +26,14 @@ public class Goomba : GenericPlayer {
   [SerializeField] private float agro_ray_angle_fov;
   
   
-  private GoombaInput input;
+  private GoombaInput goomba_input;
 
   private DecisionTree root;
 
   private Rigidbody2D rb;
   private bool jumpOffCD = true;
-  private HashSet<GameObject> agro_game_objects;
-  private HashSet<GameObject> grounded_game_objects;
+  private HashSet<RaycastHit2D> agro_game_objects;
+  private HashSet<RaycastHit2D> grounded_game_objects;
   private bool grounded;
   private bool attacking; 
   
@@ -41,8 +41,8 @@ public class Goomba : GenericPlayer {
   
   
   private void Start() {
-    input = GetComponent<GoombaInput>();
-    SetInput(input);
+    goomba_input = GetComponent<GoombaInput>();
+    SetInput(goomba_input);
     SetIgnoreFields(false);
     root = gameObject.AddComponent<DecisionTree>();
     BuildDecisionTree();
@@ -88,7 +88,7 @@ public class Goomba : GenericPlayer {
   }
 
   private void Walk() {
-    input.horizontal = movespeed;
+    goomba_input.horizontal = movespeed;
     Debug.Log("Im walking");
 
     if (grounded) {
@@ -98,7 +98,7 @@ public class Goomba : GenericPlayer {
   }
 
   private void FwdCheck() {
-    float facing = Mathf.Sign(input.horizontal);
+    float facing = Mathf.Sign(goomba_input.horizontal);
     Debug.DrawRay(fwdCheck.transform.position,facing*fwdCheck.transform.right*fwdWallChkRange, Color.yellow);
 	
     
@@ -128,10 +128,10 @@ public class Goomba : GenericPlayer {
   
 
   private bool AgroCheck() {
-   agro_game_objects= GetObjectsInView(transform.up,agro_ray_angle_fov, agro_ray_count,agro_ray_length, true);
+   agro_game_objects = GetObjectsInView(transform.up, agro_ray_angle_fov, agro_ray_count, agro_ray_length, true);
     
-    foreach (GameObject game_object in agro_game_objects) {
-      if (LayerMask.LayerToName(game_object.layer) == "Player") {
+    foreach (RaycastHit2D game_object in agro_game_objects) {
+      if (LayerMask.LayerToName(game_object.transform.gameObject.layer) == "Player") {
         return true;
       }
     }
@@ -141,10 +141,11 @@ public class Goomba : GenericPlayer {
 
   private Vector2 groundedNormalVector;
   private bool UprightCheck() {
+    grounded_game_objects = GetObjectsInView(GetGravity(), ray_angle_fov, ray_count, ray_length, true);
     
-    foreach (GameObject gobject in grounded_game_objects) {
+    foreach (RaycastHit2D gobject in grounded_game_objects) {
       RaycastHit2D groundhit = Physics2D.Raycast(transform.position,
-      gobject.transform.position - transform.position * grounded_ray_length);
+      gobject.transform.position - transform.position * ray_length);
 
       
       if (groundhit.normal == (Vector2)transform.up) {
@@ -168,26 +169,12 @@ public class Goomba : GenericPlayer {
   but saves the game objects it gets. Also just sets a field. This will save computation rather than having to recheck 
   everything mutiple times*/
   private bool GroundedCheck() {
-    
-    grounded_game_objects = GetObjectsInView(GetGravity(), grounded_ray_angle_fov, grounded_ray_count, grounded_ray_length, true);
-    foreach (GameObject game_object in grounded_game_objects) {
-      if (LayerMask.LayerToName(game_object.layer) == "Ground") {
-            
-        grounded = true;
-        return true;
-
-      }
-    }
-
-    grounded = false;
-    return false;
-    
+    return IsGrounded();
   }
 
   /* This checks if we may be in the air because we are already attacking as goombas are going to jump towards the player
    !!MAY CHANGE!!*/
   private bool AttackingCheck() {
-    
     
     if (attacking) {
       return true;
@@ -196,15 +183,11 @@ public class Goomba : GenericPlayer {
     return false;
   }
 
-  
   //For now does nothing. Maybe like a funny panic animation in the air
   private void Panic() {
     Debug.Log("Panicking");
   }
-  
-  
-  
-  
+
   private void BuildDecisionTree() {
 
     DecisionTree agroCheckNode = gameObject.AddComponent<DecisionTree>();
@@ -239,19 +222,5 @@ public class Goomba : GenericPlayer {
     agroCheckNode.SetRightChild(walkNode);
     
     root = groundedCheckNode;
-    
-
-
   }
-
-  
-  protected override void Update() {
-    base.Update();
-    
-    // if I want to move
-    
-    
-  }
-  
-  
 }
