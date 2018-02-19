@@ -28,7 +28,7 @@ public class GoombaInput : Input2D {
   }
   
   public override bool GetJumpButtonDown() {
-    return true;
+    return false;
   }
   
   public override bool GetJumpButtonUp() {

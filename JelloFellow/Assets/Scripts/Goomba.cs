@@ -55,7 +55,6 @@ public class Goomba : GenericPlayer {
 
   private void Attack() {
     Debug.Log("Im attacking");
-    // Presumably use with this input.GetJumpButtonDown();
     Transform target = GameObject.FindGameObjectWithTag("Player").transform;
 
     Vector2 targetray = target.position - transform.position;
@@ -75,10 +74,9 @@ public class Goomba : GenericPlayer {
     
     //Wait till goomba is grounded before hes able to attack again
     else if (grounded && !jumpOffCD) {
-      //Dont know if it should be instant or not
-      Invoke("ResetJumpCD",.7f);
+  
       
-      //jumpOffCD = true;
+      jumpOffCD = true;
       
     }
     
@@ -89,6 +87,7 @@ public class Goomba : GenericPlayer {
 
   private void Walk() {
     goomba_input.horizontal = movespeed;
+    goomba_input.vertical = movespeed;
     Debug.Log("Im walking");
 
     if (grounded) {
@@ -112,9 +111,10 @@ public class Goomba : GenericPlayer {
       }
     }
 
-    Debug.DrawRay(fwdCheck.transform.position,GetGravity()*fwdGroundChkRange, Color.green);
+    Debug.Log("Gravity" + GetGravity());
+    Debug.DrawRay(fwdCheck.transform.position,GetGravity().normalized*fwdGroundChkRange, Color.green);
 
-    RaycastHit2D groundhit = Physics2D.Raycast(fwdCheck.transform.position, GetGravity(), fwdGroundChkRange);
+    RaycastHit2D groundhit = Physics2D.Raycast(fwdCheck.transform.position, GetGravity().normalized, fwdGroundChkRange);
 
     if (groundhit.collider == null) {
       transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
@@ -140,6 +140,7 @@ public class Goomba : GenericPlayer {
   }
 
   private Vector2 groundedNormalVector;
+  
   private bool UprightCheck() {
     grounded_game_objects = GetObjectsInView(GetGravity(), ray_angle_fov, ray_count, ray_length, true);
     
@@ -149,12 +150,13 @@ public class Goomba : GenericPlayer {
 
       
       if (groundhit.normal == (Vector2)transform.up) {
-        groundedNormalVector = groundhit.normal;
         return true;
       }
 
+      groundedNormalVector = groundhit.normal;
+
     }
-    
+
     return false;
   }
 
@@ -169,7 +171,7 @@ public class Goomba : GenericPlayer {
   but saves the game objects it gets. Also just sets a field. This will save computation rather than having to recheck 
   everything mutiple times*/
   private bool GroundedCheck() {
-    return IsGrounded();
+    return grounded = IsGrounded();
   }
 
   /* This checks if we may be in the air because we are already attacking as goombas are going to jump towards the player
