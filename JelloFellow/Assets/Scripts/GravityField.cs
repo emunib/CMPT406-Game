@@ -10,7 +10,7 @@ public class GravityField : GravityPlayer {
   private const string gravityfield_sprite_path = "Prefabs/GravityField";
   private const float GravityDrag = 0.85f;
   private const float MinRadius = 3f;
-  private const float MaxRadius = 5f;
+  private const float MaxRadius = 8f;
 
   private CircleCollider2D gravity_field;
   private HashSet<GameObject> in_field;

@@ -1,5 +1,9 @@
 ﻿using UnityEngine;
 
+/// <inheritdoc />
+/// <summary>
+/// This class exposes joystick controls to the other classes.
+/// </summary>
 public abstract class Input2D : MonoBehaviour {
   protected InputControllerInfo ControllerInfo;
 
@@ -11,52 +15,27 @@ public abstract class Input2D : MonoBehaviour {
   public void Init(InputControllerInfo _controllerInfo) {
     ControllerInfo = _controllerInfo;
   }
-  
-  /// <summary>
-  /// Gets the horizontal axis for the gravity.
-  /// </summary>
-  /// <returns>Horizontal axis</returns>
-  public abstract float GetHorizontalGravity();
-  
-  /// <summary>
-  /// Gets the vertical axis for the gravity.
-  /// </summary>
-  /// <returns>Vertical axis</returns>
-  public abstract float GetVerticalGravity();
-  
-  /// <summary>
-  /// Gets the horizontal axis for the movement.
-  /// </summary>
-  /// <returns>Horizontal axis</returns>
-  public abstract float GetHorizontalMovement();
-  
-  /// <summary>
-  /// Gets the vertical axis for the movement.
-  /// </summary>
-  /// <returns>Vertical axis</returns>
-  public abstract float GetVerticalMovement();
-  
-  /// <summary>
-  /// Gets status of the jump button.
-  /// </summary>
-  /// <returns>True when pressed, false otherwise</returns>
-  public abstract bool GetJumpButtonDown();
-  
-  /// <summary>
-  /// Gets status of the jump button.
-  /// </summary>
-  /// <returns>True when status changing form pressed to unpressed, false otherwise</returns>
-  public abstract bool GetJumpButtonUp();
 
-  /// <summary>
-  /// Get status of the left trigger.
-  /// </summary>
-  /// <returns>Trigger axis</returns>
   public abstract float GetLeftTrigger();
-
-  /// <summary>
-  /// Get status of the right trigger.
-  /// </summary>
-  /// <returns>Trigger axis</returns>
   public abstract float GetRightTrigger();
+  public abstract float GetHorizontalLeftStick();
+  public abstract float GetVerticalLeftStick();
+  public abstract float GetHorizontalRightStick();
+  public abstract float GetVerticalRightStick();
+  public abstract bool GetLeftBumperDown();
+  public abstract bool GetLeftBumperUp();
+  public abstract bool GetRightBumperDown();
+  public abstract bool GetRightBumperUp();
+  public abstract bool GetButton1Down();
+  public abstract bool GetButton1Up();
+  public abstract bool GetButton2Down();
+  public abstract bool GetButton2Up();
+  public abstract bool GetButton3Down();
+  public abstract bool GetButton3Up();
+  public abstract bool GetButton4Down();
+  public abstract bool GetButton4Up();
+  public abstract bool GetLeftStickDown();
+  public abstract bool GetLeftStickUp();
+  public abstract bool GetRightStickDown();
+  public abstract bool GetRightStickUp();
 }

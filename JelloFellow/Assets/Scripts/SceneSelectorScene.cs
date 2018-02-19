@@ -52,7 +52,7 @@ public class SceneSelectorScene : MonoBehaviour
 	public void Update(){
 		
 		//If selected click the button
-		select = input.GetJumpButtonDown();
+		select = input.GetButton3Down();
 		if (select)
 		{
 			buttonsArray[index].onClick.Invoke();
@@ -61,8 +61,8 @@ public class SceneSelectorScene : MonoBehaviour
 
 	public void CheckForControllerInput()
 	{
-		float hor_m = input.GetHorizontalMovement();
-		float ver_m = input.GetVerticalMovement();
+		float hor_m = input.GetHorizontalLeftStick();
+		float ver_m = input.GetVerticalLeftStick();
 
 		if (Mathf.Abs (hor_m) > 0 || Mathf.Abs (ver_m) > 0) {
 			//Move Up
