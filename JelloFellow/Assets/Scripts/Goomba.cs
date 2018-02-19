@@ -183,7 +183,6 @@ public class Goomba : GenericPlayer {
     return false;
   }
 
-  //For now does nothing. Maybe like a funny panic animation in the air
   private void Panic() {
     Debug.Log("Panicking");
   }
