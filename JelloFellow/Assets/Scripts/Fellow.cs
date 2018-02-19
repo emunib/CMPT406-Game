@@ -195,10 +195,10 @@ public class Fellow : MonoBehaviour {
 		float gravity = 9.81f;
 
 		// analog inputs
-		float hor = input.GetHorizontalGravity();
-		float ver = input.GetVerticalGravity();
-		float hor_m = input.GetHorizontalMovement();
-		float ver_m = input.GetVerticalMovement();
+		float hor = input.GetHorizontalRightStick();
+		float ver = input.GetVerticalRightStick();
+		float hor_m = input.GetHorizontalLeftStick();
+		float ver_m = input.GetVerticalLeftStick();
 
 		leftStickAngle =  (Mathf.Atan2 (ver_m,hor_m)*Mathf.Rad2Deg + 360) %360;
 
@@ -212,7 +212,7 @@ public class Fellow : MonoBehaviour {
 		//float ver_m = Input.GetAxis ("Vertical");
 		
 
-		bool jump = input.GetJumpButtonDown();
+		bool jump = input.GetButton3Down();
 		if (jump) {
 
 		}

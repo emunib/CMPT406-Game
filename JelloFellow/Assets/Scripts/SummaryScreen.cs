@@ -20,7 +20,7 @@ public class SummaryScreen : MonoBehaviour
 	public void Update(){
 		
 		//If selected click the button
-		select = input.GetJumpButtonDown();
+		select = input.GetButton3Down();
 		if (select)
 		{
 			button.onClick.Invoke();

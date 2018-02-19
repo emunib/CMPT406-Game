@@ -47,8 +47,7 @@ public class FaceController : MonoBehaviour
         transform.up = _vec2;
 
         _vec = Vector2.SmoothDamp(_vec,
-            new Vector2(_input.GetHorizontalMovement() * transform.localScale.x,
-                _input.GetVerticalMovement() / 2f * transform.localScale.y), ref _velocity, 0.2f,
+            new Vector2(_input.GetHorizontalLeftStick() * transform.localScale.x, _input.GetVerticalLeftStick() / 2f * transform.localScale.y), ref _velocity, 0.2f,
             Mathf.Infinity, Time.deltaTime); // gradually move towards target
 
         transform.position = new Vector2((maxX - minX) * 0.5f + minX + _vec.x + _vec2.x
