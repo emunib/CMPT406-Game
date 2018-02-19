@@ -95,8 +95,8 @@ public class GenericPlayer : GravityField {
       lock_movement = false;
 
       /* get the gravity vectors */
-      float horizontal_gravity = input.GetHorizontalGravity();
-      float vertical_gravity = input.GetVerticalGravity();
+      float horizontal_gravity = input.GetHorizontalRightStick();
+      float vertical_gravity = input.GetVerticalRightStick();
 
       if (gravity_stamina != 0f) {
         /* make sure gravity is not 0 or dont change */
@@ -307,8 +307,8 @@ public class GenericPlayer : GravityField {
       /* if verbose mode is on */
       if(verbose_movement) Debug.Log("Platform found, Angle of Platform: " + platform_angle);
       
-      float horizontal_movement = input.GetHorizontalMovement();      
-      float vertical_movement = input.GetVerticalMovement();
+      float horizontal_movement = input.GetHorizontalLeftStick();      
+      float vertical_movement = input.GetHorizontalLeftStick();
       
       if (horizontal_movement != 0f || vertical_movement != 0f) {
         /* angle of the movement joystick */
@@ -383,7 +383,7 @@ public class GenericPlayer : GravityField {
       Vector2 hybrid_jump = Vector2.zero;
       /* vector of the movement */
       Vector2 movement_vector = new Vector2(horizontal_movement, vertical_movement);
-      if (input.GetJumpButtonDown() && is_grounded) {
+      if (input.GetButton3Down() && is_grounded) {
         hybrid_jump = direction_jump + movement_vector * impulse_control;
         if (hybrid_jump.magnitude > 1f) {
           hybrid_jump.Normalize();
