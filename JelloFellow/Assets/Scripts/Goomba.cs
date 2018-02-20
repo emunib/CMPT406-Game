@@ -40,7 +40,9 @@ public class Goomba : GenericPlayer {
   
   
   
-  private void Start() {
+  protected override void Start() {
+    base.Start();
+    
     goomba_input = GetComponent<GoombaInput>();
     SetInput(goomba_input);
     SetIgnoreFields(false);
@@ -141,11 +143,11 @@ public class Goomba : GenericPlayer {
 
   private Vector2 groundedNormalVector;
   private bool UprightCheck() {
-    grounded_game_objects = GetObjectsInView(GetGravity(), ray_angle_fov, ray_count, ray_length, true);
+    grounded_game_objects = GetObjectsInView(GetGravity(), ground_fov_angle, ground_ray_count, ground_ray_length, true);
     
     foreach (RaycastHit2D gobject in grounded_game_objects) {
       RaycastHit2D groundhit = Physics2D.Raycast(transform.position,
-      gobject.transform.position - transform.position * ray_length);
+      gobject.transform.position - transform.position * ground_ray_length);
 
       
       if (groundhit.normal == (Vector2)transform.up) {
@@ -169,7 +171,7 @@ public class Goomba : GenericPlayer {
   but saves the game objects it gets. Also just sets a field. This will save computation rather than having to recheck 
   everything mutiple times*/
   private bool GroundedCheck() {
-    return IsGrounded();
+    return is_grounded;
   }
 
   /* This checks if we may be in the air because we are already attacking as goombas are going to jump towards the player

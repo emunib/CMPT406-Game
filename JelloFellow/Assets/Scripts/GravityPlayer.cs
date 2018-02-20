@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 /// <summary>
 /// Make individual player have gravity. The gravity is to change
@@ -15,7 +16,7 @@ public class GravityPlayer : Gravity {
 	private bool gravity_settable;
 	private bool in_gravity_field;
 	private bool ignore_other_fields;
-	private Transform[] objects;
+	private HashSet<Transform> objects;
 
 	protected virtual void Awake() {
 		/* get the rigidbody and make the component not be effected by Physics2D gravity */
@@ -63,7 +64,7 @@ public class GravityPlayer : Gravity {
 		}
 	}
 
-	protected void ApplyGravityTo(Transform[] _objects) {
+	protected void ApplyGravityTo(HashSet<Transform> _objects) {
 		objects = _objects;
 		foreach (Transform node in objects) {
 			Rigidbody2D rigidbody_node = node.gameObject.GetComponent<Rigidbody2D>();
