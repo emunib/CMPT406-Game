@@ -199,15 +199,17 @@ public class GenericPlayer : GravityField {
         gravity_stamina = Mathf.Clamp(gravity_stamina + gravity_depletion_rate * Time.deltaTime, min_gravity_stamina, max_gravity_stamina);
         if(verbose_gravity) Debug.Log("Gravity Stamina: " + gravity_stamina);
       } else {
-        /* restore movement drags */
-        if (!restored_drag) {
-          rigidbody.angularDrag = normal_movement_drags.AngularDrag;
-          rigidbody.drag = normal_movement_drags.LinearDrag;
-          restored_drag = true;
-        }
-
         if (just_changed_gravity) {
-          if(is_grounded) just_changed_gravity = false;
+          if (is_grounded) {
+            /* restore movement drags */
+            if (!restored_drag) {
+              rigidbody.angularDrag = normal_movement_drags.AngularDrag;
+              rigidbody.drag = normal_movement_drags.LinearDrag;
+              restored_drag = true;
+            }
+            
+            just_changed_gravity = false;
+          }
         } else {
           /* handle movement as drag is restored and the gravity is not being manipulated */
           HandleMovement();
@@ -250,10 +252,10 @@ public class GenericPlayer : GravityField {
   private static float fmod(float a, float b) {
     return a - b * Mathf.Floor(a / b);
   }
-  
+
+  private float platform_angle = 0f;
   private void HandleMovement() {
     /* get platform information */
-    float platform_angle = 0f;
     GameObject current_platform = null;
     HashSet<RaycastHit2D> hits = GetObjectsInView(GetGravity(), ground_fov_angle, ground_ray_count, ground_ray_length);
     foreach (RaycastHit2D hit in hits) {
