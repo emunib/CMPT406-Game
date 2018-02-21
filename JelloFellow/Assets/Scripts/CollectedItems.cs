@@ -17,8 +17,6 @@ public class CollectedItems : MonoBehaviour {
 			DontDestroyOnLoad (gameObject);
 			script = this;
 			items = new LinkedList<string> ();
-			items.AddLast ("Haha nice");
-			items.AddLast ("Rock on");
 
 		} else if (script != this) {
 			
@@ -42,8 +40,9 @@ public class CollectedItems : MonoBehaviour {
 		}
 	}
 
-	void AddItem(){
-		string thing = "Collectable " + items.Count;
+	public void AddItem(){
+		string thing = "Collectable " + (items.Count + 1);
 		items.AddLast (thing);
+		GUI.Label (new Rect (10, 10 + (items.Count * 30), 100, 30), items.Last.Value);
 	}
 }
