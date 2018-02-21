@@ -17,12 +17,12 @@ public class SummaryScreen : MonoBehaviour
 	public void Start()
 	{
 		input = GameObject.FindGameObjectWithTag("InputController").GetComponent<InputController>().GetInput();
-		if (SceneButton.previousSceneName != null)
+		if (SceneController.control.previousSceneName != "")
 		{
-			sceneName.text = SceneButton.previousSceneName;
+			sceneName.text = SceneController.control.previousSceneName;
 		}
 
-		if (Timer.timeToDisplay != null)
+		if (Timer.timeToDisplay != 0f)
 		{
 			timeScore.text = "" + Timer.timeToDisplay;
 		}
