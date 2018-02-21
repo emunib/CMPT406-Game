@@ -4,10 +4,11 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class ApplyDmg : MonoBehaviour {
-
+	public int damageAmt;
 	void OnTriggerEnter2D(Collider2D other) {
-		if (other.gameObject.CompareTag("Player")) {
-			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+		if (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("SlimeNode")) {
+			other.gameObject.SendMessage ("Damage",damageAmt);
+			Debug.Log (name + "Damaged something");
 		} else if (other.gameObject.CompareTag("Enemy")) {
 			Destroy(other.gameObject);
 		}
