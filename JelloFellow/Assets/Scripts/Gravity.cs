@@ -38,4 +38,12 @@ public abstract class Gravity : MonoBehaviour {
   /// </summary>
   /// <returns>Time to reach apex of the jump.</returns>
   public abstract float JumpApexTime();
+
+  /// <summary>
+  /// Light restrictions when entering a light.
+  /// The restrictions vector is multiplied to the gravity of the object.
+  /// Restrictions (0,1) would have gravity.x be zero (removing gravity x component).
+  /// </summary>
+  /// <param name="_restrictions">Restrictions to apply to the gravity.</param>
+  public abstract void SetGravityLightRestrictions(Vector2 _restrictions);
 }
