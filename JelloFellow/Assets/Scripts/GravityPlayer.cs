@@ -101,7 +101,7 @@ public class GravityPlayer : Gravity {
 		gravity = _gravity;
 	}
 
-	protected Vector2 GetGravity() {
+	public Vector2 GetGravity() {
 		return !in_gravity_field || ignore_other_fields ? gravity : custom_gravity;
 	}
 	

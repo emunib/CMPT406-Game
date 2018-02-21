@@ -19,7 +19,7 @@ public class GravityComponent : Gravity {
   private bool in_gravity_field;
   
   /* custom gravity when in gravity field */
-  private Vector2 gravity;
+  protected Vector2 gravity;
 
   private bool remember_gravity;
 
