@@ -14,7 +14,7 @@ public class Collectable : MonoBehaviour {
 		if (col.gameObject.CompareTag ("Player")) {
 			//myObject.GetComponent<MyScript>().MyFunction();
 			Destroy (gameObject);
-			script.AddItem ();
+			script.AddItem ("Green Thing", "It's green, bitch");
 
 			Destroy (gameObject);
 		}
