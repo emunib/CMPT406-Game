@@ -24,7 +24,7 @@ public class SummaryScreen : MonoBehaviour
 
 		if (Timer.timeToDisplay != 0f)
 		{
-			timeScore.text = "" + Timer.timeToDisplay;
+			timeScore.text = "Time: " + Timer.timeToDisplay;
 		}
 
 	}
