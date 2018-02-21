@@ -25,7 +25,7 @@ public class EyeController : MonoBehaviour
 
     private void Update()
     {
-        var dir = new Vector2(_input.GetHorizontalMovement(), _input.GetVerticalMovement());
+        var dir = new Vector2(_input.GetHorizontalLeftStick(), _input.GetVerticalLeftStick());
         dir = dir.normalized;
         dir = new Vector2(dir.x * _xScale, dir.y * _yScale);
 

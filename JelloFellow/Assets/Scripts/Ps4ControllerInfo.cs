@@ -1,41 +1,63 @@
 ﻿public class Ps4ControllerInfo : InputControllerInfo {
-  private const string ps4_horizontal_lstick = "Horizontal_P";
-  private const string ps4_vertical_lstick = "Vertical_P";
-  private const string ps4_horizontal_rstick = "Horizontal_GP";
-  private const string ps4_vertical_rstick = "Vertical_GP";
-  private const string ps4_jump = "Jump_P";
-  private const string ps4_left_trigger = "LT_P";
-  private const string ps4_right_trigger = "RT_P";
+  private const string appender = "_PS4";
   
   public override string controller_type() {
     return "PS4";
   }
 
   public override string Horizontal_LStick() {
-    return ps4_horizontal_lstick;
+    return leftstickx + appender;
   }
 
   public override string Vertical_LStick() {
-    return ps4_vertical_lstick;
+    return leftsticky + appender;
   }
 
   public override string Horizontal_RStick() {
-    return ps4_horizontal_rstick;
+    return rightstickx + appender;
   }
 
   public override string Vertical_RStick() {
-    return ps4_vertical_rstick;
+    return rightsticky + appender;
   }
 
-  public override string Jump() {
-    return ps4_jump;
+  public override string Button1() {
+    return button1 + appender;
   }
-  
+
+  public override string Button2() {
+    return button2 + appender;
+  }
+
+  public override string Button3() {
+    return button3 + appender;
+  }
+
+  public override string Button4() {
+    return button4 + appender;
+  }
+
   public override string LeftTrigger() {
-    return ps4_left_trigger;
+    return lefttrigger + appender;
   }
 
   public override string RightTrigger() {
-    return ps4_right_trigger;
+    return righttrigger + appender;
+  }
+
+  public override string LeftBumper() {
+    return leftbumper + appender;
+  }
+
+  public override string RightBumper() {
+    return rightbumper + appender;
+  }
+
+  public override string Button_LStick() {
+    return leftstickclick + appender;
+  }
+
+  public override string Button_RStick() {
+    return rightstickclick + appender;
   }
 }

@@ -19,8 +19,8 @@ public class ButtonsBackToPosition : MonoBehaviour {
 	}
 
 	void Update() {
-		float hor_m = input.GetHorizontalMovement();
-		float ver_m = input.GetVerticalMovement();
+		float hor_m = input.GetHorizontalLeftStick();
+		float ver_m = input.GetVerticalLeftStick();
 
 		if (Mathf.Abs (hor_m) > 0 || Mathf.Abs (ver_m) > 0 ){
 			StartCoroutine(ReturnToPosition());

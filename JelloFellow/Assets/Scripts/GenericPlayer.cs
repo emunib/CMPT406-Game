@@ -15,9 +15,9 @@ public class GenericPlayer : GravityField {
   private const float TriggerSensitivity = 0.1f;
 
   /* max stamina for the gravity field */
-  private const float MaxGravityStamina = 100f;
-  /* the depletion rate for the gravity field (depletion rate / maxgravity -> per frame) */
-  private const float GravityDepletionRate = 1f;
+  private const float MaxGravityStamina = 200f;
+  /* the depletion rate for the gravity field (depletion rate / maxstamina -> per frame) */
+  private const float GravityDepletionRate = 0.5f;
   
   private Input2D input;
   private Vector2 new_gravity;
@@ -53,6 +53,9 @@ public class GenericPlayer : GravityField {
   
   [CustomLabel("Jump Force")] [Tooltip("Force to apply in order to jump.")]
   [SerializeField] private float jump_force = 6f;
+
+  [CustomLabel("Impulse Control")] [Tooltip("The impulse control when jumping")]
+  [SerializeField] private float impulse_control;
   
   [CustomLabel("Air Acceleration")] [Tooltip("The rate at which to switch sides of velocity while in the air.")]
   [SerializeField] private float air_acceleration = 0.1f;
@@ -92,8 +95,8 @@ public class GenericPlayer : GravityField {
       lock_movement = false;
 
       /* get the gravity vectors */
-      float horizontal_gravity = input.GetHorizontalGravity();
-      float vertical_gravity = input.GetVerticalGravity();
+      float horizontal_gravity = input.GetHorizontalRightStick();
+      float vertical_gravity = input.GetVerticalRightStick();
 
       if (gravity_stamina != 0f) {
         /* make sure gravity is not 0 or dont change */
@@ -272,6 +275,8 @@ public class GenericPlayer : GravityField {
     ChangeGravityAlpha(gravity_stamina/MaxGravityStamina);
   }
 
+  private GameObject old_platform;
+  
   /// <summary>
   /// Handles all movement done by the player.
   /// </summary>
@@ -289,6 +294,9 @@ public class GenericPlayer : GravityField {
         break;
       }
     }
+
+    /* this allows us to change directions even in air but only according to the old platform */
+    if (current_platform == null) current_platform = old_platform;
     
     /* if platform was found */
     if (current_platform != null) {
@@ -299,8 +307,8 @@ public class GenericPlayer : GravityField {
       /* if verbose mode is on */
       if(verbose_movement) Debug.Log("Platform found, Angle of Platform: " + platform_angle);
       
-      float horizontal_movement = input.GetHorizontalMovement();      
-      float vertical_movement = input.GetVerticalMovement();
+      float horizontal_movement = input.GetHorizontalLeftStick();      
+      float vertical_movement = input.GetHorizontalLeftStick();
       
       if (horizontal_movement != 0f || vertical_movement != 0f) {
         /* angle of the movement joystick */
@@ -368,30 +376,36 @@ public class GenericPlayer : GravityField {
       /* apply changed velocity */
       rigidbody.velocity = velocity;
 
-      /* should the node jump */
+      /* should the nodes jump too */
       bool node_jump = false;
-      /* get jump direction, and add jump impulse when jump button clicked */
+      /* direction of the platform */
       Vector2 direction_jump = new Vector2(Mathf.Sin(platform_angle * Mathf.Deg2Rad), Mathf.Cos(platform_angle * Mathf.Deg2Rad));
-      if(movement_rays) Debug.DrawRay(transform.position, direction_jump * ray_length, Color.white); /* draw the ray for debugging */
-      if(verbose_movement) Debug.Log("Jump Direction: " + direction_jump);
-      if (input.GetJumpButtonDown() && is_grounded) {
-        rigidbody.AddForce (direction_jump * jump_force , ForceMode2D.Impulse);
+      Vector2 hybrid_jump = Vector2.zero;
+      /* vector of the movement */
+      Vector2 movement_vector = new Vector2(horizontal_movement, vertical_movement);
+      if (input.GetButton3Down() && is_grounded) {
+        hybrid_jump = direction_jump + movement_vector * impulse_control;
+        if (hybrid_jump.magnitude > 1f) {
+          hybrid_jump.Normalize();
+        }
+
+        if (verbose_movement) Debug.Log("Jump: " + hybrid_jump * jump_force);
+        rigidbody.velocity += hybrid_jump * jump_force;
         node_jump = true;
-        if(verbose_movement) Debug.Log("Jump velocity: " + direction_jump * jump_force);
       }
 
-      
-      
       /* apply velocity and jump to every node */
       if (apply_to_transforms) {
         foreach (Transform node in RaycastOrigins) {
           Rigidbody2D rigidbody_node = node.gameObject.GetComponent<Rigidbody2D>();
           if (rigidbody_node) {
             rigidbody_node.velocity = velocity;
-            if (node_jump) rigidbody_node.AddForce(direction_jump * jump_force, ForceMode2D.Impulse);
+            if(node_jump) rigidbody_node.velocity += hybrid_jump * jump_force;
           }
         }
       }
+
+      old_platform = current_platform;
     }
   }
 }

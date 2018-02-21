@@ -1,85 +1,130 @@
 ﻿public class XBoxOneControllerInfo : InputControllerInfo {
-	private const string xbox_horizontal_lstick = "Horizontal_X";
-	private const string xbox_horizontal_lstick_pc = "Horizontal_X_PC";
-	private const string xbox_vertical_lstick = "Vertical_X";
-	private const string xbox_vertical_lstick_pc = "Vertical_X_PC";
-	private const string xbox_horizontal_rstick = "Horizontal_GX";
-	private const string xbox_horizontal_rstick_pc = "Horizontal_GX_PC";
-	private const string xbox_vertical_rstick = "Vertical_GX";
-	private const string xbox_vertical_rstick_pc = "Vertical_GX_PC";
-	private const string xbox_jump = "Jump_X";
-	private const string xbox_jump_pc = "Jump_X_PC";
-	private const string xbox_left_trigger = "LT_X";
-	private const string xbox_leftpc_trigger = "LT_X_PC";
-	private const string xbox_right_trigger = "RT_X";
-	private const string xbox_rightpc_trigger = "RT_X_PC";
-	
 	/* uisng preprocessor directives we have diffrentiated the OSX controls from the windows */
 #if UNITY_STANDALONE_OSX || UNITY_EDITOR_OSX
+	private const string appender = "_X";
+  
 	public override string controller_type() {
-		return "Xbox Controller (Mac)";
+		return "Xbox Controller (MAC)";
 	}
 
 	public override string Horizontal_LStick() {
-		return xbox_horizontal_lstick;
+		return leftstickx + appender;
 	}
 
 	public override string Vertical_LStick() {
-		return xbox_vertical_lstick;
+		return leftsticky + appender;
 	}
 
 	public override string Horizontal_RStick() {
-		return xbox_horizontal_rstick;
+		return rightstickx + appender;
 	}
 
 	public override string Vertical_RStick() {
-		return xbox_vertical_rstick;
+		return rightsticky + appender;
 	}
-	
-	public override string Jump() {
-		return xbox_jump;
+
+	public override string Button1() {
+		return button1 + appender;
+	}
+
+	public override string Button2() {
+		return button2 + appender;
+	}
+
+	public override string Button3() {
+		return button3 + appender;
+	}
+
+	public override string Button4() {
+		return button4 + appender;
 	}
 
 	public override string LeftTrigger() {
-		return xbox_left_trigger;
+		return lefttrigger + appender;
 	}
 
 	public override string RightTrigger() {
-		return xbox_right_trigger;
+		return righttrigger + appender;
+	}
+
+	public override string LeftBumper() {
+		return leftbumper + appender;
+	}
+
+	public override string RightBumper() {
+		return rightbumper + appender;
+	}
+
+	public override string Button_LStick() {
+		return leftstickclick + appender;
+	}
+
+	public override string Button_RStick() {
+		return rightstickclick + appender;
 	}
 #endif
 	
 #if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
-	public override string controller_type() {
-		return "Xbox (Windows)";
-	}
+	private const string appender = "_XPC";
+  
+  public override string controller_type() {
+    return "Xbox Controller (Windows)";
+  }
 
-	public override string Horizontal_LStick() {
-		return xbox_horizontal_lstick_pc;
-	}
+  public override string Horizontal_LStick() {
+    return leftstickx + appender;
+  }
 
-	public override string Vertical_LStick() {
-		return xbox_vertical_lstick_pc;
-	}
+  public override string Vertical_LStick() {
+    return leftsticky + appender;
+  }
 
-	public override string Horizontal_RStick() {
-		return xbox_horizontal_rstick_pc;
-	}
+  public override string Horizontal_RStick() {
+    return rightstickx + appender;
+  }
 
-	public override string Vertical_RStick() {
-		return xbox_vertical_rstick_pc;
-	}
-	
-	public override string Jump() {
-		return xbox_jump_pc;
-	}
+  public override string Vertical_RStick() {
+    return rightsticky + appender;
+  }
 
-	public override string LeftTrigger() {
-		return xbox_leftpc_trigger;
-	}
+  public override string Button1() {
+    return button1 + appender;
+  }
 
-	public override string RightTrigger() {
-		return xbox_rightpc_trigger;
-	}
+  public override string Button2() {
+    return button2 + appender;
+  }
+
+  public override string Button3() {
+    return button3 + appender;
+  }
+
+  public override string Button4() {
+    return button4 + appender;
+  }
+
+  public override string LeftTrigger() {
+    return lefttrigger + appender;
+  }
+
+  public override string RightTrigger() {
+    return righttrigger + appender;
+  }
+
+  public override string LeftBumper() {
+    return leftbumper + appender;
+  }
+
+  public override string RightBumper() {
+    return rightbumper + appender;
+  }
+
+  public override string Button_LStick() {
+    return leftstickclick + appender;
+  }
+
+  public override string Button_RStick() {
+    return rightstickclick + appender;
+  }
 #endif
 }
