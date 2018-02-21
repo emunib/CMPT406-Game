@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
 
 public class ButtonDoor : MonoBehaviour {
@@ -8,6 +9,7 @@ public class ButtonDoor : MonoBehaviour {
 	public ButtonComponent[] Buttons;
 	public GameObject[] Doors;
 
+	
 	
 	public void OpenDoors() {
 
