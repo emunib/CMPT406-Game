@@ -51,6 +51,9 @@ public class GenericPlayer : GravityField {
   
   [CustomRangeLabel("Jump Angle Force", 0f, 100f)] [Tooltip("Force to apply in order to jump at an angle.")] [SerializeField]
   private float jump_angle_force = 10f;
+  
+  [CustomRangeLabel("Jump Normalized Threshold", 0f, 100f)] [Tooltip("The threshold to normalize the hybrid jump.")] [SerializeField]
+  private float jump_normalize_threshold = 1f;
 
   [CustomRangeLabel("Leniency Angle", 0f, 90f)] [Tooltip("The angle to allow movement in direction of the platforms angle.")] [SerializeField]
   private float leniency_angle = 25f;
@@ -385,7 +388,7 @@ public class GenericPlayer : GravityField {
         if (horizontal_movement != 0 || vertical_movement != 0) {
           Vector2 hybrid_jump = platform_hit_normal + new Vector2(horizontal_movement, vertical_movement);
             
-          if (hybrid_jump.magnitude > 1) {
+          if (hybrid_jump.magnitude > jump_normalize_threshold) {
             hybrid_jump.Normalize();
           }
 
