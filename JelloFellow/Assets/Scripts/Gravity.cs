@@ -2,9 +2,14 @@
 
 public abstract class Gravity : MonoBehaviour {
   /* Force of the gravity to apply in which ever direction */
-  protected const float GravityForce = 9.81f;
+  protected float GravityForce() {
+    return 2 * JumpHeight() / Mathf.Pow(JumpApexTime(), 2);
+  }
+  
   /* Default gravity set when not in gravitation field */
-  protected readonly Vector2 DefaultGravity = new Vector2(0f, -GravityForce);
+  protected Vector2 DefaultGravity() {
+   return new Vector2(0f, -GravityForce());
+  }
   
   /// <summary>
   /// Set custom gravity to the object.
@@ -21,4 +26,24 @@ public abstract class Gravity : MonoBehaviour {
   /// This object has just left a gravity field.
   /// </summary>
   public abstract void OutsideGravityField();
+  
+  /// <summary>
+  /// Height of the jump.
+  /// </summary>
+  /// <returns>Height this object jumps.</returns>
+  public abstract float JumpHeight();
+  
+  /// <summary>
+  /// Time to reach the apex of the jump.
+  /// </summary>
+  /// <returns>Time to reach apex of the jump.</returns>
+  public abstract float JumpApexTime();
+
+  /// <summary>
+  /// Light restrictions when entering a light.
+  /// The restrictions vector is multiplied to the gravity of the object.
+  /// Restrictions (0,1) would have gravity.x be zero (removing gravity x component).
+  /// </summary>
+  /// <param name="_restrictions">Restrictions to apply to the gravity.</param>
+  public abstract void SetGravityLightRestrictions(Vector2 _restrictions);
 }
