@@ -83,7 +83,8 @@ public class GenericPlayer : GravityField {
 
   [CustomLabel("Gravity Color")] [Tooltip("Color of the ray representing gravity.")] [SerializeField]
   private Color gravity_ray_color = Color.black;
-
+  
+  
   [CustomLabel("Visualize Ground Check")] [Tooltip("Visualize the grounded check.")] [SerializeField]
   private bool visualize_ground_check;
   
@@ -136,6 +137,9 @@ public class GenericPlayer : GravityField {
   /* contains the last grounded platforms angle */
   private float platform_angle = 0f;
   
+  private bool set_fixed_gravity = false;
+
+
   /* store the value of the ground check every update as its more efficient to not use raycast and calculations more than once
      in the same frame */
   protected bool is_grounded { get; private set; }
@@ -213,12 +217,15 @@ public class GenericPlayer : GravityField {
         }
         
         /* applies constant force (due to it being normalized) */
+
         Vector2 new_gravity = new Vector2(horizontal_gravity, vertical_gravity).normalized * GravityForce();
         if(verbose_gravity) Debug.Log("Gravity Force: " + new_gravity);
         
         /* set the gravity to the new selected gravity */
-        SetGravity(new_gravity);
+				if (!set_fixed_gravity) {
+					SetGravity (new_gravity);
 
+				}
         /* deplete gravity as its being manipulated */
         gravity_stamina = Mathf.Clamp(gravity_stamina + gravity_depletion_rate * Time.deltaTime, min_gravity_stamina, max_gravity_stamina);
         if(verbose_gravity) Debug.Log("Gravity Stamina: " + gravity_stamina);
@@ -264,6 +271,7 @@ public class GenericPlayer : GravityField {
           restored_drag = true;
         }
         
+
         if (just_changed_gravity) {
           just_changed_gravity = false;
         }
@@ -291,13 +299,14 @@ public class GenericPlayer : GravityField {
     return a - b * Mathf.Floor(a / b);
   }
 
+
   private void HandleMovement() {
     /* get platform information */
     GameObject current_platform = null;
     HashSet<RaycastHit2D> hits = GetObjectsInView(GetGravity(), ground_fov_angle, ground_ray_count, ground_ray_length);
     Vector2 platform_hit_normal = Vector2.zero;
     foreach (RaycastHit2D hit in hits) {
-      if (LayerMask.LayerToName(hit.transform.gameObject.layer) == "Ground") {
+			if (hit.transform.gameObject.layer != this.gameObject.layer) {
         /* calculate angle of the platform we are on */
         current_platform = hit.transform.gameObject;
         platform_angle = Mathf.Atan2(hit.normal.x, hit.normal.y) * Mathf.Rad2Deg;
@@ -310,7 +319,14 @@ public class GenericPlayer : GravityField {
         if(verbose_movement) Debug.Log("Platform angle: " + platform_angle);
         break;
       }
+
     }
+		if (input.GetRightStickDown ()) {
+			SetGravity (-platform_hit_normal * GravityForce());
+			set_fixed_gravity = true;
+			Invoke ("UnlockGravity", 0.2f);
+
+		}
 
     /* try to replace current platform with old if no platforms found */
     if (current_platform == null) current_platform = old_platform;
@@ -544,6 +560,12 @@ public class GenericPlayer : GravityField {
   protected void SetInput(Input2D _input) {
     input = _input;
   }
+	//Makes it so gravity is recieved from the right stick's angle
+	private void UnlockGravity(){
+		set_fixed_gravity = false;
+
+
+	}
 }
 
 /// <summary>
@@ -569,4 +591,6 @@ internal class Drag {
     AngularDrag = _angular_drag;
     LinearDrag = _linear_drag;
   }
+
+
 }
