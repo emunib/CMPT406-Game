@@ -383,7 +383,15 @@ public class GenericPlayer : GravityField {
         apply_stop_drag = false;
         /* if angle selected than shoot at an angle */
         if (horizontal_movement != 0 || vertical_movement != 0) {
-          velocity += (platform_hit_normal + new Vector2(horizontal_movement, vertical_movement)) * jump_angle_force;
+          Vector2 hybrid_jump = platform_hit_normal + new Vector2(horizontal_movement, vertical_movement);
+            
+          if (hybrid_jump.magnitude > 1) {
+            hybrid_jump.Normalize();
+          }
+
+          velocity += hybrid_jump * jump_angle_force;
+
+          //velocity += (platform_hit_normal + new Vector2(horizontal_movement, vertical_movement)) * jump_angle_force;
         } else {
           velocity += platform_hit_normal * jump_angle_force;
         //  velocity += new Vector2(jump_direction.x + MaxJumpVelocity().x, jump_direction.y + MaxJumpVelocity().y);
