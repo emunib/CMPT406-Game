@@ -147,7 +147,7 @@ public class Goomba : GenericPlayer {
 
     foreach (RaycastHit2D gobject in grounded_game_objects) {
       RaycastHit2D hit = Physics2D.Raycast(transform.position,
-      gobject.transform.position - transform.position * ray_length);
+      gobject.transform.position - transform.position * ground_ray_length);
 
       Debug.Log("transform"+(Vector2)transform.up);
       Debug.Log("normal"+ hit.normal);

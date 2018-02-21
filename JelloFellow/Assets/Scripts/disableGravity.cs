@@ -12,17 +12,22 @@ public class disableGravity : MonoBehaviour {
 		if (other.attachedRigidbody) {
 		
  			Debug.Log ("object entered field");
+			Gravity field = other.GetComponent<Gravity>();
+			//field.SetCustomGravity(Vector2.zero);
+			//field.SetGravityLightRestrictions(Vector2.zero);
+			
 			//other.attachedRigidbody.gravityScale = 0f;
 
-			
-			
+
+
 			//Vector2 vel = other.attachedRigidbody.velocity;
 			//other.attachedRigidbody.velocity = new Vector2(vel.x,0);
-			
+
 
 		}
 	}
 
+	/*
 	//private Vector2 g = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<GravityPlayer>().GetGravity();
 	void OnTriggerStay2D(Collider2D other) {
 		
@@ -40,7 +45,7 @@ public class disableGravity : MonoBehaviour {
 			}
 			
 			
-			/*
+			
 			//GravityPlayer generic = other.GetComponent<GravityPlayer>();
 			//Vector2 g = generic.GetGravity();
 			
@@ -60,16 +65,11 @@ public class disableGravity : MonoBehaviour {
 
 			//Vector2 g = new Vector2(Physics2D.gravity.x,0);
 			//other.attachedRigidbody.AddForce(g);
-			*/
+			
 		}
-	}
-		
-	void OnTriggerExit2D(Collider2D other){
-		if (other.attachedRigidbody) {
-			//other.attachedRigidbody.gravityScale = 1f;
-			Debug.Log ("leaving grav field");
-		}
-	}
+
+	}*/
+	
 	
 }
 
