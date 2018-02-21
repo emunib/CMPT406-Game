@@ -13,7 +13,7 @@ public class Goomba : GenericPlayer {
   [Header("ForwardCheck")] public Transform fwdCheck;
   [Range(.01f, 2)] public float fwdGroundChkRange = 1f;
   [Range(.01f, 2)] public float fwdWallChkRange = 1f;
-  
+
   [Header("AgroFOV Raycast Settings")]
 
   [CustomRangeLabel("Ray Length", 0f, 20f)] [Tooltip("Length of the ray.")]
@@ -24,8 +24,8 @@ public class Goomba : GenericPlayer {
 
   [CustomRangeLabel("Angle FOV", 0f, 180f)] [Tooltip("Padding for the angle.")]
   [SerializeField] private float agro_ray_angle_fov;
-  
-  
+
+
   private GoombaInput goomba_input;
 
   private DecisionTree root;
@@ -35,12 +35,14 @@ public class Goomba : GenericPlayer {
   private HashSet<RaycastHit2D> agro_game_objects;
   private HashSet<RaycastHit2D> grounded_game_objects;
   private bool grounded;
-  private bool attacking; 
-  
-  
-  
-  
-  private void Start() {
+  private bool attacking;
+
+
+
+
+  protected override void Start() {
+    base.Start();
+
     goomba_input = GetComponent<GoombaInput>();
     SetInput(goomba_input);
     SetIgnoreFields(false);
@@ -59,29 +61,29 @@ public class Goomba : GenericPlayer {
     Transform target = GameObject.FindGameObjectWithTag("Player").transform;
 
     Vector2 targetray = target.position - transform.position;
-    
+
     Debug.DrawRay(transform.position,targetray*5, Color.cyan);
-    
-    
+
+
     //Only Jump If I can
     if (grounded &&jumpOffCD) {
       jumpOffCD = false;
-      
-      /*TODO:Attack Attacking isn't great right now. Until I understand how enemies are moving on the side 
+
+      /*TODO:Attack Attacking isn't great right now. Until I understand how enemies are moving on the side
       using addforce for now
-      rb.AddForce(targetray*jumpForce);   
+      rb.AddForce(targetray*jumpForce);
       */
     }
-    
+
     //Wait till goomba is grounded before hes able to attack again
     else if (grounded && !jumpOffCD) {
       //Dont know if it should be instant or not
       Invoke("ResetJumpCD",.7f);
-      
+
       //jumpOffCD = true;
-      
+
     }
-    
+
   }
   private void ResetJumpCD() {
     jumpOffCD = true;
@@ -100,12 +102,12 @@ public class Goomba : GenericPlayer {
   private void FwdCheck() {
     float facing = Mathf.Sign(goomba_input.horizontal);
     Debug.DrawRay(fwdCheck.transform.position,facing*fwdCheck.transform.right*fwdWallChkRange, Color.yellow);
-	
-    
+
+
     RaycastHit2D wallhit = Physics2D.Raycast(fwdCheck.transform.position, facing*fwdCheck.transform.right, fwdWallChkRange);
     if (wallhit.collider != null) {
       if (LayerMask.LayerToName(wallhit.transform.gameObject.layer)=="Ground") {
-        
+
         transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
         movespeed *= -1;
         rb.velocity = Vector2.zero;
@@ -122,27 +124,27 @@ public class Goomba : GenericPlayer {
       rb.velocity = Vector2.zero;
 
     }
-    
+
   }
-  
-  
+
+
 
   private bool AgroCheck() {
    agro_game_objects = GetObjectsInView(transform.up, agro_ray_angle_fov, agro_ray_count, agro_ray_length, true);
-    
+
     foreach (RaycastHit2D game_object in agro_game_objects) {
       if (LayerMask.LayerToName(game_object.transform.gameObject.layer) == "Player") {
         return true;
       }
     }
     return false;
-    
+
   }
 
   private Vector2 groundedNormalVector;
   private bool UprightCheck() {
-    grounded_game_objects = GetObjectsInView(GetGravity(), ray_angle_fov, ray_count, ray_length, true);
-    
+    grounded_game_objects = GetObjectsInView(GetGravity(), ground_fov_angle, ground_ray_count, ground_ray_length, true);
+
     foreach (RaycastHit2D gobject in grounded_game_objects) {
       RaycastHit2D hit = Physics2D.Raycast(transform.position,
       gobject.transform.position - transform.position * ray_length);
@@ -150,7 +152,7 @@ public class Goomba : GenericPlayer {
       Debug.Log("transform"+(Vector2)transform.up);
       Debug.Log("normal"+ hit.normal);
       Debug.Log("Groundednormal vector"+ groundedNormalVector);
-    
+
       Debug.DrawRay(hit.centroid,hit.normal *10,Color.red);
       if (hit.normal == (Vector2)transform.up) {
         return true;
@@ -168,9 +170,9 @@ public class Goomba : GenericPlayer {
 
   }
 
-  
-  /*To prevent merge issues just going to put this here for now. Does the same thing as IsGrounded() in generic player, 
-  but saves the game objects it gets. Also just sets a field. This will save computation rather than having to recheck 
+
+  /*To prevent merge issues just going to put this here for now. Does the same thing as IsGrounded() in generic player,
+  but saves the game objects it gets. Also just sets a field. This will save computation rather than having to recheck
   everything mutiple times*/
   private bool GroundedCheck() {
     grounded = IsGrounded();
@@ -180,11 +182,11 @@ public class Goomba : GenericPlayer {
   /* This checks if we may be in the air because we are already attacking as goombas are going to jump towards the player
    !!MAY CHANGE!!*/
   private bool AttackingCheck() {
-    
+
     if (attacking) {
       return true;
     }
-    
+
     return false;
   }
 
@@ -214,17 +216,17 @@ public class Goomba : GenericPlayer {
 
     DecisionTree PanicNode = gameObject.AddComponent<DecisionTree>();
     PanicNode.SetActionDelegate(Panic);
-    
+
     groundedCheckNode.SetLeftChild(uprightCheckNode);
     groundedCheckNode.SetRightChild(PanicNode);
-    
+
     uprightCheckNode.SetLeftChild(agroCheckNode);
     uprightCheckNode.SetRightChild(uprightNode);
-    
-    
+
+
     agroCheckNode.SetLeftChild(attackNode);
     agroCheckNode.SetRightChild(walkNode);
-    
+
     root = groundedCheckNode;
   }
 }
