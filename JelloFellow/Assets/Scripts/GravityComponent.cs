@@ -21,7 +21,11 @@ public class GravityComponent : Gravity {
   /* custom gravity when in gravity field */
   private Vector2 gravity;
 
+  /* if component should remember gravity */
   private bool remember_gravity;
+
+  private float jump_height;
+  private float jump_apex_time;
 
   private void Awake() {
     /* get the rigidbody and make the component not be effected by Physics2D gravity */
@@ -32,14 +36,19 @@ public class GravityComponent : Gravity {
     gravity_settable = false;
     in_gravity_field = false;
     remember_gravity = true;
-    gravity = DefaultGravity;
+    gravity = DefaultGravity();
+
+    /* get the same gravity as the player */
+    Gravity player_gravity = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<Gravity>();
+    jump_apex_time = player_gravity.JumpApexTime();
+    jump_height = player_gravity.JumpHeight();
   }
 
   private void Update() {
     /* if it is in gravity field get affected by players gravity otherwise get effected by custom gravity */
     if (!in_gravity_field && !remember_gravity) {
-      rigidbody.velocity += DefaultGravity * Time.deltaTime;
-      Debug.DrawRay(transform.position, DefaultGravity, Color.red);
+      rigidbody.velocity += DefaultGravity() * Time.deltaTime;
+      Debug.DrawRay(transform.position, DefaultGravity(), Color.red);
     } else {
       rigidbody.velocity += gravity * Time.deltaTime;
       Debug.DrawRay(transform.position, gravity, Color.red);
@@ -66,5 +75,13 @@ public class GravityComponent : Gravity {
 
   private void OnBecameVisible() {
     gravity_settable = true;
+  }
+  
+  public override float JumpHeight() {
+    return jump_height;
+  }
+
+  public override float JumpApexTime() {
+    return jump_apex_time;
   }
 }

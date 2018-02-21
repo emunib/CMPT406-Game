@@ -6,7 +6,7 @@ using UnityEngine;
 /// Creates a gravity field around a gameobject. Used to manipulate gravity
 /// of objects within the field.
 /// </summary>
-public class GravityField : GravityPlayer {
+public abstract class GravityField : GravityPlayer {
   private const string gravityfield_sprite_path = "Prefabs/GravityField";
   private const float GravityDrag = 0.85f;
   protected const float MinRadius = 3f;

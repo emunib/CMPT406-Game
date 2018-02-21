@@ -8,7 +8,7 @@ using UnityEngine;
 /// Can be acted upon by other gravitional field and also effect it.
 /// </summary>
 [RequireComponent(typeof(Rigidbody2D))]
-public class GravityPlayer : Gravity {
+public abstract class GravityPlayer : Gravity {
 	private Vector2 gravity;
 	private Vector2 custom_gravity;
 	
@@ -17,6 +17,7 @@ public class GravityPlayer : Gravity {
 	private bool in_gravity_field;
 	private bool ignore_other_fields;
 	private HashSet<Transform> objects;
+	private Gravity _gravityImplementation;
 
 	protected virtual void Awake() {
 		/* get the rigidbody and make the component not be effected by Physics2D gravity */
@@ -28,8 +29,8 @@ public class GravityPlayer : Gravity {
 		in_gravity_field = false;
 		ignore_other_fields = false;
 
-		gravity = DefaultGravity;
-		custom_gravity = DefaultGravity;
+		gravity = DefaultGravity();
+		custom_gravity = DefaultGravity();
 	}
 
 	protected virtual void Update() {

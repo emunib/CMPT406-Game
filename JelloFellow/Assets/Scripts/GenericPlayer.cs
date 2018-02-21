@@ -43,8 +43,14 @@ public class GenericPlayer : GravityField {
   [CustomRangeLabel("Move Speed", 0f, 100f)] [Tooltip("Speed at which to move the player.")] [SerializeField]
   private float move_speed = 10f;
   
-  [CustomRangeLabel("Jump Force", 0f, 100f)] [Tooltip("Force to apply in order to jump.")] [SerializeField]
-  private float jump_force = 10f;
+  [CustomRangeLabel("Jump Height", 0f, 100f)] [Tooltip("The height of the jump (apex).")] [SerializeField]
+  private float jump_height = 6f;
+  
+  [CustomRangeLabel("Jump Apex Time", 0f, 100f)] [Tooltip("Time to reach the apex of the jump.")] [SerializeField]
+  private float jump_apex_time = 0.4f;
+  
+  [CustomRangeLabel("Jump Angle Force", 0f, 100f)] [Tooltip("Force to apply in order to jump at an angle.")] [SerializeField]
+  private float jump_angle_force = 10f;
 
   [CustomRangeLabel("Leniency Angle", 0f, 90f)] [Tooltip("The angle to allow movement in direction of the platforms angle.")] [SerializeField]
   private float leniency_angle = 25f;
@@ -124,6 +130,8 @@ public class GenericPlayer : GravityField {
   /* true if we just manipulated gravity (locks movement until we are grounded)
      ensures we still don't use the old platform angle to influence movement */
   private bool just_changed_gravity;
+  /* contains the last grounded platforms angle */
+  private float platform_angle = 0f;
   
   /* store the value of the ground check every update as its more efficient to not use raycast and calculations more than once
      in the same frame */
@@ -161,6 +169,8 @@ public class GenericPlayer : GravityField {
     
     if(verbose_gravity) Debug.Log("Gravity depletion rate: " + gravity_depletion_rate);
     if (verbose_gravity) Debug.Log("Gravity field transition rate: " + gravity_field_transition_rate);
+    
+    Physics2D.gravity = GetGravity();
   }
 
   protected override void Update() {
@@ -188,8 +198,19 @@ public class GenericPlayer : GravityField {
         rigidbody.angularDrag = gravity_angular_drag;
         rigidbody.drag = gravity_linear_drag;
         
+        /* apply jump, movement, and drag to the child components if allowed */
+        if (apply_movement_tochild) {
+          foreach (Transform child in child_transforms) {
+            Rigidbody2D child_rigidbody = child.gameObject.GetComponent<Rigidbody2D>();
+            if (child_rigidbody) {
+              child_rigidbody.drag = gravity_linear_drag;
+              child_rigidbody.angularDrag = gravity_angular_drag;
+            }
+          }
+        }
+        
         /* applies constant force (due to it being normalized) */
-        Vector2 new_gravity = new Vector2(horizontal_gravity, vertical_gravity).normalized * GravityForce;
+        Vector2 new_gravity = new Vector2(horizontal_gravity, vertical_gravity).normalized * GravityForce();
         if(verbose_gravity) Debug.Log("Gravity Force: " + new_gravity);
         
         /* set the gravity to the new selected gravity */
@@ -199,20 +220,18 @@ public class GenericPlayer : GravityField {
         gravity_stamina = Mathf.Clamp(gravity_stamina + gravity_depletion_rate * Time.deltaTime, min_gravity_stamina, max_gravity_stamina);
         if(verbose_gravity) Debug.Log("Gravity Stamina: " + gravity_stamina);
       } else {
-        if (just_changed_gravity) {
-          if (is_grounded) {
-            /* restore movement drags */
-            if (!restored_drag) {
-              rigidbody.angularDrag = normal_movement_drags.AngularDrag;
-              rigidbody.drag = normal_movement_drags.LinearDrag;
-              restored_drag = true;
+        rigidbody.angularDrag = 0f;
+        rigidbody.drag = 0f;
+        
+        /* apply jump, movement, and drag to the child components if allowed */
+        if (apply_movement_tochild) {
+          foreach (Transform child in child_transforms) {
+            Rigidbody2D child_rigidbody = child.gameObject.GetComponent<Rigidbody2D>();
+            if (child_rigidbody) {
+              child_rigidbody.drag = 0f;
+              child_rigidbody.angularDrag = 0f;
             }
-            
-            just_changed_gravity = false;
           }
-        } else {
-          /* handle movement as drag is restored and the gravity is not being manipulated */
-          HandleMovement();
         }
       }
 
@@ -234,6 +253,22 @@ public class GenericPlayer : GravityField {
         /* recharge gravity as its not being manipulated and the player is grounded */
         gravity_stamina = Mathf.Clamp(gravity_stamina - gravity_depletion_rate * Time.deltaTime, min_gravity_stamina, max_gravity_stamina);
         if(verbose_gravity) Debug.Log("Gravity Stamina: " + gravity_stamina);
+
+        /* restore movement drags */
+        if (!restored_drag) {
+          rigidbody.angularDrag = normal_movement_drags.AngularDrag;
+          rigidbody.drag = normal_movement_drags.LinearDrag;
+          restored_drag = true;
+        }
+        
+        if (just_changed_gravity) {
+          just_changed_gravity = false;
+        }
+      }
+
+      if (!just_changed_gravity) {
+        /* handle movement as drag is restored and the gravity is not being manipulated */
+        HandleMovement();
       }
     }
     
@@ -253,11 +288,11 @@ public class GenericPlayer : GravityField {
     return a - b * Mathf.Floor(a / b);
   }
 
-  private float platform_angle = 0f;
   private void HandleMovement() {
     /* get platform information */
     GameObject current_platform = null;
     HashSet<RaycastHit2D> hits = GetObjectsInView(GetGravity(), ground_fov_angle, ground_ray_count, ground_ray_length);
+    Vector2 platform_hit_normal = Vector2.zero;
     foreach (RaycastHit2D hit in hits) {
       if (LayerMask.LayerToName(hit.transform.gameObject.layer) == "Ground") {
         /* calculate angle of the platform we are on */
@@ -268,6 +303,7 @@ public class GenericPlayer : GravityField {
         platform_angle = fmod(platform_angle, 360);
         if (platform_angle < 0) platform_angle += 360;
 
+        platform_hit_normal = hit.normal;
         if(verbose_movement) Debug.Log("Platform angle: " + platform_angle);
         break;
       }
@@ -284,28 +320,28 @@ public class GenericPlayer : GravityField {
       float horizontal_movement = input.GetHorizontalLeftStick();
       float vertical_movement = input.GetVerticalLeftStick();
       
+      /* angle of the movement joystick */
+      float movement_angle = (Mathf.Atan2(horizontal_movement, vertical_movement) * Mathf.Rad2Deg + 360) % 360;
+      if (verbose_movement) Debug.Log("Movement angle: " + movement_angle);
+        
+      /* get the direction from the movement angle */
+      Vector2 movement_direction = new Vector2(Mathf.Sin(movement_angle * Mathf.Deg2Rad), Mathf.Cos(movement_angle * Mathf.Deg2Rad));
+      if(show_movement) Debug.DrawRay(transform.position, movement_direction * move_speed, movement_direction_color);
+      
+      /* the positive and negative angle (pos and neg just a diffrentiater no other importance) */
+      float platform_positive_angle = platform_angle + 90f;
+      float platform_negative_angle = platform_angle - 90f;
+        
+      /* get the platform directions */
+      Vector2 platform_direction_positive = new Vector2(Mathf.Sin(platform_positive_angle * Mathf.Deg2Rad), Mathf.Cos(platform_positive_angle * Mathf.Deg2Rad));
+      if(show_movement) Debug.DrawRay(transform.position, platform_direction_positive * move_speed, platform_direction_color);
+        
+      Vector2 platform_direction_negative = new Vector2(Mathf.Sin(platform_negative_angle * Mathf.Deg2Rad), Mathf.Cos(platform_negative_angle * Mathf.Deg2Rad));
+      if(show_movement) Debug.DrawRay(transform.position, platform_direction_negative * move_speed, platform_direction_color);
+      
       /* make sure player actually wants to apply movement forces */
       bool apply_stop_drag;
       if (horizontal_movement != 0 || vertical_movement != 0) {
-        /* angle of the movement joystick */
-        float movement_angle = (Mathf.Atan2(horizontal_movement, vertical_movement) * Mathf.Rad2Deg + 360) % 360;
-        if (verbose_movement) Debug.Log("Movement angle: " + movement_angle);
-        
-        /* get the direction from the movement angle */
-        Vector2 movement_direction = new Vector2(Mathf.Sin(movement_angle * Mathf.Deg2Rad), Mathf.Cos(movement_angle * Mathf.Deg2Rad));
-        if(show_movement) Debug.DrawRay(transform.position, movement_direction * move_speed, movement_direction_color);
-
-        /* the positive and negative angle (pos and neg just a diffrentiater no other importance) */
-        float platform_positive_angle = platform_angle + 90f;
-        float platform_negative_angle = platform_angle - 90f;
-        
-        /* get the platform directions */
-        Vector2 platform_direction_positive = new Vector2(Mathf.Sin(platform_positive_angle * Mathf.Deg2Rad), Mathf.Cos(platform_positive_angle * Mathf.Deg2Rad));
-        if(show_movement) Debug.DrawRay(transform.position, platform_direction_positive * move_speed, platform_direction_color);
-        
-        Vector2 platform_direction_negative = new Vector2(Mathf.Sin(platform_negative_angle * Mathf.Deg2Rad), Mathf.Cos(platform_negative_angle * Mathf.Deg2Rad));
-        if(show_movement) Debug.DrawRay(transform.position, platform_direction_negative * move_speed, platform_direction_color);
-
         /* get the leniency directions (leniency 2 mainly for drawing ray) */
         Vector2 movement_leniency_positive = new Vector2(Mathf.Sin((platform_positive_angle + leniency_angle) * Mathf.Deg2Rad), Mathf.Cos((platform_positive_angle + leniency_angle) * Mathf.Deg2Rad));
         Vector2 movement_leniency_positive2 = new Vector2(Mathf.Sin((platform_positive_angle - leniency_angle) * Mathf.Deg2Rad), Mathf.Cos((platform_positive_angle - leniency_angle) * Mathf.Deg2Rad));
@@ -343,10 +379,15 @@ public class GenericPlayer : GravityField {
       }
 
       /* jump direction */
-      Vector2 jump_direction = new Vector2(Mathf.Sin(platform_angle * Mathf.Deg2Rad), Mathf.Cos(platform_angle * Mathf.Deg2Rad));
       if (input.GetButton3Down() && is_grounded) {
         apply_stop_drag = false;
-        velocity += jump_direction * jump_force;
+        /* if angle selected than shoot at an angle */
+        if (horizontal_movement != 0 || vertical_movement != 0) {
+          velocity += (platform_hit_normal + new Vector2(horizontal_movement, vertical_movement)) * jump_angle_force;
+        } else {
+          velocity += platform_hit_normal * jump_angle_force;
+        //  velocity += new Vector2(jump_direction.x + MaxJumpVelocity().x, jump_direction.y + MaxJumpVelocity().y);
+        }
       }
       
       /* apply the stop drag (does not let the player slide) */
@@ -382,6 +423,22 @@ public class GenericPlayer : GravityField {
       /* update old platform */
       old_platform = current_platform;
     }
+  }
+
+  public override float JumpHeight() {
+    return jump_height;
+  }
+
+  public override float JumpApexTime() {
+    return jump_apex_time;
+  }
+
+  /// <summary>
+  /// Calculates max jump velocty from preset jump height and calculated gravity.
+  /// </summary>
+  /// <returns>Calculated max jump velocity.</returns>
+  private Vector2 MaxJumpVelocity() {
+    return new Vector2(Mathf.Abs(GetGravity().x), Mathf.Abs(GetGravity().y)) * jump_apex_time;
   }
   
   /// <summary>
