@@ -17,7 +17,7 @@ public abstract class GravityPlayer : Gravity {
 	private bool in_gravity_field;
 	private bool ignore_other_fields;
 	private HashSet<Transform> objects;
-	private Gravity _gravityImplementation;
+	private Vector2 gravity_restrictions;
 
 	protected virtual void Awake() {
 		/* get the rigidbody and make the component not be effected by Physics2D gravity */
@@ -28,6 +28,7 @@ public abstract class GravityPlayer : Gravity {
 		gravity_settable = false;
 		in_gravity_field = false;
 		ignore_other_fields = false;
+		gravity_restrictions = Vector2.one;
 
 		gravity = DefaultGravity();
 		custom_gravity = DefaultGravity();
@@ -36,6 +37,7 @@ public abstract class GravityPlayer : Gravity {
 	protected virtual void Update() {
 		/* if it is in gravity field get affected by players gravity otherwise get effected by custom gravity */
 		if (!in_gravity_field || ignore_other_fields) {
+			gravity = new Vector2(gravity.x * gravity_restrictions.x, gravity.y * gravity_restrictions.y);
 			rigidbody.velocity += gravity * Time.deltaTime;
 
 			if (objects != null) {
@@ -50,6 +52,7 @@ public abstract class GravityPlayer : Gravity {
 
 			//Debug.DrawRay(transform.position, gravity, Color.red);
 		} else {
+			gravity = new Vector2(custom_gravity.x * gravity_restrictions.x, custom_gravity.y * gravity_restrictions.y);
 			rigidbody.velocity += custom_gravity * Time.deltaTime;
 
 			if (objects != null) {
@@ -113,5 +116,9 @@ public abstract class GravityPlayer : Gravity {
 
 	private void OnBecameVisible() {
 		gravity_settable = true;
+	}
+
+	public override void SetGravityLightRestrictions(Vector2 _restrictions) {
+		gravity_restrictions = _restrictions;
 	}
 }
