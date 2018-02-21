@@ -27,13 +27,23 @@ public class disableGravity : MonoBehaviour {
 		
 
 		if (other.attachedRigidbody) {
-			GravityPlayer x = other.GetComponent<FellowPlayer>();
-			Vector2 g = x.GetGravity();
+			GravityPlayer generic = other.GetComponent<GravityPlayer>();
+			Vector2 g = generic.GetGravity();
 			
 			
-			Debug.Log("Grav"+g);
+			
+			Vector2 vel = other.attachedRigidbody.velocity;
+
+
+			vel = Vector2.zero;
 			
 			
+			
+			other.attachedRigidbody.velocity = vel;
+
+
+
+
 			//Vector2 g = new Vector2(Physics2D.gravity.x,0);
 			//other.attachedRigidbody.AddForce(g);
 		}
