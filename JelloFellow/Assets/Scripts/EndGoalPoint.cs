@@ -14,8 +14,8 @@ public class EndGoalPoint : MonoBehaviour
     }
 
     void OnTriggerEnter2D(Collider2D hit) {
-
-        if (hit.transform.parent.gameObject == slime)
+		Debug.Log ("Entered");
+		if (hit.gameObject.tag == "SlimeNode")
         {
             SceneController.control.previousSceneName = SceneManager.GetActiveScene().name;
             SceneController.control.currSceneName = "LevelSummary";
