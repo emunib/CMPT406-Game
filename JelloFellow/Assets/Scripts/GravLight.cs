@@ -4,21 +4,27 @@ using System.Security.Cryptography.X509Certificates;
 
 using UnityEngine;
 
+
 public class GravLight : MonoBehaviour {
 
+	[Header("Disable along which axis'")]
+	public bool Horizontal = true;
+	public bool Vertical = true;
 
-	public bool disableHorizontal = true;
-	public bool disableVertical = true;
+	public float amount = 0f;
+	
 	void OnTriggerEnter2D(Collider2D other) {
 
 		Vector2 disableAlong = Vector2.one;
-		if (disableHorizontal) {
-			disableAlong.x = 0;
+		if (Horizontal) {
+			disableAlong.x = amount;
 		}
 
-		if (disableVertical) {
-			disableAlong.y = 0;
+		if (Vertical) {
+			disableAlong.y = amount;
 		}
+		
+		
 		
 		if (other.attachedRigidbody) {
 
@@ -40,6 +46,7 @@ public class GravLight : MonoBehaviour {
 
 	void OnTriggerExit2D(Collider2D other) {
 
+		//REanable Gravity
 		if (other.attachedRigidbody){
 			Gravity field = other.GetComponent<Gravity>();
 
