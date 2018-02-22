@@ -20,14 +20,25 @@ public class CollectedItems : MonoBehaviour {
 		private string description = "No description.";	// Its description. 
 		private bool selected = false;					// Whether or not the current item is selected
 
+		/// <summary>
+		/// Sets the name.
+		/// </summary>
+		/// <param name="n">String n.</param>
 		public void setName (string n) {
 			this.name = n;
 		}
 
+		/// <summary>
+		/// Sets the description.
+		/// </summary>
+		/// <param name="d">String D.</param>
 		public void setDescription (string d) {
 			this.description = d;
 		}
 
+		/// <summary>
+		/// Toggle whether the current item is selected.
+		/// </summary>
 		public void select () {
 			if (this.selected) {
 				this.selected = false;
@@ -36,14 +47,26 @@ public class CollectedItems : MonoBehaviour {
 			}
 		}
 
+		/// <summary>
+		/// Check if the item is selected.
+		/// </summary>
+		/// <returns><c>true</c>, if item was selected, <c>false</c> otherwise.</returns>
 		public bool isSelected() {
 			return selected;
 		}
 
+		/// <summary>
+		/// Gets the name.
+		/// </summary>
+		/// <returns>The name.</returns>
 		public string getName () {
 			return this.name;
 		}
 
+		/// <summary>
+		/// Gets the description.
+		/// </summary>
+		/// <returns>The description.</returns>
 		public string getDescription () {
 			return this.description;
 		}
@@ -82,7 +105,7 @@ public class CollectedItems : MonoBehaviour {
 			//GUIText x = GUI.Label (new Rect (10, 10 + (i * 40), 100, 30), current.Value);
 			GUI.Label (new Rect (10, 10 + (i * 30), 100, 30), current.Value.getName());
 			if (current.Value.isSelected ()) {
-				GUI.Label (new Rect (200, 10, 100, 30), current.Value.getDescription());
+				GUI.Label (new Rect (200, 10, 100, 1080), current.Value.getDescription());
 			}
 			current = current.Next;
 			i++;
@@ -90,6 +113,11 @@ public class CollectedItems : MonoBehaviour {
 		}
 	}
 
+	/// <summary>
+	/// Adds the item to the list of collectables.
+	/// </summary>
+	/// <param name="name">Name of the item.</param>
+	/// <param name="description">Description of the item.</param>
 	public void AddItem(string name, string description){
 		Item thing = new Item ();
 		thing.setName (name);
@@ -98,6 +126,7 @@ public class CollectedItems : MonoBehaviour {
 	}
 
 	public void Update() {
+		
 		if (Input.GetKeyDown(KeyCode.DownArrow)) {
 
 			LinkedListNode<Item> current = items.First;
@@ -123,7 +152,7 @@ public class CollectedItems : MonoBehaviour {
 			if (!found) {
 				items.First.Value.select ();
 			}
-			AddItem ("Neato", "Rino");
+
 		}
 
 	}
