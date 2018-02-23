@@ -11,6 +11,14 @@ public class CollectedItems : MonoBehaviour {
 	private GUIStyle selectedStyle;
 	private GUIStyle descriptionStyle;
 
+	private float title_y;
+	private float name_x;
+	private float desc_x;
+
+	private float title_y_cur;
+	private float name_x_cur;
+	private float desc_x_cur;
+
 	public static CollectedItems script;	// Make a static class of self, needed for this singleton data structure
 	public bool display;					// Trigger on/off to display the items menu
 
@@ -91,7 +99,15 @@ public class CollectedItems : MonoBehaviour {
 			DontDestroyOnLoad (gameObject);
 			script = this;
 			items = new LinkedList<Item> ();
-			display = true;
+			display = false;
+
+			title_y = 10.0f;
+			name_x = 10.0f;
+			desc_x = Screen.width * 0.3f + 10;
+
+			title_y_cur = 10.0f;
+			name_x_cur = 10.0f;
+			desc_x_cur = Screen.width * 0.3f + 10;
 
 			titleStyle = new GUIStyle ("Box");
 			titleStyle.fontSize = 30;
@@ -134,17 +150,28 @@ public class CollectedItems : MonoBehaviour {
 		LinkedListNode<Item> current = items.First;
 		int itemsInScene = GameObject.FindGameObjectsWithTag ("Collectable").Length;
 
-		//GUI.Box(new Rect (10, 10, Screen.width-20, 48), "");
-		GUI.Label (new Rect (10, 10, Screen.width-20, 48),  "Scientist Notes: " + (numFound) + "/" + (numInScene) + " found in level", titleStyle);
+		// Make sure position is correct
+		// If current position is higher than it should be, and it's to be displayed, then it should go down
+		if (title_y_cur < title_y && display) {
+			title_y_cur = title_y_cur + (title_y - title_y_cur) * Time.deltaTime * 5;
+			name_x_cur = name_x_cur + (name_x - name_x_cur) * Time.deltaTime * 5;
+			desc_x_cur = desc_x_cur + (desc_x - desc_x_cur) * Time.deltaTime * 5;
+		} else if (title_y_cur > -120 && !display) {
+			title_y_cur = title_y_cur - 120 * Time.deltaTime * 5;
+			name_x_cur = name_x_cur - Screen.width * 0.3f * Time.deltaTime * 5;
+			desc_x_cur = desc_x_cur + Screen.width * 0.7f * Time.deltaTime * 5;
+		}
+
+		GUI.Label (new Rect (10, title_y_cur, Screen.width-20, 48),  "Scientist Notes: " + (numFound) + "/" + (numInScene) + " found in level", titleStyle);
 
 		int i = 1;
-		while (current != null && display) {
+		while (current != null) {
 
 			if (current.Value.isSelected ()) {
-				GUI.Label (new Rect (10, 32 + (i * 34), Screen.width / 2 - 10, 30), current.Value.getName (), selectedStyle);
-				GUI.Box (new Rect (Screen.width / 2 + 10, 66, Screen.width / 2 - 20, Screen.height - 78), current.Value.getDescription (), descriptionStyle);
+				GUI.Label (new Rect (name_x_cur, 32 + (i * 34), Screen.width * 0.3f - 10, 30), current.Value.getName (), selectedStyle);
+				GUI.Label (new Rect (desc_x_cur, 66, Screen.width * 0.7f - 20, Screen.height - 78), current.Value.getDescription (), descriptionStyle);
 			} else {
-				GUI.Label (new Rect (10, 32 + (i * 34), Screen.width/2-10, 30), current.Value.getName(), style);
+				GUI.Label (new Rect (name_x_cur, 32 + (i * 34), Screen.width*0.3f-10, 30), current.Value.getName(), style);
 			}
 
 			current = current.Next;
@@ -254,6 +281,9 @@ public class CollectedItems : MonoBehaviour {
 
 		}
 
+		// Going up the list of items
+		if (Input.GetKeyDown (KeyCode.Q))
+			display = !display;
 	}
 		
 }
