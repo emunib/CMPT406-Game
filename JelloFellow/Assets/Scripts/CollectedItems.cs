@@ -6,9 +6,11 @@ public class CollectedItems : MonoBehaviour {
 
 	private int numInScene;
 	private int numFound;
+	private GUIStyle titleStyle;
+	private GUIStyle style;
 
 	public static CollectedItems script;	// Make a static class of self, needed for this singleton data structure
-	public bool display;
+	public bool display;					// Trigger on/off to display the items menu
 
 	/**
 	 * 	Item
@@ -89,6 +91,15 @@ public class CollectedItems : MonoBehaviour {
 			items = new LinkedList<Item> ();
 			display = true;
 
+			titleStyle = new GUIStyle ("Box");
+			titleStyle.fontSize = 30;
+			titleStyle.alignment = TextAnchor.MiddleCenter;
+			titleStyle.normal.textColor = Color.white;
+
+			style = new GUIStyle ("Box");
+			style.alignment = TextAnchor.MiddleCenter;
+			style.fontSize = 18;
+
 		} else if (script != this) {
 			
 			// Destroy this object if items already exists
@@ -106,14 +117,16 @@ public class CollectedItems : MonoBehaviour {
 		
 		LinkedListNode<Item> current = items.First;
 		int itemsInScene = GameObject.FindGameObjectsWithTag ("Collectable").Length;
-		GUI.Label (new Rect (10, 10, 100, 30), "Items found: " + (numFound) + "/" + (numInScene));
+
+		//GUI.Box(new Rect (10, 10, Screen.width-20, 48), "");
+		GUI.Label (new Rect (10, 10, Screen.width-20, 48),  "Scientist Notes: " + (numFound) + "/" + (numInScene) + " found in level", titleStyle);
 
 		int i = 1;
 		while (current != null && display) {
 			
-			GUI.Label (new Rect (10, 10 + (i * 30), 100, 30), current.Value.getName());
+			GUI.Label (new Rect (10, 32 + (i * 34), Screen.width/2-10, 30), current.Value.getName(), style);
 			if (current.Value.isSelected ()) {
-				GUI.Label (new Rect (200, 10, 100, 1080), current.Value.getDescription());
+				GUI.Label (new Rect (Screen.width/2+10, 66, Screen.width/2-20, Screen.height-78), current.Value.getDescription(), style);
 			}
 			current = current.Next;
 			i++;
