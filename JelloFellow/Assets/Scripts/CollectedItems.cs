@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class CollectedItems : MonoBehaviour {
 
+	private int numInScene;
+	private int numFound;
+
 	public static CollectedItems script;	// Make a static class of self, needed for this singleton data structure
 	public bool display;
 
@@ -93,16 +96,21 @@ public class CollectedItems : MonoBehaviour {
 
 		}
 
+		numInScene = GameObject.FindGameObjectsWithTag ("Collectable").Length;
+		numFound = 0;
+
 	}
 	
 	// Update is called once per frame
 	void OnGUI () {
 		
 		LinkedListNode<Item> current = items.First;
+		int itemsInScene = GameObject.FindGameObjectsWithTag ("Collectable").Length;
+		GUI.Label (new Rect (10, 10, 100, 30), "Items found: " + (numFound) + "/" + (numInScene));
 
-		int i = 0;
+		int i = 1;
 		while (current != null && display) {
-			//GUIText x = GUI.Label (new Rect (10, 10 + (i * 40), 100, 30), current.Value);
+			
 			GUI.Label (new Rect (10, 10 + (i * 30), 100, 30), current.Value.getName());
 			if (current.Value.isSelected ()) {
 				GUI.Label (new Rect (200, 10, 100, 1080), current.Value.getDescription());
@@ -123,6 +131,26 @@ public class CollectedItems : MonoBehaviour {
 		thing.setName (name);
 		thing.setDescription (description);
 		items.AddLast (thing);
+		numFound++;
+	}
+
+	/// <summary>
+	/// Checks if the item of the given name is already collected
+	/// </summary>
+	/// <returns><c>true</c>, if it was collected, <c>false</c> otherwise.</returns>
+	/// <param name="name">Name.</param>
+	public bool isCollected(string name) {
+		
+		LinkedListNode<Item> current = items.First;
+
+		while (current != null) {
+			if (current.Value.getName () == name)
+				return true;
+			current = current.Next;
+		}
+
+		return false;
+
 	}
 
 	public void Update() {
