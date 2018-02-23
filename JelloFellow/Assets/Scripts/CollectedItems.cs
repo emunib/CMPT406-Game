@@ -8,6 +8,7 @@ public class CollectedItems : MonoBehaviour {
 	private int numFound;
 	private GUIStyle titleStyle;
 	private GUIStyle style;
+	private GUIStyle selectedStyle;
 
 	public static CollectedItems script;	// Make a static class of self, needed for this singleton data structure
 	public bool display;					// Trigger on/off to display the items menu
@@ -99,6 +100,12 @@ public class CollectedItems : MonoBehaviour {
 			style = new GUIStyle ("Box");
 			style.alignment = TextAnchor.MiddleCenter;
 			style.fontSize = 18;
+			titleStyle.normal.textColor = Color.white;
+
+			selectedStyle = new GUIStyle ("Box");
+			selectedStyle.alignment = TextAnchor.MiddleCenter;
+			selectedStyle.fontSize = 18;
+			selectedStyle.normal.textColor = Color.yellow;
 
 		} else if (script != this) {
 			
@@ -123,10 +130,12 @@ public class CollectedItems : MonoBehaviour {
 
 		int i = 1;
 		while (current != null && display) {
-			
-			GUI.Label (new Rect (10, 32 + (i * 34), Screen.width/2-10, 30), current.Value.getName(), style);
+
 			if (current.Value.isSelected ()) {
-				GUI.Label (new Rect (Screen.width/2+10, 66, Screen.width/2-20, Screen.height-78), current.Value.getDescription(), style);
+				GUI.Label (new Rect (10, 32 + (i * 34), Screen.width / 2 - 10, 30), current.Value.getName (), selectedStyle);
+				GUI.Label (new Rect (Screen.width / 2 + 10, 66, Screen.width / 2 - 20, Screen.height - 78), current.Value.getDescription (), style);
+			} else {
+				GUI.Label (new Rect (10, 32 + (i * 34), Screen.width/2-10, 30), current.Value.getName(), style);
 			}
 			current = current.Next;
 			i++;
@@ -147,6 +156,11 @@ public class CollectedItems : MonoBehaviour {
 			thing.setDescription (description);
 			items.AddLast (thing);
 			numFound++;
+
+			// If it's the first item found, it should be selected when the menu opens
+			if (numFound == 1) {
+				items.First.Value.select ();
+			}
 		}
 
 	}
