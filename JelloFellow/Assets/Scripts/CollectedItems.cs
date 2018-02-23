@@ -127,11 +127,15 @@ public class CollectedItems : MonoBehaviour {
 	/// <param name="name">Name of the item.</param>
 	/// <param name="description">Description of the item.</param>
 	public void AddItem(string name, string description){
-		Item thing = new Item ();
-		thing.setName (name);
-		thing.setDescription (description);
-		items.AddLast (thing);
-		numFound++;
+
+		if (!isCollected(name)) {
+			Item thing = new Item ();
+			thing.setName (name);
+			thing.setDescription (description);
+			items.AddLast (thing);
+			numFound++;
+		}
+
 	}
 
 	/// <summary>
@@ -154,13 +158,14 @@ public class CollectedItems : MonoBehaviour {
 	}
 
 	public void Update() {
-		
-		if (Input.GetKeyDown(KeyCode.DownArrow)) {
+
+		// Going to the list of items
+		if (Input.GetKeyDown(KeyCode.DownArrow) && display) {
 
 			LinkedListNode<Item> current = items.First;
-			bool found = false;
+			bool found = false;		// Remains false if no item in the list has yet been selected							
 
-			while (current != null && display) {
+			while (current != null) {
 
 				if (current.Value.isSelected ()) {
 					current.Value.select ();
@@ -179,6 +184,35 @@ public class CollectedItems : MonoBehaviour {
 
 			if (!found) {
 				items.First.Value.select ();
+			}
+
+		}
+
+		// Going up the list of items
+		if (Input.GetKeyDown(KeyCode.UpArrow) && display) {
+
+			LinkedListNode<Item> current = items.First;
+			bool found = false;
+
+			while (current != null) {
+
+				if (current.Value.isSelected ()) {
+					current.Value.select ();
+					if (current.Previous == null) {
+						items.Last.Value.select ();
+						return;
+					} else {
+						current.Previous.Value.select ();
+						return;
+					}
+					found = true;
+				}
+				current = current.Next;
+
+			}
+
+			if (!found) {
+				items.Last.Value.select ();
 			}
 
 		}
