@@ -150,6 +150,10 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4569396917816018, guid: 45bf801ddfcc64baa833732034fa4ad6, type: 2}
       propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1247408798504590, guid: 45bf801ddfcc64baa833732034fa4ad6, type: 2}
+      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -211,25 +215,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a30e78fdbe6a492aad8a60850fcb13f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RaycastOrigins:
-  - {fileID: 759967735}
-  ray_length: 1
-  ray_count: 0
-  ray_angle_fov: 10
-  angle_buffer: 0.2
+  is_raycast_origin: 1
+  apply_gravity_tochild: 0
+  apply_movement_tochild: 0
+  ChildComponents: []
+  gravity_angular_drag: 0.5
+  gravity_linear_drag: 3
+  max_gravity_stamina: 100
+  min_gravity_stamina: 0
+  gravity_depletion_time: 5
+  gravity_field_transition_time: 0.6
+  movement_linear_drag: 5
   move_speed: 4
-  jump_force: 6
+  jump_height: 6
+  jump_apex_time: 0.4
+  jump_angle_force: 10
+  jump_normalize_threshold: 1
+  leniency_angle: 25
+  ground_acceleration: 0.1
   air_acceleration: 0.1
-  ground_Acceleration: 0.1
-  apply_to_transforms: 0
-  movement_rays: 0
+  ground_fov_angle: 25
+  ground_ray_count: 1
+  ground_ray_length: 1
+  verbose_gravity: 0
+  show_gravity: 0
+  gravity_ray_color: {r: 0, g: 0, b: 0, a: 1}
+  visualize_ground_check: 1
+  visualize_fov_edge: {r: 0, g: 0, b: 1, a: 1}
+  visualize_fov_inbetween: {r: 1, g: 0, b: 0, a: 1}
   verbose_movement: 0
-  movespeed: 0.05
+  show_movement: 0
+  movement_direction_color: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  platform_direction_color: {r: 1, g: 0, b: 1, a: 1}
+  movement_leniency_color: {r: 0, g: 0, b: 1, a: 1}
+  movespeed: 1
   jumpCD: 0.7
   jumpForce: 150
   fwdCheck: {fileID: 1763052840}
-  fwdGroundChkRange: 1.37
-  fwdWallChkRange: 1
+  fwdGroundChkRange: 0.86
+  fwdWallChkRange: 0.86
   agro_ray_length: 4.3
   agro_ray_count: 7
   agro_ray_angle_fov: 0
@@ -304,8 +328,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 759967730}
   m_LocalRotation: {x: -0.0035360488, y: 0.0026991258, z: 0.088359214, w: 0.9960787}
-  m_LocalPosition: {x: -4.05, y: -1.61, z: 0.01}
-  m_LocalScale: {x: 1, y: 2.09, z: 1}
+  m_LocalPosition: {x: 0.41, y: 15.45, z: -0.14}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1763052840}
   m_Father: {fileID: 0}
@@ -322,8 +346,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06f044f1f9a6344718241743c4c269f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  horizontal: 0
-  vertical: 0
+  horizontal: 1
+  vertical: 1
   horg: 0
   verg: 0
 --- !u!1 &1028629497
@@ -477,7 +501,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 15.960304
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -499,12 +523,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1116472436}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: 4.638423e-11, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.0170717, y: 1.0170947, z: 1.0000244}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1199676924
 GameObject:
@@ -559,7 +583,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1763052839}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.99, y: 0.01, z: -0}
+  m_LocalPosition: {x: 0.81, y: 0.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 759967735}
@@ -781,7 +805,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &2072412966
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -833,7 +857,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2072412965}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.24, y: 6.17, z: 0}
+  m_LocalPosition: {x: 6.47, y: 7.33, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -875,19 +899,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 289b205779f51475595a21671bdbf040, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RaycastOrigins:
-  - {fileID: 2072412967}
-  ray_length: 0.9
-  ray_count: 6
-  ray_angle_fov: 25
-  angle_buffer: 0.2
+  is_raycast_origin: 1
+  apply_gravity_tochild: 0
+  apply_movement_tochild: 0
+  ChildComponents: []
+  gravity_angular_drag: 0.5
+  gravity_linear_drag: 3
+  max_gravity_stamina: 100
+  min_gravity_stamina: 0
+  gravity_depletion_time: 5
+  gravity_field_transition_time: 0.6
+  movement_linear_drag: 5
   move_speed: 4
-  jump_force: 6
+  jump_height: 6
+  jump_apex_time: 0.4
+  jump_angle_force: 10
+  jump_normalize_threshold: 1
+  leniency_angle: 25
+  ground_acceleration: 0.1
   air_acceleration: 0.1
-  ground_Acceleration: 0.1
-  apply_to_transforms: 0
-  movement_rays: 0
+  ground_fov_angle: 25
+  ground_ray_count: 2
+  ground_ray_length: 0.65
+  verbose_gravity: 0
+  show_gravity: 0
+  gravity_ray_color: {r: 0, g: 0, b: 0, a: 1}
+  visualize_ground_check: 1
+  visualize_fov_edge: {r: 0, g: 0, b: 1, a: 1}
+  visualize_fov_inbetween: {r: 1, g: 0, b: 0, a: 1}
   verbose_movement: 0
+  show_movement: 0
+  movement_direction_color: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  platform_direction_color: {r: 1, g: 0, b: 1, a: 1}
+  movement_leniency_color: {r: 0, g: 0, b: 1, a: 1}
 --- !u!50 &2072412970
 Rigidbody2D:
   serializedVersion: 4

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Goomba : GenericPlayer {
   [Header("Stats")]
-  [Range(-1f,1f)] public float movespeed = .01f;
+  [Range(-5f,5f)] public float movespeed = .01f;
   [Range(0.1f, 2f)] public float jumpCD = 0.7f;
   [Range(150, 400)] public int jumpForce = 150;
 
@@ -47,6 +47,7 @@ public class Goomba : GenericPlayer {
     root = gameObject.AddComponent<DecisionTree>();
     BuildDecisionTree();
     rb = GetComponent<Rigidbody2D>();
+    base.Start();
   }
 
   private void FixedUpdate() {
@@ -87,7 +88,7 @@ public class Goomba : GenericPlayer {
 
   private void Walk() {
     goomba_input.horizontal = movespeed;
-    goomba_input.vertical = movespeed;
+    goomba_input.vertical = 0;
     Debug.Log("Im walking");
 
     if (grounded) {
@@ -107,7 +108,7 @@ public class Goomba : GenericPlayer {
         
         transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
         movespeed *= -1;
-        rb.velocity = Vector2.zero;
+        //rb.velocity = Vector2.zero;
       }
     }
 
@@ -119,7 +120,7 @@ public class Goomba : GenericPlayer {
     if (groundhit.collider == null) {
       transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
       movespeed *= -1;
-      rb.velocity = Vector2.zero;
+      //rb.velocity = Vector2.zero;
 
     }
     
@@ -142,11 +143,11 @@ public class Goomba : GenericPlayer {
   private Vector2 groundedNormalVector;
   
   private bool UprightCheck() {
-    grounded_game_objects = GetObjectsInView(GetGravity(), ray_angle_fov, ray_count, ray_length, true);
+    grounded_game_objects = GetObjectsInView(GetGravity(), ground_fov_angle, ground_ray_count, ground_ray_length);
     
     foreach (RaycastHit2D gobject in grounded_game_objects) {
       RaycastHit2D groundhit = Physics2D.Raycast(transform.position,
-      gobject.transform.position - transform.position * ray_length);
+      gobject.transform.position - transform.position * ground_ray_length);
 
       
       if (groundhit.normal == (Vector2)transform.up) {
