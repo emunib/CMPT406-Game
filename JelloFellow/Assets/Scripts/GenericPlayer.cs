@@ -299,17 +299,19 @@ public class GenericPlayer : GravityField {
   /// Modulo operator function.
   /// https://answers.unity.com/questions/380035/c-modulus-is-wrong-1.html
   /// </summary>
-  private static float fmod(float a, float b) {
+  protected static float fmod(float a, float b) {
     return a - b * Mathf.Floor(a / b);
   }
 
   private void HandleMovement() {
+    if(verbose_movement) Debug.Log("Handling Movement");
+    
     /* get platform information */
     GameObject current_platform = null;
     HashSet<RaycastHit2D> hits = GetObjectsInView(GetGravity(), ground_fov_angle, ground_ray_count, ground_ray_length);
     Vector2 platform_hit_normal = Vector2.zero;
     foreach (RaycastHit2D hit in hits) {
-      if (hit.transform.gameObject.layer != this.gameObject.layer) {
+      if (hit.transform.gameObject.layer != gameObject.layer) {
         /* calculate angle of the platform we are on */
         current_platform = hit.transform.gameObject;
         platform_angle = Mathf.Atan2(hit.normal.x, hit.normal.y) * Mathf.Rad2Deg;
