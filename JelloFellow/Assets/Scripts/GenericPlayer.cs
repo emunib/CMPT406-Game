@@ -37,7 +37,7 @@ public class GenericPlayer : GravityField {
   private float movement_linear_drag = 5f;
 
   [CustomRangeLabel("Move Speed", 0f, 100f)] [Tooltip("Speed at which to move the player.")] [SerializeField]
-  private float move_speed = 10f;
+  protected float move_speed = 10f;
 
   [CustomRangeLabel("Jump Height", 0f, 100f)] [Tooltip("The height of the jump (apex).")] [SerializeField]
   private float jump_height = 6f;
@@ -299,7 +299,7 @@ public class GenericPlayer : GravityField {
   /// Modulo operator function.
   /// https://answers.unity.com/questions/380035/c-modulus-is-wrong-1.html
   /// </summary>
-  private static float fmod(float a, float b) {
+  protected static float fmod(float a, float b) {
     return a - b * Mathf.Floor(a / b);
   }
 

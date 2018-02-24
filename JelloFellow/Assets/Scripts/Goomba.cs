@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Runtime.Remoting.Messaging;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,6 +14,9 @@ public class Goomba : GenericPlayer {
   [Header("ForwardCheck")] public Transform fwdCheck;
   [Range(.01f, 2)] public float fwdGroundChkRange = 1f;
   [Range(.01f, 2)] public float fwdWallChkRange = 1f;
+  
+  [Header("BackCheck")] public Transform backCheck;
+ 
   
   [Header("AgroFOV Raycast Settings")]
 
@@ -87,43 +91,154 @@ public class Goomba : GenericPlayer {
   }
 
   private void Walk() {
-    goomba_input.horizontal = movespeed;
-    goomba_input.vertical = 0;
-    Debug.Log("Im walking");
-
-    if (grounded) {
+    
+    Debug.DrawRay(transform.position,transform.right*10f);
+    goomba_input.horizontal = transform.right.x;
+    goomba_input.vertical = transform.right.y;
+    
+    
+    Debug.Log("Grounded"+grounded);
+    Debug.Log("turnOffCd"+turnOffCd);
+    
+    if (grounded && turnOffCd) {
       FwdCheck();
     }
 
   }
-
+  private bool turnOffCd = true;
   private void FwdCheck() {
-    float facing = Mathf.Sign(goomba_input.horizontal);
-    Debug.DrawRay(fwdCheck.transform.position,facing*fwdCheck.transform.right*fwdWallChkRange, Color.yellow);
+
+    bool turn = false;
+    Vector2 fwd_angle = fwdCheck.transform.up + fwdCheck.transform.right;
+    Vector2 back_angle = backCheck.transform.up - backCheck.transform.right; 
+    
+    
+    RaycastHit2D fwdwallhit = Physics2D.Raycast(fwdCheck.transform.position, fwd_angle, fwdWallChkRange);
+    RaycastHit2D fwdgroundhit = Physics2D.Raycast(fwdCheck.transform.position, -transform.up, fwdGroundChkRange);
+    RaycastHit2D backwallhit = Physics2D.Raycast(backCheck.transform.position, back_angle, fwdWallChkRange);
+    RaycastHit2D backgroundhit = Physics2D.Raycast(backCheck.transform.position, -transform.up, fwdGroundChkRange);
+
+    Debug.DrawRay(fwdCheck.transform.position,(fwd_angle)*fwdWallChkRange, Color.yellow);
+    Debug.DrawRay(fwdCheck.transform.position,-transform.up*fwdGroundChkRange, Color.green);
+    
+    Debug.DrawRay(backCheck.transform.position,(back_angle)*fwdWallChkRange, Color.yellow);
+    Debug.DrawRay(backCheck.transform.position,-backCheck.transform.up*fwdGroundChkRange, Color.green);
+
+
+    if (fwdwallhit.collider != null && LayerMask.LayerToName(fwdwallhit.transform.gameObject.layer)=="Ground") {
+
+      turn = true;
+    }
+    else if (backwallhit.collider != null&& LayerMask.LayerToName(backwallhit.transform.gameObject.layer)=="Ground") {
+
+      turn = true;
+    }
+
+    else if (fwdgroundhit.collider == null) {
+      turn = true;
+    }
+    else if(backgroundhit.collider == null) {
+      turn = true;
+      
+    }
+
+    Debug.Log("Turn: " +turn);
+    if (turn) {
+      rb.velocity = Vector2.zero;
+      move_speed *= -1;
+      turnOffCd = false;
+      StartCoroutine(turnOnCdCoroutine());
+    }
+   /*
+    if (fwdwallhit.collider != null || backwallhit.collider !=null || fwdgroundhit.collider ==null || backgroundhit.collider ==null) {
+      if (LayerMask.LayerToName(fwdwallhit.transform.gameObject.layer)=="Ground") {
+        
+    //    transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
+        move_speed *= -1;
+        //rb.velocity = Vector2.zero;
+        turnOffCd = false;
+        StartCoroutine(turnOnCdCoroutine());
+
+      }
+    }
+    
+
+    if (fwdgroundhit.collider == null) {
+      //transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
+      move_speed*= -1;
+      //rb.velocity = Vector2.zero;
+      turnOffCd = false;
+      StartCoroutine(turnOnCdCoroutine());
+
+
+    }
+    
+    Debug.DrawRay(backCheck.transform.position,-backCheck.transform.right*fwdWallChkRange, Color.yellow);
 	
     
-    RaycastHit2D wallhit = Physics2D.Raycast(fwdCheck.transform.position, facing*fwdCheck.transform.right, fwdWallChkRange);
-    if (wallhit.collider != null) {
-      if (LayerMask.LayerToName(wallhit.transform.gameObject.layer)=="Ground") {
+    if (backwallhit.collider != null) {
+      if (LayerMask.LayerToName(backwallhit.transform.gameObject.layer)=="Ground") {
         
-        transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
-        movespeed *= -1;
+        //transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
+        //move_speed *= -1;
         //rb.velocity = Vector2.zero;
+        turnOffCd = false;
+        StartCoroutine(turnOnCdCoroutine());
+
       }
     }
 
     Debug.Log("Gravity" + GetGravity());
-    Debug.DrawRay(fwdCheck.transform.position,GetGravity().normalized*fwdGroundChkRange, Color.green);
+    Debug.DrawRay(backCheck.transform.position,-transform.up*fwdGroundChkRange, Color.green);
 
-    RaycastHit2D groundhit = Physics2D.Raycast(fwdCheck.transform.position, GetGravity().normalized, fwdGroundChkRange);
 
-    if (groundhit.collider == null) {
-      transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
-      movespeed *= -1;
+    if (backgroundhit.collider == null) {
+      //transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
+      move_speed *= -1;
       //rb.velocity = Vector2.zero;
+      //turnOffCd = false;
+      StartCoroutine(turnOnCdCoroutine());
+    }
+*/
+
+
+  }
+  
+  public IEnumerator turnOnCdCoroutine() {
+    bool doneco = true;
+    
+    while (!turnOffCd) {
+
+      if (grounded) {
+        Vector2 fwd_angle = fwdCheck.transform.up + fwdCheck.transform.right;
+        Vector2 back_angle = backCheck.transform.up - backCheck.transform.right; 
+    
+    
+        RaycastHit2D fwdwallhit = Physics2D.Raycast(fwdCheck.transform.position, fwd_angle, fwdWallChkRange);
+        RaycastHit2D fwdgroundhit = Physics2D.Raycast(fwdCheck.transform.position, -transform.up, fwdGroundChkRange);
+        RaycastHit2D backwallhit = Physics2D.Raycast(backCheck.transform.position, back_angle, fwdWallChkRange);
+        RaycastHit2D backgroundhit = Physics2D.Raycast(backCheck.transform.position, -transform.up, fwdGroundChkRange);
+        /*
+        Debug.DrawRay(fwdCheck.transform.position,fwdCheck.transform.right*fwdWallChkRange, Color.yellow);
+
+        Debug.DrawRay(fwdCheck.transform.position,GetGravity().normalized*fwdGroundChkRange, Color.green);
+        Debug.DrawRay(backCheck.transform.position,-transform.up*fwdGroundChkRange, Color.green);
+        Debug.DrawRay(backCheck.transform.position,-backCheck.transform.right*fwdWallChkRange, Color.yellow);
+*/
+        if (fwdwallhit.collider == null && backwallhit.collider == null && fwdgroundhit.collider != null &&
+            backgroundhit.collider != null) {
+          turnOffCd = true;
+        }
+
+      }
+
+      Debug.Log("IN coroutine");
+
+      yield return null;
 
     }
-    
+
+    Debug.Log("Done coroutine");
   }
   
   
