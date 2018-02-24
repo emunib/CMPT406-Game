@@ -1,16 +1,13 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Remoting.Messaging;
+using System.Runtime.Serialization.Formatters;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Goomba : GenericPlayer {
-  [Header("Stats")]
-  [Range(-5f,5f)] public float movespeed = .01f;
-  [Range(0.1f, 2f)] public float jumpCD = 0.7f;
-  [Range(150, 400)] public int jumpForce = 150;
-
-
+  
   [Header("ForwardCheck Information")] public Transform fwdCheck;
   public Transform backCheck;
   [Range(.01f, 2)] public float fwdGroundChkRange = 1f;
@@ -38,13 +35,14 @@ public class Goomba : GenericPlayer {
   private DecisionTree root;
 
   private Rigidbody2D rb;
-  private bool jumpOffCD = true;
+  private bool attackOffCd = true;
   private HashSet<RaycastHit2D> agro_game_objects;
   private HashSet<RaycastHit2D> grounded_game_objects;
   private bool grounded;
   private bool attacking; 
-  
-  
+  private bool firstPlat = true;
+  private bool turnOffCd = true;
+  private Vector2 attackVector;
   
   
   private void Start() {
@@ -54,61 +52,87 @@ public class Goomba : GenericPlayer {
     root = gameObject.AddComponent<DecisionTree>();
     BuildDecisionTree();
     rb = GetComponent<Rigidbody2D>();
+    
     base.Start();
+    
+    
+    
   }
 
   private void FixedUpdate() {
+    goomba_input.jumpbtndown = false;
     root.Search();
   }
 
+  public int maxAttacks =3;
+  public float attackCdTime = .4f;
+  public float attackNumCdTime = 2f;
+
+  public int numAttacks = 0;
+  
   private void Attack() {
     Debug.Log("Im attacking");
-    Transform target = GameObject.FindGameObjectWithTag("Player").transform;
+    //Transform target = GameObject.FindGameObjectWithTag("Player").transform;
 
-    Vector2 targetray = target.position - transform.position;
-    
-    Debug.DrawRay(transform.position,targetray*5, Color.cyan);
-    
+  
     
     //Only Jump If I can
-    if (grounded &&jumpOffCD) {
-      jumpOffCD = false;
+    if (grounded &&attackOffCd) {
+      attackOffCd = false;
+      Invoke("ResetAttackCD",attackCdTime);
+      if (numAttacks < maxAttacks) {
+        goomba_input.horizontal = attackVector.x;
+        goomba_input.vertical = attackVector.y;
+
       
-      /*TODO:Attack Attacking isn't great right now. Until I understand how enemies are moving on the side 
-      using addforce for now
-      rb.AddForce(targetray*jumpForce);   
-      */
+        numAttacks++;
+        goomba_input.jumpbtndown = true;
+        if (numAttacks >= maxAttacks) {
+          Invoke("ResetNumAttacks",attackNumCdTime);
+        }
+      
+      }
+
     }
     
-    //Wait till goomba is grounded before hes able to attack again
-    else if (grounded && !jumpOffCD) {
-  
-      
-      jumpOffCD = true;
-      
-    }
     
-  }
-  private void ResetJumpCD() {
-    jumpOffCD = true;
+    
   }
 
+  private void ResetNumAttacks() {
+    numAttacks = 0;
+
+  }
+
+  
+  private void ResetAttackCD() {
+
+    attackOffCd = true;
+  }
+
+  private int facing = 1;
   private void Walk() {
+    Debug.Log("Movespeed sign "+Mathf.Sign(move_speed));
+    goomba_input.horizontal = transform.right.x*facing;
+    goomba_input.vertical = transform.right.y*facing;
+
     
-    Debug.DrawRay(transform.position,transform.right*10f);
-    goomba_input.horizontal = transform.right.x;
-    goomba_input.vertical = transform.right.y;
     
+    //goomba_input.jumpbtndown = true;
     
-    Debug.Log("Grounded"+grounded);
-    Debug.Log("turnOffCd"+turnOffCd);
+    //Debug.Log("Grounded"+grounded);
+    //Debug.Log("turnOffCd"+turnOffCd);
     
     if (grounded && turnOffCd) {
       FwdCheck();
     }
 
   }
-  private bool turnOffCd = true;
+  
+  /// <summary>
+  /// Check forward AND BACK for a wall. Backwards check is because sometimes the ai lands weird. Uses raycasts to check
+  /// range determined by public parameters. 
+  /// </summary>
   private void FwdCheck() {
 
     bool turn = false;
@@ -148,65 +172,20 @@ public class Goomba : GenericPlayer {
     Debug.Log("Turn: " +turn);
     if (turn) {
       rb.velocity = Vector2.zero;
-      move_speed *= -1;
+      //move_speed *= -1;
       turnOffCd = false;
+      facing *= -1;
       StartCoroutine(turnOnCdCoroutine());
     }
-   /*
-    if (fwdwallhit.collider != null || backwallhit.collider !=null || fwdgroundhit.collider ==null || backgroundhit.collider ==null) {
-      if (LayerMask.LayerToName(fwdwallhit.transform.gameObject.layer)=="Ground") {
-        
-    //    transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
-        move_speed *= -1;
-        //rb.velocity = Vector2.zero;
-        turnOffCd = false;
-        StartCoroutine(turnOnCdCoroutine());
-
-      }
-    }
-    
-
-    if (fwdgroundhit.collider == null) {
-      //transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
-      move_speed*= -1;
-      //rb.velocity = Vector2.zero;
-      turnOffCd = false;
-      StartCoroutine(turnOnCdCoroutine());
-
-
-    }
-    
-    Debug.DrawRay(backCheck.transform.position,-backCheck.transform.right*fwdWallChkRange, Color.yellow);
-	
-    
-    if (backwallhit.collider != null) {
-      if (LayerMask.LayerToName(backwallhit.transform.gameObject.layer)=="Ground") {
-        
-        //transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
-        //move_speed *= -1;
-        //rb.velocity = Vector2.zero;
-        turnOffCd = false;
-        StartCoroutine(turnOnCdCoroutine());
-
-      }
-    }
-
-    Debug.Log("Gravity" + GetGravity());
-    Debug.DrawRay(backCheck.transform.position,-transform.up*fwdGroundChkRange, Color.green);
-
-
-    if (backgroundhit.collider == null) {
-      //transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
-      move_speed *= -1;
-      //rb.velocity = Vector2.zero;
-      //turnOffCd = false;
-      StartCoroutine(turnOnCdCoroutine());
-    }
-*/
-
+  
 
   }
   
+  /// <summary>
+  /// This Makes it so the ai waits till all the checks the ai uses to detect a wall or lack of ground only restarts when
+  /// the failed checks are cleared after turning the ai. 
+  /// </summary>
+  /// <returns></returns>
   public IEnumerator turnOnCdCoroutine() {
     bool doneco = true;
     
@@ -216,20 +195,19 @@ public class Goomba : GenericPlayer {
         Vector2 fwd_angle = fwdCheck.transform.up + fwdCheck.transform.right;
         Vector2 back_angle = backCheck.transform.up - backCheck.transform.right; 
     
-    
-        RaycastHit2D fwdwallhit = Physics2D.Raycast(fwdCheck.transform.position, fwd_angle, fwdWallChkRange);
+        //could possibly use same raycasts as before as they're the exact same and pass them into this function.
+        //May save some computation     
+        RaycastHit2D fwdwallhit = Physics2D.Raycast(transform.position, fwd_angle, fwdWallChkRange);
         RaycastHit2D fwdgroundhit = Physics2D.Raycast(fwdCheck.transform.position, -transform.up, fwdGroundChkRange);
-        RaycastHit2D backwallhit = Physics2D.Raycast(backCheck.transform.position, back_angle, fwdWallChkRange);
+        RaycastHit2D backwallhit = Physics2D.Raycast(transform.position, back_angle, fwdWallChkRange);
         RaycastHit2D backgroundhit = Physics2D.Raycast(backCheck.transform.position, -transform.up, fwdGroundChkRange);
-        /*
-        Debug.DrawRay(fwdCheck.transform.position,fwdCheck.transform.right*fwdWallChkRange, Color.yellow);
-
-        Debug.DrawRay(fwdCheck.transform.position,GetGravity().normalized*fwdGroundChkRange, Color.green);
-        Debug.DrawRay(backCheck.transform.position,-transform.up*fwdGroundChkRange, Color.green);
-        Debug.DrawRay(backCheck.transform.position,-backCheck.transform.right*fwdWallChkRange, Color.yellow);
-*/
+   
+        
+        //Keep redoing until this check clears
         if (fwdwallhit.collider == null && backwallhit.collider == null && fwdgroundhit.collider != null &&
             backgroundhit.collider != null) {
+   
+          //Found it made better having a few miliseconds of wait before we actually allow turning again. 
           yield return new WaitForSeconds(turnWait);
 
           turnOffCd = true;
@@ -237,22 +215,31 @@ public class Goomba : GenericPlayer {
 
       }
 
-      Debug.Log("IN coroutine");
+      //Debug.Log("IN coroutine");
 
       yield return null;
 
     }
 
-    Debug.Log("Done coroutine");
+    //Debug.Log("Done coroutine");
   }
   
   
 
+  /// <summary>
+  /// Checks for if the player is in range to start attacking
+  /// </summary>
+  /// <returns></returns>
   private bool AgroCheck() {
    agro_game_objects = GetObjectsInView(transform.up, agro_ray_angle_fov, agro_ray_count, agro_ray_length, true);
     
     foreach (RaycastHit2D game_object in agro_game_objects) {
-      if (LayerMask.LayerToName(game_object.transform.gameObject.layer) == "Player") {
+      
+      //Todo: Figure out what the layer /tag should be
+      if (LayerMask.LayerToName(game_object.transform.gameObject.layer) == "SlimeEffector") {
+        Debug.DrawRay(transform.position,(game_object.transform.position-transform.position), Color.cyan);
+
+        attackVector = game_object.transform.position - transform.position;
         return true;
       }
     }
@@ -262,6 +249,10 @@ public class Goomba : GenericPlayer {
 
   private Vector2 groundedNormalVector;
   
+  /// <summary>
+  /// Check if the player is in an "Upright" position
+  /// </summary>
+  /// <returns></returns>
   private bool UprightCheck() {
     grounded_game_objects = GetObjectsInView(GetGravity(), ground_fov_angle, ground_ray_count, ground_ray_length);
     
@@ -281,10 +272,20 @@ public class Goomba : GenericPlayer {
     return false;
   }
 
+  /// <summary>
+  /// Put the player in an upright position. 
+  /// </summary>
   private void Upright() {
 
     transform.up = groundedNormalVector;
 
+    //Special case where we set the ai's gravity the first time it touches a platform. 
+    if (firstPlat) {
+      firstPlat = false;
+      goomba_input.horg = -groundedNormalVector.x;
+      goomba_input.verg = -groundedNormalVector.y;
+    }
+    
   }
 
   
@@ -311,6 +312,10 @@ public class Goomba : GenericPlayer {
     Debug.Log("Panicking");
   }
 
+  
+  /// <summary>
+  /// Builds the Decision Tree for the ai. Designed as left branch is true, right branch is false for decision nodes. 
+  /// </summary>
   private void BuildDecisionTree() {
 
     DecisionTree agroCheckNode = gameObject.AddComponent<DecisionTree>();
