@@ -11,12 +11,13 @@ public class Goomba : GenericPlayer {
   [Range(150, 400)] public int jumpForce = 150;
 
 
-  [Header("ForwardCheck")] public Transform fwdCheck;
+  [Header("ForwardCheck Information")] public Transform fwdCheck;
+  public Transform backCheck;
   [Range(.01f, 2)] public float fwdGroundChkRange = 1f;
   [Range(.01f, 2)] public float fwdWallChkRange = 1f;
-  
-  [Header("BackCheck")] public Transform backCheck;
- 
+  [Range(.01f,1f)]
+  public float turnWait = .5f;
+
   
   [Header("AgroFOV Raycast Settings")]
 
@@ -28,6 +29,8 @@ public class Goomba : GenericPlayer {
 
   [CustomRangeLabel("Angle FOV", 0f, 180f)] [Tooltip("Padding for the angle.")]
   [SerializeField] private float agro_ray_angle_fov;
+
+  
   
   
   private GoombaInput goomba_input;
@@ -113,15 +116,15 @@ public class Goomba : GenericPlayer {
     Vector2 back_angle = backCheck.transform.up - backCheck.transform.right; 
     
     
-    RaycastHit2D fwdwallhit = Physics2D.Raycast(fwdCheck.transform.position, fwd_angle, fwdWallChkRange);
+    RaycastHit2D fwdwallhit = Physics2D.Raycast(transform.position, fwd_angle, fwdWallChkRange);
     RaycastHit2D fwdgroundhit = Physics2D.Raycast(fwdCheck.transform.position, -transform.up, fwdGroundChkRange);
-    RaycastHit2D backwallhit = Physics2D.Raycast(backCheck.transform.position, back_angle, fwdWallChkRange);
+    RaycastHit2D backwallhit = Physics2D.Raycast(transform.position, back_angle, fwdWallChkRange);
     RaycastHit2D backgroundhit = Physics2D.Raycast(backCheck.transform.position, -transform.up, fwdGroundChkRange);
 
-    Debug.DrawRay(fwdCheck.transform.position,(fwd_angle)*fwdWallChkRange, Color.yellow);
+    Debug.DrawRay(transform.position,(fwd_angle)*fwdWallChkRange, Color.yellow);
     Debug.DrawRay(fwdCheck.transform.position,-transform.up*fwdGroundChkRange, Color.green);
     
-    Debug.DrawRay(backCheck.transform.position,(back_angle)*fwdWallChkRange, Color.yellow);
+    Debug.DrawRay(transform.position,(back_angle)*fwdWallChkRange, Color.yellow);
     Debug.DrawRay(backCheck.transform.position,-backCheck.transform.up*fwdGroundChkRange, Color.green);
 
 
@@ -227,6 +230,8 @@ public class Goomba : GenericPlayer {
 */
         if (fwdwallhit.collider == null && backwallhit.collider == null && fwdgroundhit.collider != null &&
             backgroundhit.collider != null) {
+          yield return new WaitForSeconds(turnWait);
+
           turnOffCd = true;
         }
 
