@@ -470,12 +470,13 @@ public class GenericPlayer : GravityField {
     return new Vector2(Mathf.Abs(GetGravity().x), Mathf.Abs(GetGravity().y)) * jump_apex_time;
   }
 
+  protected HashSet<RaycastHit2D> hits;
   /// <summary>
   /// Check if the player is touching anything in direction of gravity.
   /// </summary>
   /// <returns>True if touching ground otherwise false.</returns>
   protected bool IsGrounded(bool visualize = false) {
-    HashSet<RaycastHit2D> hits = GetObjectsInView(GetGravity(), ground_fov_angle, ground_ray_count, ground_ray_length, visualize);
+    hits = GetObjectsInView(GetGravity(), ground_fov_angle, ground_ray_count, ground_ray_length, visualize);
     foreach (RaycastHit2D hit in hits) {
       if (LayerMask.LayerToName(hit.transform.gameObject.layer) != LayerMask.LayerToName(gameObject.layer)) {
         return true;
