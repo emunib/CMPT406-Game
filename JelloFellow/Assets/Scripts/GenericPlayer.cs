@@ -1,8 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GenericPlayer : GravityField {
+
+	[Header("Health Settings")]
+	[CustomLabel("Current HP")] [Tooltip("Current Health ")] [SerializeField]
+	private int cur_hp;
+  [CustomLabel("Max HP")] [Tooltip("Max Health")] [SerializeField]
+  private int max_hp;
   [Header("General Settings")] [CustomLabel("Raycast Origin")] [Tooltip("Should the main object be an origin of raycasting.")] [SerializeField]
   private bool is_raycast_origin = true;
 
@@ -149,6 +156,8 @@ public class GenericPlayer : GravityField {
   protected bool is_grounded { get; private set; }
 
   protected virtual void Start() {
+
+    cur_hp = max_hp;
     /* init hashset raycast origins */
     raycast_origins = new HashSet<Transform>();
     /* if the main object is a raycast origin then add to the collection */
@@ -293,6 +302,21 @@ public class GenericPlayer : GravityField {
     ChangeGravityAlpha(Mathf.Clamp01(gravity_stamina / max_gravity_stamina));
 
     base.Update();
+  }
+
+  
+  
+  //Damage Information
+  private void Damage(int amount)
+  {
+    cur_hp -= amount;
+    if (cur_hp < 0)
+    {
+      Debug.Log("Bleh I died.");
+      SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+
+    }
   }
 
   /// <summary>
