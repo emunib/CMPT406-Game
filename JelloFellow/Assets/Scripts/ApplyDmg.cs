@@ -4,12 +4,20 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class ApplyDmg : MonoBehaviour {
+	public LayerMask playerLayer = -1;
+	
 
-	void OnTriggerEnter2D(Collider2D other) {
-		if (other.gameObject.CompareTag("Player")) {
+	private void OnTriggerEnter2D(Collider2D other) {
+
+		if (playerLayer == (playerLayer| (1<<other.gameObject.layer))) {
 			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-		} else if (other.gameObject.CompareTag("Enemy")) {
-			Destroy(other.gameObject);
 		}
+		//Kill enemy
+		else if (other.gameObject.CompareTag("Enemy")) {
+			Destroy(other.gameObject);
+		}	
+		
 	}
+
+	
 }

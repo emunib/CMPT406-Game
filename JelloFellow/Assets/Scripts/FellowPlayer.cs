@@ -7,7 +7,9 @@ public class FellowPlayer : GenericPlayer {
 		base.Start();
 		
 		_input = GameObject.FindGameObjectWithTag("InputController").GetComponent<InputController>().GetInput();
+		SetIgnoreFields(true);
 		SetInput(_input);
 		SetFieldRadius(2f);
 	}
+
 }
