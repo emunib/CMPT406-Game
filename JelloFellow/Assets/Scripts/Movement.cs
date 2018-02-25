@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
@@ -19,7 +18,10 @@ public class Movement : MonoBehaviour
 
     private void Update()
     {
-        Move();
+        if (_jelly.IsGrounded(GroundLayer, 5))
+        {
+            Move();
+        }
 
         FixPoints();
 
