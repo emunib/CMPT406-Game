@@ -19,7 +19,9 @@ public abstract class GravityPlayer : Gravity {
 	private HashSet<Transform> objects;
 	private Vector2 gravity_restrictions;
 
-	protected virtual void Awake() {
+	protected override void Awake() {
+		base.Awake();
+		
 		/* get the rigidbody and make the component not be effected by Physics2D gravity */
 		rigidbody = GetComponent<Rigidbody2D>();
 		rigidbody.gravityScale = 0f;
