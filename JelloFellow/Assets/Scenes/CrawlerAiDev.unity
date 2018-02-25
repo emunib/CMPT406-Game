@@ -113,6 +113,48 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &1196721029
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4971892109584742, guid: 545b4ad95d75f4e22b7425440ee44964, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4971892109584742, guid: 545b4ad95d75f4e22b7425440ee44964, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4971892109584742, guid: 545b4ad95d75f4e22b7425440ee44964, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4971892109584742, guid: 545b4ad95d75f4e22b7425440ee44964, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4971892109584742, guid: 545b4ad95d75f4e22b7425440ee44964, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4971892109584742, guid: 545b4ad95d75f4e22b7425440ee44964, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4971892109584742, guid: 545b4ad95d75f4e22b7425440ee44964, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4971892109584742, guid: 545b4ad95d75f4e22b7425440ee44964, type: 2}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 545b4ad95d75f4e22b7425440ee44964, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &1613943705
 GameObject:
   m_ObjectHideFlags: 0
@@ -233,7 +275,6 @@ GameObject:
   - component: {fileID: 2032164954}
   - component: {fileID: 2032164953}
   - component: {fileID: 2032164958}
-  - component: {fileID: 2032164957}
   - component: {fileID: 2032164956}
   m_Layer: 0
   m_Name: Crawler
@@ -318,12 +359,12 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2032164952}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.49, y: 1.39, z: -10.999946}
+  m_LocalPosition: {x: -0.49, y: 1.39, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1746604903}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2032164956
 MonoBehaviour:
@@ -333,23 +374,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2032164952}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c8abe6c80e0b45c88ba832d0fa748f5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  horizontal: 0
-  vertical: 0
-  horg: 0
-  verg: 0
-  jumpbtndown: 0
---- !u!114 &2032164957
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2032164952}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a1df549989414367b50d89cc6580a6b, type: 3}
+  m_Script: {fileID: 11500000, guid: da18bd3fc006c47858235928e4dd9626, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   is_raycast_origin: 1
@@ -363,9 +388,7 @@ MonoBehaviour:
   gravity_depletion_time: 5
   gravity_field_transition_time: 0.6
   movement_linear_drag: 5
-  move_speed: 13.6
-  jump_height: 6
-  jump_apex_time: 0.4
+  move_speed: 6
   jump_angle_force: 10
   jump_normalize_threshold: 1
   leniency_angle: 25
@@ -375,9 +398,9 @@ MonoBehaviour:
   ground_ray_count: 2
   ground_ray_length: 0.65
   verbose_gravity: 0
-  show_gravity: 1
+  show_gravity: 0
   gravity_ray_color: {r: 0, g: 0, b: 0, a: 1}
-  visualize_ground_check: 1
+  visualize_ground_check: 0
   visualize_fov_edge: {r: 0, g: 0, b: 1, a: 1}
   visualize_fov_inbetween: {r: 1, g: 0, b: 0, a: 1}
   verbose_movement: 0
@@ -385,7 +408,6 @@ MonoBehaviour:
   movement_direction_color: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   platform_direction_color: {r: 1, g: 0, b: 1, a: 1}
   movement_leniency_color: {r: 0, g: 0, b: 1, a: 1}
-  tiltpoint: {fileID: 1746604903}
 --- !u!50 &2032164958
 Rigidbody2D:
   serializedVersion: 4
