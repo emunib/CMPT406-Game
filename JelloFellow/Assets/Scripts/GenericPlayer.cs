@@ -39,13 +39,7 @@ public class GenericPlayer : GravityField {
   [CustomRangeLabel("Move Speed", 0f, 100f)] [Tooltip("Speed at which to move the player.")] [SerializeField]
   private float move_speed = 10f;
 
-  [CustomRangeLabel("Jump Height", 0f, 100f)] [Tooltip("The height of the jump (apex).")] [SerializeField]
-  private float jump_height = 6f;
-
-  [CustomRangeLabel("Jump Apex Time", 0f, 100f)] [Tooltip("Time to reach the apex of the jump.")] [SerializeField]
-  private float jump_apex_time = 0.4f;
-
-  [CustomRangeLabel("Jump Angle Force", 0f, 100f)] [Tooltip("Force to apply in order to jump at an angle.")] [SerializeField]
+  [CustomRangeLabel("Jump Force", 0f, 100f)] [Tooltip("Force to apply in order to jump.")] [SerializeField]
   private float jump_angle_force = 10f;
 
   [CustomRangeLabel("Jump Normalized Threshold", 0f, 100f)] [Tooltip("The threshold to normalize the hybrid jump.")] [SerializeField]
@@ -299,17 +293,19 @@ public class GenericPlayer : GravityField {
   /// Modulo operator function.
   /// https://answers.unity.com/questions/380035/c-modulus-is-wrong-1.html
   /// </summary>
-  private static float fmod(float a, float b) {
+  protected static float fmod(float a, float b) {
     return a - b * Mathf.Floor(a / b);
   }
 
   private void HandleMovement() {
+    if(verbose_movement) Debug.Log("Handling Movement");
+    
     /* get platform information */
     GameObject current_platform = null;
     HashSet<RaycastHit2D> hits = GetObjectsInView(GetGravity(), ground_fov_angle, ground_ray_count, ground_ray_length);
     Vector2 platform_hit_normal = Vector2.zero;
     foreach (RaycastHit2D hit in hits) {
-      if (hit.transform.gameObject.layer != this.gameObject.layer) {
+      if (hit.transform.gameObject.layer != gameObject.layer) {
         /* calculate angle of the platform we are on */
         current_platform = hit.transform.gameObject;
         platform_angle = Mathf.Atan2(hit.normal.x, hit.normal.y) * Mathf.Rad2Deg;
@@ -412,10 +408,8 @@ public class GenericPlayer : GravityField {
 
           velocity += hybrid_jump * jump_angle_force;
 
-          //velocity += (platform_hit_normal + new Vector2(horizontal_movement, vertical_movement)) * jump_angle_force;
         } else {
           velocity += platform_hit_normal * jump_angle_force;
-          //  velocity += new Vector2(jump_direction.x + MaxJumpVelocity().x, jump_direction.y + MaxJumpVelocity().y);
         }
       }
 
@@ -452,22 +446,6 @@ public class GenericPlayer : GravityField {
       /* update old platform */
       old_platform = current_platform;
     }
-  }
-
-  public override float JumpHeight() {
-    return jump_height;
-  }
-
-  public override float JumpApexTime() {
-    return jump_apex_time;
-  }
-
-  /// <summary>
-  /// Calculates max jump velocty from preset jump height and calculated gravity.
-  /// </summary>
-  /// <returns>Calculated max jump velocity.</returns>
-  private Vector2 MaxJumpVelocity() {
-    return new Vector2(Mathf.Abs(GetGravity().x), Mathf.Abs(GetGravity().y)) * jump_apex_time;
   }
 
   /// <summary>
