@@ -414,10 +414,8 @@ public class GenericPlayer : GravityField {
 
           velocity += hybrid_jump * jump_angle_force;
 
-          //velocity += (platform_hit_normal + new Vector2(horizontal_movement, vertical_movement)) * jump_angle_force;
         } else {
           velocity += platform_hit_normal * jump_angle_force;
-          //  velocity += new Vector2(jump_direction.x + MaxJumpVelocity().x, jump_direction.y + MaxJumpVelocity().y);
         }
       }
 
@@ -454,22 +452,6 @@ public class GenericPlayer : GravityField {
       /* update old platform */
       old_platform = current_platform;
     }
-  }
-
-  public override float JumpHeight() {
-    return jump_height;
-  }
-
-  public override float JumpApexTime() {
-    return jump_apex_time;
-  }
-
-  /// <summary>
-  /// Calculates max jump velocty from preset jump height and calculated gravity.
-  /// </summary>
-  /// <returns>Calculated max jump velocity.</returns>
-  private Vector2 MaxJumpVelocity() {
-    return new Vector2(Mathf.Abs(GetGravity().x), Mathf.Abs(GetGravity().y)) * jump_apex_time;
   }
 
   /// <summary>

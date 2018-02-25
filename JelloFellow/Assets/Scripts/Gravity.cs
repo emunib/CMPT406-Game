@@ -1,9 +1,13 @@
 ﻿using UnityEngine;
 
-public abstract class Gravity : MonoBehaviour {
+public abstract class Gravity : MonoBehaviour
+{
+
+  private readonly float gravity_force = GameObject.FindGameObjectWithTag("Main").GetComponent<MainScript>().GravityForce();
   /* Force of the gravity to apply in which ever direction */
-  protected float GravityForce() {
-    return 2 * JumpHeight() / Mathf.Pow(JumpApexTime(), 2);
+  protected float GravityForce()
+  {
+      return gravity_force;
   }
   
   /* Default gravity set when not in gravitation field */
@@ -26,18 +30,6 @@ public abstract class Gravity : MonoBehaviour {
   /// This object has just left a gravity field.
   /// </summary>
   public abstract void OutsideGravityField();
-  
-  /// <summary>
-  /// Height of the jump.
-  /// </summary>
-  /// <returns>Height this object jumps.</returns>
-  public abstract float JumpHeight();
-  
-  /// <summary>
-  /// Time to reach the apex of the jump.
-  /// </summary>
-  /// <returns>Time to reach apex of the jump.</returns>
-  public abstract float JumpApexTime();
 
   /// <summary>
   /// Light restrictions when entering a light.
