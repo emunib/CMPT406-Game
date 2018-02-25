@@ -3,6 +3,11 @@
 public abstract class Gravity : MonoBehaviour {
   /* Force of the gravity to apply in which ever direction */
   protected float GravityForce() {
+    Debug.Log("Height"+JumpHeight());
+    Debug.Log("Apex"+JumpApexTime());
+    float i = JumpHeight();
+    float j = JumpApexTime();
+    
     return 2 * JumpHeight() / Mathf.Pow(JumpApexTime(), 2);
   }
   
