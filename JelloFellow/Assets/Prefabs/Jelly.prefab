@@ -37,6 +37,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4452864121919438}
   - component: {fileID: 212401399505344914}
+  - component: {fileID: 114634313010857888}
   m_Layer: 0
   m_Name: Eyes
   m_TagString: Untagged
@@ -87,7 +88,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1700407450352986}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_Children:
   - {fileID: 4799819832650172}
@@ -188,7 +189,7 @@ MonoBehaviour:
   GroundLayer:
     serializedVersion: 2
     m_Bits: 0
-  Speed: 10
+  Speed: 1
   MaxStretchDist: 5
 --- !u!114 &114487060404033590
 MonoBehaviour:
@@ -214,6 +215,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Parent: {fileID: 0}
+--- !u!114 &114634313010857888
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1700407450352986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb071529cecc4f63947703ba74fd1174, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OffsetFromCentre: {x: 0, y: 1.5}
+  SmoothTime: 0.1
 --- !u!114 &114907191846490454
 MonoBehaviour:
   m_ObjectHideFlags: 1
