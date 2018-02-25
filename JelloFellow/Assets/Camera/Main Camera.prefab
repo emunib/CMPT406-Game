@@ -75,11 +75,11 @@ Camera:
   m_TargetEye: 3
   m_HDR: 0
   m_AllowMSAA: 0
-  m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 0
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+  m_StereoMirrorMode: 0
 --- !u!81 &81187125822858446
 AudioListener:
   m_ObjectHideFlags: 1
@@ -110,12 +110,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Target: {fileID: 0}
-  MovementSmoothTime: 0.15
+  MovementSmoothTime: 0
   DeadZone: 3
-  MinSize: 10
-  MaxSize: 20
-  ZoomInSmoothTime: 0.2
-  ZoomOutSmoothTime: 0.75
+  MinSize: 20
+  MaxSize: 30
+  ZoomInSmoothTime: 1
+  ZoomOutSmoothTime: 0.6
 --- !u!124 &124126863532189400
 Behaviour:
   m_ObjectHideFlags: 1
