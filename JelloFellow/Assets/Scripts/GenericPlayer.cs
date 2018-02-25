@@ -39,13 +39,7 @@ public class GenericPlayer : GravityField {
   [CustomRangeLabel("Move Speed", 0f, 100f)] [Tooltip("Speed at which to move the player.")] [SerializeField]
   private float move_speed = 10f;
 
-  [CustomRangeLabel("Jump Height", 0f, 100f)] [Tooltip("The height of the jump (apex).")] [SerializeField]
-  private float jump_height = 6f;
-
-  [CustomRangeLabel("Jump Apex Time", 0f, 100f)] [Tooltip("Time to reach the apex of the jump.")] [SerializeField]
-  private float jump_apex_time = 0.4f;
-
-  [CustomRangeLabel("Jump Angle Force", 0f, 100f)] [Tooltip("Force to apply in order to jump at an angle.")] [SerializeField]
+  [CustomRangeLabel("Jump Force", 0f, 100f)] [Tooltip("Force to apply in order to jump.")] [SerializeField]
   private float jump_angle_force = 10f;
 
   [CustomRangeLabel("Jump Normalized Threshold", 0f, 100f)] [Tooltip("The threshold to normalize the hybrid jump.")] [SerializeField]
@@ -414,10 +408,8 @@ public class GenericPlayer : GravityField {
 
           velocity += hybrid_jump * jump_angle_force;
 
-          //velocity += (platform_hit_normal + new Vector2(horizontal_movement, vertical_movement)) * jump_angle_force;
         } else {
           velocity += platform_hit_normal * jump_angle_force;
-          //  velocity += new Vector2(jump_direction.x + MaxJumpVelocity().x, jump_direction.y + MaxJumpVelocity().y);
         }
       }
 
@@ -454,22 +446,6 @@ public class GenericPlayer : GravityField {
       /* update old platform */
       old_platform = current_platform;
     }
-  }
-
-  public override float JumpHeight() {
-    return jump_height;
-  }
-
-  public override float JumpApexTime() {
-    return jump_apex_time;
-  }
-
-  /// <summary>
-  /// Calculates max jump velocty from preset jump height and calculated gravity.
-  /// </summary>
-  /// <returns>Calculated max jump velocity.</returns>
-  private Vector2 MaxJumpVelocity() {
-    return new Vector2(Mathf.Abs(GetGravity().x), Mathf.Abs(GetGravity().y)) * jump_apex_time;
   }
 
   /// <summary>

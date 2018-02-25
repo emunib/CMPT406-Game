@@ -23,12 +23,12 @@ public class GravityComponent : Gravity {
 
   /* if component should remember gravity */
   private bool remember_gravity;
-
-  private float jump_height;
-  private float jump_apex_time;
+  
   private Vector2 gravity_restrictions;
   
-  private void Awake() {
+  protected override void Awake() {
+    base.Awake();
+    
     /* get the rigidbody and make the component not be effected by Physics2D gravity */
     rigidbody = GetComponent<Rigidbody2D>();
     rigidbody.gravityScale = 0f;
@@ -39,11 +39,6 @@ public class GravityComponent : Gravity {
     remember_gravity = true;
     gravity = DefaultGravity();
     gravity_restrictions = Vector2.one;
-
-    /* get the same gravity as the player */
-    Gravity player_gravity = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<Gravity>();
-    jump_apex_time = player_gravity.JumpApexTime();
-    jump_height = player_gravity.JumpHeight();
   }
 
   private void Update() {
@@ -79,14 +74,6 @@ public class GravityComponent : Gravity {
 
   private void OnBecameVisible() {
     gravity_settable = true;
-  }
-  
-  public override float JumpHeight() {
-    return jump_height;
-  }
-
-  public override float JumpApexTime() {
-    return jump_apex_time;
   }
   
   public override void SetGravityLightRestrictions(Vector2 _restrictions) {
