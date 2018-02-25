@@ -2,12 +2,12 @@
 
 public class EyeController : MonoBehaviour
 {
-    private Input2D _input;
     public Transform Parent;
-    private Vector2 _original;
-    private Vector2 _vec;
-    private Vector2 _velocity;
-
+    public Vector2 OffsetFromEyeCentre;
+    
+    private Input2D _input;
+    private Vector2 _position;
+    private Vector2 _vel;
     private float _xScale;
     private float _yScale;
 
@@ -20,19 +20,17 @@ public class EyeController : MonoBehaviour
     private void Start()
     {
         _input = GameObject.FindGameObjectWithTag("InputController").GetComponent<InputController>().GetInput();
-        _original = transform.localPosition;
     }
 
     private void Update()
     {
-        var dir = new Vector2(_input.GetHorizontalLeftStick(), _input.GetVerticalLeftStick());
-        dir = dir.normalized;
-        dir = new Vector2(dir.x * _xScale, dir.y * _yScale);
+        var targetPos = new Vector2(_input.GetHorizontalLeftStick(), _input.GetVerticalLeftStick());
+        targetPos = targetPos.normalized;
+        targetPos = new Vector2(targetPos.x * _xScale, targetPos.y * _yScale);
+        targetPos += OffsetFromEyeCentre;
 
-        dir = transform.InverseTransformDirection(dir);
+        _position = Vector2.SmoothDamp(_position, targetPos, ref _vel, 0.2f, Mathf.Infinity, Time.deltaTime);
 
-        _vec = Vector2.SmoothDamp(_vec, new Vector2(dir.x, dir.y), ref _velocity, 0.2f, Mathf.Infinity, Time.deltaTime);
-
-        transform.localPosition = new Vector2(_vec.x + _original.x , _vec.y + _original.y);
+        transform.localPosition = _position;
     }
 }
