@@ -5,7 +5,7 @@ public abstract class Gravity : MonoBehaviour {
 
   protected virtual void Awake() {
     if (GameObject.FindGameObjectWithTag("Main")) {
-      gravity_force = MainScript.mainScript.GravityForce();
+      gravity_force = GameObject.FindGameObjectWithTag("Main").GetComponent<MainScript>().GravityForce();
     } else {
       Debug.LogError("Please add the Main prefab to the scene.");
     }
