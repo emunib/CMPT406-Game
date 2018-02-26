@@ -10,7 +10,7 @@ public class ApplyDmg : MonoBehaviour {
 	private void OnTriggerEnter2D(Collider2D other) {
 
 		if (playerLayer == (playerLayer| (1<<other.gameObject.layer))) {
-			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+			//SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 		}
 		//Kill enemy
 		else if (other.gameObject.CompareTag("Enemy")) {
