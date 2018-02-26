@@ -111,8 +111,9 @@ public class ZCrawler : GenericPlayer {
 			
 			Vector2 forwardangle_direction = new Vector2(Mathf.Sin(angle * Mathf.Deg2Rad), Mathf.Cos(angle * Mathf.Deg2Rad));
 			Vector2 dir = -(Vector2)transform.up;
-
-			float velocityFactor = .35f;
+			
+			float velocityFactor = .50f;
+			rb.AddTorque(direction*.5f);
 			dir = new Vector2(dir.x, dir.y);
 			//HashSet<RaycastHit2D> leaving_ground = GetObjectsInView(dir, 1f, 0, 8f,true);
 			Vector2 startOffset = transform.position + new Vector3( rb.velocity.normalized.x *.7f, rb.velocity.normalized.y * .7f);
