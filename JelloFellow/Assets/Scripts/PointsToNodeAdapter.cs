@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
 
+[RequireComponent(typeof(PlayerConfigurator))]
 public class PointsToNodeAdapter : MonoBehaviour
 {
 	private JellySprite _jelly;
@@ -28,12 +29,11 @@ public class PointsToNodeAdapter : MonoBehaviour
 			var centre = _jelly.CentralPoint.GameObject;
 			centre.AddComponent<FellowPlayer>();
 
+			var config = _jelly.GetComponent<PlayerConfigurator>();
+			config.ChildComponents = children;
+
 			var player = centre.GetComponent<FellowPlayer>();
-			player.ChildComponents = children;
-			player.apply_gravity_tochild = true;
-			player.apply_movement_tochild = true;
-			player.move_speed = 20f;
-			player.jump_angle_force = 30f;
+			player.config = config;
 		}
 		else
 		{
