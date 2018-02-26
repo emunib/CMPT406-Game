@@ -11,7 +11,7 @@ public class ZCrawler : GenericPlayer {
 	private float direction;
 	private bool wait_gravity;
 	private Rigidbody2D rb;
-	
+	public bool randomizeDirection = true;
 
 	private Quaternion glueRot = Quaternion.identity;
 	// Use this for initialization
@@ -21,12 +21,15 @@ public class ZCrawler : GenericPlayer {
 		_input = gameObject.AddComponent<ZCrawlerInput>();
 		SetInput(_input);
 		SetIgnoreFields(true);
-		SetFieldRadius(12f);
+		SetFieldRadius(2f);
 
 		sprite_renderer = GetComponent<SpriteRenderer>();
 		do_once = false;
 		flip = false;
-		direction = 1f;
+		if (UnityEngine.Random.Range(0f, 1f) >= 0.5f) direction = -1;
+		else{
+			direction = 1; }
+		
 		wait_gravity = false;
 	}
 	
@@ -40,8 +43,7 @@ public class ZCrawler : GenericPlayer {
 		/* move in the direction of platform */
 		float platform_walk_angle = PlatformAngle() - 90;
 		Vector2 movement_direction = new Vector2(Mathf.Sin(platform_walk_angle * Mathf.Deg2Rad), Mathf.Cos(platform_walk_angle * Mathf.Deg2Rad));
-		rb.drag = 0;
-		rb.angularDrag =  0;
+		
 		/* use the left control stick to move in direction */
 		_input.leftstickx = movement_direction.x * direction;
 		_input.leftsticky = movement_direction.y * direction;
@@ -106,17 +108,19 @@ public class ZCrawler : GenericPlayer {
 			float angle2 = platform_angle + 160f;
 
 			float angle = flip ? Mathf.Max(angle1, angle2) : Mathf.Min(angle1, angle2);
-
+			
 			Vector2 forwardangle_direction = new Vector2(Mathf.Sin(angle * Mathf.Deg2Rad), Mathf.Cos(angle * Mathf.Deg2Rad));
-			Vector2 dir = -transform.up;
+			Vector2 dir = -(Vector2)transform.up;
 
-
+			float velocityFactor = .35f;
 			dir = new Vector2(dir.x, dir.y);
 			//HashSet<RaycastHit2D> leaving_ground = GetObjectsInView(dir, 1f, 0, 8f,true);
-			Vector2 startOffset = transform.position + new Vector3( rb.velocity.normalized.x *.5f, rb.velocity.normalized.y * .5f);
-			RaycastHit2D daHit = Physics2D.Linecast(startOffset, startOffset + dir * 4);
-			Debug.DrawLine(startOffset, startOffset + dir * 4, Color.red);
+			Vector2 startOffset = transform.position + new Vector3( rb.velocity.normalized.x *.7f, rb.velocity.normalized.y * .7f);
+			RaycastHit2D daHit = Physics2D.Linecast(startOffset, startOffset + dir * rb.velocity.magnitude * velocityFactor);
+			Debug.DrawLine(startOffset, startOffset + dir * rb.velocity.magnitude * velocityFactor, Color.red);
 			
+			//RaycastHit2D gravDirHit = Physics2D.Linecast(transform.position, (Vector2)transform.position  + this.GetGravity() * 9);
+			//Debug.DrawLine(transform.position, (Vector2)transform.position  + this.GetGravity() * 9,Color.magenta);
 			
 			if (daHit && LayerMask.LayerToName(daHit.transform.gameObject.layer) != LayerMask.LayerToName(gameObject.layer))
 			{
@@ -133,14 +137,14 @@ public class ZCrawler : GenericPlayer {
 
 
 
-			platform_angle = Mathf.Atan2(daHit.normal.x, daHit.normal.y) * Mathf.Rad2Deg  * direction;
+				platform_angle = Mathf.Atan2(daHit.normal.x, daHit.normal.y) * Mathf.Rad2Deg;//* direction;
 
 			Vector2 gravity_direction = new Vector2(Mathf.Sin((platform_angle + 180f * direction) * Mathf.Deg2Rad),
 				Mathf.Cos((platform_angle + 180f * direction) * Mathf.Deg2Rad));
 
 			Vector3 rotation_angle = transform.rotation.eulerAngles;
 			Debug.Log("Platform angle is : " + platform_angle);
-			rotation_angle.z = -platform_angle * direction;
+			rotation_angle.z = -platform_angle ;
 			rb.angularVelocity = 0;
 			transform.rotation = Quaternion.Euler(rotation_angle);
 
@@ -154,19 +158,23 @@ public class ZCrawler : GenericPlayer {
 	}
 		else
 		{
-			RaycastHit2D forwardHit = Physics2D.Linecast(transform.position, transform.position - transform.right * 1);
-			Debug.DrawLine(transform.position, transform.position - transform.right * 1, Color.green);
-
+			RaycastHit2D forwardHit = Physics2D.Linecast(transform.position, transform.position - transform.right * 1.3f * direction);
+			Debug.DrawLine(transform.position, transform.position - transform.right * 1.3f * direction, Color.green);
+			
 			if (forwardHit && LayerMask.LayerToName(forwardHit.transform.gameObject.layer) != LayerMask.LayerToName(gameObject.layer))
 			{
-				float platform_angle = Mathf.Atan2(forwardHit.normal.x, forwardHit.normal.y) * Mathf.Rad2Deg  * direction;
-
-				Vector2 gravity_direction = new Vector2(Mathf.Sin((platform_angle + 180f * direction) * Mathf.Deg2Rad),
+				if (forwardHit.collider.gameObject.tag == "Enemy")
+				{
+					Flip();
+					return;
+				}
+				float platform_angle = Mathf.Atan2(forwardHit.normal.x, forwardHit.normal.y) * Mathf.Rad2Deg ;
+				Debug.Log("Forward plat normal : " + forwardHit.normal);
+				Vector2 gravity_direction =  new Vector2(Mathf.Sin((platform_angle + 180f * direction) * Mathf.Deg2Rad),
 					Mathf.Cos((platform_angle + 180f * direction) * Mathf.Deg2Rad));
-
 				Vector3 rotation_angle = transform.rotation.eulerAngles;
 				Debug.Log("Platform angle is : " + platform_angle);
-				rotation_angle.z = -platform_angle * direction;
+				rotation_angle.z = -platform_angle ;
 				rb.angularVelocity = 0;
 				transform.rotation = Quaternion.Euler(rotation_angle);
 
