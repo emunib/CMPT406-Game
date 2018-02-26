@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Reflection.Emit;
 using UnityEngine;
 
 public class ZCrawler : GenericPlayer {
@@ -19,7 +20,7 @@ public class ZCrawler : GenericPlayer {
 		rb = GetComponent<Rigidbody2D>();
 		_input = gameObject.AddComponent<ZCrawlerInput>();
 		SetInput(_input);
-		SetIgnoreFields(false);
+		SetIgnoreFields(true);
 		SetFieldRadius(12f);
 
 		sprite_renderer = GetComponent<SpriteRenderer>();
@@ -32,14 +33,15 @@ public class ZCrawler : GenericPlayer {
 	protected  void FixedUpdate() {
 		/* reset all the values */
 		_input.DefaultValues();
-    
+    	
 		/* use find to see if theres players ahead or we need to flip */
 		Find();
     
 		/* move in the direction of platform */
 		float platform_walk_angle = PlatformAngle() - 90;
 		Vector2 movement_direction = new Vector2(Mathf.Sin(platform_walk_angle * Mathf.Deg2Rad), Mathf.Cos(platform_walk_angle * Mathf.Deg2Rad));
-		
+		rb.drag = 0;
+		rb.angularDrag =  0;
 		/* use the left control stick to move in direction */
 		_input.leftstickx = movement_direction.x * direction;
 		_input.leftsticky = movement_direction.y * direction;
@@ -98,6 +100,7 @@ public class ZCrawler : GenericPlayer {
 		
 		if (!is_grounded && !wait_gravity)
 		{
+			
 			float platform_angle = PlatformAngle();
 			float angle1 = platform_angle - 160;
 			float angle2 = platform_angle + 160f;
