@@ -9,6 +9,7 @@ public class ZGooScript : MonoBehaviour {
 
 	private void Start() {
 		Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer(playerLayer),LayerMask.NameToLayer(gooLayer));
+		
 	}
 
 	
