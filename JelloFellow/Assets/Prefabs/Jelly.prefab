@@ -74,7 +74,8 @@ GameObject:
   - component: {fileID: 23222845609775506}
   - component: {fileID: 114907191846490454}
   - component: {fileID: 114233985346187192}
-  m_Layer: 9
+  - component: {fileID: 114129279852201672}
+  m_Layer: 0
   m_Name: Jelly
   m_TagString: Blob
   m_Icon: {fileID: 0}
@@ -89,7 +90,7 @@ Transform:
   m_GameObject: {fileID: 1700407450352986}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4799819832650172}
   - {fileID: 4633916851399382}
@@ -116,7 +117,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1774356478298352}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -3.423667, y: 14.94, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4452864121919438}
@@ -175,6 +176,17 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1774356478298352}
   m_Mesh: {fileID: 0}
+--- !u!114 &114129279852201672
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1774356478298352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ba373c572174be4d858c348770b37db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114233985346187192
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -186,11 +198,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19ec152c6a8d36345b7bfb19464f5712, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GroundLayer:
-    serializedVersion: 2
-    m_Bits: 256
-  Speed: 5
-  MaxStretchDist: 5
+  MaxStretchDist: 1.3
 --- !u!114 &114487060404033590
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -228,8 +236,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb071529cecc4f63947703ba74fd1174, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OffsetFromCentre: {x: 0, y: 1.5}
+  YOffsetFromCentre: 0.5
   SmoothTime: 0.1
+  Distance: 0.55
 --- !u!114 &114907191846490454
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -321,7 +330,7 @@ MonoBehaviour:
   m_Stiffness: 2.7
   m_Mass: 1
   m_LockRotation: 1
-  m_GravityScale: 7
+  m_GravityScale: 1
   m_UseGravity: 1
   m_CollideConnected: 0
   m_CentralBodyKinematic: 0
@@ -335,7 +344,7 @@ MonoBehaviour:
   m_SoftBodyRotation: 0
   m_SoftBodyOffset: {x: -0, y: -0}
   m_CentralBodyOffset: {x: -0, y: -0}
-  m_SpriteScale: {x: 1.5, y: 1.8}
+  m_SpriteScale: {x: 0.85, y: 1}
   m_2DMode: 1
   m_AttachNeighbors: 1
   m_FlipX: 0

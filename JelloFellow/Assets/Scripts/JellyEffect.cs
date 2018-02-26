@@ -1,35 +1,22 @@
 ﻿using UnityEngine;
 
-public class Movement : MonoBehaviour
+public class JellyEffect : MonoBehaviour
 {
-    public LayerMask GroundLayer;
-    [Range(1f, 50f)] public float Speed = 10f;
     private JellySprite _jelly;
     public float MaxStretchDist = 5f;
-    private Input2D _input;
 
 
     void Start()
     {
         _jelly = GetComponent<JellySprite>();
-        _input = GameObject.FindGameObjectWithTag("InputController").GetComponent<InputController>().GetInput();
     }
 
 
     private void Update()
     {
-        if (_jelly.IsGrounded(GroundLayer, 5))
-        {
-            Move();
-        }
-
         FixPoints();
-
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            _jelly.Reset(Vector3.zero, Vector3.zero);
-        }
+        
+        Debug.DrawLine(_jelly.ReferencePoints[1].transform.position, _jelly.ReferencePoints[1].transform.position + Vector3.one.normalized * MaxStretchDist);
     }
 
     private void FixPoints()
@@ -63,16 +50,5 @@ public class Movement : MonoBehaviour
                 _jelly.ResetPoint(cur);
             }
         }
-    }
-
-
-    private void Move()
-    {
-        var movementDir = Vector2.zero;
-        movementDir.x = _input.GetHorizontalLeftStick();
-        movementDir.y = _input.GetVerticalLeftStick();
-        movementDir.Normalize();
-
-        _jelly.AddForce(movementDir * Speed);
     }
 }

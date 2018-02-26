@@ -24,12 +24,14 @@ public class EyeController : MonoBehaviour
 
     private void Update()
     {
-        var targetPos = new Vector2(_input.GetHorizontalLeftStick(), _input.GetVerticalLeftStick());
-        targetPos = targetPos.normalized;
-        targetPos = new Vector2(targetPos.x * _xScale, targetPos.y * _yScale);
-        targetPos += OffsetFromEyeCentre;
+        var dir = new Vector2(_input.GetHorizontalLeftStick(), _input.GetVerticalLeftStick());
+        dir = dir.normalized;
+        dir = new Vector2(dir.x * _xScale, dir.y * _yScale);
+        dir = transform.InverseTransformDirection(dir);
+        
+        var targetPos = OffsetFromEyeCentre + dir;
 
-        _position = Vector2.SmoothDamp(_position, targetPos, ref _vel, 0.2f, Mathf.Infinity, Time.deltaTime);
+        _position = Vector2.SmoothDamp(_position, targetPos, ref _vel, 0.01f, Mathf.Infinity, Time.deltaTime);
 
         transform.localPosition = _position;
     }

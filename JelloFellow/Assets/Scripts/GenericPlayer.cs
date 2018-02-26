@@ -7,13 +7,13 @@ public class GenericPlayer : GravityField {
   private bool is_raycast_origin = true;
 
   [Header("Child Settings")] [CustomLabel("Apply Gravity")] [Tooltip("Apply gravity to the child objects.")] [SerializeField]
-  private bool apply_gravity_tochild;
+  public bool apply_gravity_tochild;
 
   [CustomLabel("Apply Movement")] [Tooltip("Apply movement to the child objects.")] [SerializeField]
-  private bool apply_movement_tochild;
+  public bool apply_movement_tochild;
 
   [Tooltip("The child components of this object.")] [SerializeField]
-  private ChildComponent[] ChildComponents;
+  public ChildComponent[] ChildComponents;
 
   [Header("Gravity Settings")] [CustomLabel("Angular Drag")] [Tooltip("Angular drag applied while changing gravity.")] [SerializeField]
   private float gravity_angular_drag = 0.5f;
@@ -37,10 +37,10 @@ public class GenericPlayer : GravityField {
   private float movement_linear_drag = 5f;
 
   [CustomRangeLabel("Move Speed", 0f, 100f)] [Tooltip("Speed at which to move the player.")] [SerializeField]
-  private float move_speed = 10f;
+  public float move_speed = 10f;
 
   [CustomRangeLabel("Jump Force", 0f, 100f)] [Tooltip("Force to apply in order to jump.")] [SerializeField]
-  private float jump_angle_force = 10f;
+  public float jump_angle_force = 10f;
 
   [CustomRangeLabel("Jump Normalized Threshold", 0f, 100f)] [Tooltip("The threshold to normalize the hybrid jump.")] [SerializeField]
   private float jump_normalize_threshold = 1f;
@@ -419,7 +419,7 @@ public class GenericPlayer : GravityField {
         rigidbody.freezeRotation = true;
       } else {
         rigidbody.drag = 0f;
-        rigidbody.freezeRotation = false;
+        rigidbody.freezeRotation = true;
       }
 
       /* update velocity */
@@ -435,7 +435,7 @@ public class GenericPlayer : GravityField {
               child_rigidbody.freezeRotation = true;
             } else {
               child_rigidbody.drag = 0f;
-              child_rigidbody.freezeRotation = false;
+              child_rigidbody.freezeRotation = true;
             }
 
             child_rigidbody.velocity = velocity;
@@ -552,7 +552,7 @@ public class GenericPlayer : GravityField {
 /// a ray cast origin bool denoting if the child should have a grounded raycast coming out of it.
 /// </summary>
 [Serializable]
-internal class ChildComponent {
+public class ChildComponent {
   [Tooltip("The transform of the child component.")] [SerializeField]
   public Transform Child;
 
