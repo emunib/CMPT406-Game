@@ -29,7 +29,7 @@ public class ZCrawler : GenericPlayer {
 		wait_gravity = false;
 	}
 	
-	protected override void Update() {
+	protected  void FixedUpdate() {
 		/* reset all the values */
 		_input.DefaultValues();
     
@@ -109,10 +109,11 @@ public class ZCrawler : GenericPlayer {
 
 			dir = new Vector2(dir.x, dir.y);
 			//HashSet<RaycastHit2D> leaving_ground = GetObjectsInView(dir, 1f, 0, 8f,true);
-			Vector2 startOffset = transform.position + new Vector3( rb.velocity.normalized.x *.7f, rb.velocity.normalized.y * .7f);
-			RaycastHit2D daHit = Physics2D.Linecast(startOffset, startOffset + dir * 5);
+			Vector2 startOffset = transform.position + new Vector3( rb.velocity.normalized.x *.5f, rb.velocity.normalized.y * .5f);
+			RaycastHit2D daHit = Physics2D.Linecast(startOffset, startOffset + dir * 3);
 			Debug.DrawLine(startOffset, startOffset + dir * 3, Color.red);
-			if (daHit)
+			
+			if (daHit && LayerMask.LayerToName(daHit.transform.gameObject.layer) != LayerMask.LayerToName(gameObject.layer))
 			{
 			
 			/*if (daHit)
