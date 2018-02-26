@@ -15,19 +15,30 @@ public class Collectable : MonoBehaviour {
 	public GameObject collectPrefab;
 	public float max_y_speed = 1;
 	public float accel = 1;
+	public Sprite gray;
 
     private void OnCollisionEnter2D(Collision2D col) {
 		
-		script = GameObject.Find ("CollectedItems").GetComponent<CollectedItems> ();
-		if (col.gameObject.CompareTag ("Player")) {
-			//myObject.GetComponent<MyScript>().MyFunction();
-			//Destroy (gameObject);
-			script.AddItem (gameObject.name, description);
 
-			Destroy (gameObject);
+		if (col.gameObject.CompareTag ("Player") && !collected) {
+			
+			script = GameObject.Find ("CollectedItems").GetComponent<CollectedItems> ();
+			script.AddItem (gameObject.name, description);
+			collected = true;
+			gameObject.GetComponent<SpriteRenderer> ().sprite = gray;
+			Destroy(gameObject.GetComponent<BoxCollider2D> ());
+
 		}
 
     }
+
+	/// <summary>
+	/// Sets collected.
+	/// </summary>
+	/// <param name="x">If set to <c>true</c> x.</param>
+	public void setCollected(bool x) {
+		collected = x;
+	}
 
     // Use this for initialization
     void Start () {
@@ -48,9 +59,9 @@ public class Collectable : MonoBehaviour {
 		GameObject[] letters = GameObject.FindGameObjectsWithTag ("Collectable");
 		for (int i = 0; i < letters.Length; i++) {
 
-			// If the collectible is already in the list of collected items, destroy it.
+			// If the collectible is already in the list of collected items, set it as collected.
 			if (script.isCollected (letters [i].name)) {
-				Destroy (letters [i]);		
+				letters [i].GetComponent<Collectable>().setCollected(true);		
 			}
 		}
 
@@ -59,24 +70,29 @@ public class Collectable : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		float dt = Time.deltaTime;
+		// Should only animate if it isn't collected yet
+		if (!collected) {
+			
+			float dt = Time.deltaTime;
 
-		// Decide whether y speed should increase or decrease
-		if (y_speed >= max_y_speed) {
-			direction = "down";
-		} else if (y_speed <= -max_y_speed) {
-			direction = "up";
+			// Decide whether y speed should increase or decrease
+			if (y_speed >= max_y_speed) {
+				direction = "down";
+			} else if (y_speed <= -max_y_speed) {
+				direction = "up";
+			}
+
+			// Apply acceleration in the proper direction
+			if (direction == "up") {
+				y_speed = y_speed + accel * dt;
+			} else if (direction == "down") {
+				y_speed = y_speed - accel * dt;
+			}
+
+			// Translate game object according to its speed
+			transform.position = new Vector2 (transform.position.x, transform.position.y + y_speed * dt);
+
 		}
-
-		// Apply acceleration in the proper direction
-		if (direction == "up") {
-			y_speed = y_speed + accel * dt;
-		} else if (direction == "down") {
-			y_speed = y_speed - accel * dt;
-		}
-
-		// Translate game object according to its speed
-		transform.position = new Vector2 (transform.position.x, transform.position.y + y_speed * dt);
 		
 	}
 }
