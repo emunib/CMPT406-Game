@@ -95,47 +95,62 @@ public class ZCrawler : GenericPlayer {
 		
 		/* as long as he is grounded make sure he does not fall off the platform edge and flip if he
 		   is about to */
-		if (!is_grounded && !wait_gravity) {
+		if (!is_grounded && !wait_gravity)
+		{
 			float platform_angle = PlatformAngle();
-			float angle1 = platform_angle - 170;
-			float angle2 = platform_angle + 170f;
+			float angle1 = platform_angle - 160;
+			float angle2 = platform_angle + 160f;
 
 			float angle = flip ? Mathf.Max(angle1, angle2) : Mathf.Min(angle1, angle2);
 
 			Vector2 forwardangle_direction = new Vector2(Mathf.Sin(angle * Mathf.Deg2Rad), Mathf.Cos(angle * Mathf.Deg2Rad));
 			Vector2 dir = -transform.up;
-			dir = new Vector2(dir.x - 0.4f, dir.y);
-			HashSet<RaycastHit2D> leaving_ground = GetObjectsInView(dir, 1f, 0, 8f,true);
-			if (leaving_ground.Count==0)
+
+
+			dir = new Vector2(dir.x, dir.y);
+			//HashSet<RaycastHit2D> leaving_ground = GetObjectsInView(dir, 1f, 0, 8f,true);
+			Vector2 startOffset = transform.position + new Vector3( rb.velocity.normalized.x *.7f, rb.velocity.normalized.y * .7f);
+			RaycastHit2D daHit = Physics2D.Linecast(startOffset, startOffset + dir * 5);
+			Debug.DrawLine(startOffset, startOffset + dir * 3, Color.red);
+			if (daHit)
 			{
+			
+			/*if (daHit)
+			{
+				Debug.Log("Leaving ground");
 				wait_gravity = true;
-				Invoke("ResetSetGravity",.2f);
-				
+				Invoke("ResetSetGravity",0.2f);
+				return;
+
 			}
-			foreach (RaycastHit2D hit in leaving_ground) {
-				
-				platform_angle = Mathf.Atan2(hit.normal.x, hit.normal.y) * Mathf.Rad2Deg  * direction;
-				
-				Vector2 gravity_direction = new Vector2(Mathf.Sin( (platform_angle + 180f ) * Mathf.Deg2Rad), Mathf.Cos((platform_angle + 180f)* Mathf.Deg2Rad));
-				
-				Vector3 rotation_angle = transform.rotation.eulerAngles;
-				Debug.Log("Platform angle is : " + platform_angle);
-				rotation_angle.z = -platform_angle;
-				rb.angularVelocity = 0;
-				transform.rotation = Quaternion.Euler(rotation_angle);
-				
-				
-				/* use the right stick to set the gravity facing the platform */
-				_input.rightstickx = gravity_direction.x;
-				_input.rightsticky = gravity_direction.y;
-				
-				break;
-			}
+			*/
+
+
+
+			platform_angle = Mathf.Atan2(daHit.normal.x, daHit.normal.y) * Mathf.Rad2Deg  * direction;
+
+			Vector2 gravity_direction = new Vector2(Mathf.Sin((platform_angle + 180f * direction) * Mathf.Deg2Rad),
+				Mathf.Cos((platform_angle + 180f * direction) * Mathf.Deg2Rad));
+
+			Vector3 rotation_angle = transform.rotation.eulerAngles;
+			Debug.Log("Platform angle is : " + platform_angle);
+			rotation_angle.z = -platform_angle * direction;
+			rb.angularVelocity = 0;
+			transform.rotation = Quaternion.Euler(rotation_angle);
+
+
+			/* use the right stick to set the gravity facing the platform */
+			_input.rightstickx = gravity_direction.x;
+			_input.rightsticky = gravity_direction.y;
+
+
 		}
+	}
 	}
 
 	
 	private void ResetSetGravity() {
+		Debug.Log("Enabling gravity change");
 		wait_gravity = false;
 	}
 	
