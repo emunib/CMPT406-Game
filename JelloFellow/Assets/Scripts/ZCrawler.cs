@@ -95,6 +95,7 @@ public class ZCrawler : GenericPlayer {
 		
 		/* as long as he is grounded make sure he does not fall off the platform edge and flip if he
 		   is about to */
+		
 		if (!is_grounded && !wait_gravity)
 		{
 			float platform_angle = PlatformAngle();
@@ -110,13 +111,14 @@ public class ZCrawler : GenericPlayer {
 			dir = new Vector2(dir.x, dir.y);
 			//HashSet<RaycastHit2D> leaving_ground = GetObjectsInView(dir, 1f, 0, 8f,true);
 			Vector2 startOffset = transform.position + new Vector3( rb.velocity.normalized.x *.5f, rb.velocity.normalized.y * .5f);
-			RaycastHit2D daHit = Physics2D.Linecast(startOffset, startOffset + dir * 3);
-			Debug.DrawLine(startOffset, startOffset + dir * 3, Color.red);
+			RaycastHit2D daHit = Physics2D.Linecast(startOffset, startOffset + dir * 4);
+			Debug.DrawLine(startOffset, startOffset + dir * 4, Color.red);
+			
 			
 			if (daHit && LayerMask.LayerToName(daHit.transform.gameObject.layer) != LayerMask.LayerToName(gameObject.layer))
 			{
 			
-			/*if (daHit)
+			/*if (daHit
 			{
 				Debug.Log("Leaving ground");
 				wait_gravity = true;
@@ -147,6 +149,31 @@ public class ZCrawler : GenericPlayer {
 
 		}
 	}
+		else
+		{
+			RaycastHit2D forwardHit = Physics2D.Linecast(transform.position, transform.position - transform.right * 1);
+			Debug.DrawLine(transform.position, transform.position - transform.right * 1, Color.green);
+
+			if (forwardHit && LayerMask.LayerToName(forwardHit.transform.gameObject.layer) != LayerMask.LayerToName(gameObject.layer))
+			{
+				float platform_angle = Mathf.Atan2(forwardHit.normal.x, forwardHit.normal.y) * Mathf.Rad2Deg  * direction;
+
+				Vector2 gravity_direction = new Vector2(Mathf.Sin((platform_angle + 180f * direction) * Mathf.Deg2Rad),
+					Mathf.Cos((platform_angle + 180f * direction) * Mathf.Deg2Rad));
+
+				Vector3 rotation_angle = transform.rotation.eulerAngles;
+				Debug.Log("Platform angle is : " + platform_angle);
+				rotation_angle.z = -platform_angle * direction;
+				rb.angularVelocity = 0;
+				transform.rotation = Quaternion.Euler(rotation_angle);
+
+
+				/* use the right stick to set the gravity facing the platform */
+				_input.rightstickx = gravity_direction.x;
+				_input.rightsticky = gravity_direction.y;
+				
+			}
+		}
 	}
 
 	
