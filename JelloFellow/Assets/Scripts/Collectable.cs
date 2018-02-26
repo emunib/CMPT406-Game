@@ -6,10 +6,15 @@ public class Collectable : MonoBehaviour {
 
 	private GameObject collectables;
 	private CollectedItems script;
+	private float y_speed;
+	private string direction;
+	private bool collected;
 
 	[TextArea]
 	public string description;
 	public GameObject collectPrefab;
+	public float max_y_speed = 1;
+	public float accel = 1;
 
     private void OnCollisionEnter2D(Collision2D col) {
 		
@@ -26,6 +31,8 @@ public class Collectable : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+
+		y_speed = max_y_speed;
 
 		// Find the collected items object, may not exist yet
 		collectables = GameObject.Find ("CollectedItems");
@@ -51,6 +58,25 @@ public class Collectable : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+		float dt = Time.deltaTime;
+
+		// Decide whether y speed should increase or decrease
+		if (y_speed >= max_y_speed) {
+			direction = "down";
+		} else if (y_speed <= -max_y_speed) {
+			direction = "up";
+		}
+
+		// Apply acceleration in the proper direction
+		if (direction == "up") {
+			y_speed = y_speed + accel * dt;
+		} else if (direction == "down") {
+			y_speed = y_speed - accel * dt;
+		}
+
+		// Translate game object according to its speed
+		transform.position = new Vector2 (transform.position.x, transform.position.y + y_speed * dt);
 		
 	}
 }
