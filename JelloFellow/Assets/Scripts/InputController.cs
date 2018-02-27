@@ -35,7 +35,8 @@ public class InputController : Singleton<InputController> {
       Debug.Log("Controller: " + info.controller_type());
       input.Init(info);
     } else {
-      Debug.LogError("Please plugin a valid controller, and restart the game.");
+      input = gameObject.AddComponent<ManualInput>();
+      Debug.LogWarning("Please plugin a valid controller, and restart the game. Manual control has been given.");
     }
   }
   

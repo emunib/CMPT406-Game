@@ -114,7 +114,7 @@ public class Goomba : GenericPlayer {
 
   private int facing = 1;
   private void Walk() {
-    Debug.Log("Movespeed sign "+Mathf.Sign(config.move_speed));
+    //Debug.Log("Movespeed sign "+Mathf.Sign(config.move_speed));
     goomba_input.horizontal = transform.right.x*facing;
     goomba_input.vertical = transform.right.y*facing;
 
@@ -171,7 +171,7 @@ public class Goomba : GenericPlayer {
       
     }
 
-    Debug.Log("Turn: " +turn);
+    //Debug.Log("Turn: " +turn);
     if (turn) {
       rb.velocity = Vector2.zero;
       //move_speed *= -1;
