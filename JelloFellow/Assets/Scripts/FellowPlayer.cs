@@ -11,4 +11,5 @@ public class FellowPlayer : GenericPlayer {
 		SetInput(_input);
 		SetFieldRadius(2f);
 	}
+
 }
