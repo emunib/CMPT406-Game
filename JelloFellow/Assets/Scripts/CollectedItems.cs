@@ -222,7 +222,7 @@ public class CollectedItems : MonoBehaviour {
 	}
 
 	public void Update() {
-		Input2D input = GameObject.FindGameObjectWithTag("InputController").GetComponent<InputController>().GetInput();
+		Input2D input = InputController.instance.GetInput();
 		
 		// Going to the list of items
 		if (input.GetHorizontalLeftStick() < 0 && display) {

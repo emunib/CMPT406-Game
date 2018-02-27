@@ -20,7 +20,7 @@ public class Collectable : MonoBehaviour {
     private void OnCollisionEnter2D(Collision2D col) {
 		
 
-		if (col.gameObject.CompareTag ("Player") && !collected) {
+		if ((col.gameObject.CompareTag ("Blob") || col.gameObject.CompareTag ("Player")) && !collected) {
 			
 			script = GameObject.Find ("CollectedItems").GetComponent<CollectedItems> ();
 			script.AddItem (gameObject.name, description);
