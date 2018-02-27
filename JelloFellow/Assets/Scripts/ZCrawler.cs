@@ -74,7 +74,7 @@ public class ZCrawler : GenericPlayer {
 	private float PlatformAngle() {
 		float platform_angle = -1f;
 		/* get platform information */
-		HashSet<RaycastHit2D> hits = GetObjectsInView(-transform.up, ground_fov_angle, ground_ray_count, ground_ray_length);
+		HashSet<RaycastHit2D> hits = GetObjectsInView(-transform.up, config.ground_fov_angle, config.ground_ray_count, config.ground_ray_length);
 		foreach (RaycastHit2D hit in hits) {
 			if (hit.transform.gameObject.layer != gameObject.layer) {
 				/* calculate angle of the platform we are on */
