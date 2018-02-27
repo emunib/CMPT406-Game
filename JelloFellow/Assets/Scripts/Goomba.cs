@@ -52,11 +52,12 @@ public class Goomba : GenericPlayer {
     root = gameObject.AddComponent<DecisionTree>();
     BuildDecisionTree();
     rb = GetComponent<Rigidbody2D>();
-    
     base.Start();
-    
-    
-    
+
+    goomba_input.horg = -transform.up.x;
+    goomba_input.verg = -transform.up.y;
+
+
   }
 
   private void FixedUpdate() {
