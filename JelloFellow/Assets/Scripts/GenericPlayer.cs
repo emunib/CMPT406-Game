@@ -545,6 +545,23 @@ public class GenericPlayer : GravityField {
   private void UnlockGravity() {
     set_fixed_gravity = false;
   }
+
+  /// <summary>
+  /// Replace rigidbody velocity entirely.
+  /// </summary>
+  /// <param name="velocity">Replacing velocity</param>
+  private void AddVelocity(Vector2 velocity) {
+    rigidbody.velocity = velocity;
+    
+    if (apply_movement_tochild) {
+      foreach (Transform child in child_transforms) {
+        Rigidbody2D child_rigidbody = child.gameObject.GetComponent<Rigidbody2D>();
+        if (child_rigidbody) {
+          child_rigidbody.velocity = velocity;
+        }
+      }
+    }
+  }
 }
 
 /// <summary>
