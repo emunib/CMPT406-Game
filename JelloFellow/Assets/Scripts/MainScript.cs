@@ -7,6 +7,8 @@ public class MainScript : MonoBehaviour {
   private void Awake() {
     if (!GameObject.FindGameObjectWithTag("Main")) {
       DontDestroyOnLoad(gameObject);
+    } else {
+//      Destroy(gameObject);
     }
   }
 
