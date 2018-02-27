@@ -112,7 +112,7 @@ public class Goomba : GenericPlayer {
 
   private int facing = 1;
   private void Walk() {
-    Debug.Log("Movespeed sign "+Mathf.Sign(move_speed));
+    Debug.Log("Movespeed sign "+Mathf.Sign(config.move_speed));
     goomba_input.horizontal = transform.right.x*facing;
     goomba_input.vertical = transform.right.y*facing;
 
@@ -254,7 +254,7 @@ public class Goomba : GenericPlayer {
   /// </summary>
   /// <returns></returns>
   private bool UprightCheck() {
-    grounded_game_objects = GetObjectsInView(GetGravity(), ground_fov_angle, ground_ray_count, ground_ray_length);
+    grounded_game_objects = GetObjectsInView(GetGravity(), config.ground_fov_angle, config.ground_ray_count, config.ground_ray_length);
     
     foreach (RaycastHit2D gobject in grounded_game_objects) {
       RaycastHit2D groundhit = Physics2D.Raycast(transform.position,
