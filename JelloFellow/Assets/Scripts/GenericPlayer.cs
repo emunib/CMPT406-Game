@@ -216,7 +216,7 @@ public class GenericPlayer : GravityField {
 
         /* applies constant force (due to it being normalized) */
 
-        Vector2 new_gravity = new Vector2(horizontal_gravity, vertical_gravity).normalized * GravityForce();
+        Vector2 new_gravity = new Vector2(horizontal_gravity, vertical_gravity).normalized;
         if (verbose_gravity) Debug.Log("Gravity Force: " + new_gravity);
 
         /* set the gravity to the new selected gravity */
@@ -321,7 +321,7 @@ public class GenericPlayer : GravityField {
     }
 
     if (input.GetRightStickDown()) {
-      SetGravity(-platform_hit_normal * GravityForce());
+      SetGravity(-platform_hit_normal);
       set_fixed_gravity = true;
       Invoke("UnlockGravity", 0.2f);
     }

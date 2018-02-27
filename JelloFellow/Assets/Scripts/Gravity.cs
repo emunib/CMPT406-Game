@@ -4,11 +4,15 @@ public abstract class Gravity : MonoBehaviour {
   private float gravity_force;
 
   protected virtual void Awake() {
-    if (GameObject.FindGameObjectWithTag("Main")) {
-      gravity_force = GameObject.FindGameObjectWithTag("Main").GetComponent<MainScript>().GravityForce();
-    } else {
-      Debug.LogError("Please add the Main prefab to the scene.");
-    }
+    MainScript main_instance = MainScript.instance;
+    /* get the initial gravity */
+    gravity_force = main_instance.GravityForce();
+    /* subscribe to force changes */
+    main_instance.OnGravityForceChange += UpdateGravityForce;
+  }
+
+  private void UpdateGravityForce(float _gravity_force) {
+    gravity_force = _gravity_force;
   }
 
   /* Force of the gravity to apply in which ever direction */
@@ -16,9 +20,9 @@ public abstract class Gravity : MonoBehaviour {
     return gravity_force;
   }
 
-  /* Default gravity set when not in gravitation field */
+  /* Default gravity set when not in gravitation field (direction of gravity) */
   protected Vector2 DefaultGravity() {
-    return new Vector2(0f, -GravityForce());
+    return new Vector2(0f, -1f);
   }
 
   /// <summary>
