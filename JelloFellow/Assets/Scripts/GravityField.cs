@@ -6,12 +6,11 @@ using UnityEngine;
 /// Creates a gravity field around a gameobject. Used to manipulate gravity
 /// of objects within the field.
 /// </summary>
-public class GravityField : GravityPlayer {
+public abstract class GravityField : GravityPlayer {
   private const string gravityfield_sprite_path = "Prefabs/GravityField";
-  private const float GravityFieldRadius = 2f;
   private const float GravityDrag = 0.85f;
-  private const float MinRadius = 2f;
-  private const float MaxRadius = 5f;
+  protected const float MinRadius = 6f;
+  protected const float MaxRadius = 12f;
 
   private CircleCollider2D gravity_field;
   private HashSet<GameObject> in_field;
@@ -26,17 +25,26 @@ public class GravityField : GravityPlayer {
     lock (_lock) {
       in_field = new HashSet<GameObject>();
     }
-
-    gravity_field = gameObject.AddComponent<CircleCollider2D>();
-    gravity_field.isTrigger = true;
-    gravity_field.radius = GravityFieldRadius;
-
+    
     gravityfield_visualizer = Resources.Load(gravityfield_sprite_path) as GameObject;
     gravityfield_visualizer = Instantiate(gravityfield_visualizer);
     gravityfield_visualizer.transform.parent = transform;
-    gravityfield_visualizer.transform.localPosition = Vector3.zero;
+    gravityfield_visualizer.transform.localPosition = new Vector3(0f, 0f, gravityfield_visualizer.transform.position.z);
 
-    SetFieldRadius(GravityFieldRadius);
+    gravity_field = gravityfield_visualizer.AddComponent<CircleCollider2D>();
+    gravity_field.isTrigger = true;
+    //gravity_field.radius = MinRadius;
+    
+    SetFieldRadius(MinRadius);
+  }
+
+  protected override void Update() {
+    base.Update();
+
+    /* rotate gravity field to point the marker towards gravity */
+    Vector2 _gravity = GetGravity();
+    float angle = Mathf.Atan2(_gravity.y, _gravity.x) * Mathf.Rad2Deg;
+    gravityfield_visualizer.transform.rotation = Quaternion.Euler(0f, 0f, angle - 90f);
   }
 
   private void OnTriggerStay2D(Collider2D other) {
@@ -79,15 +87,16 @@ public class GravityField : GravityPlayer {
   /// <param name="radius">The radius to change the gravity field to.</param>
   protected void SetFieldRadius(float radius) {
     if (radius >= MinRadius && radius <= MaxRadius) {
-      gravity_field.radius = radius;
-      gravityfield_visualizer.transform.localScale = new Vector3(radius * 2, radius * 2, 1);
+      //gravity_field.radius = radius;
+      gravityfield_visualizer.transform.localScale = new Vector3(radius, radius, 1);
     } else {
       Debug.LogWarning("Radius exceeded Min or Max radius.");
     }
   }
 
   protected float GetFieldRadius() {
-    return gravity_field.radius;
+    return gravityfield_visualizer.transform.localScale.x;
+    //return gravity_field.radius;
   }
 
   protected void ChangeGravityAlpha(float alpha) {

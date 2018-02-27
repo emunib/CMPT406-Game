@@ -9,11 +9,13 @@ public class InputController : MonoBehaviour {
   private InputControllerInfo info;
   
   private void Awake() {
-    /* dont destroy this object when loaded */
-    DontDestroyOnLoad(gameObject);
+    /* dont destroy this object when loaded unless there is already input controller */
+    if (!GameObject.FindGameObjectWithTag("InputController")) {
+      DontDestroyOnLoad(gameObject);
+    }
     
     /* default values */
-    input = gameObject.AddComponent<SimpleInput>();
+		input = gameObject.AddComponent<SimpleInput>();
     info = null;
     
     /* get the valid controller in the joystick names */
