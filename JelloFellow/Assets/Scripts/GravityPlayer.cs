@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 /// <summary>
 /// Make individual player have gravity. The gravity is to change
@@ -7,7 +8,7 @@
 /// Can be acted upon by other gravitional field and also effect it.
 /// </summary>
 [RequireComponent(typeof(Rigidbody2D))]
-public class GravityPlayer : Gravity {
+public abstract class GravityPlayer : Gravity {
 	private Vector2 gravity;
 	private Vector2 custom_gravity;
 	
@@ -15,9 +16,12 @@ public class GravityPlayer : Gravity {
 	private bool gravity_settable;
 	private bool in_gravity_field;
 	private bool ignore_other_fields;
-	private Transform[] objects;
+	private HashSet<Transform> objects;
+	private Vector2 gravity_restrictions;
 
-	protected virtual void Awake() {
+	protected override void Awake() {
+		base.Awake();
+		
 		/* get the rigidbody and make the component not be effected by Physics2D gravity */
 		rigidbody = GetComponent<Rigidbody2D>();
 		rigidbody.gravityScale = 0f;
@@ -26,14 +30,16 @@ public class GravityPlayer : Gravity {
 		gravity_settable = false;
 		in_gravity_field = false;
 		ignore_other_fields = false;
+		gravity_restrictions = Vector2.one;
 
-		gravity = DefaultGravity;
-		custom_gravity = DefaultGravity;
+		gravity = DefaultGravity();
+		custom_gravity = DefaultGravity();
 	}
 
 	protected virtual void Update() {
 		/* if it is in gravity field get affected by players gravity otherwise get effected by custom gravity */
 		if (!in_gravity_field || ignore_other_fields) {
+			gravity = new Vector2(gravity.x * gravity_restrictions.x, gravity.y * gravity_restrictions.y);
 			rigidbody.velocity += gravity * Time.deltaTime;
 
 			if (objects != null) {
@@ -48,6 +54,7 @@ public class GravityPlayer : Gravity {
 
 			//Debug.DrawRay(transform.position, gravity, Color.red);
 		} else {
+			gravity = new Vector2(custom_gravity.x * gravity_restrictions.x, custom_gravity.y * gravity_restrictions.y);
 			rigidbody.velocity += custom_gravity * Time.deltaTime;
 
 			if (objects != null) {
@@ -63,7 +70,7 @@ public class GravityPlayer : Gravity {
 		}
 	}
 
-	protected void ApplyGravityTo(Transform[] _objects) {
+	protected void ApplyGravityTo(HashSet<Transform> _objects) {
 		objects = _objects;
 		foreach (Transform node in objects) {
 			Rigidbody2D rigidbody_node = node.gameObject.GetComponent<Rigidbody2D>();
@@ -101,7 +108,7 @@ public class GravityPlayer : Gravity {
 		gravity = _gravity;
 	}
 
-	protected Vector2 GetGravity() {
+	public Vector2 GetGravity() {
 		return !in_gravity_field || ignore_other_fields ? gravity : custom_gravity;
 	}
 	
@@ -111,5 +118,9 @@ public class GravityPlayer : Gravity {
 
 	private void OnBecameVisible() {
 		gravity_settable = true;
+	}
+
+	public override void SetGravityLightRestrictions(Vector2 _restrictions) {
+		gravity_restrictions = _restrictions;
 	}
 }

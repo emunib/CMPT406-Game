@@ -19,11 +19,16 @@ public class GravityComponent : Gravity {
   private bool in_gravity_field;
   
   /* custom gravity when in gravity field */
-  private Vector2 gravity;
+  protected Vector2 gravity;
 
+  /* if component should remember gravity */
   private bool remember_gravity;
-
-  private void Awake() {
+  
+  private Vector2 gravity_restrictions;
+  
+  protected override void Awake() {
+    base.Awake();
+    
     /* get the rigidbody and make the component not be effected by Physics2D gravity */
     rigidbody = GetComponent<Rigidbody2D>();
     rigidbody.gravityScale = 0f;
@@ -32,15 +37,18 @@ public class GravityComponent : Gravity {
     gravity_settable = false;
     in_gravity_field = false;
     remember_gravity = true;
-    gravity = DefaultGravity;
+    gravity = DefaultGravity();
+    gravity_restrictions = Vector2.one;
   }
 
   private void Update() {
     /* if it is in gravity field get affected by players gravity otherwise get effected by custom gravity */
     if (!in_gravity_field && !remember_gravity) {
-      rigidbody.velocity += DefaultGravity * Time.deltaTime;
-      Debug.DrawRay(transform.position, DefaultGravity, Color.red);
+      Vector2 default_gravity = new Vector2(DefaultGravity().x * gravity_restrictions.x, DefaultGravity().y * gravity_restrictions.y);
+      rigidbody.velocity += default_gravity * Time.deltaTime;
+      Debug.DrawRay(transform.position, default_gravity, Color.red);
     } else {
+      gravity = new Vector2(gravity.x * gravity_restrictions.x, gravity.y * gravity_restrictions.y);
       rigidbody.velocity += gravity * Time.deltaTime;
       Debug.DrawRay(transform.position, gravity, Color.red);
     }
@@ -66,5 +74,9 @@ public class GravityComponent : Gravity {
 
   private void OnBecameVisible() {
     gravity_settable = true;
+  }
+  
+  public override void SetGravityLightRestrictions(Vector2 _restrictions) {
+    gravity_restrictions = _restrictions;
   }
 }
