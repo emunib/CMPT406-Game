@@ -224,9 +224,9 @@ public class Fellow : MonoBehaviour {
 			// create gravity vector and normalize
 			Vector2 gDir = new Vector2(hor, ver).normalized;
 			//Debug.Log("Gravity: " + gDir);
-			float angle;
+			//float angle;
 			if (hor != 0.0f || ver != 0.0f) {
-				angle = Mathf.Atan2(ver, hor) * Mathf.Rad2Deg;
+				//angle = Mathf.Atan2(ver, hor) * Mathf.Rad2Deg;
 				//Debug.Log("Angle of stick: " +  angle);
 
 			}
@@ -285,7 +285,7 @@ public class Fellow : MonoBehaviour {
 		//Basic Movement Controls
 		Vector2 jumpAngle = GetFirstPlatNormal();
 		Vector2 leftStickVector = new Vector2 (hor_m, ver_m);
-		if (curJumpCd < 0 && jump && grounded && jumpAngle != null) {
+		if (curJumpCd < 0 && jump && grounded) {
 			foreach (var node in _nodes)
 			{
 				//Modify the perpendicular based on the stick angle

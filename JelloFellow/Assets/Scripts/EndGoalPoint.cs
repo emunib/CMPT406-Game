@@ -6,12 +6,12 @@ using Object = UnityEngine.Object;
 
 public class EndGoalPoint : MonoBehaviour
 {
-    private GameObject slime;
-
-    private void Start()
-    {
-        slime = GameObject.Find("SlimePlayer");
-    }
+//    private GameObject slime;
+//
+//    private void Start()
+//    {
+//        slime = GameObject.Find("SlimePlayer");
+//    }
 
     void OnTriggerEnter2D(Collider2D hit) {
 		Debug.Log ("Entered");

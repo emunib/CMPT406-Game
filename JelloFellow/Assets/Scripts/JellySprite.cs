@@ -874,7 +874,7 @@ public abstract class JellySprite : MonoBehaviour
 				Rigidbody2D centreRigidBody = m_CentralPoint.Body2D;
 
 #if !UNITY_5
-				centreRigidBody.fixedAngle = m_LockRotation;
+				centreRigidBody.freezeRotation = m_LockRotation;
 #else
 				RigidbodyConstraints2D constraints = centreRigidBody.constraints;
 				
@@ -943,7 +943,7 @@ public abstract class JellySprite : MonoBehaviour
 			Rigidbody2D newRigidBody = referencePointObject.AddComponent<Rigidbody2D>();
 
 #if !UNITY_5
-            newRigidBody.fixedAngle = lockRotation;
+            newRigidBody.freezeRotation = lockRotation;
 #else
             if(lockRotation)
             {

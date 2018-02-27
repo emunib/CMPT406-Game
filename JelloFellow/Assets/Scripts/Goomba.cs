@@ -39,13 +39,13 @@ public class Goomba : GenericPlayer {
   private HashSet<RaycastHit2D> agro_game_objects;
   private HashSet<RaycastHit2D> grounded_game_objects;
   private bool grounded;
-  private bool attacking; 
+  //private bool attacking; 
   private bool firstPlat = true;
   private bool turnOffCd = true;
   private Vector2 attackVector;
   
   
-  private void Start() {
+  protected override void Start() {    
     goomba_input = GetComponent<GoombaInput>();
     SetInput(goomba_input);
     SetIgnoreFields(false);
@@ -189,8 +189,6 @@ public class Goomba : GenericPlayer {
   /// </summary>
   /// <returns></returns>
   public IEnumerator turnOnCdCoroutine() {
-    bool doneco = true;
-    
     while (!turnOffCd) {
 
       if (grounded) {
@@ -302,9 +300,9 @@ public class Goomba : GenericPlayer {
    !!MAY CHANGE!!*/
   private bool AttackingCheck() {
     
-    if (attacking) {
-      return true;
-    }
+//    if (attacking) {
+//      return true;
+//    }
     
     return false;
   }

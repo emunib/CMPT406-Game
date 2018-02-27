@@ -237,11 +237,10 @@ public class CollectedItems : MonoBehaviour {
 					if (current.Next == null) {
 						items.First.Value.select ();
 						return;
-					} else {
-						current.Next.Value.select ();
-						return;
 					}
-					found = true;
+					
+					current.Next.Value.select ();
+					return;
 				}
 				current = current.Next;
 
@@ -266,11 +265,10 @@ public class CollectedItems : MonoBehaviour {
 					if (current.Previous == null) {
 						items.Last.Value.select ();
 						return;
-					} else {
-						current.Previous.Value.select ();
-						return;
 					}
-					found = true;
+					
+					current.Previous.Value.select ();
+					return;
 				}
 				current = current.Next;
 

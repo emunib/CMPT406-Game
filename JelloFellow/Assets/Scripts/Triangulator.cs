@@ -124,14 +124,13 @@ class Triangulator
 
             float dx = ptx.x - hull[0].x, dy = ptx.y - hull[0].y;  // outwards pointing from hull[0] to pt.
 
-            int numh = hull.Count, numh_old = numh;
+            int numh = hull.Count;
             List<int> pidx = new List<int>(), tridx = new List<int>();
             int hidx;  // new hull point location within hull.....
 
             if (hull.EdgeVisibleFrom(0, dx, dy))
             {
                 // starting with a visible hull facet !!!
-                int e2 = numh;
                 hidx = 0;
 
                 // check to see if segment numh is also visible

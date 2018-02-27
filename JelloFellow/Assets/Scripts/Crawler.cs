@@ -6,7 +6,7 @@ public class Crawler : GenericPlayer {
     private CrawlerInput crawler_input;
 
     public Transform tiltpoint;
-    private void Start() {
+    protected override void Start() {
         crawler_input = GetComponent<CrawlerInput>();
         SetInput(crawler_input);
         
