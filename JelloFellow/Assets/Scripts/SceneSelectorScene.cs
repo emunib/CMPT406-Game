@@ -30,7 +30,7 @@ public class SceneSelectorScene : MonoBehaviour
 	public void Start()
 	{
 		InvokeRepeating("CheckForControllerInput", 0.0f, 0.1f);
-		input = GameObject.FindGameObjectWithTag("InputController").GetComponent<InputController>().GetInput();
+		input = InputController.instance.GetInput();
 		scrollRect = GetComponent<ScrollRect>();
 		buttonsArray = GetComponentsInChildren<Button>();
 		buttonsArray[index].Select();

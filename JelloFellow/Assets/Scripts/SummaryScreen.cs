@@ -13,7 +13,7 @@ public class SummaryScreen : MonoBehaviour
 
 	public void Start()
 	{
-		input = GameObject.FindGameObjectWithTag("InputController").GetComponent<InputController>().GetInput();
+		input = InputController.instance.GetInput();
      
 	}
 

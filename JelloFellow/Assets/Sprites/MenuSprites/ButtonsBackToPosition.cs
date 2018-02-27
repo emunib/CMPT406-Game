@@ -14,7 +14,7 @@ public class ButtonsBackToPosition : MonoBehaviour {
 		//save first location
 		Position.transform.position = Button.transform.position;
 		//read Input from controller
-		input = GameObject.FindGameObjectWithTag("InputController").GetComponent<InputController>().GetInput();
+		input = InputController.instance.GetInput();
 
 	}
 

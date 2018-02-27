@@ -73,7 +73,7 @@ public class Fellow : MonoBehaviour {
 		}
 		lr = GetComponent<LineRenderer> ();
 		_rigidbody2D = GetComponent<Rigidbody2D>();
-		input = GameObject.FindGameObjectWithTag("InputController").GetComponent<InputController>().GetInput();
+		input = InputController.instance.GetInput();
 		InitCooldowns ();
 
 		foreach (var node in _nodes)
