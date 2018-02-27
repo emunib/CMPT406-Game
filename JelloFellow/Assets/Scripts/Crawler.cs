@@ -17,9 +17,8 @@ public class Crawler : GenericPlayer {
         base.Start();
     }
 
-    private void FixedUpdate() {
-        
-        
+    protected override void FixedUpdate() {
+        base.FixedUpdate();
         Walk();
     }
 

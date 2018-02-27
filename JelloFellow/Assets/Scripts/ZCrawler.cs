@@ -33,7 +33,8 @@ public class ZCrawler : GenericPlayer {
 		wait_gravity = false;
 	}
 	
-	protected  void FixedUpdate() {
+	protected override void FixedUpdate() {
+		base.FixedUpdate();
 		/* reset all the values */
 		_input.DefaultValues();
     	

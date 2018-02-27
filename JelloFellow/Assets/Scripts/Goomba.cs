@@ -60,7 +60,8 @@ public class Goomba : GenericPlayer {
 
   }
 
-  private void FixedUpdate() {
+  protected override void FixedUpdate() {
+    base.FixedUpdate();
     goomba_input.jumpbtndown = false;
     root.Search();
   }
