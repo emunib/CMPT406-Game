@@ -39,13 +39,13 @@ public class Goomba : GenericPlayer {
   private HashSet<RaycastHit2D> agro_game_objects;
   private HashSet<RaycastHit2D> grounded_game_objects;
   private bool grounded;
-  private bool attacking; 
+  //private bool attacking; 
   private bool firstPlat = true;
   private bool turnOffCd = true;
   private Vector2 attackVector;
   
   
-  private void Start() {
+  protected override void Start() {    
     goomba_input = GetComponent<GoombaInput>();
     SetInput(goomba_input);
     SetIgnoreFields(false);
@@ -60,7 +60,8 @@ public class Goomba : GenericPlayer {
 
   }
 
-  private void FixedUpdate() {
+  protected override void FixedUpdate() {
+    base.FixedUpdate();
     goomba_input.jumpbtndown = false;
     root.Search();
   }
@@ -113,7 +114,7 @@ public class Goomba : GenericPlayer {
 
   private int facing = 1;
   private void Walk() {
-    Debug.Log("Movespeed sign "+Mathf.Sign(config.move_speed));
+    //Debug.Log("Movespeed sign "+Mathf.Sign(config.move_speed));
     goomba_input.horizontal = transform.right.x*facing;
     goomba_input.vertical = transform.right.y*facing;
 
@@ -170,7 +171,7 @@ public class Goomba : GenericPlayer {
       
     }
 
-    Debug.Log("Turn: " +turn);
+    //Debug.Log("Turn: " +turn);
     if (turn) {
       rb.velocity = Vector2.zero;
       //move_speed *= -1;
@@ -188,8 +189,6 @@ public class Goomba : GenericPlayer {
   /// </summary>
   /// <returns></returns>
   public IEnumerator turnOnCdCoroutine() {
-    bool doneco = true;
-    
     while (!turnOffCd) {
 
       if (grounded) {
@@ -301,9 +300,9 @@ public class Goomba : GenericPlayer {
    !!MAY CHANGE!!*/
   private bool AttackingCheck() {
     
-    if (attacking) {
-      return true;
-    }
+//    if (attacking) {
+//      return true;
+//    }
     
     return false;
   }

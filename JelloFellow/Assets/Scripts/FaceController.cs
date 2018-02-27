@@ -16,7 +16,7 @@ public class FaceController : MonoBehaviour
     // Use this for initialization
     private void Start()
     {
-        _input = GameObject.FindGameObjectWithTag("InputController").GetComponent<InputController>().GetInput();
+        _input = InputController.instance.GetInput();
 
         _nodes = new List<Transform>(nodes);
     }

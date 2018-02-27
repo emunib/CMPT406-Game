@@ -6,7 +6,7 @@ public class Crawler : GenericPlayer {
     private CrawlerInput crawler_input;
 
     public Transform tiltpoint;
-    private void Start() {
+    protected override void Start() {
         crawler_input = GetComponent<CrawlerInput>();
         SetInput(crawler_input);
         
@@ -17,9 +17,8 @@ public class Crawler : GenericPlayer {
         base.Start();
     }
 
-    private void FixedUpdate() {
-        
-        
+    protected override void FixedUpdate() {
+        base.FixedUpdate();
         Walk();
     }
 

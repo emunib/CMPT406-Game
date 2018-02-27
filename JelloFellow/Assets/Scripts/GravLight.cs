@@ -32,7 +32,7 @@ public class GravLight : MonoBehaviour {
 		
 		if (other.attachedRigidbody) {
 
-			Collider2D[] col = other.GetComponents<Collider2D>();
+			//Collider2D[] col = other.GetComponents<Collider2D>();
 			/*foreach (Collider2D c in col) {
 				if (c.isTrigger) {
 					return;

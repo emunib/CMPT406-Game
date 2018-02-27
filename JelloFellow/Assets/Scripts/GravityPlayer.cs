@@ -40,13 +40,13 @@ public abstract class GravityPlayer : Gravity {
 		/* if it is in gravity field get affected by players gravity otherwise get effected by custom gravity */
 		if (!in_gravity_field || ignore_other_fields) {
 			gravity = new Vector2(gravity.x * gravity_restrictions.x, gravity.y * gravity_restrictions.y);
-			rigidbody.velocity += gravity * Time.deltaTime;
+			rigidbody.velocity += gravity * GravityForce() * Time.deltaTime;
 
 			if (objects != null) {
 				foreach (Transform node in objects) {
 					Rigidbody2D rigidbody_node = node.gameObject.GetComponent<Rigidbody2D>();
 					if (rigidbody_node) {
-						rigidbody_node.velocity += gravity * Time.deltaTime;
+						rigidbody_node.velocity += gravity * GravityForce() * Time.deltaTime;
 						//Debug.DrawRay(node.position, gravity, Color.red);
 					}
 				}
@@ -55,13 +55,13 @@ public abstract class GravityPlayer : Gravity {
 			//Debug.DrawRay(transform.position, gravity, Color.red);
 		} else {
 			gravity = new Vector2(custom_gravity.x * gravity_restrictions.x, custom_gravity.y * gravity_restrictions.y);
-			rigidbody.velocity += custom_gravity * Time.deltaTime;
+			rigidbody.velocity += custom_gravity * GravityForce() * Time.deltaTime;
 
 			if (objects != null) {
 				foreach (Transform node in objects) {
 					Rigidbody2D rigidbody_node = node.gameObject.GetComponent<Rigidbody2D>();
 					if (rigidbody_node) {
-						rigidbody_node.velocity += custom_gravity * Time.deltaTime;
+						rigidbody_node.velocity += custom_gravity * GravityForce() * Time.deltaTime;
 					}
 				}
 			}

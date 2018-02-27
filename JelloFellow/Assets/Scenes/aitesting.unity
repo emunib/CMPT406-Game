@@ -113,52 +113,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1001 &218957646
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4569396917816018, guid: 45bf801ddfcc64baa833732034fa4ad6, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4569396917816018, guid: 45bf801ddfcc64baa833732034fa4ad6, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4569396917816018, guid: 45bf801ddfcc64baa833732034fa4ad6, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4569396917816018, guid: 45bf801ddfcc64baa833732034fa4ad6, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4569396917816018, guid: 45bf801ddfcc64baa833732034fa4ad6, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4569396917816018, guid: 45bf801ddfcc64baa833732034fa4ad6, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4569396917816018, guid: 45bf801ddfcc64baa833732034fa4ad6, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4569396917816018, guid: 45bf801ddfcc64baa833732034fa4ad6, type: 2}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1247408798504590, guid: 45bf801ddfcc64baa833732034fa4ad6, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 45bf801ddfcc64baa833732034fa4ad6, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &759967730
 GameObject:
   m_ObjectHideFlags: 0
@@ -171,6 +125,7 @@ GameObject:
   - component: {fileID: 759967733}
   - component: {fileID: 759967732}
   - component: {fileID: 759967731}
+  - component: {fileID: 759967737}
   - component: {fileID: 759967736}
   m_Layer: 0
   m_Name: goomba
@@ -215,37 +170,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a30e78fdbe6a492aad8a60850fcb13f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  is_raycast_origin: 1
-  apply_gravity_tochild: 0
-  apply_movement_tochild: 0
-  ChildComponents: []
-  gravity_angular_drag: 0.5
-  gravity_linear_drag: 3
-  max_gravity_stamina: 100
-  min_gravity_stamina: 0
-  gravity_depletion_time: 5
-  gravity_field_transition_time: 0.6
-  movement_linear_drag: 5
-  move_speed: 4
-  jump_angle_force: 10
-  jump_normalize_threshold: 1
-  leniency_angle: 25
-  ground_acceleration: 0.1
-  air_acceleration: 0.1
-  ground_fov_angle: 25
-  ground_ray_count: 1
-  ground_ray_length: 1.02
-  verbose_gravity: 0
-  show_gravity: 1
-  gravity_ray_color: {r: 0, g: 0, b: 0, a: 1}
-  visualize_ground_check: 1
-  visualize_fov_edge: {r: 0, g: 0, b: 1, a: 1}
-  visualize_fov_inbetween: {r: 1, g: 0, b: 0, a: 1}
-  verbose_movement: 0
-  show_movement: 0
-  movement_direction_color: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  platform_direction_color: {r: 1, g: 0, b: 1, a: 1}
-  movement_leniency_color: {r: 0, g: 0, b: 1, a: 1}
+  config: {fileID: 0}
+  cur_hp: 0
+  max_hp: 0
   fwdCheck: {fileID: 1763052840}
   backCheck: {fileID: 1218485623}
   fwdGroundChkRange: 1
@@ -335,7 +262,7 @@ Transform:
   - {fileID: 1763052840}
   - {fileID: 1218485623}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: -0.30100003, y: 0.411, z: -71.37}
 --- !u!114 &759967736
 MonoBehaviour:
@@ -353,6 +280,48 @@ MonoBehaviour:
   horg: 0
   verg: -9.8
   jumpbtndown: 0
+--- !u!114 &759967737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 759967730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0457fccce56245e4c800ccfc8ff740d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  is_raycast_origin: 1
+  apply_gravity_tochild: 0
+  apply_movement_tochild: 0
+  ChildComponents: []
+  gravity_angular_drag: 0.5
+  gravity_linear_drag: 3
+  max_gravity_stamina: 100
+  min_gravity_stamina: 0
+  gravity_depletion_time: 5
+  gravity_field_transition_time: 0.6
+  movement_linear_drag: 5
+  move_speed: 10
+  jump_angle_force: 10
+  jump_normalize_threshold: 1
+  leniency_angle: 25
+  ground_acceleration: 0.1
+  air_acceleration: 0.4
+  ground_fov_angle: 25
+  ground_ray_count: 2
+  ground_ray_length: 0.65
+  verbose_gravity: 0
+  show_gravity: 0
+  gravity_ray_color: {r: 0, g: 0, b: 0, a: 1}
+  visualize_ground_check: 0
+  visualize_fov_edge: {r: 0, g: 0, b: 1, a: 1}
+  visualize_fov_inbetween: {r: 1, g: 0, b: 0, a: 1}
+  verbose_movement: 0
+  show_movement: 0
+  movement_direction_color: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  platform_direction_color: {r: 1, g: 0, b: 1, a: 1}
+  movement_leniency_color: {r: 0, g: 0, b: 1, a: 1}
 --- !u!1 &1028629497
 GameObject:
   m_ObjectHideFlags: 0
@@ -531,7 +500,7 @@ Transform:
   m_LocalScale: {x: 1.0170717, y: 1.0170947, z: 1.0000244}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1199676924
 GameObject:
@@ -566,7 +535,7 @@ Transform:
   - {fileID: 1339329657}
   - {fileID: 1409637172}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1218485622
 GameObject:
@@ -965,7 +934,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1734624059
 BoxCollider2D:
@@ -1328,6 +1297,7 @@ GameObject:
   - component: {fileID: 2072412966}
   - component: {fileID: 2072412968}
   - component: {fileID: 2072412970}
+  - component: {fileID: 2072412971}
   - component: {fileID: 2072412969}
   m_Layer: 9
   m_Name: Square
@@ -1391,7 +1361,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &2072412968
 BoxCollider2D:
@@ -1429,37 +1399,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 289b205779f51475595a21671bdbf040, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  is_raycast_origin: 1
-  apply_gravity_tochild: 0
-  apply_movement_tochild: 0
-  ChildComponents: []
-  gravity_angular_drag: 0.5
-  gravity_linear_drag: 3
-  max_gravity_stamina: 100
-  min_gravity_stamina: 100
-  gravity_depletion_time: 100
-  gravity_field_transition_time: 0.6
-  movement_linear_drag: 5
-  move_speed: 4
-  jump_angle_force: 10
-  jump_normalize_threshold: 1
-  leniency_angle: 25
-  ground_acceleration: 0.1
-  air_acceleration: 0.1
-  ground_fov_angle: 25
-  ground_ray_count: 2
-  ground_ray_length: 0.65
-  verbose_gravity: 0
-  show_gravity: 0
-  gravity_ray_color: {r: 0, g: 0, b: 0, a: 1}
-  visualize_ground_check: 1
-  visualize_fov_edge: {r: 0, g: 0, b: 1, a: 1}
-  visualize_fov_inbetween: {r: 1, g: 0, b: 0, a: 1}
-  verbose_movement: 0
-  show_movement: 0
-  movement_direction_color: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  platform_direction_color: {r: 1, g: 0, b: 1, a: 1}
-  movement_leniency_color: {r: 0, g: 0, b: 1, a: 1}
+  config: {fileID: 0}
+  cur_hp: 0
+  max_hp: 0
 --- !u!50 &2072412970
 Rigidbody2D:
   serializedVersion: 4
@@ -1480,45 +1422,45 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!1001 &2089248000
-Prefab:
+--- !u!114 &2072412971
+MonoBehaviour:
   m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4971892109584742, guid: 545b4ad95d75f4e22b7425440ee44964, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4971892109584742, guid: 545b4ad95d75f4e22b7425440ee44964, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4971892109584742, guid: 545b4ad95d75f4e22b7425440ee44964, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4971892109584742, guid: 545b4ad95d75f4e22b7425440ee44964, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4971892109584742, guid: 545b4ad95d75f4e22b7425440ee44964, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4971892109584742, guid: 545b4ad95d75f4e22b7425440ee44964, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4971892109584742, guid: 545b4ad95d75f4e22b7425440ee44964, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4971892109584742, guid: 545b4ad95d75f4e22b7425440ee44964, type: 2}
-      propertyPath: m_RootOrder
-      value: 6
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 545b4ad95d75f4e22b7425440ee44964, type: 2}
-  m_IsPrefabParent: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2072412965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0457fccce56245e4c800ccfc8ff740d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  is_raycast_origin: 1
+  apply_gravity_tochild: 0
+  apply_movement_tochild: 0
+  ChildComponents: []
+  gravity_angular_drag: 0.5
+  gravity_linear_drag: 3
+  max_gravity_stamina: 100
+  min_gravity_stamina: 0
+  gravity_depletion_time: 5
+  gravity_field_transition_time: 0.6
+  movement_linear_drag: 5
+  move_speed: 10
+  jump_angle_force: 10
+  jump_normalize_threshold: 1
+  leniency_angle: 25
+  ground_acceleration: 0.1
+  air_acceleration: 0.4
+  ground_fov_angle: 25
+  ground_ray_count: 2
+  ground_ray_length: 0.65
+  verbose_gravity: 0
+  show_gravity: 0
+  gravity_ray_color: {r: 0, g: 0, b: 0, a: 1}
+  visualize_ground_check: 0
+  visualize_fov_edge: {r: 0, g: 0, b: 1, a: 1}
+  visualize_fov_inbetween: {r: 1, g: 0, b: 0, a: 1}
+  verbose_movement: 0
+  show_movement: 0
+  movement_direction_color: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  platform_direction_color: {r: 1, g: 0, b: 1, a: 1}
+  movement_leniency_color: {r: 0, g: 0, b: 1, a: 1}

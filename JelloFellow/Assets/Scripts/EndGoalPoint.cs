@@ -6,6 +6,7 @@ using Object = UnityEngine.Object;
 
 public class EndGoalPoint : MonoBehaviour
 {
+<<<<<<< HEAD
     private GameObject slime;
 
     private void Start()
@@ -16,6 +17,18 @@ public class EndGoalPoint : MonoBehaviour
     void OnTriggerEnter2D(Collider2D hit) {
 		Debug.Log ("Entered");
 		if (hit.gameObject.tag == "Blob")
+=======
+//    private GameObject slime;
+//
+//    private void Start()
+//    {
+//        slime = GameObject.Find("SlimePlayer");
+//    }
+
+    void OnTriggerEnter2D(Collider2D hit) {
+		Debug.Log ("Entered");
+		if (hit.gameObject.CompareTag("Blob"))
+>>>>>>> master
         {
             SceneController.control.previousSceneName = SceneManager.GetActiveScene().name;
             SceneController.control.currSceneName = "LevelSummary";

@@ -19,7 +19,7 @@ public class EyeController : MonoBehaviour
 
     private void Start()
     {
-        _input = GameObject.FindGameObjectWithTag("InputController").GetComponent<InputController>().GetInput();
+        _input = InputController.instance.GetInput();
     }
 
     private void Update()

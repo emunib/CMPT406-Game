@@ -551,7 +551,9 @@ public class JellySpriteEditor : Editor
 						Handles.color = jellySprite.m_FreeModeBodyKinematic[i]? Color.red : Color.green;
 						
 						Vector3 point = transform.TransformPoint(jellySprite.m_FreeModeBodyPositions[i]);
+#pragma warning disable 618
 						Vector3 newPosition = transform.InverseTransformPoint(Handles.FreeMoveHandle(point, Quaternion.identity, 0.1f, Vector3.zero, Handles.DotCap));
+#pragma warning restore 618
 						newPosition.z = 0.0f;
 
 						if(jellySprite.m_FreeModeBodyPositions[i] != newPosition)

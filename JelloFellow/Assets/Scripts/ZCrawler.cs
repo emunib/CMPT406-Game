@@ -11,9 +11,9 @@ public class ZCrawler : GenericPlayer {
 	private float direction;
 	private bool wait_gravity;
 	private Rigidbody2D rb;
-	public bool randomizeDirection = true;
+	//public bool randomizeDirection = true;
 
-	private Quaternion glueRot = Quaternion.identity;
+	//private Quaternion glueRot = Quaternion.identity;
 	// Use this for initialization
 	protected override void Start () {
 		base.Start();
@@ -33,7 +33,8 @@ public class ZCrawler : GenericPlayer {
 		wait_gravity = false;
 	}
 	
-	protected  void FixedUpdate() {
+	protected override void FixedUpdate() {
+		base.FixedUpdate();
 		/* reset all the values */
 		_input.DefaultValues();
     	
@@ -104,15 +105,15 @@ public class ZCrawler : GenericPlayer {
 		{
 			
 			float platform_angle = PlatformAngle();
-			float angle1 = platform_angle - 160;
-			float angle2 = platform_angle + 160f;
+			//float angle1 = platform_angle - 160;
+			//float angle2 = platform_angle + 160f;
 
-			float angle = flip ? Mathf.Max(angle1, angle2) : Mathf.Min(angle1, angle2);
+			//float angle = flip ? Mathf.Max(angle1, angle2) : Mathf.Min(angle1, angle2);
 			
-			Vector2 forwardangle_direction = new Vector2(Mathf.Sin(angle * Mathf.Deg2Rad), Mathf.Cos(angle * Mathf.Deg2Rad));
+			//Vector2 forwardangle_direction = new Vector2(Mathf.Sin(angle * Mathf.Deg2Rad), Mathf.Cos(angle * Mathf.Deg2Rad));
 			Vector2 dir = -(Vector2)transform.up;
 			
-			float velocityFactor = .50f;
+			const float velocityFactor = .50f;
 			rb.AddTorque(direction*.5f);
 			dir = new Vector2(dir.x, dir.y);
 			//HashSet<RaycastHit2D> leaving_ground = GetObjectsInView(dir, 1f, 0, 8f,true);

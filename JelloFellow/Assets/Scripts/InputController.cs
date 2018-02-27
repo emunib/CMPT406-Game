@@ -4,16 +4,11 @@
 /// <summary>
 /// Recognizes different controllers, and sees if they are supported.
 /// </summary>
-public class InputController : MonoBehaviour {
+public class InputController : Singleton<InputController> {
   private Input2D input;
   private InputControllerInfo info;
   
-  private void Awake() {
-    /* dont destroy this object when loaded unless there is already input controller */
-    if (!GameObject.FindGameObjectWithTag("InputController")) {
-      DontDestroyOnLoad(gameObject);
-    }
-    
+  private void Awake() {    
     /* default values */
 		input = gameObject.AddComponent<SimpleInput>();
     info = null;
@@ -40,7 +35,8 @@ public class InputController : MonoBehaviour {
       Debug.Log("Controller: " + info.controller_type());
       input.Init(info);
     } else {
-      Debug.LogError("Please plugin a valid controller, and restart the game.");
+      input = gameObject.AddComponent<ManualInput>();
+      Debug.LogWarning("Please plugin a valid controller, and restart the game. Manual control has been given.");
     }
   }
   

@@ -6,7 +6,7 @@ public class FellowPlayer : GenericPlayer {
 	protected override void Start() {
 		base.Start();
 		
-		_input = GameObject.FindGameObjectWithTag("InputController").GetComponent<InputController>().GetInput();
+		_input = InputController.instance.GetInput();
 		SetIgnoreFields(true);
 		SetInput(_input);
 		SetFieldRadius(2f);

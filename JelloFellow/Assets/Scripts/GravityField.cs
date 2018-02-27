@@ -95,7 +95,7 @@ public abstract class GravityField : GravityPlayer {
       //gravity_field.radius = radius;
       gravityfield_visualizer.transform.localScale = new Vector3(radius, radius, 1);
     } else {
-      Debug.LogWarning("Radius exceeded Min or Max radius.");
+      //Debug.LogWarning("Radius exceeded Min or Max radius.");
     }
   }
 
