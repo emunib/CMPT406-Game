@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GenericPlayer : GravityField {
   [Header("General Settings")] [CustomLabel("Raycast Origin")] [Tooltip("Should the main object be an origin of raycasting.")] [SerializeField]
@@ -96,6 +97,11 @@ public class GenericPlayer : GravityField {
   [CustomLabel("Leniency Color")] [Tooltip("Color representing the Leniency of the movement.")] [SerializeField]
   private Color movement_leniency_color = Color.blue;
 
+  [Header("Health Settings")]
+	[Range(1,1000)]
+  public int cur_hp;
+	[Range(1,1000)]
+  public int max_hp;
   /* variables not exposed in the inspector */
   /* input controller for this player */
   private Input2D input;
@@ -143,6 +149,8 @@ public class GenericPlayer : GravityField {
   protected bool is_grounded { get; private set; }
 
   protected virtual void Start() {
+		
+		cur_hp = max_hp;
     /* init hashset raycast origins */
     raycast_origins = new HashSet<Transform>();
     /* if the main object is a raycast origin then add to the collection */
@@ -740,11 +748,23 @@ public class GenericPlayer : GravityField {
     input = _input;
   }
 
+	//Damage Information
+  private void Damage(int amount) {
+    cur_hp -= amount;
+    if (cur_hp < 0) {
+      Debug.Log("Bleh I died.");
+      SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+
+    }
+  }
+
   //Makes it so gravity is recieved from the right stick's angle
   private void UnlockGravity() {
     set_fixed_gravity = false;
   }
 }
+
 
 /// <summary>
 /// It holds the transform of a child (efficient way to pass around gameobject), and
