@@ -61,9 +61,9 @@ BoxCollider2D:
     oldSize: {x: 5.14, y: 3.05}
     newSize: {x: 5.14, y: 3.05}
     adaptiveTilingThreshold: 0.5
-    drawMode: 0
+    drawMode: 2
     adaptiveTiling: 0
-  m_AutoTiling: 0
+  m_AutoTiling: 1
   serializedVersion: 2
   m_Size: {x: 5.14, y: 2.3884456}
   m_EdgeRadius: 0
@@ -78,6 +78,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ada2c73d45b641dba796383649bd832, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!212 &212892443841054430
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -116,7 +119,7 @@ SpriteRenderer:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 0
+  m_DrawMode: 2
   m_Size: {x: 5.14, y: 3.05}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
