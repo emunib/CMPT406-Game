@@ -227,8 +227,6 @@ MonoBehaviour:
   gravity_field_transition_time: 0.6
   movement_linear_drag: 5
   move_speed: 4
-  jump_height: 6
-  jump_apex_time: 0.4
   jump_angle_force: 10
   jump_normalize_threshold: 1
   leniency_angle: 25
@@ -236,7 +234,7 @@ MonoBehaviour:
   air_acceleration: 0.1
   ground_fov_angle: 25
   ground_ray_count: 1
-  ground_ray_length: 0.6
+  ground_ray_length: 1.02
   verbose_gravity: 0
   show_gravity: 1
   gravity_ray_color: {r: 0, g: 0, b: 0, a: 1}
@@ -330,15 +328,15 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 759967730}
-  m_LocalRotation: {x: -0.0042410875, y: -0.0013439059, z: -0.000005699679, w: 0.9999901}
-  m_LocalPosition: {x: 3.67, y: -19.51, z: 0.04}
+  m_LocalRotation: {x: -0.0042287232, y: 0.0013823182, z: -0.58331597, w: 0.8122332}
+  m_LocalPosition: {x: 15.4, y: 1.1, z: -0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1763052840}
   - {fileID: 1218485623}
   m_Father: {fileID: 0}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: -0.48600003, y: -0.15400001, z: 0}
+  m_LocalEulerAnglesHint: {x: -0.30100003, y: 0.411, z: -71.37}
 --- !u!114 &759967736
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -448,7 +446,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1028629497}
   m_LocalRotation: {x: -0, y: -0.030897439, z: -0, w: 0.9995226}
-  m_LocalPosition: {x: -2.5, y: 3.7, z: -0}
+  m_LocalPosition: {x: -2.1, y: 14.7, z: 0}
   m_LocalScale: {x: 19.22, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1199676925}
@@ -1389,7 +1387,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2072412965}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -14.22, y: 12.61, z: 0}
+  m_LocalPosition: {x: -0.8, y: -1.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1443,8 +1441,6 @@ MonoBehaviour:
   gravity_field_transition_time: 0.6
   movement_linear_drag: 5
   move_speed: 4
-  jump_height: 6
-  jump_apex_time: 0.4
   jump_angle_force: 10
   jump_normalize_threshold: 1
   leniency_angle: 25
@@ -1484,3 +1480,45 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!1001 &2089248000
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4971892109584742, guid: 545b4ad95d75f4e22b7425440ee44964, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4971892109584742, guid: 545b4ad95d75f4e22b7425440ee44964, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4971892109584742, guid: 545b4ad95d75f4e22b7425440ee44964, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4971892109584742, guid: 545b4ad95d75f4e22b7425440ee44964, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4971892109584742, guid: 545b4ad95d75f4e22b7425440ee44964, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4971892109584742, guid: 545b4ad95d75f4e22b7425440ee44964, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4971892109584742, guid: 545b4ad95d75f4e22b7425440ee44964, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4971892109584742, guid: 545b4ad95d75f4e22b7425440ee44964, type: 2}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 545b4ad95d75f4e22b7425440ee44964, type: 2}
+  m_IsPrefabParent: 0
