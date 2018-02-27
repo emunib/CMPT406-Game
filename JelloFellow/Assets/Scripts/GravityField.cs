@@ -72,6 +72,11 @@ public abstract class GravityField : GravityPlayer {
 
   protected override void SetGravity(Vector2 _gravity) {
     lock (_lock) {
+      if (FindObjectOfType<EyesController>())
+      {
+        FindObjectOfType<EyesController>().SendMessage("SetGravityDirection", _gravity);
+      }
+      
       foreach (GameObject gameObj in in_field) {
         Gravity grav = gameObj.gameObject.GetComponent<Gravity>();
         grav.SetCustomGravity(_gravity * GravityDrag);
