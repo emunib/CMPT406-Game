@@ -222,9 +222,10 @@ public class CollectedItems : MonoBehaviour {
 	}
 
 	public void Update() {
-
+		Input2D input = GameObject.FindGameObjectWithTag("InputController").GetComponent<InputController>().GetInput();
+		
 		// Going to the list of items
-		if (Input.GetKeyDown(KeyCode.DownArrow) && display) {
+		if (input.GetHorizontalLeftStick() < 0 && display) {
 
 			LinkedListNode<Item> current = items.First;
 			bool found = false;		// Remains false if no item in the list has yet been selected							
@@ -253,7 +254,7 @@ public class CollectedItems : MonoBehaviour {
 		}
 
 		// Going up the list of items
-		if (Input.GetKeyDown(KeyCode.UpArrow) && display) {
+		if (input.GetHorizontalLeftStick() > 0 && display) {
 
 			LinkedListNode<Item> current = items.First;
 			bool found = false;
@@ -282,7 +283,7 @@ public class CollectedItems : MonoBehaviour {
 		}
 
 		// Going up the list of items
-		if (Input.GetKeyDown (KeyCode.Q))
+		if (input.GetButton1Down())
 			display = !display;
 	}
 		
