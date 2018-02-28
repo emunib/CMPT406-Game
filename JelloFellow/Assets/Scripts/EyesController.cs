@@ -9,6 +9,7 @@ public class EyesController : MonoBehaviour
     private Input2D _input;
     private Vector2 _vel;
     private Vector2 _position;
+    private GravityPlayer _player;
     private Vector2 _gravDir = Vector2.down;
 
 
@@ -21,7 +22,13 @@ public class EyesController : MonoBehaviour
     // Update is called once per frame
     private void LateUpdate()
     {
-        var gravOpp = -_gravDir;
+        if (!_player)
+        {
+            _player = gameObject.GetComponentInParent<JellySprite>().CentralPoint.GameObject
+                .GetComponent<GravityPlayer>();
+        }
+
+        var gravOpp = -_player.GetGravity().normalized;
         transform.up = gravOpp;
         
         var yOffset = YOffsetFromCentre * gameObject.GetComponentInParent<JellySprite>().m_SpriteScale.y * 2;
@@ -33,10 +40,5 @@ public class EyesController : MonoBehaviour
         _position = Vector2.SmoothDamp(_position, targetPos, ref _vel, SmoothTime, Mathf.Infinity, Time.deltaTime);
         transform.localPosition = _position;
 
-    }
-
-    private void SetGravityDirection(Vector2 gravDir)
-    {
-        _gravDir = gravDir.normalized;
     }
 }

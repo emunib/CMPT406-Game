@@ -98,4 +98,10 @@ public class PlayerConfigurator : MonoBehaviour {
   public Color movement_leniency_color = Color.blue;
 
   public bool IsRaycastOrigin { get; set; }
+  
+  [Header("Health Settings")] [Range(1, 1000)]
+  public int cur_hp;
+
+  [Range(1, 1000)]
+  public int max_hp;
 }

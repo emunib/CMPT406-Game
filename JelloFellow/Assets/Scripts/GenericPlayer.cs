@@ -6,11 +6,6 @@ using UnityEngine.SceneManagement;
 public class GenericPlayer : GravityField {
   public PlayerConfigurator config;
 
-  [Header("Health Settings")] [Range(1, 1000)]
-  public int cur_hp;
-
-  [Range(1, 1000)] public int max_hp;
-
   /* variables not exposed in the inspector */
   /* input controller for this player */
   private Input2D input;
@@ -207,7 +202,16 @@ public class GenericPlayer : GravityField {
   }
 
   protected virtual void FixedUpdate() {
-    rigidbody.velocity = Vector2.ClampMagnitude(rigidbody.velocity, (config.max_velocity/2f));
+    rigidbody.velocity = Vector2.ClampMagnitude(rigidbody.velocity, config.max_velocity);
+
+    if (config.apply_movement_tochild)
+    {
+      foreach (var node in config.ChildComponents)
+      {
+        var body2D = node.Child.GetComponent<Rigidbody2D>();
+        body2D.velocity = Vector2.ClampMagnitude(body2D.velocity, config.max_velocity);
+      }     
+    }
   }
 
   /// <summary>
@@ -409,7 +413,7 @@ public class GenericPlayer : GravityField {
       }
 
       if (input.GetRightStickDown()) {
-        SetGravity(-platform_hit_normal * GravityForce());
+        SetGravity(-platform_hit_normal);
         set_fixed_gravity = true;
         Invoke("UnlockGravity", 0.2f);
       }
@@ -486,7 +490,7 @@ public class GenericPlayer : GravityField {
           rigidbody.freezeRotation = true;
         } else {
           rigidbody.drag = 0f;
-          rigidbody.freezeRotation = false;
+          rigidbody.freezeRotation = true;
         }
       }
     } else {
@@ -557,7 +561,7 @@ public class GenericPlayer : GravityField {
             child_rigidbody.freezeRotation = true;
           } else {
             child_rigidbody.drag = 0f;
-            child_rigidbody.freezeRotation = false;
+            child_rigidbody.freezeRotation = true;
           }
 
           child_rigidbody.velocity = velocity;
@@ -662,8 +666,8 @@ public class GenericPlayer : GravityField {
 
   //Damage Information
   private void Damage(int amount) {
-    cur_hp -= amount;
-    if (cur_hp < 0) {
+    config.cur_hp -= amount;
+    if (config.cur_hp < 0) {
       Debug.Log("Bleh I died.");
       SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
