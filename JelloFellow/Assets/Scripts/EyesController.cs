@@ -10,7 +10,7 @@ public class EyesController : MonoBehaviour
     private Vector2 _vel;
     private Vector2 _position;
     private GravityPlayer _player;
-    private Vector2 _gravDir = Vector2.down;
+    //private Vector2 _gravDir = Vector2.down;
 
 
     // Use this for initialization
