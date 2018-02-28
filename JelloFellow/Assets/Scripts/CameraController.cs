@@ -26,45 +26,49 @@ public class CameraController : MonoBehaviour
     // update camera after target movement has occurred in Update()
     private void LateUpdate()
     {
-        if (Target != null && Jelly)
-        {  // if the jelly is defined instead of the target then use the jelly's centre point as a target
+        if (!Target && Jelly)
+        {
+            // if the jelly is defined instead of the target then use the jelly's centre point as a target
             Target = Jelly.ReferencePoints[0].transform;
         }
 
-        Validate();
-        Move();
-        Zoom();
+        if (Target)
+        {
+            Validate();
+            Move();
+            Zoom();
+        }
     }
 
     private void Move()
     {
-        if (Target != null) {
-            Vector2 cur = transform.position;
-            Vector2 tar = Target.position;
+        Vector2 cur = transform.position;
+        Vector2 tar = Target.position;
 
-            if ((cur - tar).magnitude <= DeadZone) return; // do nothing if target is within dead zone
+        if ((cur - tar).magnitude <= DeadZone) return; // do nothing if target is within dead zone
 
-            var targetPos = tar - (tar - cur).normalized * DeadZone; // target position is the edge of the dead zone
+        var targetPos = tar - (tar - cur).normalized * DeadZone; // target position is the edge of the dead zone
 
-            transform.position = Vector2.SmoothDamp(transform.position, targetPos, ref _velocity, MovementSmoothTime, Mathf.Infinity, Time.deltaTime); // gradually move towards target
+        transform.position = Vector2.SmoothDamp(transform.position, targetPos, ref _velocity, MovementSmoothTime,
+            Mathf.Infinity, Time.deltaTime); // gradually move towards target
 
-            transform.position = new Vector3(transform.position.x, transform.position.y, -10); // set z coordinate
-        }
+        transform.position = new Vector3(transform.position.x, transform.position.y, -10); // set z coordinate
     }
 
     private void Zoom()
     {
-        if (Target != null) {
-            var cam = GetComponent<Camera>();
-            var vel = Target.GetComponent<Rigidbody2D>().velocity.magnitude;
+        var cam = GetComponent<Camera>();
+        var vel = Target.GetComponent<Rigidbody2D>().velocity.magnitude;
 
-            var targetSize = Mathf.Clamp(vel, MinSize, MaxSize); // use velocity as size, limit it
-            // to be between minSize and maxSize
+        var targetSize = Mathf.Clamp(vel, MinSize, MaxSize); // use velocity as size, limit it
+        // to be between minSize and maxSize
 
-            var zoomSmoothTime = cam.orthographicSize < targetSize ? ZoomOutSmoothTime : ZoomInSmoothTime; // zoom at the appropriate rate
+        var zoomSmoothTime =
+            cam.orthographicSize < targetSize ? ZoomOutSmoothTime : ZoomInSmoothTime; // zoom at the appropriate rate
 
-            cam.orthographicSize = Mathf.SmoothDamp(cam.orthographicSize, targetSize, ref _zoomSpeed, zoomSmoothTime); // gradually move towards target size
-        }
+        cam.orthographicSize =
+            Mathf.SmoothDamp(cam.orthographicSize, targetSize, ref _zoomSpeed,
+                zoomSmoothTime); // gradually move towards target size
     }
 
     private void Validate()
