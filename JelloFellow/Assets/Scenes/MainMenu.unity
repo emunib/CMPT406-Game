@@ -622,7 +622,11 @@ Prefab:
         type: 2}
       propertyPath: m_TargetTexture
       value: 
-      objectReference: {fileID: 1947930707}
+      objectReference: {fileID: 1161791171}
+    - target: {fileID: 1405676170208024, guid: f8592eb5c805543bf93f107b719aab46, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f8592eb5c805543bf93f107b719aab46, type: 2}
   m_IsPrefabParent: 0
@@ -636,7 +640,7 @@ GameObject:
   - component: {fileID: 1148502967}
   - component: {fileID: 1148502966}
   - component: {fileID: 1148502965}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Starry
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -757,7 +761,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1130499190
+  randomSeed: 547122068
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -4071,6 +4075,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!84 &1161791171
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  m_Width: 640
+  m_Height: 480
+  m_AntiAliasing: 1
+  m_DepthFormat: 2
+  m_ColorFormat: 0
+  m_MipMap: 0
+  m_GenerateMips: 1
+  m_SRGB: 0
+  m_UseDynamicScale: 0
+  m_BindMS: 0
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 0
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
 --- !u!1 &1246525937
 GameObject:
   m_ObjectHideFlags: 0
@@ -4454,7 +4489,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!84 &1446954462
+--- !u!84 &1443642361
 RenderTexture:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -4529,6 +4564,11 @@ Prefab:
       propertyPath: backgroundCamera
       value: 
       objectReference: {fileID: 2055525822}
+    - target: {fileID: 20427561362228076, guid: 22cd61ac038264995a325940e4b4a3b0,
+        type: 2}
+      propertyPath: m_CullingMask.m_Bits
+      value: 2560
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 22cd61ac038264995a325940e4b4a3b0, type: 2}
   m_IsPrefabParent: 0
@@ -4754,10 +4794,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 1887533830109234, guid: 0e57d6a9c00324e30ba0bd2f2c507237, type: 2}
-      propertyPath: m_Name
-      value: Main Camera
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0e57d6a9c00324e30ba0bd2f2c507237, type: 2}
   m_IsPrefabParent: 0
@@ -4834,37 +4870,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
---- !u!84 &1947930707
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: 
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  m_Width: 1503
-  m_Height: 387
-  m_AntiAliasing: 1
-  m_DepthFormat: 2
-  m_ColorFormat: 0
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 0
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
 --- !u!1001 &2016836949
 Prefab:
   m_ObjectHideFlags: 0
@@ -4907,6 +4912,23 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 596eed761fdf6f1499dfcf536207e89d, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &2035553691 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1405676170208024, guid: f8592eb5c805543bf93f107b719aab46,
+    type: 2}
+  m_PrefabInternal: {fileID: 959081412}
+--- !u!114 &2035553693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2035553691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  profile: {fileID: 11400000, guid: 5c1bc7ef6bda4490a9620f28c76adc9d, type: 2}
 --- !u!20 &2055525822 stripped
 Camera:
   m_PrefabParentObject: {fileID: 20423979756257998, guid: f8592eb5c805543bf93f107b719aab46,
