@@ -16,7 +16,7 @@ public class SummaryScreen : MonoBehaviour
 
 	public void Start()
 	{
-		input = GameObject.FindGameObjectWithTag("InputController").GetComponent<InputController>().GetInput();
+		input = InputController.instance.GetInput();
 		if (SceneController.control.previousSceneName != "")
 		{
 			sceneName.text = SceneController.control.previousSceneName;

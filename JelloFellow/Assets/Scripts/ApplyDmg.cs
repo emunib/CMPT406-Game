@@ -4,12 +4,17 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class ApplyDmg : MonoBehaviour {
+	private void OnTriggerEnter2D(Collider2D other) {
 
-	void OnTriggerEnter2D(Collider2D other) {
-		if (other.gameObject.CompareTag("Player")) {
+		if (other.gameObject.CompareTag("Blob")) {
 			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-		} else if (other.gameObject.CompareTag("Enemy")) {
-			Destroy(other.gameObject);
 		}
+		//Kill enemy
+		else if (other.gameObject.CompareTag("Enemy")) {
+			Destroy(other.gameObject);
+		}	
+		
 	}
+
+	
 }

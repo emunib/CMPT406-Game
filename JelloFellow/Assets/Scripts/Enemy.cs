@@ -62,12 +62,12 @@ public class Enemy : MonoBehaviour {
 		DecisionTree walkNode = this.gameObject.AddComponent<DecisionTree>();
 		walkNode.SetActionDelegate(Walk);
 
-		DecisionTree AgroChkNode = this.gameObject.AddComponent<DecisionTree>();
+		//DecisionTree AgroChkNode = this.gameObject.AddComponent<DecisionTree>();
 		//TODO: Set this
 		
-		DecisionTree uprightCheckNode = gameObject.AddComponent<DecisionTree>();
+		//DecisionTree uprightCheckNode = gameObject.AddComponent<DecisionTree>();
 
-		DecisionTree orientateSelfNode = gameObject.AddComponent<DecisionTree>();
+		//DecisionTree orientateSelfNode = gameObject.AddComponent<DecisionTree>();
 		
 		
 		groundChkNode.SetLeftChild(walkNode);
@@ -163,7 +163,7 @@ public class Enemy : MonoBehaviour {
 		
 	
 		
-		//Gizmos.DrawRay(transform.position, right);
+		Gizmos.DrawRay(transform.position, right);
 		
 	}
 }
