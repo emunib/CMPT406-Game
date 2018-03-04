@@ -20,7 +20,7 @@ public class ZCrawler : GenericPlayer {
 		rb = GetComponent<Rigidbody2D>();
 		_input = gameObject.AddComponent<ZCrawlerInput>();
 		SetInput(_input);
-		SetIgnoreFields(true);
+		SetIgnoreFields(false);
 		SetFieldRadius(2f);
 
 		sprite_renderer = GetComponent<SpriteRenderer>();
