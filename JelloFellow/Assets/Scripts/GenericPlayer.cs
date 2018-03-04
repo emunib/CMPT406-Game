@@ -100,6 +100,13 @@ public class GenericPlayer : GravityField {
       /* get the gravity inputs from joystick */
       float horizontal_gravity = input.GetHorizontalRightStick();
       float vertical_gravity = input.GetVerticalRightStick();
+      
+      Vector2 stickInput = new Vector2(horizontal_gravity, vertical_gravity);
+      if (stickInput.magnitude < config.gravity_deadzone)
+      {
+        horizontal_gravity = 0;
+        vertical_gravity = 0;
+      }
 
       /* change only when the inputs are not 0 */
       if (gravity_stamina != 0 && (horizontal_gravity != 0 || vertical_gravity != 0)) {

@@ -106,4 +106,7 @@ public class PlayerConfigurator : MonoBehaviour {
 
   [Range(1, 1000)]
   public int max_hp;
+  
+  [Range(0, 1)]
+  public float gravity_deadzone = 0.9f;
 }
