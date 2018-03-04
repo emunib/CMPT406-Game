@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 114392491170758978}
   - component: {fileID: 60673620341342670}
   - component: {fileID: 114394630216974392}
+  - component: {fileID: 114740629170899964}
   m_Layer: 0
   m_Name: Crawler
   m_TagString: Enemy
@@ -137,9 +138,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   config: {fileID: 0}
-  cur_hp: 0
-  max_hp: 0
-  randomizeDirection: 1
 --- !u!114 &114394630216974392
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -167,6 +165,7 @@ MonoBehaviour:
   jump_angle_force: 10
   jump_normalize_threshold: 1
   leniency_angle: 25
+  jump_angle_coefficient: 0.8
   ground_acceleration: 0.1
   air_acceleration: 0.4
   ground_fov_angle: 25
@@ -183,6 +182,19 @@ MonoBehaviour:
   movement_direction_color: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   platform_direction_color: {r: 1, g: 0, b: 1, a: 1}
   movement_leniency_color: {r: 0, g: 0, b: 1, a: 1}
+  cur_hp: 0
+  max_hp: 0
+--- !u!114 &114740629170899964
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1154324884922264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ada2c73d45b641dba796383649bd832, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212622344790085288
 SpriteRenderer:
   m_ObjectHideFlags: 1

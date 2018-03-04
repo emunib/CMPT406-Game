@@ -12,15 +12,22 @@ public class AudioManager : MonoBehaviour {
 	private AudioSource musicSource;
 	public Scene lastScene;
 	public Queue<AudioClip> mainMenuClipsQ;
+	
 
 	public Queue<AudioClip> levelClipsQ;
 	// Use this for initialization
-	void OnEnable () {
+	void Awake () {
 		DontDestroyOnLoad (gameObject);
+		if (FindObjectsOfType(GetType()).Length > 1)
+		{
+			Destroy(gameObject);
+		}
 		musicSource = gameObject.GetComponent<AudioSource>();
 		InitQueues();
 		DecideAndPlayClip();
-		
+		//lastScene = SceneManager.GetActiveScene();
+
+
 	}
 
 	void InitQueues()
@@ -40,7 +47,7 @@ public class AudioManager : MonoBehaviour {
 	void DecideAndPlayClip()
 	{
 		Scene currentScene = SceneManager.GetActiveScene();
-
+		lastScene = currentScene;
 
 		AudioClip clipToPlay;
 		if (currentScene.name == "SceneSelector" || currentScene.name == "MainMenu")
@@ -69,10 +76,12 @@ public class AudioManager : MonoBehaviour {
 	}
 	// Update is called once per frame
 	void Update () {
-		if (!musicSource.isPlaying || lastScene.name !=SceneManager.GetActiveScene().name )
+		if (!musicSource.isPlaying )
 		{
+			Debug.Log("Scene name last : " + lastScene.name);
+			Debug.Log("Scene name now  : " + SceneManager.GetActiveScene().name);
 			DecideAndPlayClip();
-			lastScene = SceneManager.GetActiveScene();
+			
 		}
 	}
 }
