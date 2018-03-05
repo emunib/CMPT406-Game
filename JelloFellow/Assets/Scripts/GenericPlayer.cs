@@ -100,6 +100,13 @@ public class GenericPlayer : GravityField {
       /* get the gravity inputs from joystick */
       float horizontal_gravity = input.GetHorizontalRightStick();
       float vertical_gravity = input.GetVerticalRightStick();
+      
+      Vector2 stickInput = new Vector2(horizontal_gravity, vertical_gravity);
+      if (stickInput.magnitude < config.gravity_deadzone)
+      {
+        horizontal_gravity = 0;
+        vertical_gravity = 0;
+      }
 
       /* change only when the inputs are not 0 */
       if (gravity_stamina != 0 && (horizontal_gravity != 0 || vertical_gravity != 0)) {
@@ -325,15 +332,19 @@ public class GenericPlayer : GravityField {
         apply_stop_drag = false;
         /* if angle selected than shoot at an angle */
         if (horizontal_movement != 0 || vertical_movement != 0) {
-          Vector2 hybrid_jump = platform_hit_normal + new Vector2(horizontal_movement, vertical_movement);
+          Vector2 hybrid_jump = platform_hit_normal + new Vector2(horizontal_movement, vertical_movement) * config.jump_angle_coefficient;
 
           if (hybrid_jump.magnitude > config.jump_normalize_threshold) {
             hybrid_jump.Normalize();
           }
 
-          velocity += hybrid_jump * config.jump_angle_force;
-        } else {
-          velocity += platform_hit_normal * config.jump_angle_force;
+          
+          
+          velocity += hybrid_jump * config.jump_force;
+          //rigidbody.AddForce(hybrid_jump * config.jump_angle_force, ForceMode2D.Impulse);
+          // } else {
+          //velocity += platform_hit_normal * config.jump_angle_force;
+          //}
         }
       }
 
@@ -472,15 +483,15 @@ public class GenericPlayer : GravityField {
           apply_stop_drag = false;
           /* if angle selected than shoot at an angle */
           if (horizontal_movement != 0 || vertical_movement != 0) {
-            Vector2 hybrid_jump = platform_hit_normal + new Vector2(horizontal_movement, vertical_movement);
+            Vector2 hybrid_jump = platform_hit_normal + new Vector2(horizontal_movement, vertical_movement) * config.jump_angle_coefficient;
 
             if (hybrid_jump.magnitude > config.jump_normalize_threshold) {
               hybrid_jump.Normalize();
             }
 
-            velocity += hybrid_jump * config.jump_angle_force;
+            velocity += hybrid_jump * config.jump_force;
           } else {
-            velocity += platform_hit_normal * config.jump_angle_force;
+            velocity += platform_hit_normal * config.jump_force;
           }
         }
 

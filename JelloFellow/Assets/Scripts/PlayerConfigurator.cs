@@ -41,14 +41,16 @@ public class PlayerConfigurator : MonoBehaviour {
   public float move_speed = 10f;
 
   [CustomRangeLabel("Jump Force", 0f, 100f)] [Tooltip("Force to apply in order to jump.")] [SerializeField]
-  public float jump_angle_force = 10f;
+  public float jump_force = 35f;
 
   [CustomRangeLabel("Jump Normalized Threshold", 0f, 100f)] [Tooltip("The threshold to normalize the hybrid jump.")] [SerializeField]
   public float jump_normalize_threshold = 1f;
 
   [CustomRangeLabel("Leniency Angle", 0f, 90f)] [Tooltip("The angle to allow movement in direction of the platforms angle.")] [SerializeField]
-  public float leniency_angle = 25f;
-
+  public float leniency_angle = 42f;
+  
+  [CustomRangeLabel("Jump Angle Coefficient", 0f, 2f)] [Tooltip("The angle to allow movement in direction of the platforms angle.")] [SerializeField]
+  public float jump_angle_coefficient = 0.8f;
   [CustomRangeLabel("Ground Acceleration Time", 0f, 1f)] [Tooltip("The smooth time of increasing velocity, will effect change in direction.")] [SerializeField]
   public float ground_acceleration = 0.1f;
 
@@ -56,7 +58,7 @@ public class PlayerConfigurator : MonoBehaviour {
   public float air_acceleration = 0.4f;
 
   [Header("Grounded Settings")] [CustomRangeLabel("Field of View Angle", 0f, 360f)] [Tooltip("Field of view (angle/arc) to cover.")] [SerializeField]
-  public float ground_fov_angle = 25f;
+  public float ground_fov_angle = 5f;
 
   [CustomRangeLabel("Number of Rays", 0, 20)] [Tooltip("Number of rays within the field of view arc.")] [SerializeField]
   public int ground_ray_count = 2;
@@ -104,4 +106,7 @@ public class PlayerConfigurator : MonoBehaviour {
 
   [Range(1, 1000)]
   public int max_hp;
+  
+  [Range(0, 1)]
+  public float gravity_deadzone = 0.9f;
 }
