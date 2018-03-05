@@ -12,9 +12,9 @@ public class Timer : MonoBehaviour
 	public Text timer;
 	
 	// Use this for initialization
-	void Awake ()
+	void Start ()
 	{
-		startTime = Time.time;
+		startTime = Time.unscaledTime;
 	}
 	
 	// Update is called once per frame
