@@ -13,7 +13,7 @@ public class FreeFall : MonoBehaviour {
 		
 	//Change Kenectic to Dynamic Rigidbody
 	void DropTheButton(){
-		if (rbody.isKinematic = true) {
+		if (rbody.isKinematic) {
 			StartCoroutine (FT (10f));
 		} else {
 			//backtoRest ();

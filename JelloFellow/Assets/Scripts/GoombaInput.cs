@@ -6,9 +6,10 @@ public class GoombaInput : Input2D {
 
   public float horg;
   public float verg;
-  
+  public bool jumpbtndown;
   private void Start() {
     horizontal = 1f;
+    jumpbtndown = false;
   }
   
   public override float GetLeftTrigger() {
@@ -68,7 +69,7 @@ public class GoombaInput : Input2D {
   }
   
   public override bool GetButton3Down() {
-    return false;
+    return jumpbtndown;
   }
   
   public override bool GetButton3Up() {

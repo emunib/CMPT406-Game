@@ -45,11 +45,11 @@ public class GravityComponent : Gravity {
     /* if it is in gravity field get affected by players gravity otherwise get effected by custom gravity */
     if (!in_gravity_field && !remember_gravity) {
       Vector2 default_gravity = new Vector2(DefaultGravity().x * gravity_restrictions.x, DefaultGravity().y * gravity_restrictions.y);
-      rigidbody.velocity += default_gravity * Time.deltaTime;
+      rigidbody.velocity += default_gravity * GravityForce() * Time.deltaTime;
       Debug.DrawRay(transform.position, default_gravity, Color.red);
     } else {
       gravity = new Vector2(gravity.x * gravity_restrictions.x, gravity.y * gravity_restrictions.y);
-      rigidbody.velocity += gravity * Time.deltaTime;
+      rigidbody.velocity += gravity * GravityForce() * Time.deltaTime;
       Debug.DrawRay(transform.position, gravity, Color.red);
     }
   }

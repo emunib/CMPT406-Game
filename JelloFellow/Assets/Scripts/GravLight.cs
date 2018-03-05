@@ -7,11 +7,15 @@ using UnityEngine;
 
 public class GravLight : MonoBehaviour {
 
-	[Header("Disable along which axis'")]
-	public bool Horizontal = true;
-	public bool Vertical = true;
+	[Header("Disable along which axis")] 
+	public bool Horizontal = false;
+	public bool Vertical = false;
 
-	public float amount = 0f;
+	[Header("Amount of gravity to disable")]
+	[Tooltip("amount is multiplied by the gravity that would otherwise be applied. " +
+	         "So a value of 0 and disabling the x axis would disable gravity completely along that axis")]
+	[Range(0.001f,1f)]
+	public float amount = 0.001f;
 	
 	void OnTriggerEnter2D(Collider2D other) {
 
@@ -28,7 +32,7 @@ public class GravLight : MonoBehaviour {
 		
 		if (other.attachedRigidbody) {
 
-			Collider2D[] col = other.GetComponents<Collider2D>();
+			//Collider2D[] col = other.GetComponents<Collider2D>();
 			/*foreach (Collider2D c in col) {
 				if (c.isTrigger) {
 					return;

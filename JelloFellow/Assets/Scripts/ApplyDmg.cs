@@ -4,12 +4,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class ApplyDmg : MonoBehaviour {
-	public LayerMask playerLayer = -1;
-	
-
 	private void OnTriggerEnter2D(Collider2D other) {
 
-		if (playerLayer == (playerLayer| (1<<other.gameObject.layer))) {
+		if (other.gameObject.CompareTag("Blob")) {
 			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 		}
 		//Kill enemy

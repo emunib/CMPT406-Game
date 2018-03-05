@@ -10,7 +10,7 @@ public abstract class GravityField : GravityPlayer {
   private const string gravityfield_sprite_path = "Prefabs/GravityField";
   private const float GravityDrag = 0.85f;
   protected const float MinRadius = 6f;
-  protected const float MaxRadius = 12f;
+  protected const float MaxRadius = 120f;
 
   private CircleCollider2D gravity_field;
   private HashSet<GameObject> in_field;
@@ -90,7 +90,7 @@ public abstract class GravityField : GravityPlayer {
       //gravity_field.radius = radius;
       gravityfield_visualizer.transform.localScale = new Vector3(radius, radius, 1);
     } else {
-      Debug.LogWarning("Radius exceeded Min or Max radius.");
+      //Debug.LogWarning("Radius exceeded Min or Max radius.");
     }
   }
 
