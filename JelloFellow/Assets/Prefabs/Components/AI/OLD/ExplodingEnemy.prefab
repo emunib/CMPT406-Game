@@ -145,9 +145,10 @@ MonoBehaviour:
   gravity_field_transition_time: 0.6
   movement_linear_drag: 5
   move_speed: 10
-  jump_angle_force: 10
+  jump_force: 35
   jump_normalize_threshold: 1
   leniency_angle: 25
+  jump_angle_coefficient: 0.8
   ground_acceleration: 0.1
   air_acceleration: 0.4
   ground_fov_angle: 25
@@ -164,6 +165,9 @@ MonoBehaviour:
   movement_direction_color: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   platform_direction_color: {r: 1, g: 0, b: 1, a: 1}
   movement_leniency_color: {r: 0, g: 0, b: 1, a: 1}
+  cur_hp: 0
+  max_hp: 0
+  gravity_deadzone: 0.9
 --- !u!114 &114271930838012326
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -209,8 +213,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   config: {fileID: 0}
-  cur_hp: 0
-  max_hp: 0
 --- !u!198 &198920370805602608
 ParticleSystem:
   m_ObjectHideFlags: 1
