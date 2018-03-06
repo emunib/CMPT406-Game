@@ -64,22 +64,22 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 20
   m_Depth: 1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294963711
+    m_Bits: 4294965759
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 0
   m_AllowMSAA: 0
+  m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 0
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
-  m_StereoMirrorMode: 0
 --- !u!81 &81681370885389334
 AudioListener:
   m_ObjectHideFlags: 1
@@ -101,11 +101,7 @@ MonoBehaviour:
   Target: {fileID: 0}
   Jelly: {fileID: 0}
   MovementSmoothTime: 0.15
-  DeadZone: 3
-  MinSize: 10
-  MaxSize: 20
-  ZoomInSmoothTime: 0.2
-  ZoomOutSmoothTime: 0.75
+  LookAhead: 0.5
 --- !u!114 &114296805867229776
 MonoBehaviour:
   m_ObjectHideFlags: 1
