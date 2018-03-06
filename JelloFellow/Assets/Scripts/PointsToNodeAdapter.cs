@@ -20,7 +20,7 @@ public class PointsToNodeAdapter : MonoBehaviour
 				var childComonent = new ChildComponent
 				{
 					Child = _jelly.ReferencePoints[i + 1].transform,
-					RaycastOrigin = true
+					RaycastOrigin = false
 				};
 
 				children[i] = childComonent;
