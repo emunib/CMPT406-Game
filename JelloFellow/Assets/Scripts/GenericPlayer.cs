@@ -479,7 +479,7 @@ public class GenericPlayer : GravityField {
         }
 
         /* jump direction */
-        if (input.GetButton3Down() && is_grounded) {
+        if ( (input.GetButton3Down() || input.GetRightBumperDown() )&& is_grounded) {
           apply_stop_drag = false;
           /* if angle selected than shoot at an angle */
           if (horizontal_movement != 0 || vertical_movement != 0) {
