@@ -25,6 +25,8 @@ public class MetaBallSpawner : MonoBehaviour {
 			metaball.transform.position = randomPosition;
 			metaball.GetComponent<Rigidbody2D>().velocity = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)) * speed;
 			metaball_count++;
+		} else {
+			CancelInvoke("SpawnMetaball");
 		}
 	}
 }

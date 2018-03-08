@@ -404,11 +404,59 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95ebc626c6d7f45d39024b0124708db1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &97107205 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1887533830109234, guid: 0e57d6a9c00324e30ba0bd2f2c507237,
+    type: 2}
+  m_PrefabInternal: {fileID: 1884718282}
+--- !u!114 &97107211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 97107205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  profile: {fileID: 11400000, guid: 56b78ac946dde42a8a7f8c37b27246c4, type: 2}
 --- !u!20 &477161179 stripped
 Camera:
   m_PrefabParentObject: {fileID: 20431080256573348, guid: 0e57d6a9c00324e30ba0bd2f2c507237,
     type: 2}
   m_PrefabInternal: {fileID: 1884718282}
+--- !u!84 &557385749
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  m_Width: 1920
+  m_Height: 1080
+  m_AntiAliasing: 1
+  m_DepthFormat: 2
+  m_ColorFormat: 0
+  m_MipMap: 0
+  m_GenerateMips: 1
+  m_SRGB: 0
+  m_UseDynamicScale: 0
+  m_BindMS: 0
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 0
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
 --- !u!1 &697111153
 GameObject:
   m_ObjectHideFlags: 0
@@ -622,7 +670,7 @@ Prefab:
         type: 2}
       propertyPath: m_TargetTexture
       value: 
-      objectReference: {fileID: 1652778186}
+      objectReference: {fileID: 1065468696}
     - target: {fileID: 1405676170208024, guid: f8592eb5c805543bf93f107b719aab46, type: 2}
       propertyPath: m_IsActive
       value: 1
@@ -630,7 +678,7 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f8592eb5c805543bf93f107b719aab46, type: 2}
   m_IsPrefabParent: 0
---- !u!84 &1002371133
+--- !u!84 &1065468696
 RenderTexture:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -641,8 +689,8 @@ RenderTexture:
     Hash: 00000000000000000000000000000000
   m_ForcedFallbackFormat: 4
   m_DownscaleFallback: 0
-  m_Width: 1920
-  m_Height: 1080
+  m_Width: 593
+  m_Height: 1007
   m_AntiAliasing: 1
   m_DepthFormat: 2
   m_ColorFormat: 0
@@ -792,7 +840,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 152960841
+  randomSeed: 1583614311
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -4538,40 +4586,14 @@ Prefab:
       propertyPath: m_CullingMask.m_Bits
       value: 4608
       objectReference: {fileID: 0}
+    - target: {fileID: 114540463862190782, guid: 22cd61ac038264995a325940e4b4a3b0,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 22cd61ac038264995a325940e4b4a3b0, type: 2}
   m_IsPrefabParent: 0
---- !u!84 &1652778186
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: 
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  m_Width: 592
-  m_Height: 1008
-  m_AntiAliasing: 1
-  m_DepthFormat: 2
-  m_ColorFormat: 0
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 0
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
 --- !u!1 &1684256068
 GameObject:
   m_ObjectHideFlags: 0
@@ -4913,6 +4935,10 @@ Prefab:
     - target: {fileID: 4610703466815258, guid: 596eed761fdf6f1499dfcf536207e89d, type: 2}
       propertyPath: m_RootOrder
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1383798702792106, guid: 596eed761fdf6f1499dfcf536207e89d, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 596eed761fdf6f1499dfcf536207e89d, type: 2}
