@@ -24,11 +24,11 @@ public class SummaryScreen : MonoBehaviour
 
 		if (Timer.timeToDisplay != 0f)
 		{
-			timeScore.text = "Time: " + Timer.timeToDisplay;
+			timeScore.text = "Time: " + Timer.timeToDisplay.ToString("0.00");
 		}
 		if(GameController.control.highScores.highScoreDictionary.ContainsKey(GameController.control.previousSceneName))
 		{
-			highScore.text = GameController.control.highScores.highScoreDictionary[GameController.control.previousSceneName];
+			highScore.text = "Record: " + GameController.control.highScores.highScoreDictionary[GameController.control.previousSceneName];
 		}
 
 	}
@@ -44,11 +44,12 @@ public class SummaryScreen : MonoBehaviour
 				GameController.control.highScores.highScoreDictionary.Add(GameController.control.previousSceneName, "");
 			}
 
-			if (float.Parse(GameController.control.highScores.highScoreDictionary[GameController.control.previousSceneName]) >
+			if (GameController.control.highScores.highScoreDictionary[GameController.control.previousSceneName].Equals("") ||
+			    float.Parse(GameController.control.highScores.highScoreDictionary[GameController.control.previousSceneName]) >
 			    Timer.timeToDisplay)
 			{
 				GameController.control.highScores.highScoreDictionary[GameController.control.previousSceneName] =
-					"" + Timer.timeToDisplay;
+					"" + Timer.timeToDisplay.ToString("0.00");
 			}
 
 			GameController.control.Save();
