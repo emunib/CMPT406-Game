@@ -1,14 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using JetBrains.Annotations;
+﻿using System;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 [RequireComponent(typeof(PlayerConfigurator))]
 public class PointsToNodeAdapter : MonoBehaviour
 {
 	private JellySprite _jelly;
+	public Object _playerScript;
 
-	// Update is called once per frame
 	private void Update () {
 		if (!_jelly)
 		{
@@ -20,20 +19,20 @@ public class PointsToNodeAdapter : MonoBehaviour
 				var childComonent = new ChildComponent
 				{
 					Child = _jelly.ReferencePoints[i + 1].transform,
-					RaycastOrigin = true
+					RaycastOrigin = false
 				};
 
 				children[i] = childComonent;
 			}
 
 			var centre = _jelly.CentralPoint.GameObject;
-			centre.AddComponent<FellowPlayer>();
+			centre.AddComponent(Type.GetType(_playerScript.name));
 
 			var config = _jelly.GetComponent<PlayerConfigurator>();
 			config.ChildComponents = children;
 
-			var player = centre.GetComponent<FellowPlayer>();
-			player.config = config;
+			var player = centre.GetComponent<GenericPlayer>();
+			if (player != null) player.config = config;
 		}
 		else
 		{
