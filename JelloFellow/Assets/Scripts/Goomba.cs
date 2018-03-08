@@ -293,7 +293,7 @@ public class Goomba : GenericPlayer {
   but saves the game objects it gets. Also just sets a field. This will save computation rather than having to recheck 
   everything mutiple times*/
   private bool GroundedCheck() {
-    return grounded = IsGrounded();
+    return grounded = is_grounded;
   }
 
   /* This checks if we may be in the air because we are already attacking as goombas are going to jump towards the player
