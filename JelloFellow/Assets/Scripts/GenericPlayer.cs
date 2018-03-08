@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -31,9 +32,6 @@ public class GenericPlayer : GravityField {
   /* transition rate of changing gravity field */
   private float gravity_field_transition_rate;
 
-  /* old platform the player used to be on */
-  private GameObject old_platform;
-
   /* smoothing velocity of moving in direction of x or y */
   private float velocity_x_smoothing;
   private float velocity_y_smoothing;
@@ -42,9 +40,10 @@ public class GenericPlayer : GravityField {
      ensures we still don't use the old platform angle to influence movement */
   private bool just_changed_gravity;
 
-  /* contains the last grounded platforms angle */
+  /* contains the last grounded platforms angle and hit normal vector */
   private float platform_angle = 0f;
-
+  private Vector2 platform_hit_normal;
+  
   private bool set_fixed_gravity = false;
 
 
@@ -195,8 +194,10 @@ public class GenericPlayer : GravityField {
 
       if (!just_changed_gravity) {
         /* handle movement as drag is restored and the gravity is not being manipulated */
-        HandleMovement2();
+        //HandleMovement();
       }
+      
+      HandleMovement2();
     }
 
     if (config.show_gravity) Debug.DrawRay(transform.position, GetGravity(), config.gravity_ray_color);
@@ -232,37 +233,16 @@ public class GenericPlayer : GravityField {
   private void HandleMovement() {
     if (config.verbose_movement) Debug.Log("Handling Movement");
 
-    /* get platform information */
-    GameObject current_platform = null;
-    HashSet<RaycastHit2D> hits = GetObjectsInView(GetGravity(), config.ground_fov_angle, config.ground_ray_count, config.ground_ray_length);
-    Vector2 platform_hit_normal = Vector2.zero;
-    foreach (RaycastHit2D hit in hits) {
-      if (hit.transform.gameObject.layer != gameObject.layer) {
-        /* calculate angle of the platform we are on */
-        current_platform = hit.transform.gameObject;
-        platform_angle = Mathf.Atan2(hit.normal.x, hit.normal.y) * Mathf.Rad2Deg;
-
-        /* get angle between 0 - 360, even handle negative signs with modulus */
-        platform_angle = fmod(platform_angle, 360);
-        if (platform_angle < 0) platform_angle += 360;
-
-        platform_hit_normal = hit.normal;
-        if (config.verbose_movement) Debug.Log("Platform angle: " + platform_angle);
-        break;
-      }
-    }
-
     if (input.GetRightStickDown()) {
       SetGravity(-platform_hit_normal);
       set_fixed_gravity = true;
       Invoke("UnlockGravity", 0.2f);
     }
-
-    /* try to replace current platform with old if no platforms found */
-    if (current_platform == null) current_platform = old_platform;
-
+    
+    if (config.verbose_movement) Debug.Log("Platform angle: " + platform_angle);
+    
     /* make sure there is a known platform before we apply movement */
-    if (current_platform != null) {
+    if (platform_angle != -1f) {
       Vector2 velocity = rigidbody.velocity;
 
       /* get the movement inputs from the left stick */
@@ -342,8 +322,8 @@ public class GenericPlayer : GravityField {
           
           velocity += hybrid_jump * config.jump_force;
           //rigidbody.AddForce(hybrid_jump * config.jump_angle_force, ForceMode2D.Impulse);
-          // } else {
-          //velocity += platform_hit_normal * config.jump_angle_force;
+        } else {
+          velocity += platform_hit_normal * config.jump_force;
           //}
         }
       }
@@ -377,9 +357,6 @@ public class GenericPlayer : GravityField {
           }
         }
       }
-
-      /* update old platform */
-      old_platform = current_platform;
     }
   }
   
@@ -403,26 +380,8 @@ public class GenericPlayer : GravityField {
     Vector2 velocity = rigidbody.velocity;
 
     if (is_grounded) {
-      /* get platform information */
-      GameObject current_platform = null;
-      HashSet<RaycastHit2D> hits = GetObjectsInView(GetGravity(), config.ground_fov_angle, config.ground_ray_count, config.ground_ray_length);
-      Vector2 platform_hit_normal = Vector2.zero;
-      foreach (RaycastHit2D hit in hits) {
-        if (hit.transform.gameObject.layer != gameObject.layer) {
-          /* calculate angle of the platform we are on */
-          current_platform = hit.transform.gameObject;
-          platform_angle = Mathf.Atan2(hit.normal.x, hit.normal.y) * Mathf.Rad2Deg;
-
-          /* get angle between 0 - 360, even handle negative signs with modulus */
-          platform_angle = fmod(platform_angle, 360);
-          if (platform_angle < 0) platform_angle += 360;
-
-          platform_hit_normal = hit.normal;
-          if (config.verbose_movement) Debug.Log("Platform angle: " + platform_angle);
-          break;
-        }
-      }
-
+      if (config.verbose_movement) Debug.Log("Platform angle: " + platform_angle);
+      
       if (input.GetRightStickDown()) {
         SetGravity(-platform_hit_normal);
         set_fixed_gravity = true;
@@ -430,7 +389,7 @@ public class GenericPlayer : GravityField {
       }
 
       /* make sure there is a known platform before we apply movement */
-      if (current_platform != null) {
+      if (platform_angle != -1f) {
         /* the positive and negative angle (pos and neg just a diffrentiater no other importance) */
         float platform_positive_angle = platform_angle + 90f;
         float platform_negative_angle = platform_angle - 90f;
@@ -586,14 +545,23 @@ public class GenericPlayer : GravityField {
   /// Check if the player is touching anything in direction of gravity.
   /// </summary>
   /// <returns>True if touching ground otherwise false.</returns>
-  public bool IsGrounded(bool visualize = false) {
+  private bool IsGrounded(bool visualize = false) {    
     HashSet<RaycastHit2D> hits = GetObjectsInView(GetGravity(), config.ground_fov_angle, config.ground_ray_count, config.ground_ray_length, visualize);
     foreach (RaycastHit2D hit in hits) {
       if (LayerMask.LayerToName(hit.transform.gameObject.layer) != LayerMask.LayerToName(gameObject.layer)) {
+        /* get platform information we just hit */
+        platform_angle = Mathf.Atan2(hit.normal.x, hit.normal.y) * Mathf.Rad2Deg;
+        /* get angle between 0 - 360, even handle negative signs with modulus */
+        platform_angle = fmod(platform_angle, 360);
+        if (platform_angle < 0) platform_angle += 360;
+        
+        platform_hit_normal = hit.normal;
         return true;
       }
     }
 
+    platform_angle = -1f;
+    
     return false;
   }
 
