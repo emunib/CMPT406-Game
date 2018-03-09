@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Experimental.UIElements;
 
-public class waypointFollow : MonoBehaviour
-{
+public class waypointFollow : MonoBehaviour {
 
 
+	public LinkedList<Transform> p;
+	public bool goback;
 	public Transform[] Waypoints;
 	public float MoveSpeed;
 	public Transform Saw;
