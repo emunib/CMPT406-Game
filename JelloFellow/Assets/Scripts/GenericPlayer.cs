@@ -558,6 +558,21 @@ public class GenericPlayer : GravityField {
         if (platform_angle < 0) platform_angle += 360;
         
         platform_hit_normal = hit.normal;
+        if (hit.collider.gameObject.transform.parent != null)
+        {
+          float parentAngle = hit.collider.gameObject.transform.parent.localEulerAngles.z;
+          float sin = Mathf.Sin(parentAngle * Mathf.Deg2Rad);
+          float cos = Mathf.Cos(parentAngle * Mathf.Deg2Rad);
+
+          float tx = platform_hit_normal.x;
+          float ty = platform_hit_normal.y;
+          platform_hit_normal.x = (cos * tx) - (sin * ty);
+          platform_hit_normal.y = (sin * tx) + (cos * ty);
+          
+         
+        }
+        Debug.Log(hit.collider.gameObject.name + platform_hit_normal);
+        
         return true;
       }
     }
