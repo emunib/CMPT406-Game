@@ -308,7 +308,7 @@ public class GenericPlayer : GravityField {
       }
 
       /* jump direction */
-      if (input.GetButton3Down() && is_grounded) {
+      if ( (input.GetButton3Down() || input.GetRightBumperDown() ) && is_grounded) {
         apply_stop_drag = false;
         /* if angle selected than shoot at an angle */
         if (horizontal_movement != 0 || vertical_movement != 0) {
@@ -438,7 +438,7 @@ public class GenericPlayer : GravityField {
         }
 
         /* jump direction */
-        if (input.GetButton3Down() && is_grounded) {
+        if ((input.GetButton3Down() || input.GetRightBumperDown() ) && is_grounded) {
           apply_stop_drag = false;
           /* if angle selected than shoot at an angle */
           if (horizontal_movement != 0 || vertical_movement != 0) {
@@ -550,7 +550,9 @@ public class GenericPlayer : GravityField {
     foreach (RaycastHit2D hit in hits) {
       if (LayerMask.LayerToName(hit.transform.gameObject.layer) != LayerMask.LayerToName(gameObject.layer)) {
         /* get platform information we just hit */
+       
         platform_angle = Mathf.Atan2(hit.normal.x, hit.normal.y) * Mathf.Rad2Deg;
+        
         /* get angle between 0 - 360, even handle negative signs with modulus */
         platform_angle = fmod(platform_angle, 360);
         if (platform_angle < 0) platform_angle += 360;
