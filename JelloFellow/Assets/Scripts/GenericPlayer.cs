@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -308,7 +308,7 @@ public class GenericPlayer : GravityField {
       }
 
       /* jump direction */
-      if ( (input.GetButton3Down() || input.GetRightBumperDown() ) && is_grounded) {
+      if (input.GetButton3Down() && is_grounded) {
         apply_stop_drag = false;
         /* if angle selected than shoot at an angle */
         if (horizontal_movement != 0 || vertical_movement != 0) {
@@ -438,7 +438,7 @@ public class GenericPlayer : GravityField {
         }
 
         /* jump direction */
-        if ((input.GetButton3Down() || input.GetRightBumperDown() ) && is_grounded) {
+        if ( ( input.GetButton3Down() || input.GetRightBumperDown() ) && is_grounded) {
           apply_stop_drag = false;
           /* if angle selected than shoot at an angle */
           if (horizontal_movement != 0 || vertical_movement != 0) {
@@ -548,31 +548,20 @@ public class GenericPlayer : GravityField {
   private bool IsGrounded(bool visualize = false) {    
     HashSet<RaycastHit2D> hits = GetObjectsInView(GetGravity(), config.ground_fov_angle, config.ground_ray_count, config.ground_ray_length, visualize);
     foreach (RaycastHit2D hit in hits) {
-      if (LayerMask.LayerToName(hit.transform.gameObject.layer) != LayerMask.LayerToName(gameObject.layer)) {
+      if (LayerMask.LayerToName(hit.transform.gameObject.layer) != LayerMask.LayerToName(gameObject.layer))
+      {
+        var normal = hit.normal;
+        if (hit.collider.gameObject.transform.childCount > 0) // if the object has children then use the parent's rotation to calculate the normal
+        {
+          normal = Quaternion.AngleAxis(hit.collider.gameObject.transform.rotation.eulerAngles.z, Vector3.forward) * hit.normal;
+        }
         /* get platform information we just hit */
-       
-        platform_angle = Mathf.Atan2(hit.normal.x, hit.normal.y) * Mathf.Rad2Deg;
-        
+        platform_angle = Mathf.Atan2(normal.x, normal.y) * Mathf.Rad2Deg;
         /* get angle between 0 - 360, even handle negative signs with modulus */
         platform_angle = fmod(platform_angle, 360);
         if (platform_angle < 0) platform_angle += 360;
         
-        platform_hit_normal = hit.normal;
-        if (hit.collider.gameObject.transform.parent != null)
-        {
-          float parentAngle = hit.collider.gameObject.transform.parent.localEulerAngles.z;
-          float sin = Mathf.Sin(parentAngle * Mathf.Deg2Rad);
-          float cos = Mathf.Cos(parentAngle * Mathf.Deg2Rad);
-
-          float tx = platform_hit_normal.x;
-          float ty = platform_hit_normal.y;
-          platform_hit_normal.x = (cos * tx) - (sin * ty);
-          platform_hit_normal.y = (sin * tx) + (cos * ty);
-          
-         
-        }
-        Debug.Log(hit.collider.gameObject.name + platform_hit_normal);
-        
+        platform_hit_normal = normal;
         return true;
       }
     }
