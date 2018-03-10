@@ -8,14 +8,17 @@ using UnityEngine;
 public class WaypointFollowV2 : MonoBehaviour {
 
 
+	[Header("Waypoints")]
 	public Vector3[] LocalWayPoints;
-
-
-	public float SpinRatee;
-	public float Speed;
-
 	[Tooltip("If true, waypoints act in circular fashion. ie 0,1,2,3,0,1,2,3,0....")]
 	public bool CircularWaypoints;
+	public bool DebugWaypoints;
+	public bool PositionInfo;
+	[Header("Stats")]
+	public float SpinRatee;
+	[Range(0,10)]
+	public float Speed;
+
 	
 	
 	private Transform Saw;
@@ -140,9 +143,15 @@ public class WaypointFollowV2 : MonoBehaviour {
 
 
 	}*/
-
+	
+	
+	/// <summary>
+	/// To make visualization of waypoints easier. turndrawgizmos off in 
+	/// </summary>
 	private void OnDrawGizmos() {
-		if (LocalWayPoints != null) {
+		
+		
+		if (DebugWaypoints &&LocalWayPoints != null) {
 			Gizmos.color = Color.green;
 			float size = .3f;
 
@@ -151,7 +160,11 @@ public class WaypointFollowV2 : MonoBehaviour {
 				Gizmos.DrawLine(globalWaypointPos-Vector3.up*size, globalWaypointPos+Vector3.up*size);
 				Gizmos.DrawLine(globalWaypointPos-Vector3.right*size, globalWaypointPos+Vector3.right*size);
 
-				
+				if (PositionInfo) {
+					Handles.Label(LocalWayPoints[i] + transform.position,
+						"Element " + i.ToString() + "\nLocalCoordinates " + LocalWayPoints[i].ToString());
+				}
+
 			}
 			
 		}
