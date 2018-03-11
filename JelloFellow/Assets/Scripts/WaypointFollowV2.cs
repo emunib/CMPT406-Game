@@ -25,9 +25,9 @@ public class WaypointFollowV2 : MonoBehaviour {
 	
 	private int fromWaypointIndex = 0;
 
-	private float percentBetweenWaypoints = 0;
+	//private float percentBetweenWaypoints = 0;
 
-	//private Vector3[] GlobalWaypoints;
+	private Vector3[] GlobalWaypoints;
 
 	private Vector2 _nextPos,_myPos;
 	
@@ -36,23 +36,95 @@ public class WaypointFollowV2 : MonoBehaviour {
 	private bool _goingUp = true;
 	private int posCounter;
 
-	// Use this for initialization
+	private GameObject Track;
 	void Start () {
+		
 		Saw = transform.Find("Saw");
-
 		posCounter = 0;
 		
-		/*
+		//Set the global waypoints
 		GlobalWaypoints = new Vector3[LocalWayPoints.Length];
 		for (int i = 0; i < LocalWayPoints.Length; i++) {
 			GlobalWaypoints[i] = LocalWayPoints[i] + transform.position;
-		}*/
+		}
+		
+		
+		BuildTracks();
 
 	}
+
+	
+	/// <summary>
+	/// We're going to fill in the tracks based on the positions of the waypoints
+	/// </summary>
+	private void BuildTracks() {
+		Track = GameObject.Find("track");
+		SpriteRenderer track;
+
+		track = Track.GetComponent<SpriteRenderer>();
+		float distance = Vector2.Distance(GlobalWaypoints[0], GlobalWaypoints[1]);
+		track.size = new Vector2(distance,track.size.y);
+
+		//Put in Middle
+		Vector3 middlesPos = GlobalWaypoints[1] - GlobalWaypoints[0];
+		
+		
+		//Calculate the angle
+		float angle = Mathf.Atan2(GlobalWaypoints[1].y - GlobalWaypoints[0].y, GlobalWaypoints[1].x - GlobalWaypoints[0].x) *
+		              180 / Mathf.PI;
+		middlesPos /= 2;
+		
+		Track.transform.localPosition = middlesPos;
+		Vector3 rotation = track.transform.rotation.eulerAngles;
+		rotation.z = angle;
+		track.transform.rotation = Quaternion.Euler(rotation);
+
+		
+	
+		Vector3 p0, p1, pointToPoint;
+
+		for (int i = 1; i < GlobalWaypoints.Length; i++) {
+			
+			GameObject newTrack = Instantiate(Track,this.transform);
+
+			
+			p0 = GlobalWaypoints[i];
+			if (i == GlobalWaypoints.Length - 1) {
+				if (CircularWaypoints) {
+					p1 = GlobalWaypoints[0];
+
+				}
+				else {
+					break;
+				}
+				
+			}
+			else {
+				p1 = GlobalWaypoints[i+1];
+			}		
+		
+			track = newTrack.GetComponent<SpriteRenderer>();
+
+			angle = Mathf.Atan2(p1.y - p0.y, p1.x - p0.x) *
+			        180 / Mathf.PI;
+			pointToPoint = p1- p0;
+			middlesPos = p0+pointToPoint / 2;
+			newTrack.transform.position = middlesPos;
+			
+			rotation = newTrack.transform.rotation.eulerAngles;
+			rotation.z = angle;
+			newTrack.transform.rotation = Quaternion.Euler(rotation);
+			distance = Vector2.Distance(p0, p1);
+			track.size = new Vector2(distance,track.size.y);
+		}
+
+	}
+	
 	
 	// Update is called once per frame
 	void Update () {
 		
+		Debug.DrawRay(GlobalWaypoints[1],GlobalWaypoints[2]-GlobalWaypoints[1],Color.blue);
 		MoveSaw();
 		Spin();
 		
