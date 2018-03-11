@@ -231,6 +231,10 @@ public class GenericPlayer : GravityField {
     return a - b * Mathf.Floor(a / b);
   }
 
+  private void HandleMovement3() {
+    
+  }
+
   private void HandleMovement() {
     if (configurator.verbose_movement) Debug.Log("Handling Movement");
 
@@ -549,10 +553,22 @@ public class GenericPlayer : GravityField {
           hit_normal = Quaternion.AngleAxis(hit.collider.gameObject.transform.rotation.eulerAngles.z, Vector3.forward) * hit.normal;
         }
         /* get platform information we just hit */
-        platform_angle = Mathf.Atan2(hit_normal.x, hit_normal.y) * Mathf.Rad2Deg;
+        float platform_angle_update = Mathf.Atan2(hit_normal.x, hit_normal.y) * Mathf.Rad2Deg;
         /* get angle between 0 - 360, even handle negative signs with modulus */
-        platform_angle = fmod(platform_angle, 360);
-        if (platform_angle < 0) platform_angle += 360;
+        platform_angle_update = fmod(platform_angle_update, 360);
+        if (platform_angle_update < 0) platform_angle_update += 360;
+        
+        /* get gravity normalized to "down" angle */
+        float gravity_angle = Mathf.Atan2(GetGravity().x, GetGravity().y) * Mathf.Rad2Deg + 180f;
+        gravity_angle = fmod(gravity_angle, 360);
+        if (gravity_angle < 0) gravity_angle += 360;
+
+        /* make sure the platform is within the movement angle (avoids walking upwards on platform */
+        if (Mathf.Abs(gravity_angle - platform_angle_update) <= configurator.movement_leniency_angle) {
+          platform_angle = platform_angle_update;
+        } else {
+          platform_angle = -1;
+        }
         
         platform_hit_normal = hit_normal;
         return true;

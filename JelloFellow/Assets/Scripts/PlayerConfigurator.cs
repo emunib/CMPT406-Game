@@ -1,13 +1,15 @@
 ﻿using UnityEngine;
 
 public class PlayerConfigurator : MonoBehaviour {
-  [Header("General Settings")] [CustomLabel("Raycast Origin")] [Tooltip("Should the main object be an origin of raycasting.")] [SerializeField]
+  [Header("General Settings")]
+  [CustomLabel("Raycast Origin")] [Tooltip("Should the main object be an origin of raycasting.")] [SerializeField]
   public bool is_raycast_origin = true;
 
   [CustomRangeLabel("Max Velocity", 0f, 100f)] [Tooltip("The max velocity this player is allowed to reach.")] [SerializeField]
   public float max_velocity = 50f;
 
-  [Header("Child Settings")] [CustomLabel("Apply Gravity")] [Tooltip("Apply gravity to the child objects.")] [SerializeField]
+  [Header("Child Settings")]
+  [CustomLabel("Apply Gravity")] [Tooltip("Apply gravity to the child objects.")] [SerializeField]
   public bool apply_gravity_tochild;
 
   [CustomLabel("Apply Movement")] [Tooltip("Apply movement to the child objects.")] [SerializeField]
@@ -16,7 +18,8 @@ public class PlayerConfigurator : MonoBehaviour {
   [Tooltip("The child components of this object.")] [SerializeField]
   public ChildComponent[] ChildComponents;
 
-  [Header("Gravity Settings")] [CustomLabel("Angular Drag")] [Tooltip("Angular drag applied while changing gravity.")] [SerializeField]
+  [Header("Gravity Settings")]
+  [CustomLabel("Angular Drag")] [Tooltip("Angular drag applied while changing gravity.")] [SerializeField]
   public float gravity_angular_drag = 0.5f;
 
   [CustomLabel("Linear Drag")] [Tooltip("Linear drag applied while changing gravity.")] [SerializeField]
@@ -34,7 +37,8 @@ public class PlayerConfigurator : MonoBehaviour {
   [CustomRangeLabel("Field Transition Time", 0f, 100f)] [Tooltip("The time to increase or decrease completely in seconds.")] [SerializeField]
   public float gravity_field_transition_time = 0.6f;
 
-  [Header("Movement Settings")] [CustomLabel("Linear Drag")] [Tooltip("Linear drag applied while changing movement.")] [SerializeField]
+  [Header("Movement Settings")]
+  [CustomLabel("Linear Drag")] [Tooltip("Linear drag applied while changing movement.")] [SerializeField]
   public float movement_linear_drag = 5f;
 
   [CustomRangeLabel("Move Speed", 0f, 100f)] [Tooltip("Speed at which to move the player.")] [SerializeField]
@@ -51,13 +55,18 @@ public class PlayerConfigurator : MonoBehaviour {
   
   [CustomRangeLabel("Jump Angle Coefficient", 0f, 2f)] [Tooltip("The angle to allow movement in direction of the platforms angle.")] [SerializeField]
   public float jump_angle_coefficient = 0.8f;
+  
   [CustomRangeLabel("Ground Acceleration Time", 0f, 1f)] [Tooltip("The smooth time of increasing velocity, will effect change in direction.")] [SerializeField]
   public float ground_acceleration = 0.1f;
 
   [CustomRangeLabel("Air Acceleration Time", 0f, 1f)] [Tooltip("The smooth time of increasing velocity, will effect change in direction.")] [SerializeField]
   public float air_acceleration = 0.4f;
+  
+  [CustomRangeLabel("Movement Leniency Angle", 0f, 90f)] [Tooltip("The angle to allow movement according to gravity.")] [SerializeField]
+  public float movement_leniency_angle = 45f;
 
-  [Header("Grounded Settings")] [CustomRangeLabel("Field of View Angle", 0f, 360f)] [Tooltip("Field of view (angle/arc) to cover.")] [SerializeField]
+  [Header("Grounded Settings")]
+  [CustomRangeLabel("Field of View Angle", 0f, 360f)] [Tooltip("Field of view (angle/arc) to cover.")] [SerializeField]
   public float ground_fov_angle = 5f;
 
   [CustomRangeLabel("Number of Rays", 0, 20)] [Tooltip("Number of rays within the field of view arc.")] [SerializeField]
@@ -66,7 +75,8 @@ public class PlayerConfigurator : MonoBehaviour {
   [CustomRangeLabel("Length of Ray", 0f, 20f)] [Tooltip("Length of the ray within the field of view arc.")] [SerializeField]
   public float ground_ray_length = 0.65f;
 
-  [Header("Debug Settings")] [CustomLabel("Verbose Gravity")] [Tooltip("Verbose gravity for debugging.")] [SerializeField]
+  [Header("Debug Settings")]
+  [CustomLabel("Verbose Gravity")] [Tooltip("Verbose gravity for debugging.")] [SerializeField]
   public bool verbose_gravity;
 
   [CustomLabel("Show Gravity")] [Tooltip("Show gravity with a ray.")] [SerializeField]
