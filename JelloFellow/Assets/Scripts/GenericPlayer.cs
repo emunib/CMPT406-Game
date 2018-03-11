@@ -44,7 +44,7 @@ public class GenericPlayer : GravityField {
   /* contains the last grounded platforms angle and hit normal vector */
   private float platform_angle = 0f;
   private Vector2 platform_hit_normal;
-  
+
   private bool set_fixed_gravity = false;
 
 
@@ -100,7 +100,7 @@ public class GenericPlayer : GravityField {
       /* get the gravity inputs from joystick */
       float horizontal_gravity = input.GetHorizontalRightStick();
       float vertical_gravity = input.GetVerticalRightStick();
-      
+
       /* create magnitude deadzone by limiting the range of stick from 0 to set
          gravity deadzone */
       Vector2 stick_input = new Vector2(horizontal_gravity, vertical_gravity);
@@ -197,15 +197,16 @@ public class GenericPlayer : GravityField {
         /* handle movement as drag is restored and the gravity is not being manipulated */
         //HandleMovement();
       }
-      
-      HandleMovement2();
+
+      //HandleMovement2();
+      HandleMovement3();
     }
 
     if (configurator.show_gravity) Debug.DrawRay(transform.position, GetGravity(), configurator.gravity_ray_color);
 
     /* update the gravity field alpha to represent the gravity stamina */
     ChangeGravityAlpha(Mathf.Clamp01(gravity_stamina / configurator.max_gravity_stamina));
-    
+
     /* run update in base class (applies gravity) */
     base.Update();
   }
@@ -219,7 +220,7 @@ public class GenericPlayer : GravityField {
         if (child_rigidbody) {
           child_rigidbody.velocity = Vector2.ClampMagnitude(child_rigidbody.velocity, configurator.max_velocity);
         }
-      }   
+      }
     }
   }
 
@@ -231,10 +232,6 @@ public class GenericPlayer : GravityField {
     return a - b * Mathf.Floor(a / b);
   }
 
-  private void HandleMovement3() {
-    
-  }
-
   private void HandleMovement() {
     if (configurator.verbose_movement) Debug.Log("Handling Movement");
 
@@ -243,9 +240,9 @@ public class GenericPlayer : GravityField {
       set_fixed_gravity = true;
       Invoke("UnlockGravity", 0.2f);
     }
-    
+
     if (configurator.verbose_movement) Debug.Log("Platform angle: " + platform_angle);
-    
+
     /* make sure there is a known platform before we apply movement */
     if (platform_angle != -1f) {
       Vector2 velocity = rigidbody.velocity;
@@ -359,8 +356,115 @@ public class GenericPlayer : GravityField {
       }
     }
   }
-  
-   private void HandleMovement2() {
+
+  private static float GetAngle(float x, float y) {
+    float tmp_angle = Mathf.Atan2(x, y) * Mathf.Rad2Deg;
+    /* get angle between 0 - 360, even handle negative signs with modulus */
+    tmp_angle = fmod(tmp_angle, 360);
+    if (tmp_angle < 0) tmp_angle += 360;
+
+    return tmp_angle;
+  }
+
+  private void HandleMovement3() {
+    /* get the movement inputs from the left stick */
+    float horizontal_movement = input.GetHorizontalLeftStick();
+    float vertical_movement = input.GetVerticalLeftStick();
+
+    /* angle of the movement joystick */
+    float movement_angle = GetAngle(horizontal_movement, vertical_movement);
+    if (configurator.verbose_movement) Debug.Log("Movement angle: " + movement_angle);
+
+    /* get the direction from the movement angle */
+    Vector2 movement_direction = new Vector2(Mathf.Sin(movement_angle * Mathf.Deg2Rad), Mathf.Cos(movement_angle * Mathf.Deg2Rad));
+    if (configurator.show_movement) Debug.DrawRay(transform.position, movement_direction * configurator.move_speed, configurator.movement_direction_color);
+
+    Vector2 velocity = rigidbody.velocity;
+    bool apply_stop_drag = true;
+
+    /* if we are on valid platform to allow movement and jump */
+    if (platform_angle != -1f) {
+      /* set gravity in direction of the platform if we are on platform */
+      if (input.GetRightStickDown()) {
+        Vector2 platform_direction = new Vector2(Mathf.Sin(platform_angle * Mathf.Deg2Rad), Mathf.Cos(platform_angle * Mathf.Deg2Rad));
+        SetGravity(-platform_direction);
+        set_fixed_gravity = true;
+        Invoke("UnlockGravity", 0.2f);
+      }
+
+      /* the positive and negative angle (pos and neg just a diffrentiater no other importance) */
+      float platform_positive_angle = platform_angle + 90f;
+      float platform_negative_angle = platform_angle - 90f;
+
+      /* get the platform directions */
+      Vector2 platform_direction_positive = new Vector2(Mathf.Sin(platform_positive_angle * Mathf.Deg2Rad), Mathf.Cos(platform_positive_angle * Mathf.Deg2Rad));
+      if (configurator.show_movement) Debug.DrawRay(transform.position, platform_direction_positive * configurator.move_speed, configurator.platform_direction_color);
+
+      Vector2 platform_direction_negative = new Vector2(Mathf.Sin(platform_negative_angle * Mathf.Deg2Rad), Mathf.Cos(platform_negative_angle * Mathf.Deg2Rad));
+      if (configurator.show_movement) Debug.DrawRay(transform.position, platform_direction_negative * configurator.move_speed, configurator.platform_direction_color);
+
+      /* make sure player actually wants to apply movement forces */
+      if (horizontal_movement != 0 || vertical_movement != 0) {
+        /* get the leniency directions (leniency 2 mainly for drawing ray) */
+        Vector2 movement_leniency_positive = new Vector2(Mathf.Sin((platform_positive_angle + configurator.leniency_angle) * Mathf.Deg2Rad), Mathf.Cos((platform_positive_angle + configurator.leniency_angle) * Mathf.Deg2Rad));
+        Vector2 movement_leniency_positive2 = new Vector2(Mathf.Sin((platform_positive_angle - configurator.leniency_angle) * Mathf.Deg2Rad), Mathf.Cos((platform_positive_angle - configurator.leniency_angle) * Mathf.Deg2Rad));
+        if (configurator.show_movement) Debug.DrawRay(transform.position, movement_leniency_positive * configurator.move_speed, configurator.movement_leniency_color);
+        if (configurator.show_movement) Debug.DrawRay(transform.position, movement_leniency_positive2 * configurator.move_speed, configurator.movement_leniency_color);
+
+        Vector2 movement_leniency_negative = new Vector2(Mathf.Sin((platform_negative_angle + configurator.leniency_angle) * Mathf.Deg2Rad), Mathf.Cos((platform_negative_angle + configurator.leniency_angle) * Mathf.Deg2Rad));
+        Vector2 movement_leniency_negative2 = new Vector2(Mathf.Sin((platform_negative_angle - configurator.leniency_angle) * Mathf.Deg2Rad), Mathf.Cos((platform_negative_angle - configurator.leniency_angle) * Mathf.Deg2Rad));
+        if (configurator.show_movement) Debug.DrawRay(transform.position, movement_leniency_negative * configurator.move_speed, configurator.movement_leniency_color);
+        if (configurator.show_movement) Debug.DrawRay(transform.position, movement_leniency_negative2 * configurator.move_speed, configurator.movement_leniency_color);
+
+        /* compute the distance between leniency and platform */
+        float leniency_distance_positive = Vector2.Distance(platform_direction_positive, movement_leniency_positive);
+        float leniency_distance_negative = Vector2.Distance(platform_direction_negative, movement_leniency_negative);
+
+        /* compute distance between movement direction and platform direction */
+        float movement_distance_positive = Vector2.Distance(platform_direction_positive, movement_direction);
+        float movement_distance_negative = Vector2.Distance(platform_direction_negative, movement_direction);
+
+        /* move in direction of the positive platform */
+        if (movement_distance_positive <= leniency_distance_positive) {
+          velocity.x = Mathf.SmoothDamp(velocity.x, platform_direction_positive.x * configurator.move_speed, ref velocity_x_smoothing, configurator.ground_acceleration);
+          velocity.y = Mathf.SmoothDamp(velocity.y, platform_direction_positive.y * configurator.move_speed, ref velocity_y_smoothing, configurator.ground_acceleration);
+          apply_stop_drag = false;
+        }
+
+        /* move in direction of the negative platform */
+        if (movement_distance_negative <= leniency_distance_negative) {
+          velocity.x = Mathf.SmoothDamp(velocity.x, platform_direction_negative.x * configurator.move_speed, ref velocity_x_smoothing, configurator.ground_acceleration);
+          velocity.y = Mathf.SmoothDamp(velocity.y, platform_direction_negative.y * configurator.move_speed, ref velocity_y_smoothing, configurator.ground_acceleration);
+          apply_stop_drag = false;
+        }
+      }
+    } else { /* assume we are either not grounded or not on valid platform */
+      if (!is_grounded) {
+        apply_stop_drag = false;
+      } else { /* not on a valid platform to allow movement */
+      }
+    }
+
+    /* apply the stop drag (does not let the player slide) */
+    rigidbody.drag = apply_stop_drag ? configurator.movement_linear_drag : 0f;
+    
+    /* update velocity */
+    rigidbody.velocity = velocity;
+
+    /* apply jump, movement, and drag to the child components if allowed */
+    if (configurator.apply_movement_tochild) {
+      foreach (Transform child in child_transforms) {
+        Rigidbody2D child_rigidbody = child.gameObject.GetComponent<Rigidbody2D>();
+        if (child_rigidbody) {
+          child_rigidbody.drag = apply_stop_drag ? configurator.movement_linear_drag : 0f;
+
+          child_rigidbody.velocity = velocity;
+        }
+      }
+    }
+  }
+
+  private void HandleMovement2() {
     if (configurator.verbose_movement) Debug.Log("Handling Movement");
 
     /* get the movement inputs from the left stick */
@@ -381,7 +485,7 @@ public class GenericPlayer : GravityField {
 
     if (is_grounded) {
       if (configurator.verbose_movement) Debug.Log("Platform angle: " + platform_angle);
-      
+
       if (input.GetRightStickDown()) {
         SetGravity(-platform_hit_normal);
         set_fixed_gravity = true;
@@ -513,7 +617,7 @@ public class GenericPlayer : GravityField {
           velocity.y = Mathf.SmoothDamp(velocity.y, gravity_direction_negative.y * configurator.move_speed, ref velocity_y_smoothing, configurator.air_acceleration);
         }
       }
-      
+
       apply_stop_drag = false;
     }
 
@@ -543,7 +647,7 @@ public class GenericPlayer : GravityField {
   /// Check if the player is touching anything in direction of gravity.
   /// </summary>
   /// <returns>True if touching ground otherwise false.</returns>
-  private bool IsGrounded(bool visualize = false) {    
+  private bool IsGrounded(bool visualize = false) {
     HashSet<RaycastHit2D> hits = GetObjectsInView(GetGravity(), configurator.ground_fov_angle, configurator.ground_ray_count, configurator.ground_ray_length, visualize);
     foreach (RaycastHit2D hit in hits) {
       if (LayerMask.LayerToName(hit.transform.gameObject.layer) != LayerMask.LayerToName(gameObject.layer)) {
@@ -552,31 +656,30 @@ public class GenericPlayer : GravityField {
         if (hit.collider.gameObject.transform.childCount > 0) {
           hit_normal = Quaternion.AngleAxis(hit.collider.gameObject.transform.rotation.eulerAngles.z, Vector3.forward) * hit.normal;
         }
+
         /* get platform information we just hit */
-        float platform_angle_update = Mathf.Atan2(hit_normal.x, hit_normal.y) * Mathf.Rad2Deg;
-        /* get angle between 0 - 360, even handle negative signs with modulus */
-        platform_angle_update = fmod(platform_angle_update, 360);
-        if (platform_angle_update < 0) platform_angle_update += 360;
+        float platform_angle_update = GetAngle(hit_normal.x, hit_normal.y);
         
         /* get gravity normalized to "down" angle */
-        float gravity_angle = Mathf.Atan2(GetGravity().x, GetGravity().y) * Mathf.Rad2Deg + 180f;
+        float gravity_angle = Mathf.Atan2(GetGravity().x, GetGravity().y) * Mathf.Rad2Deg;
         gravity_angle = fmod(gravity_angle, 360);
         if (gravity_angle < 0) gravity_angle += 360;
-
+        
         /* make sure the platform is within the movement angle (avoids walking upwards on platform */
         if (Mathf.Abs(gravity_angle - platform_angle_update) <= configurator.movement_leniency_angle) {
           platform_angle = platform_angle_update;
+          platform_hit_normal = hit_normal;
         } else {
-          platform_angle = -1;
+          platform_angle = -1f;
+          platform_hit_normal = Vector2.negativeInfinity;
         }
-        
-        platform_hit_normal = hit_normal;
+
         return true;
       }
     }
 
     platform_angle = -1f;
-    
+    platform_hit_normal = Vector2.negativeInfinity;
     return false;
   }
 
@@ -691,6 +794,7 @@ public class ChildComponent {
 /// </summary>
 internal class Drag {
   public float AngularDrag { get; private set; }
+
   public float LinearDrag { get; private set; }
 
   public void SetDrags(float _angular_drag, float _linear_drag) {
