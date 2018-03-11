@@ -195,10 +195,10 @@ public class GenericPlayer : GravityField {
 
       if (!just_changed_gravity) {
         /* handle movement as drag is restored and the gravity is not being manipulated */
-        HandleMovement();
+        //HandleMovement();
       }
       
-      //HandleMovement2();
+      HandleMovement2();
     }
 
     if (configurator.show_gravity) Debug.DrawRay(transform.position, GetGravity(), configurator.gravity_ray_color);
