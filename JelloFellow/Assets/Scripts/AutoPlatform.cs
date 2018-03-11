@@ -73,6 +73,11 @@ public class AutoPlatform : MonoBehaviour {
       mid_tile.transform.localPosition = Vector2.zero;
       right_tile.transform.localPosition = new Vector2((platform_width - right_width)/2f, 0f);
 
+      /* update the localrotation so it matches the parent */
+      left_tile.transform.localRotation = Quaternion.identity;
+      mid_tile.transform.localRotation = Quaternion.identity;
+      right_tile.transform.localRotation = Quaternion.identity;
+
       /* add a box collider or polygon collider */
       if (use_polygon) {
         /* add collider */
