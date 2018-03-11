@@ -19,7 +19,7 @@ public class PointsToNodeAdapter : MonoBehaviour
 				var childComonent = new ChildComponent
 				{
 					Child = _jelly.ReferencePoints[i + 1].transform,
-					RaycastOrigin = false
+					RaycastOrigin = true
 				};
 
 				children[i] = childComonent;
@@ -32,7 +32,7 @@ public class PointsToNodeAdapter : MonoBehaviour
 			config.ChildComponents = children;
 
 			var player = centre.GetComponent<GenericPlayer>();
-			if (player != null) player.config = config;
+			if (player != null) player.configurator = config;
 		}
 		else
 		{

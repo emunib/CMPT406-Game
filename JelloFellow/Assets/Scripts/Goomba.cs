@@ -254,11 +254,11 @@ public class Goomba : GenericPlayer {
   /// </summary>
   /// <returns></returns>
   private bool UprightCheck() {
-    grounded_game_objects = GetObjectsInView(GetGravity(), config.ground_fov_angle, config.ground_ray_count, config.ground_ray_length);
+    grounded_game_objects = GetObjectsInView(GetGravity(), configurator.ground_fov_angle, configurator.ground_ray_count, configurator.ground_ray_length);
     
     foreach (RaycastHit2D gobject in grounded_game_objects) {
       RaycastHit2D groundhit = Physics2D.Raycast(transform.position,
-      gobject.transform.position - transform.position * config.ground_ray_length);
+      gobject.transform.position - transform.position * configurator.ground_ray_length);
 
       
       if (groundhit.normal == (Vector2)transform.up) {
