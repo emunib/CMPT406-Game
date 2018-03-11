@@ -37,7 +37,7 @@ public class MenuSelector : MonoBehaviour {
       buttonsArray[index].GetComponentInChildren<Text>().color = highlight_color;
       
       Rigidbody2D rigidbody = buttonsArray[index].GetComponent<Rigidbody2D>();
-      if(rigidbody) rigidbody.AddForce((Mathf.Sign(Random.Range(-1f, 1f)) == -1 ? Vector2.right : Vector2.left) * 2f, ForceMode2D.Impulse);
+      if(rigidbody) rigidbody.AddForce((Mathf.Sign(Random.Range(-1f, 1f)) == -1 ? Vector2.right : Vector2.left) * 5f, ForceMode2D.Impulse);
     }
 
     buttonsArray[index].Select();
@@ -76,7 +76,7 @@ public class MenuSelector : MonoBehaviour {
         buttonsArray[index].GetComponentInChildren<Text>().color = highlight_color;
 
         Rigidbody2D rigidbody = buttonsArray[index].GetComponent<Rigidbody2D>();
-        if(rigidbody) rigidbody.AddForce((Mathf.Sign(Random.Range(-1f, 1f)) == -1 ? Vector2.right : Vector2.left) * 2f, ForceMode2D.Impulse);
+        if(rigidbody) rigidbody.AddForce((Mathf.Sign(Random.Range(-1f, 1f)) == -1 ? Vector2.right : Vector2.left) * 5f, ForceMode2D.Impulse);
       }
       
       buttonsArray[index].Select();

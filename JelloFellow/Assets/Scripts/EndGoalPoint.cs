@@ -17,9 +17,11 @@ public class EndGoalPoint : MonoBehaviour
 		Debug.Log ("Entered");
 		if (hit.gameObject.CompareTag("Blob"))
         {
-            SceneController.control.previousSceneName = SceneManager.GetActiveScene().name;
-            SceneController.control.currSceneName = "LevelSummary";
+            GameController.control.previousSceneName = SceneManager.GetActiveScene().name;
+            GameController.control.currSceneName = "LevelSummary";
             SceneManager.LoadScene("LevelSummary");
         }
     }
+
+    
 }

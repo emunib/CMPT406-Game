@@ -12,16 +12,16 @@ public class Timer : MonoBehaviour
 	public Text timer;
 	
 	// Use this for initialization
-	void Awake ()
+	void Start ()
 	{
-		startTime = Time.time;
+		startTime = Time.unscaledTime;
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
 		timeToDisplay = Time.unscaledTime - startTime;
-		timeText = timeToDisplay.ToString("0.00000");
+		timeText = timeToDisplay.ToString("0.00");
 		timer.text = timeText;
 	}
 

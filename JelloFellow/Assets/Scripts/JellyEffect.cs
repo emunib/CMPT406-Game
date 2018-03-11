@@ -16,7 +16,7 @@ public class JellyEffect : MonoBehaviour
     {
         FixPoints();
         
-        Debug.DrawLine(_jelly.ReferencePoints[1].transform.position, _jelly.ReferencePoints[1].transform.position + Vector3.one.normalized * MaxStretchDist);
+        //Debug.DrawLine(_jelly.ReferencePoints[1].transform.position, _jelly.ReferencePoints[1].transform.position + Vector3.one.normalized * MaxStretchDist);
     }
 
     private void FixPoints()
