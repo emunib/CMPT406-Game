@@ -32,7 +32,7 @@ public class PointsToNodeAdapter : MonoBehaviour
 			config.ChildComponents = children;
 
 			var player = centre.GetComponent<GenericPlayer>();
-			if (player != null) player.config = config;
+			if (player != null) player.configurator = config;
 		}
 		else
 		{
