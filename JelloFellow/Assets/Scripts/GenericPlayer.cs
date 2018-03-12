@@ -202,7 +202,7 @@ public class GenericPlayer : GravityField {
     if (configurator.show_gravity) Debug.DrawRay(transform.position, GetGravity(), configurator.gravity_ray_color);
 
     /* update the gravity field alpha to represent the gravity stamina */
-    ChangeGravityAlpha(Mathf.Clamp01(gravity_stamina / configurator.max_gravity_stamina));
+    ChangeGravityFill(Mathf.Clamp01(gravity_stamina / configurator.max_gravity_stamina));
 
     /* run update in base class (applies gravity) */
     base.Update();
