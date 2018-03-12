@@ -7,7 +7,8 @@ public class PointsToNodeAdapter : MonoBehaviour
 {
 	private JellySprite _jelly;
 	public Object _playerScript;
-
+	public bool _raycastOrigins;
+	
 	private void Update () {
 		if (!_jelly)
 		{
@@ -19,7 +20,7 @@ public class PointsToNodeAdapter : MonoBehaviour
 				var childComonent = new ChildComponent
 				{
 					Child = _jelly.ReferencePoints[i + 1].transform,
-					RaycastOrigin = true
+					RaycastOrigin = _raycastOrigins
 				};
 
 				children[i] = childComonent;
