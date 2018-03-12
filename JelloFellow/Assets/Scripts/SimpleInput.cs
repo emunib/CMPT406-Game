@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class SimpleInput : Input2D {
   public override float GetLeftTrigger() {
@@ -87,5 +88,13 @@ public class SimpleInput : Input2D {
   
   public override bool GetRightStickUp() {
     return Input.GetButtonUp(ControllerInfo.Button_RStick());
+  }
+
+  public override bool GetStartButtonDown() {
+    return Input.GetButtonDown(ControllerInfo.StartButton());
+  }
+  
+  public override bool GetStartButtonUp() {
+    return Input.GetButtonUp(ControllerInfo.StartButton());
   }
 }

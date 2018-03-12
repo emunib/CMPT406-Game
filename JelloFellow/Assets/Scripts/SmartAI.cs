@@ -19,6 +19,7 @@ public class SmartAI : GenericPlayer {
 
 		jelly_parent = GetComponent<JellySpriteReferencePoint>().ParentJellySprite.GetComponent<UnityJellySprite>();
 		flip = jelly_parent.m_FlipX;
+
 	}
 
 	protected override void Update() {
@@ -28,7 +29,7 @@ public class SmartAI : GenericPlayer {
 		/* use the left control stick to move in direction */
 		_input.leftstickx = 0f;
 		_input.leftsticky = 0f;
-		
+		if(is_grounded) print("Is on ground");
 		/* call this to run Update in the subclass */
 		/* we call update after is because we want to change the input then call the update to handle the input changes
 		   in the same frame rather to have to wait another frame */
