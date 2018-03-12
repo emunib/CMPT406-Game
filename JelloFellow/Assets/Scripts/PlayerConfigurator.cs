@@ -43,6 +43,9 @@ public class PlayerConfigurator : MonoBehaviour {
 
   [CustomRangeLabel("Move Speed", 0f, 100f)] [Tooltip("Speed at which to move the player.")] [SerializeField]
   public float move_speed = 10f;
+  
+  [CustomRangeLabel("Air Speed", 0f, 100f)] [Tooltip("Speed at which to move the player in air.")] [SerializeField]
+  public float air_speed = 2f;
 
   [CustomRangeLabel("Jump Force", 0f, 100f)] [Tooltip("Force to apply in order to jump.")] [SerializeField]
   public float jump_force = 35f;
@@ -62,8 +65,8 @@ public class PlayerConfigurator : MonoBehaviour {
   [CustomRangeLabel("Air Acceleration Time", 0f, 1f)] [Tooltip("The smooth time of increasing velocity, will effect change in direction.")] [SerializeField]
   public float air_acceleration = 0.4f;
   
-  [CustomRangeLabel("Movement Leniency Angle", 0f, 90f)] [Tooltip("The angle to allow movement according to gravity.")] [SerializeField]
-  public float movement_leniency_angle = 45f;
+  [CustomRangeLabel("Movement Leniency Angle", 0f, 180f)] [Tooltip("The angle to allow movement according to gravity.")] [SerializeField]
+  public float movement_leniency_angle = 20f;
 
   [Header("Grounded Settings")]
   [CustomRangeLabel("Field of View Angle", 0f, 360f)] [Tooltip("Field of view (angle/arc) to cover.")] [SerializeField]
