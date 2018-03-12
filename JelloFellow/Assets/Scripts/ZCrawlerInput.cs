@@ -25,7 +25,9 @@ public class ZCrawlerInput : Input2D {
 	public bool leftstickclick_up;
 	public bool rightstickclick_down;
 	public bool rightstickclick_up;
-
+	public bool startbutton_down;
+	public bool startbutton_up;
+	
 	/// <summary>
 	/// Changes all variables to its default values. Good
 	/// to call every update after changing it.
@@ -142,5 +144,13 @@ public class ZCrawlerInput : Input2D {
 
 	public override bool GetRightStickUp() {
 		return rightstickclick_up;
+	}
+	
+	public override bool GetStartButtonDown() {
+		return startbutton_down;
+	}
+	
+	public override bool GetStartButtonUp() {
+		return startbutton_up;
 	}
 }
