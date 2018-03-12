@@ -30,6 +30,7 @@ public abstract class GravityField : GravityPlayer {
     gravityfield_visualizer = Instantiate(gravityfield_visualizer);
     gravityfield_visualizer.transform.parent = transform;
     gravityfield_visualizer.transform.localPosition = new Vector3(0f, 0f, gravityfield_visualizer.transform.position.z);
+    gravityfield_visualizer.layer = gameObject.layer;
 
     gravity_field = gravityfield_visualizer.AddComponent<CircleCollider2D>();
     gravity_field.isTrigger = true;
@@ -48,9 +49,12 @@ public abstract class GravityField : GravityPlayer {
   }
 
   private void OnTriggerStay2D(Collider2D other) {
+    
     /* let the gravity object know its in our field */
     Gravity grav = other.gameObject.GetComponent<Gravity>();
     if (grav != null) {
+      print(other.gameObject.name + ": In Field");
+      
       lock (_lock) {
         in_field.Add(other.gameObject);
         grav.SetCustomGravity(GetGravity() * GravityDrag);
@@ -74,6 +78,7 @@ public abstract class GravityField : GravityPlayer {
     lock (_lock) {
       foreach (GameObject gameObj in in_field) {
         Gravity grav = gameObj.gameObject.GetComponent<Gravity>();
+        print(gameObj.name + ": Setting custom gravity");
         grav.SetCustomGravity(_gravity * GravityDrag);
       }
     }

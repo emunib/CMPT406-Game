@@ -41,7 +41,6 @@ GameObject:
   - component: {fileID: 114096548627684134}
   - component: {fileID: 114765683359288122}
   - component: {fileID: 114883639968539070}
-  - component: {fileID: 114264324280711274}
   m_Layer: 13
   m_Name: Goober
   m_TagString: Untagged
@@ -160,55 +159,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   opened_eyes: {fileID: 1669710286977522}
   closed_eyes: {fileID: 1035959865143466}
---- !u!114 &114264324280711274
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1322213431229188}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0457fccce56245e4c800ccfc8ff740d6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  is_raycast_origin: 1
-  max_velocity: 50
-  apply_gravity_tochild: 1
-  apply_movement_tochild: 0
-  ChildComponents: []
-  gravity_angular_drag: 0.5
-  gravity_linear_drag: 3
-  max_gravity_stamina: 100
-  min_gravity_stamina: 0
-  gravity_depletion_time: 5
-  gravity_field_transition_time: 0.6
-  movement_linear_drag: 5
-  move_speed: 3
-  air_speed: 2
-  jump_force: 35
-  jump_normalize_threshold: 1
-  leniency_angle: 42
-  jump_angle_coefficient: 0.8
-  ground_acceleration: 0.1
-  air_acceleration: 0.4
-  movement_leniency_angle: 20
-  ground_fov_angle: 5
-  ground_ray_count: 2
-  ground_ray_length: 4.7
-  verbose_gravity: 0
-  show_gravity: 1
-  gravity_ray_color: {r: 0, g: 0, b: 0, a: 1}
-  visualize_ground_check: 0
-  visualize_fov_edge: {r: 0, g: 0, b: 1, a: 1}
-  visualize_fov_inbetween: {r: 1, g: 0, b: 0, a: 1}
-  verbose_movement: 0
-  show_movement: 0
-  movement_direction_color: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  platform_direction_color: {r: 1, g: 0, b: 1, a: 1}
-  movement_leniency_color: {r: 0, g: 0, b: 1, a: 1}
-  cur_hp: 0
-  max_hp: 0
-  gravity_deadzone: 0.9
 --- !u!114 &114486829847544766
 MonoBehaviour:
   m_ObjectHideFlags: 1
