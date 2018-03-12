@@ -18,7 +18,9 @@ public abstract class GravityPlayer : Gravity {
 	private bool ignore_other_fields;
 	private HashSet<Transform> objects;
 	private Vector2 gravity_restrictions;
-
+	private Vector2 gravity_restoration;
+	private bool restore_gravity;
+	
 	protected override void Awake() {
 		base.Awake();
 		
@@ -31,7 +33,8 @@ public abstract class GravityPlayer : Gravity {
 		in_gravity_field = false;
 		ignore_other_fields = false;
 		gravity_restrictions = Vector2.one;
-
+		restore_gravity = false;
+		
 		gravity = DefaultGravity();
 		custom_gravity = DefaultGravity();
 	}
@@ -39,7 +42,20 @@ public abstract class GravityPlayer : Gravity {
 	protected virtual void Update() {
 		/* if it is in gravity field get affected by players gravity otherwise get effected by custom gravity */
 		if (!in_gravity_field && ignore_other_fields) {
-			gravity = new Vector2(gravity.x * gravity_restrictions.x, gravity.y * gravity_restrictions.y);
+			if (gravity_restrictions != Vector2.one) {
+				if (!restore_gravity) {
+					gravity_restoration = gravity;
+					restore_gravity = true;
+				}
+
+				gravity = new Vector2(gravity.x * gravity_restrictions.x, gravity.y * gravity_restrictions.y);
+			} else {
+				if (restore_gravity) {
+					gravity = gravity_restoration;
+					restore_gravity = false;
+				}				
+			}
+
 			rigidbody.velocity += gravity * GravityForce() * Time.deltaTime;
 
 			if (objects != null) {
@@ -55,7 +71,19 @@ public abstract class GravityPlayer : Gravity {
 			//Debug.DrawRay(transform.position, gravity, Color.red);
 		} else {
 			print(gameObject.name + ": I am setting custom gravity now");
-			gravity = new Vector2(custom_gravity.x * gravity_restrictions.x, custom_gravity.y * gravity_restrictions.y);
+			if (gravity_restrictions != Vector2.one) {
+				if (!restore_gravity) {
+					gravity_restoration = custom_gravity;
+					restore_gravity = true;
+				}
+
+				custom_gravity = new Vector2(custom_gravity.x * gravity_restrictions.x, custom_gravity.y * gravity_restrictions.y);
+			} else {
+				if (restore_gravity) {
+					custom_gravity = gravity_restoration;
+					restore_gravity = false;
+				}				
+			}
 			rigidbody.velocity += custom_gravity * GravityForce() * Time.deltaTime;
 
 			if (objects != null) {
