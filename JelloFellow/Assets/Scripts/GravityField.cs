@@ -9,8 +9,8 @@ using UnityEngine;
 public abstract class GravityField : GravityPlayer {
   private const string gravityfield_sprite_path = "Prefabs/GravityField";
   private const float GravityDrag = 0.85f;
-  protected const float MinRadius = 6f;
-  protected const float MaxRadius = 120f;
+  protected const float MinRadius = 12f;
+  protected const float MaxRadius = 35f;
 
   private CircleCollider2D gravity_field;
   private HashSet<GameObject> in_field;
