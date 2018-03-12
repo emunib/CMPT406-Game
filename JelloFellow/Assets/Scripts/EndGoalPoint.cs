@@ -15,7 +15,7 @@ public class EndGoalPoint : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D hit) {
 		Debug.Log ("Entered");
-		if (hit.gameObject.CompareTag("Blob"))
+		if (hit.gameObject.CompareTag("Player"))
         {
             GameController.control.previousSceneName = SceneManager.GetActiveScene().name;
             GameController.control.currSceneName = "LevelSummary";

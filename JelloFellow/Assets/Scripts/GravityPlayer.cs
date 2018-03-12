@@ -38,7 +38,7 @@ public abstract class GravityPlayer : Gravity {
 
 	protected virtual void Update() {
 		/* if it is in gravity field get affected by players gravity otherwise get effected by custom gravity */
-		if (!in_gravity_field || ignore_other_fields) {
+		if (!in_gravity_field && ignore_other_fields) {
 			gravity = new Vector2(gravity.x * gravity_restrictions.x, gravity.y * gravity_restrictions.y);
 			rigidbody.velocity += gravity * GravityForce() * Time.deltaTime;
 
@@ -54,6 +54,7 @@ public abstract class GravityPlayer : Gravity {
 
 			//Debug.DrawRay(transform.position, gravity, Color.red);
 		} else {
+			print(gameObject.name + ": I am setting custom gravity now");
 			gravity = new Vector2(custom_gravity.x * gravity_restrictions.x, custom_gravity.y * gravity_restrictions.y);
 			rigidbody.velocity += custom_gravity * GravityForce() * Time.deltaTime;
 
@@ -92,6 +93,7 @@ public abstract class GravityPlayer : Gravity {
 
 	public override void SetCustomGravity(Vector2 _custom_gravity) {
 		if (!ignore_other_fields) {
+			print(gameObject.name + ": Setting my custom gravity");
 			custom_gravity = _custom_gravity;
 		}
 	}
@@ -105,7 +107,11 @@ public abstract class GravityPlayer : Gravity {
 	/// </summary>
 	/// <param name="_gravity">Gravity to be effected by.</param>
 	protected virtual void SetGravity(Vector2 _gravity) {
-		gravity = _gravity;
+		if (ignore_other_fields) {
+			gravity = _gravity;
+		} else {
+			custom_gravity = _gravity;
+		}
 	}
 
 	public Vector2 GetGravity() {
@@ -113,10 +119,12 @@ public abstract class GravityPlayer : Gravity {
 	}
 	
 	private void OnBecameInvisible() {
+		print(gameObject.name + ": I AM NOT VISIBLE");
 		gravity_settable = false;
 	}
 
 	private void OnBecameVisible() {
+		print(gameObject.name + ": I AM VISIBLE");
 		gravity_settable = true;
 	}
 

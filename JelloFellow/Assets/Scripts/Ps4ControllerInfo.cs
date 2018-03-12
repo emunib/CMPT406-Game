@@ -1,4 +1,6 @@
-﻿public class Ps4ControllerInfo : InputControllerInfo {
+﻿using System;
+
+public class Ps4ControllerInfo : InputControllerInfo {
   private const string appender = "_PS4";
   
   public override string controller_type() {
@@ -59,5 +61,9 @@
 
   public override string Button_RStick() {
     return rightstickclick + appender;
+  }
+
+  public override string StartButton() {
+    return startbutton + appender;
   }
 }
