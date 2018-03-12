@@ -12,6 +12,7 @@ public class GameController : MonoBehaviour {
 	public string currSceneName = "";
 	public static GameController control;
 	public HighScores highScores = new HighScores();
+	private Input2D 	input;
 	
 	// Use this for initialization
 	void Awake () {
@@ -25,6 +26,8 @@ public class GameController : MonoBehaviour {
 			Destroy(gameObject);
 		}
 
+		input = InputController.instance.GetInput();
+		
 		currSceneName = SceneManager.GetActiveScene().name;
 		Load();
 	}
@@ -64,5 +67,14 @@ public class GameController : MonoBehaviour {
 	public class HighScores
 	{
 		public Dictionary<String, String> highScoreDictionary = new Dictionary<string, string>();
+	}
+	
+	void Update () {
+		if (input.GetStartButtonDown() && currSceneName != "MainMenu")
+		{
+			GameController.control.previousSceneName = SceneManager.GetActiveScene().name;
+			GameController.control.currSceneName = "MainMenu";
+			SceneManager.LoadScene("MainMenu");
+		}
 	}
 }
