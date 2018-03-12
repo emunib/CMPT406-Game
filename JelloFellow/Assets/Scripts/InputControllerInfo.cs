@@ -20,6 +20,7 @@ public abstract class InputControllerInfo : MonoBehaviour {
   protected const string button4 = "Button4";
   protected const string leftstickclick = "LeftStickClick";
   protected const string rightstickclick = "RightStickClick";
+  protected const string startbutton = "StartButton";
   
   /// <summary>
   /// The controller type (mainly for debugging) currently being used to control the
@@ -111,4 +112,10 @@ public abstract class InputControllerInfo : MonoBehaviour {
   /// </summary>
   /// <returns>Button name</returns>
   public abstract string Button_RStick();
+
+  /// <summary>
+  /// Click of the start button or the options button.
+  /// </summary>
+  /// <returns>Button name</returns>
+  public abstract string StartButton();
 }

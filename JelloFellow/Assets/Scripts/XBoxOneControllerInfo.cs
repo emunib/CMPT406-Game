@@ -62,6 +62,10 @@
 	public override string Button_RStick() {
 		return rightstickclick + appender;
 	}
+	
+	public override string StartButton() {
+		return startbutton + appender;
+	}
 #endif
 	
 #if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
@@ -125,6 +129,10 @@
 
   public override string Button_RStick() {
     return rightstickclick + appender;
+  }
+	
+	public override string StartButton() {
+    return startbutton + appender;
   }
 #endif
 }

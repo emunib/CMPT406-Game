@@ -99,4 +99,12 @@ public class GoombaInput : Input2D {
   public override bool GetRightStickUp() {
     return false;
   }
+  
+  public override bool GetStartButtonDown() {
+    return false;
+  }
+	
+  public override bool GetStartButtonUp() {
+    return false;
+  }
 }
