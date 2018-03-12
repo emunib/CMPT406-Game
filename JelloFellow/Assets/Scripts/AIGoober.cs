@@ -132,9 +132,7 @@ public class AIGoober : GenericPlayer {
       Vector3 fwdangle = -transform.up - transform.right;
       Debug.DrawRay(transform.position,fwdangle,Color.magenta);
 
-      //FwdCheck();
-
-      
+  
       float platform_angle = PlatformAngle();
       float angle1 = platform_angle - 100f;
       float angle2 = platform_angle + 100f;
@@ -211,7 +209,6 @@ public class AIGoober : GenericPlayer {
     
     foreach (RaycastHit2D game_object in agro_game_objects) {
       
-      //Todo: Figure out what the layer /tag should be
       if (LayerMask.LayerToName(game_object.transform.gameObject.layer) == "Player") {
         Debug.DrawRay(transform.position,(game_object.transform.position-transform.position), Color.cyan);
 
@@ -221,7 +218,7 @@ public class AIGoober : GenericPlayer {
         float plat_angle = PlatformAngle();
         Debug.Log("GooberAI: PlatAng"+plat_angle);
         
-        //TODO: FIX Bug on 225 angled platforms
+        //TODO: FIX Bug on 225degree angled platforms
         if ((plat_angle > 45 && plat_angle < 135) || (plat_angle>=225 &&plat_angle<=315)) {
           if (direction == -1 && attackVector.y < 0) {
             Flip();
