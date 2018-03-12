@@ -17,6 +17,9 @@ public abstract class GravityField : GravityPlayer {
   private GameObject gravityfield_visualizer;
   private object _lock;
 
+  private Transform mask;
+  private Transform marker;
+
   protected override void Awake() {
     base.Awake();
 
@@ -28,13 +31,18 @@ public abstract class GravityField : GravityPlayer {
     
     gravityfield_visualizer = Resources.Load(gravityfield_sprite_path) as GameObject;
     gravityfield_visualizer = Instantiate(gravityfield_visualizer);
+    gravityfield_visualizer.name = "GravityField";
     gravityfield_visualizer.transform.parent = transform;
     gravityfield_visualizer.transform.localPosition = new Vector3(0f, 0f, gravityfield_visualizer.transform.position.z);
+    gravityfield_visualizer = gravityfield_visualizer.transform.Find("Field").gameObject;
+    
     gravityfield_visualizer.layer = gameObject.layer;
 
     gravity_field = gravityfield_visualizer.AddComponent<CircleCollider2D>();
     gravity_field.isTrigger = true;
     //gravity_field.radius = MinRadius;
+    mask = gravityfield_visualizer.GetComponentInChildren<SpriteMask>().transform;
+    marker = transform.Find("GravityField/Marker");
     
     SetFieldRadius(MinRadius);
   }
@@ -44,8 +52,8 @@ public abstract class GravityField : GravityPlayer {
 
     /* rotate gravity field to point the marker towards gravity */
     Vector2 _gravity = GetGravity();
-    float angle = Mathf.Atan2(_gravity.y, _gravity.x) * Mathf.Rad2Deg;
-    gravityfield_visualizer.transform.rotation = Quaternion.Euler(0f, 0f, angle - 90f);
+    marker.up = -_gravity;
+    marker.localPosition = _gravity.normalized * gravityfield_visualizer.transform.localScale.x / 2;
   }
 
   private void OnTriggerStay2D(Collider2D other) {
@@ -104,10 +112,9 @@ public abstract class GravityField : GravityPlayer {
     //return gravity_field.radius;
   }
 
-  protected void ChangeGravityAlpha(float alpha) {
-    SpriteRenderer gravityfield_renderer = gravityfield_visualizer.GetComponent<SpriteRenderer>();
-    Color current = gravityfield_renderer.color;
-    gravityfield_renderer.color = new Color(current.r, current.g, current.b, alpha);
+  protected void ChangeGravityFill(float progress)
+  {
+    mask.localPosition = new Vector2(0, Mathf.Lerp(-2.35f, -1.25f, progress));
   }
   
   /* uncomment to visualize without starting the scene */
