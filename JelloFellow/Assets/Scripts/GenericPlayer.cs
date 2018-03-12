@@ -85,6 +85,15 @@ public class GenericPlayer : GravityField {
     Physics2D.gravity = GetGravity();
   }
 
+  private float horizontal_gravity;
+  private float vertical_gravity;
+  private float left_trigger;
+  private float right_trigger;
+  private float horizontal_movement;
+  private float vertical_movement;
+  private bool jump_button_down;
+  private bool right_stick_clicked;
+  
   protected override void Update() {
     /* make sure we have something to take input from */
     if (input != null) {
@@ -93,8 +102,8 @@ public class GenericPlayer : GravityField {
       is_grounded = IsGrounded(configurator.visualize_ground_check);
 
       /* get the gravity inputs from joystick */
-      float horizontal_gravity = input.GetHorizontalRightStick();
-      float vertical_gravity = input.GetVerticalRightStick();
+      horizontal_gravity = input.GetHorizontalRightStick();
+      vertical_gravity = input.GetVerticalRightStick();
 
       /* create magnitude deadzone by limiting the range of stick from 0 to set
          gravity deadzone */
@@ -157,8 +166,8 @@ public class GenericPlayer : GravityField {
       }
 
       /* left and right trigger axis */
-      float left_trigger = input.GetLeftTrigger();
-      float right_trigger = input.GetRightTrigger();
+      left_trigger = input.GetLeftTrigger();
+      right_trigger = input.GetRightTrigger();
 
       /* we don't take negative numbers; Acts as a deadzone */
       /* change the gravity field radius */
@@ -183,7 +192,11 @@ public class GenericPlayer : GravityField {
         }
       }
 
-      HandleMovement();
+      /* get the inputs for movement */
+      if(horizontal_movement == 0f) horizontal_movement = input.GetHorizontalLeftStick();
+      if(vertical_movement == 0f) vertical_movement = input.GetVerticalLeftStick();
+      if(!jump_button_down) jump_button_down = input.GetButton3Down();
+      if(!right_stick_clicked) right_stick_clicked = input.GetRightStickDown();
     }
 
     if (configurator.show_gravity) Debug.DrawRay(transform.position, GetGravity(), configurator.gravity_ray_color);
@@ -196,6 +209,14 @@ public class GenericPlayer : GravityField {
   }
 
   protected virtual void FixedUpdate() {
+    HandleMovement();
+    
+    /* we must have handled the inputs */
+    horizontal_movement = 0f;
+    vertical_movement = 0f;
+    jump_button_down = false;
+    right_stick_clicked = false;
+    
     rigidbody.velocity = Vector2.ClampMagnitude(rigidbody.velocity, configurator.max_velocity);
 
     if (configurator.apply_movement_tochild) {
@@ -226,10 +247,6 @@ public class GenericPlayer : GravityField {
   }
 
   private void HandleMovement() {
-    /* get the movement inputs from the left stick */
-    float horizontal_movement = input.GetHorizontalLeftStick();
-    float vertical_movement = input.GetVerticalLeftStick();
-
     /* angle of the movement joystick */
     float movement_angle = GetAngle(horizontal_movement, vertical_movement);
     if (configurator.verbose_movement) Debug.Log("Movement angle: " + movement_angle);
@@ -244,7 +261,7 @@ public class GenericPlayer : GravityField {
     /* if we are on valid platform to allow movement and jump */
     if (platform_angle != -1f) {
       /* set gravity in direction of the platform if we are on platform */
-      if (input.GetRightStickDown()) {
+      if (right_stick_clicked) {
         Vector2 platform_direction = new Vector2(Mathf.Sin(platform_angle * Mathf.Deg2Rad), Mathf.Cos(platform_angle * Mathf.Deg2Rad));
         SetGravity(-platform_direction);
         set_fixed_gravity = true;
@@ -299,7 +316,7 @@ public class GenericPlayer : GravityField {
       }
       
       /* jump direction */
-      if (input.GetButton3Down() && is_grounded) {
+      if (jump_button_down && is_grounded) {
         apply_stop_drag = false;
         /* if angle selected than shoot at an angle */
         if (horizontal_movement != 0 || vertical_movement != 0) {
