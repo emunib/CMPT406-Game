@@ -195,7 +195,7 @@ public class GenericPlayer : GravityField {
       /* get the inputs for movement */
       if(horizontal_movement == 0f) horizontal_movement = input.GetHorizontalLeftStick();
       if(vertical_movement == 0f) vertical_movement = input.GetVerticalLeftStick();
-      if(!jump_button_down) jump_button_down = input.GetButton3Down();
+      if(!jump_button_down) jump_button_down = input.GetButton3Down() || input.GetRightBumperDown();
       if(!right_stick_clicked) right_stick_clicked = input.GetRightStickDown();
     }
 
