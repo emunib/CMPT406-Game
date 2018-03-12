@@ -4,25 +4,19 @@ using UnityEngine;
 
 public class AIGoober : GenericPlayer {
 
-  [Header("ForwardCheck Information")] 
-  //private Transform fwdCheck;
-  //private Transform backCheck;
-  [Range(.01f, 2)] public float fwdGroundChkRange = 5f;
-  [Range(.01f, 2)] public float fwdWallChkRange = 5f;
-  [Range(.01f,1f)]
-  public float turnWait = .5f;
+  
 
   
   [Header("AgroFOV Raycast Settings")]
 
   [CustomRangeLabel("Ray Length", 0f, 20f)] [Tooltip("Length of the ray.")]
-  [SerializeField] private float agro_ray_length;
+  [SerializeField] private float agro_ray_length= 10;
 
   [CustomRangeLabel("Ray Count", 0f, 20f)] [Tooltip("Number of rays to show in between main rays.")]
-  [SerializeField] private int agro_ray_count;
+  [SerializeField] private int agro_ray_count = 7;
 
   [CustomRangeLabel("Angle FOV", 0f, 180f)] [Tooltip("Padding for the angle.")]
-  [SerializeField] private float agro_ray_angle_fov;
+  [SerializeField] private float agro_ray_angle_fov = 180;
 
   
   
@@ -50,29 +44,30 @@ public class AIGoober : GenericPlayer {
   protected override void Start() {    
     _input = gameObject.AddComponent<GenericEnemyInput>();
     SetInput(_input);
-    SetIgnoreFields(false);
+    base.Start();
+
     root = gameObject.AddComponent<DecisionTree>();
     BuildDecisionTree();
     rb = GetComponent<Rigidbody2D>();
-    base.Start();
     flip = false;
     direction = 1;
     sprite_renderer = GetComponent<SpriteRenderer>();
 
     
+    _input.DefaultValues();
 
     _input.rightstickx = -transform.up.x;
     _input.rightsticky = -transform.up.y;
 
-    
+    SetIgnoreFields(false);
+
   }
 
   protected override void FixedUpdate() {
     
     base.FixedUpdate();
-    _input.DefaultValues();
-
-    //goomba_input.jumpbtndown = false;
+    Debug.Log("Direction"+direction);
+    _input.button3_down = false;
     root.Search();
     
     if (is_grounded==true)Debug.Log("I am grounded");
@@ -81,9 +76,9 @@ public class AIGoober : GenericPlayer {
 
 
 
-  public int maxAttacks =3;
+  public int maxAttacks =1;
   public float attackCdTime = .4f;
-  public float attackNumCdTime = 2f;
+  public float attackNumCdTime = 5f;
 
   public int numAttacks = 0;
   
@@ -91,17 +86,15 @@ public class AIGoober : GenericPlayer {
     Debug.Log("Im attacking");
     //Transform target = GameObject.FindGameObjectWithTag("Player").transform;
 
-  
     
     //Only Jump If I can
     if (grounded &&attackOffCd) {
-      attackOffCd = false;
-      Invoke("ResetAttackCD",attackCdTime);
+      //attackOffCd = false;
+      //Invoke("ResetAttackCD",attackCdTime);
       if (numAttacks < maxAttacks) {
-        //goomba_input.horizontal = attackVector.x;
-        //goomba_input.vertical = attackVector.y;
+     
+        _input.button3_down = true;
 
-      
         numAttacks++;
         //goomba_input.jumpbtndown = true;
         if (numAttacks >= maxAttacks) {
@@ -128,10 +121,7 @@ public class AIGoober : GenericPlayer {
   }
 
   private void Walk() {
-    //Debug.Log("Movespeed sign "+Mathf.Sign(config.move_speed));
 
-    //Debug.Log("Grounded"+grounded);
-    //Debug.Log("turnOffCd"+turnOffCd);
     float platform_walk_angle = PlatformAngle() - 90;
     Vector2 movement_direction = new Vector2(Mathf.Sin(platform_walk_angle * Mathf.Deg2Rad), Mathf.Cos(platform_walk_angle * Mathf.Deg2Rad));
     
@@ -154,13 +144,29 @@ public class AIGoober : GenericPlayer {
       
       Vector2 forwardangle_direction = new Vector2(Mathf.Sin(angle * Mathf.Deg2Rad), Mathf.Cos(angle * Mathf.Deg2Rad));
 
-      Debug.Log("ForwardDir"+forwardangle_direction);
-      HashSet<RaycastHit2D> leaving_ground = GetObjectsInView(forwardangle_direction, 1f, 0, 20f, true);
-      if (leaving_ground.Count <= 0) {
-        Debug.Log("I should Turn");
-        Flip();
-      }
+      HashSet<RaycastHit2D> leaving_ground = GetObjectsInView(forwardangle_direction, 1f, 0, 9f, true);
       
+      
+      if (leaving_ground.Count <= 0) {
+        //Debug.Log("I should Turn");
+        Flip();
+        
+      }
+      else {
+        platform_angle = PlatformAngle();
+        angle1 = platform_angle - 90f;
+        angle2 = platform_angle + 90f;
+
+        angle = flip ? Mathf.Max(angle1, angle2) : Mathf.Min(angle1, angle2);
+
+
+        forwardangle_direction = new Vector2(Mathf.Sin(angle * Mathf.Deg2Rad), Mathf.Cos(angle * Mathf.Deg2Rad));
+        leaving_ground = GetObjectsInView(forwardangle_direction, 1f, 0, 5f, true);
+        if (leaving_ground.Count > 0) {
+          //Debug.Log("I should Turn");
+          Flip();
+        }
+      }
     }
 
   }
@@ -206,10 +212,33 @@ public class AIGoober : GenericPlayer {
     foreach (RaycastHit2D game_object in agro_game_objects) {
       
       //Todo: Figure out what the layer /tag should be
-      if (LayerMask.LayerToName(game_object.transform.gameObject.layer) == "SlimeEffector") {
+      if (LayerMask.LayerToName(game_object.transform.gameObject.layer) == "Player") {
         Debug.DrawRay(transform.position,(game_object.transform.position-transform.position), Color.cyan);
 
         attackVector = game_object.transform.position - transform.position;
+        //Debug.Log("Atkvec:"+attackVector);
+
+        float plat_angle = PlatformAngle();
+        Debug.Log("GooberAI: PlatAng"+plat_angle);
+        
+        //TODO: FIX Bug on 225 angled platforms
+        if ((plat_angle > 45 && plat_angle < 135) || (plat_angle>=225 &&plat_angle<=315)) {
+          if (direction == -1 && attackVector.y < 0) {
+            Flip();
+          }
+          else if (direction == 1 && attackVector.y >= 0) {
+            Flip();
+          }
+        }
+        else {
+          if (direction == -1 && attackVector.x < 0) {
+            Flip();
+          }
+          else if (direction == 1 && attackVector.x >= 0) {
+            Flip();
+          }
+        }
+
         return true;
       }
     }
@@ -224,7 +253,9 @@ public class AIGoober : GenericPlayer {
   /// </summary>
   /// <returns></returns>
   private bool UprightCheck() {
-    grounded_game_objects = GetObjectsInView(GetGravity(), configurator.ground_fov_angle, configurator.ground_ray_count, configurator.ground_ray_length);
+    
+    //TODO:FIX- CURRENTLY DOES NOT WORK
+    /*grounded_game_objects = GetObjectsInView(GetGravity(), configurator.ground_fov_angle, configurator.ground_ray_count, configurator.ground_ray_length);
     
     foreach (RaycastHit2D gobject in grounded_game_objects) {
       RaycastHit2D groundhit = Physics2D.Raycast(transform.position,
@@ -234,12 +265,15 @@ public class AIGoober : GenericPlayer {
       if (groundhit.normal == (Vector2)transform.up) {
         return true;
       }
+      
+     
 
+      
       groundedNormalVector = groundhit.normal;
 
-    }
+    }*/
 
-    return false;
+    return true;
   }
 
   /// <summary>
@@ -251,9 +285,11 @@ public class AIGoober : GenericPlayer {
 
     //Special case where we set the ai's gravity the first time it touches a platform. 
     if (firstPlat) {
-      firstPlat = false;
+      //firstPlat = false;
       //goomba_input.horg = -groundedNormalVector.x;
       //goomba_input.verg = -groundedNormalVector.y;
+      //_input.rightstickx = -groundedNormalVector.x;
+      //_input.rightsticky = -groundedNormalVector.y;
     }
     
   }
@@ -266,16 +302,7 @@ public class AIGoober : GenericPlayer {
     return grounded = is_grounded;
   }
 
-  /* This checks if we may be in the air because we are already attacking as goombas are going to jump towards the player
-   !!MAY CHANGE!!*/
-  private bool AttackingCheck() {
-    
-//    if (attacking) {
-//      return true;
-//    }
-    
-    return false;
-  }
+ 
 
   //For now does nothing. Maybe like a funny panic animation in the air
   private void Panic() {
