@@ -73,9 +73,9 @@ public class AIGoober : GenericPlayer {
     //_input.DefaultValues();
 
     //goomba_input.jumpbtndown = false;
-    root.Search();
+    //root.Search();
     _input.leftstickx = 1;
-
+    if(is_grounded) print("Is on ground");
   }
 
 
