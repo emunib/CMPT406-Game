@@ -60,7 +60,6 @@ public class AIGoober : GenericPlayer {
     sprite_renderer = GetComponent<SpriteRenderer>();
 
     
-    //TODO: Not sure where this goes? Ask rutvik
 
     _input.rightstickx = -transform.up.x;
     _input.rightsticky = -transform.up.y;
@@ -69,13 +68,15 @@ public class AIGoober : GenericPlayer {
   }
 
   protected override void FixedUpdate() {
+    
     base.FixedUpdate();
-    //_input.DefaultValues();
+    _input.DefaultValues();
 
     //goomba_input.jumpbtndown = false;
-    //root.Search();
-    _input.leftstickx = 1;
-    if(is_grounded) print("Is on ground");
+    root.Search();
+    
+    if (is_grounded==true)Debug.Log("I am grounded");
+    
   }
 
 
@@ -126,7 +127,6 @@ public class AIGoober : GenericPlayer {
     attackOffCd = true;
   }
 
-  private int facing = -1;
   private void Walk() {
     //Debug.Log("Movespeed sign "+Mathf.Sign(config.move_speed));
 
@@ -144,7 +144,7 @@ public class AIGoober : GenericPlayer {
 
       //FwdCheck();
 
-      /*
+      
       float platform_angle = PlatformAngle();
       float angle1 = platform_angle - 100f;
       float angle2 = platform_angle + 100f;
@@ -153,13 +153,14 @@ public class AIGoober : GenericPlayer {
 
       
       Vector2 forwardangle_direction = new Vector2(Mathf.Sin(angle * Mathf.Deg2Rad), Mathf.Cos(angle * Mathf.Deg2Rad));
-      
-     
-      HashSet<RaycastHit2D> leaving_ground = GetObjectsInView(forwardangle_direction, 1f, 0, 5f, true);
+
+      Debug.Log("ForwardDir"+forwardangle_direction);
+      HashSet<RaycastHit2D> leaving_ground = GetObjectsInView(forwardangle_direction, 1f, 0, 20f, true);
       if (leaving_ground.Count <= 0) {
+        Debug.Log("I should Turn");
         Flip();
       }
-      */
+      
     }
 
   }
@@ -189,7 +190,7 @@ public class AIGoober : GenericPlayer {
   
   private void Flip() {
     flip = !flip;
-    sprite_renderer.flipX = flip;
+    //sprite_renderer.flipX = flip;
     direction = direction * -1;
   }
   

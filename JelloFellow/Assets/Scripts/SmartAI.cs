@@ -19,6 +19,7 @@ public class SmartAI : GenericPlayer {
 
 		jelly_parent = GetComponent<JellySpriteReferencePoint>().ParentJellySprite.GetComponent<UnityJellySprite>();
 		flip = jelly_parent.m_FlipX;
+
 	}
 
 	protected override void Update() {
