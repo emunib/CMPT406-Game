@@ -38,7 +38,7 @@ public class GenericPlayer : GravityField {
   private float velocity_y_smoothing;
 
   /* contains the last grounded platforms angle and hit normal vector */
-  private float platform_angle = 0f;
+  protected float platform_angle { get; private set; }
   private Vector2 platform_hit_normal;
 
   private bool set_fixed_gravity = false;
