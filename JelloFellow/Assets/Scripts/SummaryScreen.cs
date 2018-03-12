@@ -11,6 +11,10 @@ public class SummaryScreen : MonoBehaviour
 	public Text 		sceneName;
 	public Text  		timeScore;
 	public Text  		highScore;
+	public CanvasGroup 	goldStar;
+	public CanvasGroup 	silverStar;
+	public CanvasGroup	bronzeStar;
+	
 	
 
 
@@ -29,6 +33,25 @@ public class SummaryScreen : MonoBehaviour
 		if(GameController.control.highScores.highScoreDictionary.ContainsKey(GameController.control.previousSceneName))
 		{
 			highScore.text = "Record: " + GameController.control.highScores.highScoreDictionary[GameController.control.previousSceneName];
+		}
+
+		if (100.00 > Timer.timeToDisplay)
+		{
+			bronzeStar.alpha = 1f;
+			bronzeStar.GetComponentInParent<Image>().color = Color.green;
+			if (40.00 > Timer.timeToDisplay)
+			{
+				silverStar.alpha = 1f;
+				bronzeStar.GetComponentInParent<Image>().color = Color.gray;
+				silverStar.GetComponentInParent<Image>().color = Color.gray;
+				if (15.00 > Timer.timeToDisplay)
+				{
+					goldStar.alpha = 1f;
+					bronzeStar.GetComponentInParent<Image>().color = Color.yellow;
+					silverStar.GetComponentInParent<Image>().color = Color.yellow;
+					goldStar.GetComponentInParent<Image>().color = Color.yellow;
+				}
+			}
 		}
 
 	}
