@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -413,9 +412,9 @@ public class GenericPlayer : GravityField {
       if (LayerMask.LayerToName(hit.transform.gameObject.layer) != LayerMask.LayerToName(gameObject.layer)) {
         Vector2 hit_normal = hit.normal;
         /* if the object has children then use the parent's rotation to calculate the normal */
-        if (hit.collider.gameObject.transform.childCount > 0) {
-          hit_normal = Quaternion.AngleAxis(hit.collider.gameObject.transform.rotation.eulerAngles.z, Vector3.forward) * hit.normal;
-        }
+        //if (hit.collider.gameObject.transform.childCount > 0) {
+        //  hit_normal = Quaternion.AngleAxis(hit.collider.gameObject.transform.rotation.eulerAngles.z, Vector3.forward) * hit.normal;
+        //}
 
         /* get platform information we just hit */
         float platform_angle_update = GetAngle(hit_normal.x, hit_normal.y);
