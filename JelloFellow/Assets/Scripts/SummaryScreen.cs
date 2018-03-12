@@ -39,13 +39,13 @@ public class SummaryScreen : MonoBehaviour
 		{
 			bronzeStar.alpha = 1f;
 			bronzeStar.GetComponentInParent<Image>().color = new Color(0.82f,0.41f,0.11f,1f);
-			if (20.00 > Timer.timeToDisplay)
+			if (50.00 > Timer.timeToDisplay)
 			{
 				silverStar.alpha = 1f;
 				Color silverColor = new Color(0.76f,0.76f,0.76f,1f);
 				bronzeStar.GetComponentInParent<Image>().color = silverColor;
 				silverStar.GetComponentInParent<Image>().color = silverColor;
-				if (15.00 > Timer.timeToDisplay)
+				if (25.00 > Timer.timeToDisplay)
 				{
 					goldStar.alpha = 1f;
 					Color goldColor = new Color(0.83f,0.68f,0.21f,1f);
