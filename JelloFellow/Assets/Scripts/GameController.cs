@@ -70,7 +70,8 @@ public class GameController : MonoBehaviour {
 	}
 	
 	void Update () {
-		if (input.GetStartButtonDown() && currSceneName != "MainMenu")
+		if (input.GetStartButtonDown() && currSceneName != "MainMenu" && 
+		    currSceneName != "SceneSelector" && currSceneName != "LevelSummary")
 		{
 			GameController.control.previousSceneName = SceneManager.GetActiveScene().name;
 			GameController.control.currSceneName = "MainMenu";
