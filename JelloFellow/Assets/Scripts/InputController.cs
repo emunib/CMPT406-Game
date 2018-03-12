@@ -18,7 +18,7 @@ public class InputController : Singleton<InputController> {
       string lower_controller = controller.ToLower();
 
       /* xbox support */
-      if (lower_controller.Contains("xbox")) {
+      if (lower_controller.Contains("xbox") || lower_controller.Contains("microsoft")) {
         info = gameObject.AddComponent<XBoxOneControllerInfo>();
         break;
       } 
