@@ -38,4 +38,6 @@ public abstract class Input2D : MonoBehaviour {
   public abstract bool GetLeftStickUp();
   public abstract bool GetRightStickDown();
   public abstract bool GetRightStickUp();
+  public abstract bool GetStartButtonUp();
+  public abstract bool GetStartButtonDown();
 }

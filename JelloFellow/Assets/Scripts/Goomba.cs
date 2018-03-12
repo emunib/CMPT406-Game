@@ -60,8 +60,10 @@ public class Goomba : GenericPlayer {
 
   }
 
-  protected override void FixedUpdate() {
-    base.FixedUpdate();
+  
+  
+  protected override void Update() {
+    base.Update();
     goomba_input.jumpbtndown = false;
     root.Search();
   }
@@ -231,7 +233,7 @@ public class Goomba : GenericPlayer {
   /// </summary>
   /// <returns></returns>
   private bool AgroCheck() {
-   agro_game_objects = GetObjectsInView(transform.up, agro_ray_angle_fov, agro_ray_count, agro_ray_length, true);
+   agro_game_objects = GetObjectsInView(transform.up, agro_ray_angle_fov, agro_ray_count, agro_ray_length, false);
     
     foreach (RaycastHit2D game_object in agro_game_objects) {
       

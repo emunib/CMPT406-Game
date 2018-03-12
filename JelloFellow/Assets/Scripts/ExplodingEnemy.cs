@@ -126,6 +126,7 @@ public class ExplodingEnemy : GenericPlayer {
       }
     }
 
+    Debug.Log("Plat Angle"+platform_angle);
     return platform_angle;
   }
   
