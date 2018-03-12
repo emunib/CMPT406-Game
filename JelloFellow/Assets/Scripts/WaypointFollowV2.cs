@@ -223,7 +223,7 @@ public class WaypointFollowV2 : MonoBehaviour {
 	private void OnDrawGizmos() {
 		
 		
-		if (DebugWaypoints &&LocalWayPoints != null) {
+		if (DebugWaypoints && LocalWayPoints != null) {
 			Gizmos.color = Color.green;
 			float size = .3f;
 

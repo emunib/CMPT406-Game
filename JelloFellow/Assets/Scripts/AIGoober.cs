@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.Remoting.Messaging;
-using System.Runtime.Serialization.Formatters;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class Goomba : GenericPlayer {
-  
-  [Header("ForwardCheck Information")] public Transform fwdCheck;
-  public Transform backCheck;
-  [Range(.01f, 2)] public float fwdGroundChkRange = 1f;
-  [Range(.01f, 2)] public float fwdWallChkRange = 1f;
+public class AIGoober : GenericPlayer {
+
+  [Header("ForwardCheck Information")] 
+  //private Transform fwdCheck;
+  //private Transform backCheck;
+  [Range(.01f, 2)] public float fwdGroundChkRange = 5f;
+  [Range(.01f, 2)] public float fwdWallChkRange = 5f;
   [Range(.01f,1f)]
   public float turnWait = .5f;
 
@@ -30,7 +27,6 @@ public class Goomba : GenericPlayer {
   
   
   
-  private GoombaInput goomba_input;
 
   private DecisionTree root;
 
@@ -38,35 +34,51 @@ public class Goomba : GenericPlayer {
   private bool attackOffCd = true;
   private HashSet<RaycastHit2D> agro_game_objects;
   private HashSet<RaycastHit2D> grounded_game_objects;
+
   private bool grounded;
-  //private bool attacking; 
   private bool firstPlat = true;
   private bool turnOffCd = true;
   private Vector2 attackVector;
   
+  private GenericEnemyInput _input;
+  private bool flip;
+  private int direction = 1;
+  
+  private SpriteRenderer sprite_renderer;
+
   
   protected override void Start() {    
-    goomba_input = GetComponent<GoombaInput>();
-    SetInput(goomba_input);
+    _input = gameObject.AddComponent<GenericEnemyInput>();
+    SetInput(_input);
     SetIgnoreFields(false);
     root = gameObject.AddComponent<DecisionTree>();
     BuildDecisionTree();
     rb = GetComponent<Rigidbody2D>();
     base.Start();
+    flip = false;
+    direction = 1;
+    sprite_renderer = GetComponent<SpriteRenderer>();
 
-    goomba_input.horg = -transform.up.x;
-    goomba_input.verg = -transform.up.y;
+    
+    //TODO: Not sure where this goes? Ask rutvik
 
+    _input.rightstickx = -transform.up.x;
+    _input.rightsticky = -transform.up.y;
 
+    
   }
 
-  
-  
-  protected override void Update() {
-    base.Update();
-    goomba_input.jumpbtndown = false;
+  protected override void FixedUpdate() {
+    base.FixedUpdate();
+    //_input.DefaultValues();
+
+    //goomba_input.jumpbtndown = false;
     root.Search();
+    _input.leftstickx = 1;
+
   }
+
+
 
   public int maxAttacks =3;
   public float attackCdTime = .4f;
@@ -85,12 +97,12 @@ public class Goomba : GenericPlayer {
       attackOffCd = false;
       Invoke("ResetAttackCD",attackCdTime);
       if (numAttacks < maxAttacks) {
-        goomba_input.horizontal = attackVector.x;
-        goomba_input.vertical = attackVector.y;
+        //goomba_input.horizontal = attackVector.x;
+        //goomba_input.vertical = attackVector.y;
 
       
         numAttacks++;
-        goomba_input.jumpbtndown = true;
+        //goomba_input.jumpbtndown = true;
         if (numAttacks >= maxAttacks) {
           Invoke("ResetNumAttacks",attackNumCdTime);
         }
@@ -114,116 +126,71 @@ public class Goomba : GenericPlayer {
     attackOffCd = true;
   }
 
-  private int facing = 1;
+  private int facing = -1;
   private void Walk() {
     //Debug.Log("Movespeed sign "+Mathf.Sign(config.move_speed));
-    goomba_input.horizontal = transform.right.x*facing;
-    goomba_input.vertical = transform.right.y*facing;
 
-    
-    
-    //goomba_input.jumpbtndown = true;
-    
     //Debug.Log("Grounded"+grounded);
     //Debug.Log("turnOffCd"+turnOffCd);
+    float platform_walk_angle = PlatformAngle() - 90;
+    Vector2 movement_direction = new Vector2(Mathf.Sin(platform_walk_angle * Mathf.Deg2Rad), Mathf.Cos(platform_walk_angle * Mathf.Deg2Rad));
     
-    if (grounded && turnOffCd) {
-      FwdCheck();
-    }
+    /* use the left control stick to move in direction */
+    _input.leftstickx = movement_direction.x * direction;
+    _input.leftsticky = movement_direction.y * direction;
+    if (grounded) {
+      Vector3 fwdangle = -transform.up - transform.right;
+      Debug.DrawRay(transform.position,fwdangle,Color.magenta);
 
-  }
-  
-  /// <summary>
-  /// Check forward AND BACK for a wall. Backwards check is because sometimes the ai lands weird. Uses raycasts to check
-  /// range determined by public parameters. 
-  /// </summary>
-  private void FwdCheck() {
+      //FwdCheck();
 
-    bool turn = false;
-    Vector2 fwd_angle = fwdCheck.transform.up + fwdCheck.transform.right;
-    Vector2 back_angle = backCheck.transform.up - backCheck.transform.right; 
-    
-    
-    RaycastHit2D fwdwallhit = Physics2D.Raycast(transform.position, fwd_angle, fwdWallChkRange);
-    RaycastHit2D fwdgroundhit = Physics2D.Raycast(fwdCheck.transform.position, -transform.up, fwdGroundChkRange);
-    RaycastHit2D backwallhit = Physics2D.Raycast(transform.position, back_angle, fwdWallChkRange);
-    RaycastHit2D backgroundhit = Physics2D.Raycast(backCheck.transform.position, -transform.up, fwdGroundChkRange);
+      /*
+      float platform_angle = PlatformAngle();
+      float angle1 = platform_angle - 100f;
+      float angle2 = platform_angle + 100f;
 
-    Debug.DrawRay(transform.position,(fwd_angle)*fwdWallChkRange, Color.yellow);
-    Debug.DrawRay(fwdCheck.transform.position,-transform.up*fwdGroundChkRange, Color.green);
-    
-    Debug.DrawRay(transform.position,(back_angle)*fwdWallChkRange, Color.yellow);
-    Debug.DrawRay(backCheck.transform.position,-backCheck.transform.up*fwdGroundChkRange, Color.green);
+      float angle = flip ? Mathf.Max(angle1, angle2) : Mathf.Min(angle1, angle2);
 
-
-    if (fwdwallhit.collider != null && LayerMask.LayerToName(fwdwallhit.transform.gameObject.layer)=="Ground") {
-
-      turn = true;
-    }
-    else if (backwallhit.collider != null&& LayerMask.LayerToName(backwallhit.transform.gameObject.layer)=="Ground") {
-
-      turn = true;
-    }
-
-    else if (fwdgroundhit.collider == null) {
-      turn = true;
-    }
-    else if(backgroundhit.collider == null) {
-      turn = true;
       
+      Vector2 forwardangle_direction = new Vector2(Mathf.Sin(angle * Mathf.Deg2Rad), Mathf.Cos(angle * Mathf.Deg2Rad));
+      
+     
+      HashSet<RaycastHit2D> leaving_ground = GetObjectsInView(forwardangle_direction, 1f, 0, 5f, true);
+      if (leaving_ground.Count <= 0) {
+        Flip();
+      }
+      */
     }
-
-    //Debug.Log("Turn: " +turn);
-    if (turn) {
-      rb.velocity = Vector2.zero;
-      //move_speed *= -1;
-      turnOffCd = false;
-      facing *= -1;
-      StartCoroutine(turnOnCdCoroutine());
-    }
-  
 
   }
   
   /// <summary>
-  /// This Makes it so the ai waits till all the checks the ai uses to detect a wall or lack of ground only restarts when
-  /// the failed checks are cleared after turning the ai. 
+  /// Grab the angle of the platform or ground he is on at the moment.
   /// </summary>
-  /// <returns></returns>
-  public IEnumerator turnOnCdCoroutine() {
-    while (!turnOffCd) {
+  /// <returns>Angle of his ground.</returns>
+  private float PlatformAngle() {
+    float platform_angle = 0f;
+    /* get platform information */
+    HashSet<RaycastHit2D> hits = GetObjectsInView(-transform.up, configurator.ground_fov_angle, configurator.ground_ray_count, configurator.ground_ray_length);
+    foreach (RaycastHit2D hit in hits) {
+      if (hit.transform.gameObject.layer != gameObject.layer) {
+        /* calculate angle of the platform we are on */
+        platform_angle = Mathf.Atan2(hit.normal.x, hit.normal.y) * Mathf.Rad2Deg;
 
-      if (grounded) {
-        Vector2 fwd_angle = fwdCheck.transform.up + fwdCheck.transform.right;
-        Vector2 back_angle = backCheck.transform.up - backCheck.transform.right; 
-    
-        //could possibly use same raycasts as before as they're the exact same and pass them into this function.
-        //May save some computation     
-        RaycastHit2D fwdwallhit = Physics2D.Raycast(transform.position, fwd_angle, fwdWallChkRange);
-        RaycastHit2D fwdgroundhit = Physics2D.Raycast(fwdCheck.transform.position, -transform.up, fwdGroundChkRange);
-        RaycastHit2D backwallhit = Physics2D.Raycast(transform.position, back_angle, fwdWallChkRange);
-        RaycastHit2D backgroundhit = Physics2D.Raycast(backCheck.transform.position, -transform.up, fwdGroundChkRange);
-   
-        
-        //Keep redoing until this check clears
-        if (fwdwallhit.collider == null && backwallhit.collider == null && fwdgroundhit.collider != null &&
-            backgroundhit.collider != null) {
-   
-          //Found it made better having a few miliseconds of wait before we actually allow turning again. 
-          yield return new WaitForSeconds(turnWait);
-
-          turnOffCd = true;
-        }
-
+        /* get angle between 0 - 360, even handle negative signs with modulus */
+        platform_angle = fmod(platform_angle, 360);
+        if (platform_angle < 0) platform_angle += 360;
+        break;
       }
-
-      //Debug.Log("IN coroutine");
-
-      yield return null;
-
     }
 
-    //Debug.Log("Done coroutine");
+    return platform_angle;
+  }
+  
+  private void Flip() {
+    flip = !flip;
+    sprite_renderer.flipX = flip;
+    direction = direction * -1;
   }
   
   
@@ -233,7 +200,7 @@ public class Goomba : GenericPlayer {
   /// </summary>
   /// <returns></returns>
   private bool AgroCheck() {
-   agro_game_objects = GetObjectsInView(transform.up, agro_ray_angle_fov, agro_ray_count, agro_ray_length, false);
+   agro_game_objects = GetObjectsInView(transform.up, agro_ray_angle_fov, agro_ray_count, agro_ray_length, true);
     
     foreach (RaycastHit2D game_object in agro_game_objects) {
       
@@ -278,14 +245,14 @@ public class Goomba : GenericPlayer {
   /// Put the player in an upright position. 
   /// </summary>
   private void Upright() {
-
-    transform.up = groundedNormalVector;
+    //TODO:FIX. CURRENTLY CAUSES WEIRD STRETCHING WITH SOFTBODY
+    //transform.up = groundedNormalVector;
 
     //Special case where we set the ai's gravity the first time it touches a platform. 
     if (firstPlat) {
       firstPlat = false;
-      goomba_input.horg = -groundedNormalVector.x;
-      goomba_input.verg = -groundedNormalVector.y;
+      //goomba_input.horg = -groundedNormalVector.x;
+      //goomba_input.verg = -groundedNormalVector.y;
     }
     
   }
