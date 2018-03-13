@@ -23,11 +23,12 @@ GameObject:
   - component: {fileID: 23926347986750632}
   - component: {fileID: 114787439594191698}
   - component: {fileID: 114936046280844608}
-  - component: {fileID: 114531567552372856}
-  - component: {fileID: 114871750422681276}
+  - component: {fileID: 114222318247767610}
+  - component: {fileID: 114163258700507302}
+  - component: {fileID: 114921417141905414}
   m_Layer: 13
   m_Name: Crawler
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -97,7 +98,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1449244888240174}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.58, y: -0.83, z: 0}
+  m_LocalPosition: {x: 3.3, y: -0.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4070000142158236}
@@ -137,7 +138,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -2025391
-  m_SortingLayer: 1
+  m_SortingLayer: -2
   m_SortingOrder: 0
 --- !u!33 &33136010299356876
 MeshFilter:
@@ -146,7 +147,56 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1449244888240174}
   m_Mesh: {fileID: 0}
---- !u!114 &114531567552372856
+--- !u!114 &114163258700507302
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1449244888240174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0457fccce56245e4c800ccfc8ff740d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  is_raycast_origin: 1
+  max_velocity: 50
+  apply_gravity_tochild: 0
+  apply_movement_tochild: 0
+  ChildComponents: []
+  gravity_angular_drag: 0.5
+  gravity_linear_drag: 3
+  max_gravity_stamina: 100
+  min_gravity_stamina: 0
+  gravity_depletion_time: 5
+  gravity_field_transition_time: 0.6
+  movement_linear_drag: 5
+  move_speed: 5
+  air_speed: 2
+  jump_force: 35
+  jump_normalize_threshold: 1
+  leniency_angle: 42
+  jump_angle_coefficient: 0.8
+  ground_acceleration: 0.1
+  air_acceleration: 0.4
+  movement_leniency_angle: 20
+  ground_fov_angle: 100
+  ground_ray_count: 6
+  ground_ray_length: 2
+  verbose_gravity: 0
+  show_gravity: 0
+  gravity_ray_color: {r: 0, g: 0, b: 0, a: 1}
+  visualize_ground_check: 0
+  visualize_fov_edge: {r: 0, g: 0, b: 1, a: 1}
+  visualize_fov_inbetween: {r: 1, g: 0, b: 0, a: 1}
+  verbose_movement: 0
+  show_movement: 0
+  movement_direction_color: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  platform_direction_color: {r: 1, g: 0, b: 1, a: 1}
+  movement_leniency_color: {r: 0, g: 0, b: 1, a: 1}
+  cur_hp: 0
+  max_hp: 0
+  gravity_deadzone: 0.9
+--- !u!114 &114222318247767610
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -183,7 +233,7 @@ MonoBehaviour:
   m_CollisionDetectionMode2D: 1
   m_ManualPositioning: 0
   m_VertexDensity: 10
-  m_SphereRadius: 0.072
+  m_SphereRadius: 0.097
   m_DistanceExponent: 2
   m_Stiffness: 4
   m_Mass: 1
@@ -214,7 +264,7 @@ MonoBehaviour:
   - {fileID: 4030487108490840}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Sprite: {fileID: 21300000, guid: ebc01644c62c54afe986e8c6751bfe1c, type: 3}
---- !u!114 &114871750422681276
+--- !u!114 &114921417141905414
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -222,47 +272,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1449244888240174}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0457fccce56245e4c800ccfc8ff740d6, type: 3}
+  m_Script: {fileID: 11500000, guid: 7d791fe3ddc32724394aa80adac537f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  is_raycast_origin: 1
-  max_velocity: 20
-  apply_gravity_tochild: 1
-  apply_movement_tochild: 1
-  ChildComponents: []
-  gravity_angular_drag: 0.5
-  gravity_linear_drag: 3
-  max_gravity_stamina: 100
-  min_gravity_stamina: 0
-  gravity_depletion_time: 5
-  gravity_field_transition_time: 0.6
-  movement_linear_drag: 5
-  move_speed: 10
-  air_speed: 2
-  jump_force: 35
-  jump_normalize_threshold: 1
-  leniency_angle: 42
-  jump_angle_coefficient: 0.8
-  ground_acceleration: 0.1
-  air_acceleration: 0.4
-  movement_leniency_angle: 20
-  ground_fov_angle: 5
-  ground_ray_count: 2
-  ground_ray_length: 1.62
-  verbose_gravity: 0
-  show_gravity: 0
-  gravity_ray_color: {r: 0, g: 0, b: 0, a: 1}
-  visualize_ground_check: 1
-  visualize_fov_edge: {r: 0, g: 0, b: 1, a: 1}
-  visualize_fov_inbetween: {r: 1, g: 0, b: 0, a: 1}
-  verbose_movement: 0
-  show_movement: 1
-  movement_direction_color: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  platform_direction_color: {r: 1, g: 0, b: 1, a: 1}
-  movement_leniency_color: {r: 0, g: 0, b: 1, a: 1}
-  cur_hp: 0
-  max_hp: 0
-  gravity_deadzone: 0.9
+  GrowTime: 0.5
 --- !u!114 &114936046280844608
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -308,7 +321,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -2025391
-  m_SortingLayer: 1
+  m_SortingLayer: -2
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 1ef638db18ec546b48ed55832f29e080, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -352,7 +365,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -2025391
-  m_SortingLayer: 1
+  m_SortingLayer: -2
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 25aa35d8de0674107b40af566feb7f47, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

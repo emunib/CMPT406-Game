@@ -275,10 +275,10 @@ MonoBehaviour:
   m_Script: {fileID: 1980459831, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -490,6 +490,7 @@ MonoBehaviour:
   scenes:
   - {fileID: 102900000, guid: 2e780dc4aaeef46868c98b2dd32c32fd, type: 3}
   - {fileID: 102900000, guid: 661697fa82fec40afb0eb537970ff0b7, type: 3}
+  - {fileID: 102900000, guid: de7bf87a2f61044698004da4c70a8da0, type: 3}
 --- !u!1 &1433030954
 GameObject:
   m_ObjectHideFlags: 0
@@ -518,10 +519,10 @@ MonoBehaviour:
   m_Script: {fileID: 1077351063, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_HorizontalAxis: Horizontal
-  m_VerticalAxis: Vertical
-  m_SubmitButton: Submit
-  m_CancelButton: Cancel
+  m_HorizontalAxis: LeftStickX_X
+  m_VerticalAxis: LeftStickY_X
+  m_SubmitButton: Button3_X
+  m_CancelButton: Button2_X
   m_InputActionsPerSecond: 10
   m_RepeatDelay: 0.5
   m_ForceModuleActive: 0
@@ -604,7 +605,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 20
   m_Depth: 1
   m_CullingMask:
     serializedVersion: 2

@@ -39,7 +39,7 @@ public class GravLight : MonoBehaviour {
 				}
 			}*/
 			
-			Debug.Log ("object entered field");
+			//Debug.Log ("object entered field");
 			Gravity field = other.GetComponent<Gravity>();
 			if (field != null) {
 				field.SetGravityLightRestrictions(disableAlong);
@@ -51,14 +51,14 @@ public class GravLight : MonoBehaviour {
 	void OnTriggerExit2D(Collider2D other) {
 
 		//REanable Gravity
-		if (other.attachedRigidbody){
+		//if (other.attachedRigidbody){
 			Gravity field = other.GetComponent<Gravity>();
 
 			if (field != null) {
 				field.SetGravityLightRestrictions(Vector2.one);
 			}
 
-		}
+		//}
 	}
 
 	
