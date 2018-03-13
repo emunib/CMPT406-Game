@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class ApplyDmg : MonoBehaviour {
@@ -14,6 +12,10 @@ public class ApplyDmg : MonoBehaviour {
 			if (jelly_enemy) {
 				jelly_enemy.ParentJellySprite.gameObject.AddComponent<DeathEffect>();
 			}
+		}
+
+		if (gameObject.CompareTag("SpikerProjectile")) {
+			Destroy(gameObject);
 		}
 	}
 	

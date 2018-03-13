@@ -5,6 +5,7 @@ using UnityEngine;
 public class SpikerAI : GenericPlayer {
 	private const string player_tag = "Player";
 	private const float rotation_speed = 1f;
+	private const float explode_time = 2f;
 	
 	private GenericEnemyInput _input;
 	private UnityJellySprite jelly;
@@ -12,6 +13,9 @@ public class SpikerAI : GenericPlayer {
 	private bool do_once;
 	private bool stop_movement;
 	private bool grounded_activated;
+	private SpikerProjectile[] projectiles;
+	private Color original_color;
+	private Coroutine fuse_coroutine;
 	
 	protected override void Start() {
 		base.Start();
@@ -28,6 +32,12 @@ public class SpikerAI : GenericPlayer {
 		do_once = true;
 		stop_movement = false;
 		grounded_activated = false;
+		projectiles = jelly.gameObject.GetComponentsInChildren<SpikerProjectile>();
+		original_color = jelly.gameObject.GetComponent<Renderer>().material.color;
+
+		foreach (SpikerProjectile projectile in projectiles) {
+			projectile.gameObject.SetActive(false);
+		}
 	}
 
 	protected override void Update() {
@@ -75,7 +85,7 @@ public class SpikerAI : GenericPlayer {
 			float angle = flip ? Mathf.Max(angle1, angle2) : Mathf.Min(angle1, angle2);
 
 			Vector2 forwardangle_direction = new Vector2(Mathf.Sin(angle * Mathf.Deg2Rad), Mathf.Cos(angle * Mathf.Deg2Rad));
-			HashSet<RaycastHit2D> leaving_ground = GetObjectsInView(forwardangle_direction, 1f, 0, 6f, true);
+			HashSet<RaycastHit2D> leaving_ground = GetObjectsInView(forwardangle_direction, 1f, 0, 6f);
 			if (leaving_ground.Count <= 0) {
 				HandleLeavingGround();
 			} else {
@@ -93,15 +103,18 @@ public class SpikerAI : GenericPlayer {
 				}
 			}
 			
-			HashSet<RaycastHit2D> forward_check = GetObjectsInView(flip ? transform.right : -transform.right, 1f, 0, 3.8f, true);
-			foreach (RaycastHit2D hit in forward_check) {
-				/* player in front */
-				if (hit.transform.CompareTag(player_tag)) {
-					HandlePlayerInFront(hit.transform.gameObject);
-					break;
-				}
-
+			HashSet<RaycastHit2D> forward_check = GetObjectsInView(flip ? transform.right : -transform.right, 1f, 0, 3.8f);
+			if(forward_check.Count > 0) {
 				HandleOtherInFront();
+			}
+		}
+		
+		/* this allows us to have higher range to check for player */
+		HashSet<RaycastHit2D> player_check = GetObjectsInView(flip ? transform.right : -transform.right, 45f, 6, 6f);
+		foreach (RaycastHit2D hit in player_check) {
+			/* player in front */
+			if (hit.transform.CompareTag(player_tag)) {
+				HandlePlayerInFront(hit.transform.gameObject);
 				break;
 			}
 		}
@@ -130,7 +143,52 @@ public class SpikerAI : GenericPlayer {
 	/// </summary>
 	/// <param name="_player"></param>
 	private void HandlePlayerInFront(GameObject _player) {
-		_player.transform.parent.GetComponentInChildren<GenericPlayer>().Damage(1);
+		if (fuse_coroutine == null) {
+			stop_movement = true;
+			_input.button3_down = true;
+			fuse_coroutine = StartCoroutine(StartFuse(0.1f));
+			Invoke("Explode", explode_time);
+		}
+
+		//_player.transform.parent.GetComponentInChildren<GenericPlayer>().Damage(1);
+	}
+
+	private void Explode() {
+		foreach (SpikerProjectile projectile in projectiles) {
+			GameObject _projectile = Instantiate(projectile.gameObject, projectile.gameObject.transform.position, projectile.gameObject.transform.rotation);
+			_projectile.gameObject.SetActive(true);
+			_projectile.GetComponent<SpikerProjectile>().activate();
+		}
+		
+		StopCoroutine(fuse_coroutine);
+		fuse_coroutine = null;
+		stop_movement = false;
+		jelly.gameObject.GetComponent<Renderer>().material.color = original_color;
+	}
+	
+	/// <summary>
+	/// Starts the fuse visual by having the sprite slowly blink to its
+	/// inverted/red colour.
+	/// </summary>
+	/// <param name="rate">Rate at which to cause the flicker</param>
+	private IEnumerator StartFuse(float rate) {
+		bool alt = false;
+    
+		Color start = original_color;
+    
+		/* if we wanted red colour from start */
+		Color end = new Color(1f, start.g * 0.1f, start.b * 0.1f);
+		const float duration = 0.5f;
+		while (true) {
+			for (float t = 0.0f; t < duration; t += Time.deltaTime) {
+				Color changedColor = alt ? Color.Lerp(end, start, t / duration) : Color.Lerp(start, end, t / duration);
+				jelly.gameObject.GetComponent<Renderer>().material.color = changedColor;
+				yield return null;
+			}
+      
+			alt = !alt;
+			yield return new WaitForSeconds(rate);
+		}
 	}
 
 	/// <summary>
