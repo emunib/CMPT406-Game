@@ -119,8 +119,6 @@ public class SmartAI : GenericPlayer {
 		/* just making sure that after some time it didn't just correct itself */
 		if (!is_grounded) {
 			jelly.gameObject.AddComponent<DeathEffect>();
-			string unique_key = jelly.name.Substring(jelly.name.Length - 6);
-			GameObject.Find("CrawlerSpawner" + unique_key).SendMessage("Death");
 		} else {
 			death_activate = false;
 		}
