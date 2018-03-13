@@ -1906,6 +1906,26 @@ public abstract class JellySprite : MonoBehaviour
 	/// <summary>
 	/// Add a force to every reference point
 	/// </summary>
+	public void AddVelocity(Vector2 velocity)
+	{
+		if(m_ReferencePoints != null)
+		{
+			foreach(ReferencePoint referencePoint in m_ReferencePoints)
+			{
+				if(referencePoint.Body2D) {
+					referencePoint.Body2D.velocity += velocity;
+				}
+				
+				if(referencePoint.Body3D) {
+					referencePoint.Body3D.velocity += (Vector3)velocity;
+				}
+			}
+		}
+	}
+	
+	/// <summary>
+	/// Add a force to every reference point
+	/// </summary>
 	public void AddForce(Vector2 force)
 	{
 		if(m_ReferencePoints != null)

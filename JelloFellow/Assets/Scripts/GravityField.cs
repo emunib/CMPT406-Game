@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <inheritdoc/>
@@ -62,9 +63,7 @@ public abstract class GravityField : GravityPlayer {
     
     /* let the gravity object know its in our field */
     Gravity grav = other.gameObject.GetComponent<Gravity>();
-    if (grav != null) {
-      print(other.gameObject.name + ": In Field");
-      
+    if (grav != null) {      
       lock (_lock) {
         in_field.Add(other.gameObject);
         grav.SetCustomGravity(GetGravity() * GravityDrag);
@@ -87,13 +86,21 @@ public abstract class GravityField : GravityPlayer {
   protected override void SetGravity(Vector2 _gravity) {
     lock (_lock) {
       foreach (GameObject gameObj in in_field) {
-        Gravity grav = gameObj.gameObject.GetComponent<Gravity>();
-        print(gameObj.name + ": Setting custom gravity");
-        grav.SetCustomGravity(_gravity * GravityDrag);
+        if (gameObj) {
+          Gravity grav = gameObj.gameObject.GetComponent<Gravity>();
+          grav.SetCustomGravity(_gravity * GravityDrag);
+        } else {
+          StartCoroutine(RemoveObject(gameObj, 0.1f));
+        }
       }
     }
 
     base.SetGravity(_gravity);
+  }
+
+  private IEnumerator RemoveObject(GameObject _removing, float delay) {
+    yield return new WaitForSeconds(delay);
+    in_field.Remove(_removing);
   }
 
   /// <summary>
