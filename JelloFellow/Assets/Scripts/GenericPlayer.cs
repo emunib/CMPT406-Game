@@ -37,7 +37,7 @@ public class GenericPlayer : GravityField {
   private float velocity_y_smoothing;
 
   /* contains the last grounded platforms angle and hit normal vector */
-  private float platform_angle = 0f;
+  protected float platform_angle { get; private set; }
   private Vector2 platform_hit_normal;
 
   private bool set_fixed_gravity = false;
@@ -200,8 +200,9 @@ public class GenericPlayer : GravityField {
 
     if (configurator.show_gravity) Debug.DrawRay(transform.position, GetGravity(), configurator.gravity_ray_color);
 
-    /* update the gravity field alpha to represent the gravity stamina */
-    ChangeGravityAlpha(Mathf.Clamp01(gravity_stamina / configurator.max_gravity_stamina));
+    /* update the gravity field fill to represent the gravity stamina */
+    if (ReleasedGravity()) gravity_stamina = Mathf.Clamp(gravity_stamina - 5, configurator.min_gravity_stamina, configurator.max_gravity_stamina);
+    ChangeGravityFill(Mathf.Clamp01(gravity_stamina / configurator.max_gravity_stamina));
 
     /* run update in base class (applies gravity) */
     base.Update();
@@ -228,6 +229,7 @@ public class GenericPlayer : GravityField {
     }
   }
 
+  public Vector2 prevInput = Vector2.zero;
   /// <summary>
   /// Modulo operator function.
   /// https://answers.unity.com/questions/380035/c-modulus-is-wrong-1.html
@@ -236,7 +238,30 @@ public class GenericPlayer : GravityField {
     return a - b * Mathf.Floor(a / b);
   }
 
-  private static float GetAngle(float x, float y) {
+  protected bool ReleasedGravity()
+  {
+    Vector2 stick_input = new Vector2(horizontal_gravity, vertical_gravity);
+    if (stick_input.magnitude < configurator.gravity_deadzone) {
+      stick_input = Vector2.zero;
+    }
+
+    if (is_grounded)
+    {
+      prevInput = Vector2.one;
+      return false;
+    }
+
+    if (prevInput == Vector2.zero)
+    {
+      prevInput = stick_input;
+      return stick_input != Vector2.zero;
+    }
+
+    prevInput = stick_input;
+    return false;
+  }
+
+  protected static float GetAngle(float x, float y) {
     float tmp_angle = Mathf.Atan2(x, y) * Mathf.Rad2Deg;
     /* get angle between 0 - 360, even handle negative signs with modulus */
     tmp_angle = fmod(tmp_angle, 360);
@@ -519,7 +544,7 @@ public class GenericPlayer : GravityField {
   }
 
   //Damage Information
-  private void Damage(int amount) {
+  public void Damage(int amount) {
     configurator.cur_hp -= amount;
     if (configurator.cur_hp < 0) {
       Debug.Log("Bleh I died.");

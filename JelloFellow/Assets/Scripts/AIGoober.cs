@@ -37,35 +37,37 @@ public class AIGoober : GenericPlayer {
   private GenericEnemyInput _input;
   private bool flip;
   private int direction = 1;
-  
+  private bool do_once;
   private SpriteRenderer sprite_renderer;
 
   
-  protected override void Start() {    
-    _input = gameObject.AddComponent<GenericEnemyInput>();
-    SetInput(_input);
+  protected override void Start() {
     base.Start();
 
+    _input = gameObject.AddComponent<GenericEnemyInput>();
+    SetIgnoreFields(false);
+    SetInput(_input);
+    SetFieldRadius(2f);
+    
     root = gameObject.AddComponent<DecisionTree>();
     BuildDecisionTree();
     rb = GetComponent<Rigidbody2D>();
     flip = false;
     direction = 1;
     sprite_renderer = GetComponent<SpriteRenderer>();
-
-    
-    _input.DefaultValues();
-
-    _input.rightstickx = -transform.up.x;
-    _input.rightsticky = -transform.up.y;
-
-    SetIgnoreFields(false);
-
+    do_once = true;
   }
 
   protected override void FixedUpdate() {
     
     base.FixedUpdate();
+    _input.DefaultValues();
+    if (do_once) {
+      _input.rightstickx = -transform.up.x;
+      _input.rightsticky = -transform.up.y;
+      do_once = false;
+    }
+
     Debug.Log("Direction"+direction);
     _input.button3_down = false;
     root.Search();
