@@ -15,7 +15,7 @@ public class SceneSelectorScene : MonoBehaviour {
   private const string scenebutton_path = "Prefabs/UI/SceneButton";
   private const string scenepreview_path = "LevelPreviews/";
   private const string scenepreviewtest_path = "LevelPreviews/Test";
-  private const int rows_fixed = 2;
+  private const int rows_fixed = 3;
   
   private float lerpTime;
   private ScrollRect scrollRect;

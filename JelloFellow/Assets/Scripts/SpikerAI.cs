@@ -107,6 +107,15 @@ public class SpikerAI : GenericPlayer {
 			if(forward_check.Count > 0) {
 				HandleOtherInFront();
 			}
+			
+			HashSet<RaycastHit2D> threat_check = GetObjectsInView(flip ? transform.right : -transform.right, 1f, 0, 6f, true);
+			foreach (RaycastHit2D hit in threat_check) {
+				/* player in front */
+				if (hit.transform.CompareTag("Threat")) {
+					HandleOtherInFront();
+					break;
+				}
+			}
 		}
 		
 		/* this allows us to have higher range to check for player */

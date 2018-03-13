@@ -196,6 +196,7 @@ public class GenericPlayer : GravityField {
       if(vertical_movement == 0f) vertical_movement = input.GetVerticalLeftStick();
       if(!jump_button_down) jump_button_down = input.GetButton3Down();
       if(!right_stick_clicked) right_stick_clicked = input.GetRightStickDown();
+      if (!jump_button_down) jump_button_down = input.GetRightBumperDown();
     }
 
     if (configurator.show_gravity) Debug.DrawRay(transform.position, GetGravity(), configurator.gravity_ray_color);
@@ -214,8 +215,8 @@ public class GenericPlayer : GravityField {
     /* we must have handled the inputs */
     horizontal_movement = 0f;
     vertical_movement = 0f;
-    jump_button_down = false;
-    right_stick_clicked = false;
+    if(jump_button_down) jump_button_down = false;
+    if(right_stick_clicked) right_stick_clicked = false;
     
     rigidbody.velocity = Vector2.ClampMagnitude(rigidbody.velocity, configurator.max_velocity);
 
