@@ -121,16 +121,19 @@ public abstract class GravityField : GravityPlayer {
 
   private void SetSorting()
   {
-    var so = UniqueSorting.GetNextSorting();
+    var fill = gravityfield_visualizer.transform.Find("Field/Full").GetComponent<SpriteRenderer>();
+    var fillMask = gravityfield_visualizer.transform.Find("Field/Mask").GetComponent<SpriteMask>();
+    
+    fill.sortingOrder = UniqueSorting.GetNextSorting();
+    fillMask.frontSortingOrder = fill.sortingOrder;
+    fillMask.backSortingOrder = UniqueSorting.GetNextSorting();
 
-    gravityfield_visualizer.transform.Find("Field/Full").GetComponent<SpriteRenderer>().sortingOrder = so;
-    gravityfield_visualizer.transform.Find("Field/Mask").GetComponent<SpriteMask>().frontSortingOrder = so;
-    gravityfield_visualizer.transform.Find("Field/Mask").GetComponent<SpriteMask>().backSortingOrder = UniqueSorting.GetNextSorting();
-
-    so = UniqueSorting.GetNextSorting();
-    gravityfield_visualizer.transform.Find("Field/Outline").GetComponent<SpriteRenderer>().sortingOrder = so;
-    gravityfield_visualizer.transform.Find("OutlineMask").GetComponent<SpriteMask>().frontSortingOrder = so;
-    gravityfield_visualizer.transform.Find("OutlineMask").GetComponent<SpriteMask>().backSortingOrder = UniqueSorting.GetNextSorting();
+    var outline = gravityfield_visualizer.transform.Find("Field/Outline").GetComponent<SpriteRenderer>();
+    var outlineMask =  gravityfield_visualizer.transform.Find("OutlineMask").GetComponent<SpriteMask>();
+    
+    outline.sortingOrder = UniqueSorting.GetNextSorting();
+    outlineMask.frontSortingOrder = outline.sortingOrder;
+    outlineMask.backSortingOrder = UniqueSorting.GetNextSorting();
   }
   
   /* uncomment to visualize without starting the scene */
