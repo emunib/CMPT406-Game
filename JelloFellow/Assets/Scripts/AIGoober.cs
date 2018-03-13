@@ -10,7 +10,7 @@ public class AIGoober : GenericPlayer {
   [Header("AgroFOV Raycast Settings")]
 
   [CustomRangeLabel("Ray Length", 0f, 20f)] [Tooltip("Length of the ray.")]
-  [SerializeField] private float agro_ray_length= 10;
+  [SerializeField] private float agro_ray_length= 15;
 
   [CustomRangeLabel("Ray Count", 0f, 20f)] [Tooltip("Number of rays to show in between main rays.")]
   [SerializeField] private int agro_ray_count = 7;
@@ -78,13 +78,13 @@ public class AIGoober : GenericPlayer {
     _input.button3_down = false;
     root.Search();
     
-    if (is_grounded==true)Debug.Log("I am grounded");
-    
+    //if (is_grounded==true)Debug.Log("I am grounded");
+    DetectCollision();
   }
 
 
 
-  public int maxAttacks =1;
+  public int maxAttacks =10;
   public float attackCdTime = .4f;
   public float attackNumCdTime = 5f;
 
@@ -128,6 +128,20 @@ public class AIGoober : GenericPlayer {
     attackOffCd = true;
   }
 
+
+  private void DetectCollision() {
+    HashSet<RaycastHit2D> forward_check = GetObjectsInView(transform.right, 360, 10, 3f, true);
+    foreach (RaycastHit2D hit in forward_check) {
+      /* player in front */
+      if (hit.transform.CompareTag("Player")) {
+        hit.transform.parent.GetComponentInChildren<GenericPlayer>().Damage(1);
+        
+      }
+
+     
+    }
+  }
+  
   private void Walk() {
 
     float platform_walk_angle = PlatformAngle() - 90;
@@ -266,32 +280,23 @@ public class AIGoober : GenericPlayer {
       RaycastHit2D groundhit = Physics2D.Raycast(transform.position,
       gobject.transform.position - transform.position * configurator.ground_ray_length);
 
-      float angle = Vector3.Angle(groundhit.normal, transform.up);
-      if (angle>10){
-        return false;
-      }
-
-      if (angle != 0) {
-        foreach (RaycastHit2D hit in grounded_game_objects) {
-          Vector2 hit_normal = hit.normal;
-          /* if the object has children then use the parent's rotation to calculate the normal */
-          if (hit.collider.gameObject.transform.childCount > 0) {
-            hit_normal =
-              Quaternion.AngleAxis(hit.collider.gameObject.transform.rotation.eulerAngles.z, Vector3.forward) *
-              hit.normal;
-          }
-
-          /* get platform information we just hit */
-          float platform_angle_update = GetAngle(hit_normal.y, hit_normal.x);
-
-          //transform.rotation = Quaternion.Slerp(transform.rotation,Quaternion.Euler(0f, 0f, platform_angle_update != 0f ? platform_angle_update - 90 : 0f),4 * Time.deltaTime);
-          //_input.rightstickx = -transform.up.x;
-          //_input.rightsticky = -transform.up.y;
-
-          break;
+      Vector2 hit_normal = groundhit.normal;
+      /* if the object has children then use the parent's rotation to calculate the normal */
+      if (groundhit.collider!= null) {
+        if (groundhit.collider.gameObject.transform.childCount > 0) {
+          hit_normal =
+            Quaternion.AngleAxis(groundhit.collider.gameObject.transform.rotation.eulerAngles.z, Vector3.forward) *
+            groundhit.normal;
         }
       }
+      //float up = Mathf.Atan2(transform.up.x, transform.up.y) * Mathf.Rad2Deg;
+      //float platform_angle = PlatformAngle();
 
+      float up = GetAngle(transform.up.x,transform.up.y);
+      if ((Mathf.Abs(platform_angle-up))>1) {
+        return false;
+      }
+      
 
       groundedNormalVector = groundhit.normal;
 
@@ -317,21 +322,16 @@ public class AIGoober : GenericPlayer {
       }
 
       /* get platform information we just hit */
+      //TODO:Not sure why its y then x. This gives wrong angle information
       float platform_angle_update = GetAngle(hit_normal.y, hit_normal.x);
       
-      //transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0f, 0f, platform_angle_update != 0f ? platform_angle_update - 90 : 0f),4* Time.deltaTime);
-      //_input.rightstickx = -transform.up.x;
-      //_input.rightsticky = -transform.up.y;
+      transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0f, 0f, platform_angle_update != 0f ? platform_angle_update - 90 : 0f), 3* Time.deltaTime);
+      _input.rightstickx = -transform.up.x;
+      _input.rightsticky = -transform.up.y;
 
       break;
     }
-    if (firstPlat) {
-      //firstPlat = false;
-      //goomba_input.horg = -groundedNormalVector.x;
-      //goomba_input.verg = -groundedNormalVector.y;
-      //_input.rightstickx = -groundedNormalVector.x;
-      //_input.rightsticky = -groundedNormalVector.y;
-    }
+    
     
   }
 
@@ -347,12 +347,10 @@ public class AIGoober : GenericPlayer {
 
   //For now does nothing. Maybe like a funny panic animation in the air
   private void Panic() {
-    Debug.Log("Panicking");
-    Vector3 rotation = transform.rotation.eulerAngles;
-    rotation.z += 50;
+    //Debug.Log("Panicking");
+ 
     
-    //transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(rotation),5* Time.deltaTime);
-
+   
   }
 
   
