@@ -6,11 +6,11 @@ public class AIGoober : GenericPlayer {
 
   
 
-  
+  //TODO:Maybe need another config so I can play with these settings
   [Header("AgroFOV Raycast Settings")]
 
   [CustomRangeLabel("Ray Length", 0f, 20f)] [Tooltip("Length of the ray.")]
-  [SerializeField] private float agro_ray_length= 15;
+  [SerializeField] private float agro_ray_length= 12;
 
   [CustomRangeLabel("Ray Count", 0f, 20f)] [Tooltip("Number of rays to show in between main rays.")]
   [SerializeField] private int agro_ray_count = 7;
@@ -18,13 +18,14 @@ public class AIGoober : GenericPlayer {
   [CustomRangeLabel("Angle FOV", 0f, 180f)] [Tooltip("Padding for the angle.")]
   [SerializeField] private float agro_ray_angle_fov = 180;
 
+  public bool VisualizeAgro = true;
+
   
   
   
 
   private DecisionTree root;
 
-  private Rigidbody2D rb;
   private bool attackOffCd = true;
   private HashSet<RaycastHit2D> agro_game_objects;
   private HashSet<RaycastHit2D> grounded_game_objects;
@@ -38,7 +39,6 @@ public class AIGoober : GenericPlayer {
   private bool flip;
   private int direction = 1;
   private bool do_once;
-  private SpriteRenderer sprite_renderer;
 
   
   protected override void Start() {
@@ -51,10 +51,8 @@ public class AIGoober : GenericPlayer {
     
     root = gameObject.AddComponent<DecisionTree>();
     BuildDecisionTree();
-    rb = GetComponent<Rigidbody2D>();
     flip = false;
     direction = 1;
-    sprite_renderer = GetComponent<SpriteRenderer>();
     do_once = true;
   }
 
@@ -74,11 +72,9 @@ public class AIGoober : GenericPlayer {
       do_once = false;
     }
 
-    Debug.Log("Direction"+direction);
     _input.button3_down = false;
     root.Search();
     
-    //if (is_grounded==true)Debug.Log("I am grounded");
     DetectCollision();
   }
 
@@ -91,8 +87,6 @@ public class AIGoober : GenericPlayer {
   public int numAttacks = 0;
   
   private void Attack() {
-    Debug.Log("Im attacking");
-    //Transform target = GameObject.FindGameObjectWithTag("Player").transform;
 
     
     //Only Jump If I can
@@ -130,7 +124,7 @@ public class AIGoober : GenericPlayer {
 
 
   private void DetectCollision() {
-    HashSet<RaycastHit2D> forward_check = GetObjectsInView(transform.right, 360, 10, 3f, true);
+    HashSet<RaycastHit2D> forward_check = GetObjectsInView(transform.right, 360, 10, 3f,true);
     foreach (RaycastHit2D hit in forward_check) {
       /* player in front */
       if (hit.transform.CompareTag("Player")) {
@@ -216,7 +210,6 @@ public class AIGoober : GenericPlayer {
   
   private void Flip() {
     flip = !flip;
-    //sprite_renderer.flipX = flip;
     direction = direction * -1;
   }
   
@@ -227,7 +220,7 @@ public class AIGoober : GenericPlayer {
   /// </summary>
   /// <returns></returns>
   private bool AgroCheck() {
-   agro_game_objects = GetObjectsInView(transform.up, agro_ray_angle_fov, agro_ray_count, agro_ray_length, true);
+   agro_game_objects = GetObjectsInView(transform.up, agro_ray_angle_fov, agro_ray_count, agro_ray_length, VisualizeAgro);
     
     foreach (RaycastHit2D game_object in agro_game_objects) {
       
@@ -235,10 +228,8 @@ public class AIGoober : GenericPlayer {
         Debug.DrawRay(transform.position,(game_object.transform.position-transform.position), Color.cyan);
 
         attackVector = game_object.transform.position - transform.position;
-        //Debug.Log("Atkvec:"+attackVector);
 
         float plat_angle = PlatformAngle();
-        Debug.Log("GooberAI: PlatAng"+plat_angle);
         
         //TODO: FIX Bug on 225degree angled platforms
         if ((plat_angle > 45 && plat_angle < 135) || (plat_angle>=225 &&plat_angle<=315)) {
@@ -273,7 +264,6 @@ public class AIGoober : GenericPlayer {
   /// <returns></returns>
   private bool UprightCheck() {
     
-    //TODO:FIX- CURRENTLY DOES NOT WORK
     grounded_game_objects = GetObjectsInView(GetGravity(), configurator.ground_fov_angle, configurator.ground_ray_count, configurator.ground_ray_length);
     
     foreach (RaycastHit2D gobject in grounded_game_objects) {
@@ -289,8 +279,7 @@ public class AIGoober : GenericPlayer {
             groundhit.normal;
         }
       }
-      //float up = Mathf.Atan2(transform.up.x, transform.up.y) * Mathf.Rad2Deg;
-      //float platform_angle = PlatformAngle();
+      
 
       float up = GetAngle(transform.up.x,transform.up.y);
       if ((Mathf.Abs(platform_angle-up))>1) {
@@ -309,8 +298,6 @@ public class AIGoober : GenericPlayer {
   /// Put the player in an upright position. 
   /// </summary>
   private void Upright() {
-    //TODO:FIX. CURRENTLY CAUSES WEIRD STRETCHING WITH SOFTBODY
-    //transform.up = groundedNormalVector;
 
     //Special case where we set the ai's gravity the first time it touches a platform. 
     
@@ -347,10 +334,7 @@ public class AIGoober : GenericPlayer {
 
   //For now does nothing. Maybe like a funny panic animation in the air
   private void Panic() {
-    //Debug.Log("Panicking");
- 
-    
-   
+
   }
 
   
