@@ -61,7 +61,13 @@ public class AIGoober : GenericPlayer {
   protected override void FixedUpdate() {
     
     base.FixedUpdate();
-    _input.DefaultValues();
+
+    Vector2 g = new Vector2(_input.rightstickx,_input.rightsticky);
+    
+    //_input.DefaultValues();
+    
+
+    
     if (do_once) {
       _input.rightstickx = -transform.up.x;
       _input.rightsticky = -transform.up.y;
@@ -260,14 +266,33 @@ public class AIGoober : GenericPlayer {
       RaycastHit2D groundhit = Physics2D.Raycast(transform.position,
       gobject.transform.position - transform.position * configurator.ground_ray_length);
 
-      
-      if (groundhit.normal != (Vector2)transform.up) {
+      float angle = Vector3.Angle(groundhit.normal, transform.up);
+      if (angle>10){
         return false;
       }
-      
-     
 
-      
+      if (angle != 0) {
+        foreach (RaycastHit2D hit in grounded_game_objects) {
+          Vector2 hit_normal = hit.normal;
+          /* if the object has children then use the parent's rotation to calculate the normal */
+          if (hit.collider.gameObject.transform.childCount > 0) {
+            hit_normal =
+              Quaternion.AngleAxis(hit.collider.gameObject.transform.rotation.eulerAngles.z, Vector3.forward) *
+              hit.normal;
+          }
+
+          /* get platform information we just hit */
+          float platform_angle_update = GetAngle(hit_normal.y, hit_normal.x);
+
+          //transform.rotation = Quaternion.Slerp(transform.rotation,Quaternion.Euler(0f, 0f, platform_angle_update != 0f ? platform_angle_update - 90 : 0f),4 * Time.deltaTime);
+          //_input.rightstickx = -transform.up.x;
+          //_input.rightsticky = -transform.up.y;
+
+          break;
+        }
+      }
+
+
       groundedNormalVector = groundhit.normal;
 
     }
@@ -294,7 +319,7 @@ public class AIGoober : GenericPlayer {
       /* get platform information we just hit */
       float platform_angle_update = GetAngle(hit_normal.y, hit_normal.x);
       
-      transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0f, 0f, platform_angle_update != 0f ? platform_angle_update - 90 : 0f),2* Time.deltaTime);
+      //transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0f, 0f, platform_angle_update != 0f ? platform_angle_update - 90 : 0f),4* Time.deltaTime);
       //_input.rightstickx = -transform.up.x;
       //_input.rightsticky = -transform.up.y;
 
@@ -326,7 +351,7 @@ public class AIGoober : GenericPlayer {
     Vector3 rotation = transform.rotation.eulerAngles;
     rotation.z += 50;
     
-    transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(rotation),5* Time.deltaTime);
+    //transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(rotation),5* Time.deltaTime);
 
   }
 
