@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 114107594321318218}
   m_Layer: 13
   m_Name: Spiker
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -255,11 +255,11 @@ MonoBehaviour:
   verbose_gravity: 0
   show_gravity: 0
   gravity_ray_color: {r: 0, g: 0, b: 0, a: 1}
-  visualize_ground_check: 1
+  visualize_ground_check: 0
   visualize_fov_edge: {r: 0, g: 0, b: 1, a: 1}
   visualize_fov_inbetween: {r: 1, g: 0, b: 0, a: 1}
   verbose_movement: 0
-  show_movement: 1
+  show_movement: 0
   movement_direction_color: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   platform_direction_color: {r: 1, g: 0, b: 1, a: 1}
   movement_leniency_color: {r: 0, g: 0, b: 1, a: 1}
@@ -324,7 +324,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -2025391
-  m_SortingLayer: 1
+  m_SortingLayer: -2
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: e298284e223cb4983a696f665223f60a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -368,7 +368,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -2025391
-  m_SortingLayer: 1
+  m_SortingLayer: -2
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 5be4bcadb76034d9abed38aeb74ce944, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

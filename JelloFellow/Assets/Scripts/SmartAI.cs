@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class SmartAI : GenericPlayer {
 	private const string player_tag = "Player";
+	private const float rotation_speed = 1f;
+	
 	private GenericEnemyInput _input;
 	private UnityJellySprite jelly;
 	private bool flip;
@@ -67,8 +69,8 @@ public class SmartAI : GenericPlayer {
 			_input.rightstickclick_down = true;
 			
 			/* get the walking stick angle and if we leave the ground then handle that */
-			float angle1 = platform_angle - 120f;
-			float angle2 = platform_angle + 120f;
+			float angle1 = platform_angle - 125f;
+			float angle2 = platform_angle + 125f;
 			float angle = flip ? Mathf.Max(angle1, angle2) : Mathf.Min(angle1, angle2);
 
 			Vector2 forwardangle_direction = new Vector2(Mathf.Sin(angle * Mathf.Deg2Rad), Mathf.Cos(angle * Mathf.Deg2Rad));
@@ -85,12 +87,12 @@ public class SmartAI : GenericPlayer {
 
 					/* get platform information we just hit */
 					float platform_angle_update = GetAngle(hit_normal.y, hit_normal.x);
-					transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0f, 0f, platform_angle_update != 0f ? platform_angle_update - 90 : 0f), Time.deltaTime);
+					transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0f, 0f, platform_angle_update != 0f ? platform_angle_update - 90 : 0f), Time.deltaTime * rotation_speed);
 					break;
 				}
 			}
 			
-			HashSet<RaycastHit2D> forward_check = GetObjectsInView(flip ? transform.right : -transform.right, 1f, 0, 3f, true);
+			HashSet<RaycastHit2D> forward_check = GetObjectsInView(flip ? transform.right : -transform.right, 1f, 0, 2.4f, true);
 			foreach (RaycastHit2D hit in forward_check) {
 				/* player in front */
 				if (hit.transform.CompareTag(player_tag)) {

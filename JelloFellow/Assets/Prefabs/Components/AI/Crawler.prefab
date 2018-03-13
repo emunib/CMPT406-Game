@@ -97,15 +97,15 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1449244888240174}
-  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
-  m_LocalPosition: {x: -0.07580328, y: -7.2, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.3, y: -0.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4070000142158236}
   - {fileID: 4030487108490840}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &23926347986750632
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -170,7 +170,7 @@ MonoBehaviour:
   gravity_depletion_time: 5
   gravity_field_transition_time: 0.6
   movement_linear_drag: 5
-  move_speed: 10
+  move_speed: 5
   air_speed: 2
   jump_force: 35
   jump_normalize_threshold: 1
@@ -185,7 +185,7 @@ MonoBehaviour:
   verbose_gravity: 0
   show_gravity: 0
   gravity_ray_color: {r: 0, g: 0, b: 0, a: 1}
-  visualize_ground_check: 1
+  visualize_ground_check: 0
   visualize_fov_edge: {r: 0, g: 0, b: 1, a: 1}
   visualize_fov_inbetween: {r: 1, g: 0, b: 0, a: 1}
   verbose_movement: 0
