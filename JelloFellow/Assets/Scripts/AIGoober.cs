@@ -62,7 +62,7 @@ public class AIGoober : GenericPlayer {
 
     Vector2 g = new Vector2(_input.rightstickx,_input.rightsticky);
     
-    //_input.DefaultValues();
+    _input.DefaultValues();
     
 
     
