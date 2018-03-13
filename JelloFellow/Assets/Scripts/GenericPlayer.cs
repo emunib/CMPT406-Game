@@ -38,7 +38,7 @@ public class GenericPlayer : GravityField {
   private float velocity_y_smoothing;
 
   /* contains the last grounded platforms angle and hit normal vector */
-  private float platform_angle = 0f;
+  protected float platform_angle = 0f;
   private Vector2 platform_hit_normal;
 
   private bool set_fixed_gravity = false;
@@ -262,7 +262,7 @@ public class GenericPlayer : GravityField {
     return false;
   }
 
-  private static float GetAngle(float x, float y) {
+  protected static float GetAngle(float x, float y) {
     float tmp_angle = Mathf.Atan2(x, y) * Mathf.Rad2Deg;
     /* get angle between 0 - 360, even handle negative signs with modulus */
     tmp_angle = fmod(tmp_angle, 360);

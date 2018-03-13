@@ -254,15 +254,15 @@ public class AIGoober : GenericPlayer {
   private bool UprightCheck() {
     
     //TODO:FIX- CURRENTLY DOES NOT WORK
-    /*grounded_game_objects = GetObjectsInView(GetGravity(), configurator.ground_fov_angle, configurator.ground_ray_count, configurator.ground_ray_length);
+    grounded_game_objects = GetObjectsInView(GetGravity(), configurator.ground_fov_angle, configurator.ground_ray_count, configurator.ground_ray_length);
     
     foreach (RaycastHit2D gobject in grounded_game_objects) {
       RaycastHit2D groundhit = Physics2D.Raycast(transform.position,
       gobject.transform.position - transform.position * configurator.ground_ray_length);
 
       
-      if (groundhit.normal == (Vector2)transform.up) {
-        return true;
+      if (groundhit.normal != (Vector2)transform.up) {
+        return false;
       }
       
      
@@ -270,7 +270,7 @@ public class AIGoober : GenericPlayer {
       
       groundedNormalVector = groundhit.normal;
 
-    }*/
+    }
 
     return true;
   }
@@ -283,6 +283,23 @@ public class AIGoober : GenericPlayer {
     //transform.up = groundedNormalVector;
 
     //Special case where we set the ai's gravity the first time it touches a platform. 
+    
+    foreach (RaycastHit2D hit in grounded_game_objects) {
+      Vector2 hit_normal = hit.normal;
+      /* if the object has children then use the parent's rotation to calculate the normal */
+      if (hit.collider.gameObject.transform.childCount > 0) {
+        hit_normal = Quaternion.AngleAxis(hit.collider.gameObject.transform.rotation.eulerAngles.z, Vector3.forward) * hit.normal;
+      }
+
+      /* get platform information we just hit */
+      float platform_angle_update = GetAngle(hit_normal.y, hit_normal.x);
+      
+      transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0f, 0f, platform_angle_update != 0f ? platform_angle_update - 90 : 0f),2* Time.deltaTime);
+      //_input.rightstickx = -transform.up.x;
+      //_input.rightsticky = -transform.up.y;
+
+      break;
+    }
     if (firstPlat) {
       //firstPlat = false;
       //goomba_input.horg = -groundedNormalVector.x;
@@ -306,6 +323,11 @@ public class AIGoober : GenericPlayer {
   //For now does nothing. Maybe like a funny panic animation in the air
   private void Panic() {
     Debug.Log("Panicking");
+    Vector3 rotation = transform.rotation.eulerAngles;
+    rotation.z += 50;
+    
+    transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(rotation),5* Time.deltaTime);
+
   }
 
   
