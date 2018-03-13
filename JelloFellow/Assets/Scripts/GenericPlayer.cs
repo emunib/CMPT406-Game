@@ -38,7 +38,7 @@ public class GenericPlayer : GravityField {
   private float velocity_y_smoothing;
 
   /* contains the last grounded platforms angle and hit normal vector */
-  protected float platform_angle = 0f;
+  protected float platform_angle { get; private set; }
   private Vector2 platform_hit_normal;
 
   private bool set_fixed_gravity = false;
@@ -428,20 +428,6 @@ public class GenericPlayer : GravityField {
     }
   }
 
-  private void AddVelocity(Vector2 velocity) {
-    rigidbody.velocity = velocity;
-    
-    if (configurator.apply_movement_tochild) {
-      foreach (Transform child in child_transforms) {
-        Rigidbody2D child_rigidbody = child.gameObject.GetComponent<Rigidbody2D>();
-        if (child_rigidbody) {
-          child_rigidbody.velocity = velocity;
-        }
-      }
-    }
-  }
-
-  
   /// <summary>
   /// Check if the player is touching anything in direction of gravity.
   /// </summary>
@@ -559,7 +545,7 @@ public class GenericPlayer : GravityField {
   }
 
   //Damage Information
-  private void Damage(int amount) {
+  public void Damage(int amount) {
     configurator.cur_hp -= amount;
     if (configurator.cur_hp < 0) {
       Debug.Log("Bleh I died.");
@@ -598,7 +584,4 @@ internal class Drag {
     AngularDrag = _angular_drag;
     LinearDrag = _linear_drag;
   }
-  
-  
-  
 }
