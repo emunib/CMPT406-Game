@@ -38,6 +38,7 @@ public class SmartAI : GenericPlayer {
 			do_once = false;
 		}
 
+		/* spawn spin */
 		if (jelly.gameObject.transform.localScale != (Vector3) Vector2.one) {
 			float angle = jelly.gameObject.transform.rotation.eulerAngles.z == 0f ? 360f : jelly.gameObject.transform.rotation.eulerAngles.z;
 			jelly.gameObject.transform.rotation = Quaternion.Slerp(jelly.gameObject.transform.rotation, Quaternion.Euler(0,0,jelly.gameObject.transform.localScale.x * angle), 1f);
@@ -66,7 +67,15 @@ public class SmartAI : GenericPlayer {
 				HandleLeavingGround();
 			} else {
 				foreach (RaycastHit2D hit in leaving_ground) {
-					transform.rotation = Quaternion.Slerp(jelly.gameObject.transform.rotation, hit.transform.rotation, Time.deltaTime);
+					Vector2 hit_normal = hit.normal;
+					/* if the object has children then use the parent's rotation to calculate the normal */
+					if (hit.collider.gameObject.transform.childCount > 0) {
+						hit_normal = Quaternion.AngleAxis(hit.collider.gameObject.transform.rotation.eulerAngles.z, Vector3.forward) * hit.normal;
+					}
+
+					/* get platform information we just hit */
+					float platform_angle_update = GetAngle(hit_normal.y, hit_normal.x);
+					transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0f, 0f, platform_angle_update != 0f ? platform_angle_update - 90 : 0f), Time.deltaTime);
 					break;
 				}
 			}
