@@ -403,6 +403,20 @@ public class GenericPlayer : GravityField {
     }
   }
 
+  private void AddVelocity(Vector2 velocity) {
+    rigidbody.velocity = velocity;
+    
+    if (configurator.apply_movement_tochild) {
+      foreach (Transform child in child_transforms) {
+        Rigidbody2D child_rigidbody = child.gameObject.GetComponent<Rigidbody2D>();
+        if (child_rigidbody) {
+          child_rigidbody.velocity = velocity;
+        }
+      }
+    }
+  }
+
+  
   /// <summary>
   /// Check if the player is touching anything in direction of gravity.
   /// </summary>
@@ -559,4 +573,7 @@ internal class Drag {
     AngularDrag = _angular_drag;
     LinearDrag = _linear_drag;
   }
+  
+  
+  
 }
