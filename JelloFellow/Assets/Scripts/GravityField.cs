@@ -34,6 +34,8 @@ public abstract class GravityField : GravityPlayer {
     gravityfield_visualizer.name = "GravityField";
     gravityfield_visualizer.transform.parent = transform;
     gravityfield_visualizer.transform.localPosition = new Vector3(0f, 0f, gravityfield_visualizer.transform.position.z);
+    SetSorting();
+
     gravityfield_visualizer = gravityfield_visualizer.transform.Find("Field").gameObject;
     
     gravityfield_visualizer.layer = gameObject.layer;
@@ -115,6 +117,23 @@ public abstract class GravityField : GravityPlayer {
   protected void ChangeGravityFill(float progress)
   {
     mask.localPosition = new Vector2(0, Mathf.Lerp(-2.35f, -1.25f, progress));
+  }
+
+  private void SetSorting()
+  {
+    var fill = gravityfield_visualizer.transform.Find("Field/Full").GetComponent<SpriteRenderer>();
+    var fillMask = gravityfield_visualizer.transform.Find("Field/Mask").GetComponent<SpriteMask>();
+    
+    fill.sortingOrder = UniqueSorting.GetNextSorting();
+    fillMask.frontSortingOrder = fill.sortingOrder;
+    fillMask.backSortingOrder = UniqueSorting.GetNextSorting();
+
+    var outline = gravityfield_visualizer.transform.Find("Field/Outline").GetComponent<SpriteRenderer>();
+    var outlineMask =  gravityfield_visualizer.transform.Find("OutlineMask").GetComponent<SpriteMask>();
+    
+    outline.sortingOrder = UniqueSorting.GetNextSorting();
+    outlineMask.frontSortingOrder = outline.sortingOrder;
+    outlineMask.backSortingOrder = UniqueSorting.GetNextSorting();
   }
   
   /* uncomment to visualize without starting the scene */
