@@ -159,7 +159,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   is_raycast_origin: 1
-  max_velocity: 50
+  max_velocity: 80
   apply_gravity_tochild: 0
   apply_movement_tochild: 0
   ChildComponents: []
@@ -170,7 +170,7 @@ MonoBehaviour:
   gravity_depletion_time: 5
   gravity_field_transition_time: 0.6
   movement_linear_drag: 5
-  move_speed: 8
+  move_speed: 12
   air_speed: 2
   jump_force: 35
   jump_normalize_threshold: 1
@@ -179,8 +179,8 @@ MonoBehaviour:
   ground_acceleration: 0.1
   air_acceleration: 0.4
   movement_leniency_angle: 20
-  ground_fov_angle: 80
-  ground_ray_count: 6
+  ground_fov_angle: 100
+  ground_ray_count: 8
   ground_ray_length: 2
   verbose_gravity: 0
   show_gravity: 0
@@ -258,7 +258,7 @@ MonoBehaviour:
   m_FlipX: 0
   m_FlipY: 0
   m_SpriteRotation: 0
-  m_NumAttachPoints: 2
+  m_NumAttachPoints: 20
   m_AttachPoints:
   - {fileID: 4070000142158236}
   - {fileID: 4030487108490840}

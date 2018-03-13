@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class CrawlerAI : GenericPlayer {
 	private const string player_tag = "Player";
-	private const float rotation_speed = 1f;
+	private const float rotation_speed = 1.5f;
 	
 	private GenericEnemyInput _input;
 	private UnityJellySprite jelly;
@@ -92,7 +92,7 @@ public class CrawlerAI : GenericPlayer {
 				}
 			}
 			
-			HashSet<RaycastHit2D> forward_check = GetObjectsInView(flip ? transform.right : -transform.right, 1f, 0, 2.4f, true);
+			HashSet<RaycastHit2D> forward_check = GetObjectsInView(flip ? transform.right : -transform.right, 1f, 0, 2f, true);
 			foreach (RaycastHit2D hit in forward_check) {
 				/* player in front */
 				if (hit.transform.CompareTag(player_tag)) {
@@ -104,7 +104,7 @@ public class CrawlerAI : GenericPlayer {
 				break;
 			}
 			
-			HashSet<RaycastHit2D> threat_check = GetObjectsInView(flip ? transform.right : -transform.right, 1f, 0, 5f, true);
+			HashSet<RaycastHit2D> threat_check = GetObjectsInView(flip ? transform.right : -transform.right, 1f, 0, 5f);
 			foreach (RaycastHit2D hit in threat_check) {
 				/* player in front */
 				if (hit.transform.CompareTag("Threat")) {
