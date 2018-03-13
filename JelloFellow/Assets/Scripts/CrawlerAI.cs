@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class SmartAI : GenericPlayer {
+public class CrawlerAI : GenericPlayer {
 	private const string player_tag = "Player";
 	private const float rotation_speed = 1f;
 	
@@ -74,7 +74,7 @@ public class SmartAI : GenericPlayer {
 			float angle = flip ? Mathf.Max(angle1, angle2) : Mathf.Min(angle1, angle2);
 
 			Vector2 forwardangle_direction = new Vector2(Mathf.Sin(angle * Mathf.Deg2Rad), Mathf.Cos(angle * Mathf.Deg2Rad));
-			HashSet<RaycastHit2D> leaving_ground = GetObjectsInView(forwardangle_direction, 1f, 0, 4f, true);
+			HashSet<RaycastHit2D> leaving_ground = GetObjectsInView(forwardangle_direction, 1f, 0, 4f);
 			if (leaving_ground.Count <= 0) {
 				HandleLeavingGround();
 			} else {
@@ -92,7 +92,7 @@ public class SmartAI : GenericPlayer {
 				}
 			}
 			
-			HashSet<RaycastHit2D> forward_check = GetObjectsInView(flip ? transform.right : -transform.right, 1f, 0, 2.4f, true);
+			HashSet<RaycastHit2D> forward_check = GetObjectsInView(flip ? transform.right : -transform.right, 1f, 0, 2.4f);
 			foreach (RaycastHit2D hit in forward_check) {
 				/* player in front */
 				if (hit.transform.CompareTag(player_tag)) {

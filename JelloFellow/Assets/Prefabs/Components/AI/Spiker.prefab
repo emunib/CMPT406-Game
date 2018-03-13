@@ -41,6 +41,7 @@ GameObject:
   - component: {fileID: 114054491316181092}
   - component: {fileID: 114157391521242208}
   - component: {fileID: 114107594321318218}
+  - component: {fileID: 114192418207068922}
   m_Layer: 13
   m_Name: Spiker
   m_TagString: Enemy
@@ -97,7 +98,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1391744245838218}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.32, y: 1.25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4484307650372640}
@@ -136,8 +137,8 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -2025391
+  m_SortingLayer: -2
   m_SortingOrder: 0
 --- !u!33 &33113683199342130
 MeshFilter:
@@ -203,18 +204,20 @@ MonoBehaviour:
   m_GridColumns: 4
   m_GridRows: 4
   m_DampingRatio: 0
-  m_SoftBodyScale: {x: 0.55, y: 0.8}
+  m_SoftBodyScale: {x: 0.55, y: 0.79}
   m_SoftBodyRotation: 0
-  m_SoftBodyOffset: {x: 0, y: -0.43}
-  m_CentralBodyOffset: {x: -0, y: -1.46}
+  m_SoftBodyOffset: {x: 0.03, y: -0.43}
+  m_CentralBodyOffset: {x: -0, y: -0.78}
   m_SpriteScale: {x: 1, y: 1}
   m_2DMode: 1
   m_AttachNeighbors: 0
   m_FlipX: 0
   m_FlipY: 0
   m_SpriteRotation: 0
-  m_NumAttachPoints: 0
-  m_AttachPoints: []
+  m_NumAttachPoints: 2
+  m_AttachPoints:
+  - {fileID: 4484307650372640}
+  - {fileID: 4532142464752762}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Sprite: {fileID: 21300000, guid: 8672fa3eec21b40b9961d57346587b88, type: 3}
 --- !u!114 &114107594321318218
@@ -229,9 +232,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   is_raycast_origin: 1
-  max_velocity: 20
-  apply_gravity_tochild: 1
-  apply_movement_tochild: 1
+  max_velocity: 50
+  apply_gravity_tochild: 0
+  apply_movement_tochild: 0
   ChildComponents: []
   gravity_angular_drag: 0.5
   gravity_linear_drag: 3
@@ -240,7 +243,7 @@ MonoBehaviour:
   gravity_depletion_time: 5
   gravity_field_transition_time: 0.6
   movement_linear_drag: 5
-  move_speed: 10
+  move_speed: 5
   air_speed: 2
   jump_force: 35
   jump_normalize_threshold: 1
@@ -249,9 +252,9 @@ MonoBehaviour:
   ground_acceleration: 0.1
   air_acceleration: 0.4
   movement_leniency_angle: 20
-  ground_fov_angle: 5
-  ground_ray_count: 2
-  ground_ray_length: 1.8
+  ground_fov_angle: 127
+  ground_ray_count: 8
+  ground_ray_length: 2.3
   verbose_gravity: 0
   show_gravity: 0
   gravity_ray_color: {r: 0, g: 0, b: 0, a: 1}
@@ -277,8 +280,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ba373c572174be4d858c348770b37db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerScript: {fileID: 11500000, guid: f6ee9aaaa980047c7b8e6528713dc53c, type: 3}
+  _playerScript: {fileID: 11500000, guid: 8b2227bfdd9d940918c8941939356ffe, type: 3}
   _raycastOrigins: 0
+--- !u!114 &114192418207068922
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1391744245838218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d791fe3ddc32724394aa80adac537f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GrowTime: 0.3
 --- !u!114 &114775249807148824
 MonoBehaviour:
   m_ObjectHideFlags: 1
