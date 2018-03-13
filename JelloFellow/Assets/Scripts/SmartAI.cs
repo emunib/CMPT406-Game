@@ -8,6 +8,7 @@ public class SmartAI : GenericPlayer {
 	private bool flip;
 	private bool do_once;
 	private bool stop_movement;
+	private bool death_activate;
 	
 	protected override void Start() {
 		base.Start();
@@ -22,7 +23,8 @@ public class SmartAI : GenericPlayer {
 		jelly = GetComponent<JellySpriteReferencePoint>().ParentJellySprite.GetComponent<UnityJellySprite>();
 		flip = jelly.m_FlipX;
 		do_once = true;
-		stop_movement = false;		
+		stop_movement = false;
+		death_activate = false;
 	}
 
 	protected override void Update() {
@@ -42,6 +44,14 @@ public class SmartAI : GenericPlayer {
 		if (jelly.gameObject.transform.localScale != (Vector3) Vector2.one) {
 			float angle = jelly.gameObject.transform.rotation.eulerAngles.z == 0f ? 360f : jelly.gameObject.transform.rotation.eulerAngles.z;
 			jelly.gameObject.transform.rotation = Quaternion.Slerp(jelly.gameObject.transform.rotation, Quaternion.Euler(0,0,jelly.gameObject.transform.localScale.x * angle), 1f);
+		} else {
+			if (!is_grounded) {
+				/* call handle movement after some time so we give the AI time to settle */
+				if (!death_activate) {
+					Invoke("HandleNotGrounded", 1f);
+					death_activate = true;
+				}
+			}
 		}
 		
 		if (!stop_movement && is_grounded) {
@@ -80,7 +90,7 @@ public class SmartAI : GenericPlayer {
 				}
 			}
 			
-			HashSet<RaycastHit2D> forward_check = GetObjectsInView(flip ? transform.right : -transform.right, 1f, 0, 1.7f, true);
+			HashSet<RaycastHit2D> forward_check = GetObjectsInView(flip ? transform.right : -transform.right, 1f, 0, 1.8f, true);
 			foreach (RaycastHit2D hit in forward_check) {
 				/* player in front */
 				if (hit.transform.CompareTag(player_tag)) {
@@ -93,20 +103,47 @@ public class SmartAI : GenericPlayer {
 			}
 		}
 		
+		//HashSet<RaycastHit2D> head_check = GetObjectsInView(transform.up, 1f, 0, 1.7f, true);
+		
 		/* call this to run Update in the subclass */
 		/* we call update after is because we want to change the input then call the update to handle the input changes
 		   in the same frame rather to have to wait another frame */
 		base.Update();
 	}
 
+	/// <summary>
+	/// Should occur when this AI is thrown, landed on his head, or simply is not grounded
+	/// for any reason.
+	/// </summary>
+	private void HandleNotGrounded() {
+		/* just making sure that after some time it didn't just correct itself */
+		if (!is_grounded) {
+			jelly.gameObject.AddComponent<DeathEffect>();
+			string unique_key = jelly.name.Substring(jelly.name.Length - 6);
+			GameObject.Find("CrawlerSpawner" + unique_key).SendMessage("Death");
+		} else {
+			death_activate = false;
+		}
+	}
+	
+	/// <summary>
+	/// The player is right in front of this AI do something, possibly apply damage to the player?
+	/// </summary>
+	/// <param name="_player"></param>
 	private void HandlePlayerInFront(GameObject _player) {
-		
+		_player.transform.parent.GetComponentInChildren<GenericPlayer>().Damage(1);
 	}
 
+	/// <summary>
+	/// There is something in front that we cannot explain.
+	/// </summary>
 	private void HandleOtherInFront() {
 		Flip();
 	}
 
+	/// <summary>
+	/// We are about to fall off the platform, so handle that.
+	/// </summary>
 	private void HandleLeavingGround() {
 		Flip();
 	}

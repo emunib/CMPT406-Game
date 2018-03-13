@@ -545,7 +545,7 @@ public class GenericPlayer : GravityField {
   }
 
   //Damage Information
-  private void Damage(int amount) {
+  public void Damage(int amount) {
     configurator.cur_hp -= amount;
     if (configurator.cur_hp < 0) {
       Debug.Log("Bleh I died.");
