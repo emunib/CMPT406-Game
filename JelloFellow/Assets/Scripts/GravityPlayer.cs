@@ -70,7 +70,6 @@ public abstract class GravityPlayer : Gravity {
 
 			//Debug.DrawRay(transform.position, gravity, Color.red);
 		} else {
-			print(gameObject.name + ": I am setting custom gravity now");
 			if (gravity_restrictions != Vector2.one) {
 				if (!restore_gravity) {
 					gravity_restoration = custom_gravity;
@@ -121,7 +120,6 @@ public abstract class GravityPlayer : Gravity {
 
 	public override void SetCustomGravity(Vector2 _custom_gravity) {
 		if (!ignore_other_fields) {
-			print(gameObject.name + ": Setting my custom gravity");
 			custom_gravity = _custom_gravity;
 		}
 	}
@@ -143,16 +141,14 @@ public abstract class GravityPlayer : Gravity {
 	}
 
 	public Vector2 GetGravity() {
-		return !in_gravity_field || ignore_other_fields ? gravity : custom_gravity;
+		return !in_gravity_field && ignore_other_fields ? gravity : custom_gravity;
 	}
 	
 	private void OnBecameInvisible() {
-		print(gameObject.name + ": I AM NOT VISIBLE");
 		gravity_settable = false;
 	}
 
 	private void OnBecameVisible() {
-		print(gameObject.name + ": I AM VISIBLE");
 		gravity_settable = true;
 	}
 

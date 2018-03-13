@@ -38,6 +38,11 @@ public class SmartAI : GenericPlayer {
 			do_once = false;
 		}
 
+		if (jelly.gameObject.transform.localScale != (Vector3) Vector2.one) {
+			float angle = jelly.gameObject.transform.rotation.eulerAngles.z == 0f ? 360f : jelly.gameObject.transform.rotation.eulerAngles.z;
+			jelly.gameObject.transform.rotation = Quaternion.Slerp(jelly.gameObject.transform.rotation, Quaternion.Euler(0,0,jelly.gameObject.transform.localScale.x * angle), 1f);
+		}
+		
 		if (!stop_movement && is_grounded) {
 			/* move in the direction of platform */
 			float platform_walk_angle = platform_angle - 90;
@@ -47,30 +52,36 @@ public class SmartAI : GenericPlayer {
 			/* use the left control stick to move in direction */
 			_input.leftstickx = movement_direction.x * direction;
 			_input.leftsticky = movement_direction.y * direction;
+
+			_input.rightstickclick_down = true;
 			
 			/* get the walking stick angle and if we leave the ground then handle that */
-			float angle1 = platform_angle - 125f;
-			float angle2 = platform_angle + 125f;
+			float angle1 = platform_angle - 120f;
+			float angle2 = platform_angle + 120f;
 			float angle = flip ? Mathf.Max(angle1, angle2) : Mathf.Min(angle1, angle2);
 
 			Vector2 forwardangle_direction = new Vector2(Mathf.Sin(angle * Mathf.Deg2Rad), Mathf.Cos(angle * Mathf.Deg2Rad));
-			HashSet<RaycastHit2D> leaving_ground = GetObjectsInView(forwardangle_direction, 1f, 0, 3f, true);
+			HashSet<RaycastHit2D> leaving_ground = GetObjectsInView(forwardangle_direction, 1f, 0, 4f, true);
 			if (leaving_ground.Count <= 0) {
 				HandleLeavingGround();
+			} else {
+				foreach (RaycastHit2D hit in leaving_ground) {
+					transform.rotation = Quaternion.Slerp(jelly.gameObject.transform.rotation, hit.transform.rotation, Time.deltaTime);
+					break;
+				}
 			}
-		}
-		
-		
-		HashSet<RaycastHit2D> forward_check = GetObjectsInView(flip ? transform.right : -transform.right, 1f, 0, 1.7f, true);
-		foreach (RaycastHit2D hit in forward_check) {
-			/* player in front */
-			if (hit.transform.CompareTag(player_tag)) {
-				HandlePlayerInFront();
+			
+			HashSet<RaycastHit2D> forward_check = GetObjectsInView(flip ? transform.right : -transform.right, 1f, 0, 1.7f, true);
+			foreach (RaycastHit2D hit in forward_check) {
+				/* player in front */
+				if (hit.transform.CompareTag(player_tag)) {
+					HandlePlayerInFront(hit.transform.gameObject);
+					break;
+				}
+
+				HandleOtherInFront();
 				break;
 			}
-
-			HandleOtherInFront();
-			break;
 		}
 		
 		/* call this to run Update in the subclass */
@@ -79,7 +90,7 @@ public class SmartAI : GenericPlayer {
 		base.Update();
 	}
 
-	private void HandlePlayerInFront() {
+	private void HandlePlayerInFront(GameObject _player) {
 		
 	}
 
@@ -90,7 +101,7 @@ public class SmartAI : GenericPlayer {
 	private void HandleLeavingGround() {
 		Flip();
 	}
-	
+
 	/// <summary>
 	/// Flip the sprite.
 	/// </summary>

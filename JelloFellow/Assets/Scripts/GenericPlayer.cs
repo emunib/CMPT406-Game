@@ -262,7 +262,7 @@ public class GenericPlayer : GravityField {
     return false;
   }
 
-  private static float GetAngle(float x, float y) {
+  protected static float GetAngle(float x, float y) {
     float tmp_angle = Mathf.Atan2(x, y) * Mathf.Rad2Deg;
     /* get angle between 0 - 360, even handle negative signs with modulus */
     tmp_angle = fmod(tmp_angle, 360);

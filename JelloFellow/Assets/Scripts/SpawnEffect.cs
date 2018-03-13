@@ -24,13 +24,15 @@ public class SpawnEffect : MonoBehaviour
 
 		if (scale.x < 0.98f && scale.y < 0.98f)
 		{
+			transform.localScale = Vector2.SmoothDamp(transform.localScale, Vector2.one, ref _vel, GrowTime, Mathf.Infinity, Time.deltaTime);
 			foreach (var point in _jelly.ReferencePoints)
 			{
 				point.Body2D.velocity = Vector2.zero;
 			}
+		} else {
+			scale = Vector2.one;
+			transform.localScale = scale;
+			Destroy(this);
 		}
-		else Destroy(this);
-		
-		transform.localScale = Vector2.SmoothDamp(transform.localScale, Vector2.one, ref _vel, GrowTime, Mathf.Infinity, Time.deltaTime);
 	}
 }

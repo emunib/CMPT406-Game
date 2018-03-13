@@ -45,6 +45,7 @@ public abstract class GravityField : GravityPlayer {
     //gravity_field.radius = MinRadius;
     mask = gravityfield_visualizer.GetComponentInChildren<SpriteMask>().transform;
     marker = transform.Find("GravityField/Marker");
+    //marker.localRotation = transform.rotation;
     
     SetFieldRadius(MinRadius);
   }
