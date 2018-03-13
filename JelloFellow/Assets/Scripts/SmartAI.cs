@@ -8,7 +8,7 @@ public class SmartAI : GenericPlayer {
 	private bool flip;
 	private bool do_once;
 	private bool stop_movement;
-	private bool death_activate;
+	private bool grounded_activated;
 	
 	protected override void Start() {
 		base.Start();
@@ -24,7 +24,7 @@ public class SmartAI : GenericPlayer {
 		flip = jelly.m_FlipX;
 		do_once = true;
 		stop_movement = false;
-		death_activate = false;
+		grounded_activated = false;
 	}
 
 	protected override void Update() {
@@ -47,9 +47,9 @@ public class SmartAI : GenericPlayer {
 		} else {
 			if (!is_grounded) {
 				/* call handle movement after some time so we give the AI time to settle */
-				if (!death_activate) {
-					Invoke("HandleNotGrounded", 1f);
-					death_activate = true;
+				if (!grounded_activated) {
+					//Invoke("HandleNotGrounded", 4f);
+					grounded_activated = true;
 				}
 			}
 		}
@@ -90,7 +90,7 @@ public class SmartAI : GenericPlayer {
 				}
 			}
 			
-			HashSet<RaycastHit2D> forward_check = GetObjectsInView(flip ? transform.right : -transform.right, 1f, 0, 1.8f, true);
+			HashSet<RaycastHit2D> forward_check = GetObjectsInView(flip ? transform.right : -transform.right, 1f, 0, 3f, true);
 			foreach (RaycastHit2D hit in forward_check) {
 				/* player in front */
 				if (hit.transform.CompareTag(player_tag)) {
@@ -102,8 +102,6 @@ public class SmartAI : GenericPlayer {
 				break;
 			}
 		}
-		
-		//HashSet<RaycastHit2D> head_check = GetObjectsInView(transform.up, 1f, 0, 1.7f, true);
 		
 		/* call this to run Update in the subclass */
 		/* we call update after is because we want to change the input then call the update to handle the input changes
@@ -118,9 +116,9 @@ public class SmartAI : GenericPlayer {
 	private void HandleNotGrounded() {
 		/* just making sure that after some time it didn't just correct itself */
 		if (!is_grounded) {
-			jelly.gameObject.AddComponent<DeathEffect>();
+			//jelly.gameObject.AddComponent<DeathEffect>();
 		} else {
-			death_activate = false;
+			grounded_activated = false;
 		}
 	}
 	
