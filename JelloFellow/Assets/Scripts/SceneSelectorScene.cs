@@ -15,6 +15,7 @@ public class SceneSelectorScene : MonoBehaviour {
   private const string scenebutton_path = "Prefabs/UI/SceneButton";
   private const string scenepreview_path = "LevelPreviews/";
   private const string scenepreviewtest_path = "LevelPreviews/Test";
+  private const int rows_fixed = 2;
   
   private float lerpTime;
   private ScrollRect scrollRect;
@@ -69,10 +70,10 @@ public class SceneSelectorScene : MonoBehaviour {
     row = 0;
     lerpTime = 0.01f;
     //Checks to see how many rows of scenes there are
-    if (buttonsArray.Length % 4 == 0) {
-      ammountOfRows = buttonsArray.Length / 4;
+    if (buttonsArray.Length % rows_fixed == 0) {
+      ammountOfRows = buttonsArray.Length / rows_fixed;
     } else {
-      ammountOfRows = (buttonsArray.Length / 4) + 1;
+      ammountOfRows = (buttonsArray.Length / rows_fixed) + 1;
     }
 
     yPos = 1f - ((float) index / (buttonsArray.Length - 1));
@@ -93,8 +94,8 @@ public class SceneSelectorScene : MonoBehaviour {
     if (Mathf.Abs(hor_m) > 0 || Mathf.Abs(ver_m) > 0) {
       //Move Up
       if (ver_m > 0) {
-        if (index >= 4) {
-          index = Mathf.Clamp(index - 4, 0, buttonsArray.Length - 1);
+        if (index >= rows_fixed) {
+          index = Mathf.Clamp(index - rows_fixed, 0, buttonsArray.Length - 1);
         }
 
         if (row > 0) {
@@ -103,8 +104,8 @@ public class SceneSelectorScene : MonoBehaviour {
       }
       //Move Down
       else if (ver_m < 0) {
-        if (index <= buttonsArray.Length - 5) {
-          index = Mathf.Clamp(index + 4, 0, buttonsArray.Length - 1);
+        if (index <= buttonsArray.Length - (rows_fixed + 1)) {
+          index = Mathf.Clamp(index + rows_fixed, 0, buttonsArray.Length - 1);
         }
 
         if (row < ammountOfRows - 1) {
@@ -114,13 +115,13 @@ public class SceneSelectorScene : MonoBehaviour {
 
       //Move Left
       if (hor_m < 0) {
-        if (index % 4 != 0) {
+        if (index % rows_fixed != 0) {
           index = Mathf.Clamp(index - 1, 0, buttonsArray.Length - 1);
         }
       }
       // Move Right
       else if (hor_m > 0) {
-        if (index % 4 != 3) {
+        if (index % rows_fixed != rows_fixed-1) {
           index = Mathf.Clamp(index + 1, 0, buttonsArray.Length - 1);
         }
       }
