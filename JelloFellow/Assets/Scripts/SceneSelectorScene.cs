@@ -43,7 +43,7 @@ public class SceneSelectorScene : MonoBehaviour {
 
     for (int i = 0; i < scenes.Length; i++) {
       GameObject button = Instantiate(scenebutton) as GameObject;
-      button.transform.SetParent(transform, false);
+      button.transform.SetParent(GameObject.Find("Panel").transform, false);
       button.GetComponentInChildren<SceneButton>().theSceneLinkedByThisButton = scenes[i];
       
       string name = scenes[i].name;
