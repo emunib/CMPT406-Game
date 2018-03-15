@@ -383,11 +383,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4728690598802276, guid: bd372eca61a2d6b499ee563dfafa42d9, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 16.7
+      value: 18.3
       objectReference: {fileID: 0}
     - target: {fileID: 4728690598802276, guid: bd372eca61a2d6b499ee563dfafa42d9, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -3.1
+      value: -2.5
       objectReference: {fileID: 0}
     - target: {fileID: 4728690598802276, guid: bd372eca61a2d6b499ee563dfafa42d9, type: 2}
       propertyPath: m_LocalPosition.z
@@ -453,6 +453,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerLayer: Player
+  shakeRange: 0.1
+  FallStartTime: 0.3
+  EndFallTime: 1
 --- !u!50 &468691990
 Rigidbody2D:
   serializedVersion: 4
