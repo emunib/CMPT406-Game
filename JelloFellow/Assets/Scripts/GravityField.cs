@@ -48,6 +48,11 @@ public abstract class GravityField : GravityPlayer {
     marker = transform.Find("GravityField/Marker");
     
     SetFieldRadius(MinRadius);
+    
+    /* intial position of the marker */
+    Vector2 _gravity = GetGravity();
+    marker.up = -_gravity;
+    marker.localPosition = transform.InverseTransformDirection(_gravity.normalized * gravityfield_visualizer.transform.localScale.x / 2);
   }
 
   protected override void Update() {

@@ -26,7 +26,6 @@ public class SceneSelectorScene : MonoBehaviour {
   private bool downInput;
   private bool leftInput;
   private bool rightInput;
-  private bool select;
   private Input2D input;
   private int row;
   private int ammountOfRows;
@@ -79,10 +78,9 @@ public class SceneSelectorScene : MonoBehaviour {
     yPos = 1f - ((float) index / (buttonsArray.Length - 1));
   }
 
-  public void Update() {
+  public void Update() {    
     //If selected click the button
-    select = input.GetButton3Down();
-    if (select) {
+    if (input.GetButton3Down()) {
       buttonsArray[index].onClick.Invoke();
     }
   }
