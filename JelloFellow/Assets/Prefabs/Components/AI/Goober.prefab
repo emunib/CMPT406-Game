@@ -96,8 +96,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1336931962785822}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -19, y: 26.7, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 78.6, y: -10.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4527604730688256}
@@ -158,9 +158,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   is_raycast_origin: 1
-  max_velocity: 20
+  max_velocity: 80
   apply_gravity_tochild: 1
-  apply_movement_tochild: 0
+  apply_movement_tochild: 1
   ChildComponents: []
   gravity_angular_drag: 0.5
   gravity_linear_drag: 3
@@ -171,7 +171,7 @@ MonoBehaviour:
   movement_linear_drag: 5
   move_speed: 30
   air_speed: 2
-  jump_force: 100
+  jump_force: 25
   jump_normalize_threshold: 84
   leniency_angle: 42
   jump_angle_coefficient: 0.8
@@ -275,7 +275,7 @@ MonoBehaviour:
   m_FlipX: 0
   m_FlipY: 0
   m_SpriteRotation: 0
-  m_NumAttachPoints: 0
+  m_NumAttachPoints: 20
   m_AttachPoints: []
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Sprite: {fileID: 21300000, guid: 75199b0a20bc24046921c74304e824ec, type: 3}

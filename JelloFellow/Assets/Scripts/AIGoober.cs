@@ -10,7 +10,7 @@ public class AIGoober : GenericPlayer {
   [Header("AgroFOV Raycast Settings")]
 
   [CustomRangeLabel("Ray Length", 0f, 20f)] [Tooltip("Length of the ray.")]
-  [SerializeField] private float agro_ray_length= 12;
+  [SerializeField] private float agro_ray_length = 18;
 
   [CustomRangeLabel("Ray Count", 0f, 20f)] [Tooltip("Number of rays to show in between main rays.")]
   [SerializeField] private int agro_ray_count = 7;
@@ -375,5 +375,10 @@ public class AIGoober : GenericPlayer {
     agroCheckNode.SetRightChild(walkNode);
     
     root = groundedCheckNode;
+  }
+
+  protected override void Death() {
+    UnityJellySprite jelly = GetComponent<JellySpriteReferencePoint>().ParentJellySprite.GetComponent<UnityJellySprite>();
+    jelly.gameObject.AddComponent<DeathEffect>();
   }
 }

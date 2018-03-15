@@ -76,6 +76,7 @@ GameObject:
   - component: {fileID: 114233985346187192}
   - component: {fileID: 114355152878994212}
   - component: {fileID: 114393375773873280}
+  - component: {fileID: 114700531205646230}
   m_Layer: 11
   m_Name: Jelly
   m_TagString: Player
@@ -118,7 +119,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1774356478298352}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -29.349127, y: -12.61006, z: 0}
+  m_LocalPosition: {x: -15.73, y: 3.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4452864121919438}
@@ -293,6 +294,18 @@ MonoBehaviour:
   YOffsetFromCentre: 0.5
   SmoothTime: 0.1
   Distance: 0.55
+--- !u!114 &114700531205646230
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1774356478298352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d791fe3ddc32724394aa80adac537f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GrowTime: 0.6
 --- !u!114 &114907191846490454
 MonoBehaviour:
   m_ObjectHideFlags: 1

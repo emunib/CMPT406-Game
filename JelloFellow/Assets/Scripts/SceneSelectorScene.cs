@@ -15,7 +15,7 @@ public class SceneSelectorScene : MonoBehaviour {
   private const string scenebutton_path = "Prefabs/UI/SceneButton";
   private const string scenepreview_path = "LevelPreviews/";
   private const string scenepreviewtest_path = "LevelPreviews/Test";
-  private const int rows_fixed = 2;
+  private const int rows_fixed = 4;
   
   private float lerpTime;
   private ScrollRect scrollRect;
@@ -26,7 +26,6 @@ public class SceneSelectorScene : MonoBehaviour {
   private bool downInput;
   private bool leftInput;
   private bool rightInput;
-  private bool select;
   private Input2D input;
   private int row;
   private int ammountOfRows;
@@ -79,10 +78,9 @@ public class SceneSelectorScene : MonoBehaviour {
     yPos = 1f - ((float) index / (buttonsArray.Length - 1));
   }
 
-  public void Update() {
+  public void Update() {    
     //If selected click the button
-    select = input.GetButton3Down();
-    if (select) {
+    if (input.GetButton3Down()) {
       buttonsArray[index].onClick.Invoke();
     }
   }

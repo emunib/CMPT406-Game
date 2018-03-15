@@ -11,7 +11,7 @@ public abstract class GravityField : GravityPlayer {
   private const string gravityfield_sprite_path = "Prefabs/GravityField";
   private const float GravityDrag = 0.85f;
   protected const float MinRadius = 12f;
-  protected const float MaxRadius = 35f;
+  protected const float MaxRadius = 40f;
 
   private CircleCollider2D gravity_field;
   private HashSet<GameObject> in_field;
@@ -48,6 +48,11 @@ public abstract class GravityField : GravityPlayer {
     marker = transform.Find("GravityField/Marker");
     
     SetFieldRadius(MinRadius);
+    
+    /* intial position of the marker */
+    Vector2 _gravity = GetGravity();
+    marker.up = -_gravity;
+    marker.localPosition = transform.InverseTransformDirection(_gravity.normalized * gravityfield_visualizer.transform.localScale.x / 2);
   }
 
   protected override void Update() {
@@ -56,7 +61,8 @@ public abstract class GravityField : GravityPlayer {
     /* rotate gravity field to point the marker towards gravity */
     Vector2 _gravity = GetGravity();
     marker.up = -_gravity;
-    marker.localPosition = _gravity.normalized * gravityfield_visualizer.transform.localScale.x / 2;
+    var pos = _gravity.normalized * gravityfield_visualizer.transform.localScale.x / 2;
+    marker.localPosition = transform.InverseTransformDirection(pos);
   }
 
   private void OnTriggerStay2D(Collider2D other) {
