@@ -8,7 +8,7 @@
 /// </summary>
 [RequireComponent(typeof(Rigidbody2D))]
 public class GravityComponent : Gravity {
-  private new Rigidbody2D rigidbody;
+  protected new Rigidbody2D rigidbody;
   
   /* is the gravity settable (visible in screen
      useful to make sure not to waste computations on something
@@ -41,7 +41,7 @@ public class GravityComponent : Gravity {
     gravity_restrictions = Vector2.one;
   }
 
-  private void Update() {
+  protected virtual void Update() {
     /* if it is in gravity field get affected by players gravity otherwise get effected by custom gravity */
     if (!in_gravity_field && !remember_gravity) {
       Vector2 default_gravity = new Vector2(DefaultGravity().x * gravity_restrictions.x, DefaultGravity().y * gravity_restrictions.y);
