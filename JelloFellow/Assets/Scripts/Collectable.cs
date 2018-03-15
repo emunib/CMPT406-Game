@@ -24,10 +24,7 @@ public class Collectable : MonoBehaviour {
 			
 			script = GameObject.Find ("CollectedItems").GetComponent<CollectedItems> ();
 			script.AddItem (gameObject.name, description);
-			collected = true;
-			gameObject.GetComponent<SpriteRenderer> ().sprite = gray;
-			Destroy(gameObject.GetComponent<BoxCollider2D> ());
-
+			setCollected(true);
 		}
 
     }
@@ -38,6 +35,8 @@ public class Collectable : MonoBehaviour {
 	/// <param name="x">If set to <c>true</c> x.</param>
 	public void setCollected(bool x) {
 		collected = x;
+		gameObject.GetComponent<SpriteRenderer> ().sprite = gray;
+		Destroy(gameObject.GetComponent<BoxCollider2D> ());
 	}
 
     // Use this for initialization

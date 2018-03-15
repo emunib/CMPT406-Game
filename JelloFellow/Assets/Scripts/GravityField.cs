@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <inheritdoc/>
@@ -9,8 +10,8 @@ using UnityEngine;
 public abstract class GravityField : GravityPlayer {
   private const string gravityfield_sprite_path = "Prefabs/GravityField";
   private const float GravityDrag = 0.85f;
-  protected const float MinRadius = 6f;
-  protected const float MaxRadius = 120f;
+  protected const float MinRadius = 12f;
+  protected const float MaxRadius = 40f;
 
   private CircleCollider2D gravity_field;
   private HashSet<GameObject> in_field;
@@ -34,6 +35,8 @@ public abstract class GravityField : GravityPlayer {
     gravityfield_visualizer.name = "GravityField";
     gravityfield_visualizer.transform.parent = transform;
     gravityfield_visualizer.transform.localPosition = new Vector3(0f, 0f, gravityfield_visualizer.transform.position.z);
+    SetSorting();
+
     gravityfield_visualizer = gravityfield_visualizer.transform.Find("Field").gameObject;
     
     gravityfield_visualizer.layer = gameObject.layer;
@@ -45,6 +48,11 @@ public abstract class GravityField : GravityPlayer {
     marker = transform.Find("GravityField/Marker");
     
     SetFieldRadius(MinRadius);
+    
+    /* intial position of the marker */
+    Vector2 _gravity = GetGravity();
+    marker.up = -_gravity;
+    marker.localPosition = transform.InverseTransformDirection(_gravity.normalized * gravityfield_visualizer.transform.localScale.x / 2);
   }
 
   protected override void Update() {
@@ -53,16 +61,15 @@ public abstract class GravityField : GravityPlayer {
     /* rotate gravity field to point the marker towards gravity */
     Vector2 _gravity = GetGravity();
     marker.up = -_gravity;
-    marker.localPosition = _gravity.normalized * gravityfield_visualizer.transform.localScale.x / 2;
+    var pos = _gravity.normalized * gravityfield_visualizer.transform.localScale.x / 2;
+    marker.localPosition = transform.InverseTransformDirection(pos);
   }
 
   private void OnTriggerStay2D(Collider2D other) {
     
     /* let the gravity object know its in our field */
     Gravity grav = other.gameObject.GetComponent<Gravity>();
-    if (grav != null) {
-      print(other.gameObject.name + ": In Field");
-      
+    if (grav != null) {      
       lock (_lock) {
         in_field.Add(other.gameObject);
         grav.SetCustomGravity(GetGravity() * GravityDrag);
@@ -85,13 +92,21 @@ public abstract class GravityField : GravityPlayer {
   protected override void SetGravity(Vector2 _gravity) {
     lock (_lock) {
       foreach (GameObject gameObj in in_field) {
-        Gravity grav = gameObj.gameObject.GetComponent<Gravity>();
-        print(gameObj.name + ": Setting custom gravity");
-        grav.SetCustomGravity(_gravity * GravityDrag);
+        if (gameObj) {
+          Gravity grav = gameObj.gameObject.GetComponent<Gravity>();
+          grav.SetCustomGravity(_gravity * GravityDrag);
+        } else {
+          StartCoroutine(RemoveObject(gameObj, 0.1f));
+        }
       }
     }
 
     base.SetGravity(_gravity);
+  }
+
+  private IEnumerator RemoveObject(GameObject _removing, float delay) {
+    yield return new WaitForSeconds(delay);
+    in_field.Remove(_removing);
   }
 
   /// <summary>
@@ -115,6 +130,23 @@ public abstract class GravityField : GravityPlayer {
   protected void ChangeGravityFill(float progress)
   {
     mask.localPosition = new Vector2(0, Mathf.Lerp(-2.35f, -1.25f, progress));
+  }
+
+  private void SetSorting()
+  {
+    var fill = gravityfield_visualizer.transform.Find("Field/Full").GetComponent<SpriteRenderer>();
+    var fillMask = gravityfield_visualizer.transform.Find("Field/Mask").GetComponent<SpriteMask>();
+    
+    fill.sortingOrder = UniqueSorting.GetNextSorting();
+    fillMask.frontSortingOrder = fill.sortingOrder;
+    fillMask.backSortingOrder = UniqueSorting.GetNextSorting();
+
+    var outline = gravityfield_visualizer.transform.Find("Field/Outline").GetComponent<SpriteRenderer>();
+    var outlineMask =  gravityfield_visualizer.transform.Find("OutlineMask").GetComponent<SpriteMask>();
+    
+    outline.sortingOrder = UniqueSorting.GetNextSorting();
+    outlineMask.frontSortingOrder = outline.sortingOrder;
+    outlineMask.backSortingOrder = UniqueSorting.GetNextSorting();
   }
   
   /* uncomment to visualize without starting the scene */

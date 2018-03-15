@@ -18,7 +18,6 @@ public class MenuSelector : MonoBehaviour {
   private bool downInput;
   private bool leftInput;
   private bool rightInput;
-  private bool select;
   private Input2D input;
   private Color old_color;
   private Color highlight_color;
@@ -43,10 +42,9 @@ public class MenuSelector : MonoBehaviour {
     buttonsArray[index].Select();
   }
 
-  public void Update() {
+  public void Update() {    
     //If selected click the button
-    select = input.GetButton3Down();
-    if (select) {
+    if (input.GetButton3Down()) {
       buttonsArray[index].onClick.Invoke();
     }
   }

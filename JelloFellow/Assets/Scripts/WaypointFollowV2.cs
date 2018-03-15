@@ -124,7 +124,7 @@ public class WaypointFollowV2 : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
-		Debug.DrawRay(GlobalWaypoints[1],GlobalWaypoints[2]-GlobalWaypoints[1],Color.blue);
+		//Debug.DrawRay(GlobalWaypoints[1],GlobalWaypoints[2]-GlobalWaypoints[1],Color.blue);
 		MoveSaw();
 		Spin();
 		

@@ -23,30 +23,32 @@ public class GooBounceInner : MonoBehaviour {
 
 	private void OnTriggerEnter2D(Collider2D other) {
 		if (other.gameObject.layer == LayerMask.NameToLayer(playerLayer) && !do_once) {
-			
-			Debug.Log("Player came in");
+			if (other.attachedRigidbody.velocity.magnitude >15) {
 
-			//Get Normal
-			
-			
-			/*	
-			RaycastHit2D ray = Physics2D.Raycast(other.transform.position, other.attachedRigidbody.velocity);
-			Vector2 dir = Vector3.Reflect(other.attachedRigidbody.velocity, ray.normal);
-*/
-			
-			FellowPlayer center = other.transform.parent.GetComponentInChildren<FellowPlayer>();
-			Vector2 v = center.gameObject.GetComponent<Rigidbody2D>().velocity;
-			
-			
-			RaycastHit2D ray = Physics2D.Raycast(center.transform.position, v);
-			Debug.DrawRay(center.transform.position,v, Color.green);
-			Vector2 dir = Vector2.Reflect(v, ray.normal);
+				Debug.Log("Player came in");
 
-			Debug.DrawRay(center.transform.position, dir * 100);
+				//Get Normal
 
-			//center.SendMessage("AddVelocity",-center.GetGravity()*bounciness);
-			center.SendMessage("AddVelocity",dir*bounciness);
-			do_once = true;
+
+				/*	
+				RaycastHit2D ray = Physics2D.Raycast(other.transform.position, other.attachedRigidbody.velocity);
+				Vector2 dir = Vector3.Reflect(other.attachedRigidbody.velocity, ray.normal);
+	*/
+
+				FellowPlayer center = other.transform.parent.GetComponentInChildren<FellowPlayer>();
+				Vector2 v = center.gameObject.GetComponent<Rigidbody2D>().velocity;
+
+
+				RaycastHit2D ray = Physics2D.Raycast(center.transform.position, v);
+				Debug.DrawRay(center.transform.position, v, Color.green);
+				Vector2 dir = Vector2.Reflect(v, ray.normal);
+
+				Debug.DrawRay(center.transform.position, dir * 100);
+
+				//center.SendMessage("AddVelocity",-center.GetGravity()*bounciness);
+				center.SendMessage("AddVelocity", dir * bounciness);
+				do_once = true;
+			}
 		}
 	}
 
