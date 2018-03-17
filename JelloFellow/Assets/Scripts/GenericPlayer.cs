@@ -554,7 +554,7 @@ public abstract class GenericPlayer : GravityField {
   /// <param name="amount">Amount of damage to apply.</param>
   public void Damage(int amount) {
     configurator.cur_hp -= amount;
-    if (configurator.cur_hp < 0) {
+    if (configurator.cur_hp <= 0) {
       Death();
     }
   }
