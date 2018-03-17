@@ -344,7 +344,7 @@ public abstract class GenericPlayer : GravityField {
         }
 
         /* move in direction of the negative platform */
-        if (movement_distance_negative <= leniency_distance_negative) {
+        if (movement_distance_negative <= leniency_distance_negative) {          
           velocity.x = Mathf.SmoothDamp(velocity.x, platform_direction_negative.x * configurator.move_speed, ref velocity_x_smoothing, configurator.ground_acceleration);
           velocity.y = Mathf.SmoothDamp(velocity.y, platform_direction_negative.y * configurator.move_speed, ref velocity_y_smoothing, configurator.ground_acceleration);
           apply_stop_drag = false;
@@ -354,17 +354,8 @@ public abstract class GenericPlayer : GravityField {
       /* jump direction */
       if (jump_button_down && is_grounded) {
         apply_stop_drag = false;
-        /* if angle selected than shoot at an angle */
-        if (horizontal_movement != 0 || vertical_movement != 0) {
-          Vector2 hybrid_jump = platform_hit_normal + new Vector2(horizontal_movement, vertical_movement) * configurator.jump_angle_coefficient;
-          if (hybrid_jump.magnitude > configurator.jump_normalize_threshold) {
-            hybrid_jump.Normalize();
-          }
-
-          velocity += hybrid_jump * configurator.jump_force;
-        } else {
-          velocity = platform_hit_normal * configurator.jump_force;
-        }
+        Vector2 hybrid_jump = platform_hit_normal + movement_direction;
+        velocity += hybrid_jump * configurator.jump_force;
       }
     } else { /* assume we are either not grounded or not on valid platform */
       if (!is_grounded) {
@@ -407,12 +398,14 @@ public abstract class GenericPlayer : GravityField {
 
           /* move in direction of the positive platform */
           if (movement_distance_positive <= leniency_distance_positive) {
-            rigidbody.AddForce(gravity_direction_positive * configurator.air_speed, ForceMode2D.Force);
+            //rigidbody.AddForce(gravity_direction_positive * configurator.air_speed, ForceMode2D.Force);
+            velocity = Vector3.Lerp(velocity , gravity_direction_positive * configurator.air_speed, configurator.air_acceleration);
           }
 
           /* move in direction of the negative platform */
           if (movement_distance_negative <= leniency_distance_negative) {
-            rigidbody.AddForce(gravity_direction_negative * configurator.air_speed, ForceMode2D.Force);
+            //rigidbody.AddForce(gravity_direction_negative * configurator.air_speed, ForceMode2D.Force);
+            velocity = Vector3.Lerp(velocity , gravity_direction_negative * configurator.air_speed, configurator.air_acceleration);
           }
         }
 
@@ -449,9 +442,9 @@ public abstract class GenericPlayer : GravityField {
       if (LayerMask.LayerToName(hit.transform.gameObject.layer) != LayerMask.LayerToName(gameObject.layer)) {
         Vector2 hit_normal = hit.normal;
         /* if the object has children then use the parent's rotation to calculate the normal */
-        //if (hit.collider.gameObject.transform.childCount > 0) {
-        //  hit_normal = Quaternion.AngleAxis(hit.collider.gameObject.transform.rotation.eulerAngles.z, Vector3.forward) * hit.normal;
-        //}
+        if (hit.collider.gameObject.transform.childCount > 0) {
+          hit_normal = Quaternion.AngleAxis(hit.collider.gameObject.transform.rotation.eulerAngles.z, Vector3.forward) * hit.normal;
+        }
 
         /* get platform information we just hit */
         float platform_angle_update = GetAngle(hit_normal.x, hit_normal.y);
@@ -561,7 +554,7 @@ public abstract class GenericPlayer : GravityField {
   /// <param name="amount">Amount of damage to apply.</param>
   public void Damage(int amount) {
     configurator.cur_hp -= amount;
-    if (configurator.cur_hp < 0) {
+    if (configurator.cur_hp <= 0) {
       Death();
     }
   }
