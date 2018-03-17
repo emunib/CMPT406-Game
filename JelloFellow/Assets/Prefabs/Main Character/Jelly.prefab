@@ -119,7 +119,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1774356478298352}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -15.73, y: 3.8, z: 0}
+  m_LocalPosition: {x: -1.1, y: 1.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4452864121919438}
@@ -204,7 +204,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerScript: {fileID: 11500000, guid: 289b205779f51475595a21671bdbf040, type: 3}
-  _raycastOrigins: 1
+  _raycastOrigins: 0
 --- !u!114 &114393375773873280
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -216,11 +216,71 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0457fccce56245e4c800ccfc8ff740d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  is_raycast_origin: 0
+  is_raycast_origin: 1
   max_velocity: 50
   apply_gravity_tochild: 1
   apply_movement_tochild: 1
-  ChildComponents: []
+  ChildComponents:
+  - Child: {fileID: 0}
+    RaycastOrigin: 0
+  - Child: {fileID: 0}
+    RaycastOrigin: 0
+  - Child: {fileID: 0}
+    RaycastOrigin: 0
+  - Child: {fileID: 0}
+    RaycastOrigin: 0
+  - Child: {fileID: 0}
+    RaycastOrigin: 0
+  - Child: {fileID: 0}
+    RaycastOrigin: 0
+  - Child: {fileID: 0}
+    RaycastOrigin: 0
+  - Child: {fileID: 0}
+    RaycastOrigin: 0
+  - Child: {fileID: 0}
+    RaycastOrigin: 0
+  - Child: {fileID: 0}
+    RaycastOrigin: 0
+  - Child: {fileID: 0}
+    RaycastOrigin: 0
+  - Child: {fileID: 0}
+    RaycastOrigin: 0
+  - Child: {fileID: 0}
+    RaycastOrigin: 0
+  - Child: {fileID: 0}
+    RaycastOrigin: 0
+  - Child: {fileID: 0}
+    RaycastOrigin: 0
+  - Child: {fileID: 0}
+    RaycastOrigin: 0
+  - Child: {fileID: 0}
+    RaycastOrigin: 0
+  - Child: {fileID: 0}
+    RaycastOrigin: 0
+  - Child: {fileID: 0}
+    RaycastOrigin: 0
+  - Child: {fileID: 0}
+    RaycastOrigin: 0
+  - Child: {fileID: 0}
+    RaycastOrigin: 0
+  - Child: {fileID: 0}
+    RaycastOrigin: 0
+  - Child: {fileID: 0}
+    RaycastOrigin: 0
+  - Child: {fileID: 0}
+    RaycastOrigin: 0
+  - Child: {fileID: 0}
+    RaycastOrigin: 0
+  - Child: {fileID: 0}
+    RaycastOrigin: 0
+  - Child: {fileID: 0}
+    RaycastOrigin: 0
+  - Child: {fileID: 0}
+    RaycastOrigin: 0
+  - Child: {fileID: 0}
+    RaycastOrigin: 0
+  - Child: {fileID: 0}
+    RaycastOrigin: 0
   gravity_angular_drag: 0.5
   gravity_linear_drag: 3
   max_gravity_stamina: 100
@@ -229,17 +289,17 @@ MonoBehaviour:
   gravity_field_transition_time: 0.6
   movement_linear_drag: 5
   move_speed: 23
-  air_speed: 16
-  jump_force: 30
+  air_speed: 30
+  jump_force: 15
   jump_normalize_threshold: 1
   leniency_angle: 50
   jump_angle_coefficient: 0.8
   ground_acceleration: 0.1
-  air_acceleration: 0.4
+  air_acceleration: 0.02
   movement_leniency_angle: 20
-  ground_fov_angle: 10
-  ground_ray_count: 1
-  ground_ray_length: 1.4
+  ground_fov_angle: 68
+  ground_ray_count: 4
+  ground_ray_length: 1.8
   verbose_gravity: 0
   show_gravity: 0
   gravity_ray_color: {r: 0, g: 0, b: 0, a: 1}
