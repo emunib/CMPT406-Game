@@ -10,6 +10,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class MenuSelector : MonoBehaviour {
+  private const float force = 2f;
+  
   [SerializeField] private Button[] buttonsArray;
   [SerializeField] private bool textColor;
   private int index;
@@ -35,8 +37,8 @@ public class MenuSelector : MonoBehaviour {
       old_color = buttonsArray[index].GetComponentInChildren<Text>().color;
       buttonsArray[index].GetComponentInChildren<Text>().color = highlight_color;
       
-      Rigidbody2D rigidbody = buttonsArray[index].GetComponent<Rigidbody2D>();
-      if(rigidbody) rigidbody.AddForce((Mathf.Sign(Random.Range(-1f, 1f)) == -1 ? Vector2.right : Vector2.left) * 5f, ForceMode2D.Impulse);
+      Rigidbody2D _rigidbody = buttonsArray[index].GetComponent<Rigidbody2D>();
+      if(_rigidbody) _rigidbody.AddForce((Mathf.Sign(Random.Range(-1f, 1f)) == -1 ? Vector2.right : Vector2.left) * force, ForceMode2D.Impulse);
     }
 
     buttonsArray[index].Select();
@@ -73,8 +75,8 @@ public class MenuSelector : MonoBehaviour {
         old_color = buttonsArray[index].GetComponentInChildren<Text>().color;
         buttonsArray[index].GetComponentInChildren<Text>().color = highlight_color;
 
-        Rigidbody2D rigidbody = buttonsArray[index].GetComponent<Rigidbody2D>();
-        if(rigidbody) rigidbody.AddForce((Mathf.Sign(Random.Range(-1f, 1f)) == -1 ? Vector2.right : Vector2.left) * 5f, ForceMode2D.Impulse);
+        Rigidbody2D _rigidbody = buttonsArray[index].GetComponent<Rigidbody2D>();
+        if(_rigidbody) _rigidbody.AddForce((Mathf.Sign(Random.Range(-1f, 1f)) == -1 ? Vector2.right : Vector2.left) * force, ForceMode2D.Impulse);
       }
       
       buttonsArray[index].Select();
