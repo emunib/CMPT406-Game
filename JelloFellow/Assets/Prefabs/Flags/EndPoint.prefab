@@ -72,8 +72,10 @@ GameObject:
   - component: {fileID: 4096066349046126}
   - component: {fileID: 212231712806502360}
   - component: {fileID: 61254933854063114}
+  - component: {fileID: 61695258843980148}
   - component: {fileID: 82487635614439852}
-  m_Layer: 0
+  - component: {fileID: 114418104024111834}
+  m_Layer: 15
   m_Name: EndPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -159,6 +161,31 @@ BoxCollider2D:
   m_AutoTiling: 0
   serializedVersion: 2
   m_Size: {x: 5.0810547, y: 0.9375}
+  m_EdgeRadius: 0
+--- !u!61 &61695258843980148
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1572864906632742}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.45}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 5.0810547, y: 0.9375}
+    newSize: {x: 52.03, y: 56.05}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 4.74, y: 0.09}
   m_EdgeRadius: 0
 --- !u!82 &82487635614439852
 AudioSource:
@@ -252,6 +279,17 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &114418104024111834
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1572864906632742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdb9be5da122c451aaad5bd97083bb9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!198 &198478597081813226
 ParticleSystem:
   m_ObjectHideFlags: 1
