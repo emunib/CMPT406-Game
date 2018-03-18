@@ -354,8 +354,16 @@ public abstract class GenericPlayer : GravityField {
       /* jump direction */
       if (jump_button_down && is_grounded) {
         apply_stop_drag = false;
-        Vector2 hybrid_jump = platform_hit_normal + movement_direction;
-        velocity += hybrid_jump * configurator.jump_force;
+//        if (movement_angle != 0f) {
+//          Vector2 hybrid_jump = platform_hit_normal + new Vector2(horizontal_movement, vertical_movement) * configurator.jump_angle_coefficient;
+//          if (hybrid_jump.magnitude > configurator.jump_normalize_threshold) {
+//            hybrid_jump.Normalize();
+//          }
+//          
+//          velocity += hybrid_jump * configurator.jump_force;
+//        } else {
+          velocity += platform_hit_normal * configurator.jump_force;
+//        }
       }
     } else { /* assume we are either not grounded or not on valid platform */
       if (!is_grounded) {
@@ -457,8 +465,8 @@ public abstract class GenericPlayer : GravityField {
           platform_angle = platform_angle_update;
           platform_hit_normal = hit_normal;
         } else {
-          platform_angle = -1f;
-          platform_hit_normal = Vector2.negativeInfinity;
+          //platform_angle = -1f;
+          //platform_hit_normal = Vector2.negativeInfinity;
         }
 
         return true;
