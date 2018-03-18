@@ -13,9 +13,11 @@ using UnityEngine.Video;
 public class FallingSpikeSystem : Gravity {
 
   public string PlayerLayer;
+  [Range(0,1)]
   public float shakeRange;
   public float FallStartTime;
   public float EndFallTime;
+
 
   
   protected new Rigidbody2D rigidbody;
@@ -57,7 +59,9 @@ public class FallingSpikeSystem : Gravity {
     shake = false;
     isfalling = false;
     lastPosition = transform.position;
-    
+
+    rigidbody.freezeRotation = true;
+
 
   }
 

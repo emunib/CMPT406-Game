@@ -10,7 +10,7 @@ public class AIGoober : GenericPlayer {
   [Header("AgroFOV Raycast Settings")]
 
   [CustomRangeLabel("Ray Length", 0f, 20f)] [Tooltip("Length of the ray.")]
-  [SerializeField] private float agro_ray_length = 18;
+  [SerializeField] private float agro_ray_length = 12;
 
   [CustomRangeLabel("Ray Count", 0f, 20f)] [Tooltip("Number of rays to show in between main rays.")]
   [SerializeField] private int agro_ray_count = 7;
@@ -138,7 +138,8 @@ public class AIGoober : GenericPlayer {
   
   private void Walk() {
 
-    float platform_walk_angle = PlatformAngle() - 90;
+    //float platform_walk_angle = PlatformAngle() - 90;
+    float platform_walk_angle = platform_angle - 90;
     Vector2 movement_direction = new Vector2(Mathf.Sin(platform_walk_angle * Mathf.Deg2Rad), Mathf.Cos(platform_walk_angle * Mathf.Deg2Rad));
     
     /* use the left control stick to move in direction */
@@ -149,7 +150,8 @@ public class AIGoober : GenericPlayer {
       Debug.DrawRay(transform.position,fwdangle,Color.magenta);
 
   
-      float platform_angle = PlatformAngle();
+      //float platform_angle = PlatformAngle();
+      //float pa = PlatformAngle();
       float angle1 = platform_angle - 100f;
       float angle2 = platform_angle + 100f;
 
@@ -167,7 +169,7 @@ public class AIGoober : GenericPlayer {
         
       }
       else {
-        platform_angle = PlatformAngle();
+       // platform_angle = PlatformAngle();
         angle1 = platform_angle - 90f;
         angle2 = platform_angle + 90f;
 
