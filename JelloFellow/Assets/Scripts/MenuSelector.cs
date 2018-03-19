@@ -10,6 +10,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class MenuSelector : MonoBehaviour {
+  private const float force = 2f;
+  
   [SerializeField] private Button[] buttonsArray;
   [SerializeField] private bool textColor;
   private int index;
@@ -24,9 +26,9 @@ public class MenuSelector : MonoBehaviour {
   private int old_index;
 
   public void Start() {
-    highlight_color = new Color32(0x00, 0x6D, 0x66, 0xFF);
+    highlight_color = new Color32(0xFB, 0xB0, 0x3B, 0xFF);
     
-    InvokeRepeating("CheckForControllerInput", 0.0f, 0.1f);
+    InvokeRepeating("CheckForControllerInput", 0.0f, 0.14f);
     input = InputController.instance.GetInput();
     buttonsArray = GetComponentsInChildren<Button>();
 
@@ -35,8 +37,8 @@ public class MenuSelector : MonoBehaviour {
       old_color = buttonsArray[index].GetComponentInChildren<Text>().color;
       buttonsArray[index].GetComponentInChildren<Text>().color = highlight_color;
       
-      Rigidbody2D rigidbody = buttonsArray[index].GetComponent<Rigidbody2D>();
-      if(rigidbody) rigidbody.AddForce((Mathf.Sign(Random.Range(-1f, 1f)) == -1 ? Vector2.right : Vector2.left) * 5f, ForceMode2D.Impulse);
+      Rigidbody2D _rigidbody = buttonsArray[index].GetComponent<Rigidbody2D>();
+      if(_rigidbody) _rigidbody.AddForce((Mathf.Sign(Random.Range(-1f, 1f)) == -1 ? Vector2.right : Vector2.left) * force, ForceMode2D.Impulse);
     }
 
     buttonsArray[index].Select();
@@ -73,8 +75,8 @@ public class MenuSelector : MonoBehaviour {
         old_color = buttonsArray[index].GetComponentInChildren<Text>().color;
         buttonsArray[index].GetComponentInChildren<Text>().color = highlight_color;
 
-        Rigidbody2D rigidbody = buttonsArray[index].GetComponent<Rigidbody2D>();
-        if(rigidbody) rigidbody.AddForce((Mathf.Sign(Random.Range(-1f, 1f)) == -1 ? Vector2.right : Vector2.left) * 5f, ForceMode2D.Impulse);
+        Rigidbody2D _rigidbody = buttonsArray[index].GetComponent<Rigidbody2D>();
+        if(_rigidbody) _rigidbody.AddForce((Mathf.Sign(Random.Range(-1f, 1f)) == -1 ? Vector2.right : Vector2.left) * force, ForceMode2D.Impulse);
       }
       
       buttonsArray[index].Select();

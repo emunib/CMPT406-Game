@@ -43,6 +43,7 @@ public abstract class GenericPlayer : GravityField {
   private bool set_fixed_gravity = false;
   /* previous input accepted from the gravity stick */
   private Vector2 prevInput = Vector2.zero;
+  private bool set_fixed_clinging = false;
   
   /* all the accepted inputs */
   private float horizontal_gravity;
@@ -206,6 +207,23 @@ public abstract class GenericPlayer : GravityField {
     if (ReleasedGravity()) gravity_stamina = Mathf.Clamp(gravity_stamina - 5, configurator.min_gravity_stamina, configurator.max_gravity_stamina);
     ChangeGravityFill(Mathf.Clamp01(gravity_stamina / configurator.max_gravity_stamina));
 
+    /* clinging to platform so visually push player to ground */
+    if (!AffectSelfWithGravity) {
+      Vector2 cling_gravity = rigidbody.velocity;
+      cling_gravity += -platform_hit_normal * (configurator.jump_force * 5f);
+      
+      rigidbody.velocity += cling_gravity * Time.deltaTime;
+
+      if (configurator.apply_movement_tochild) {
+        foreach (Transform child in child_transforms) {
+          Rigidbody2D child_rigidbody = child.gameObject.GetComponent<Rigidbody2D>();
+          if (child_rigidbody) {
+            child_rigidbody.velocity += cling_gravity * Time.deltaTime;
+          }
+        }
+      }
+    }
+    
     /* run update in base class (applies gravity) */
     base.Update();
   }
@@ -218,7 +236,7 @@ public abstract class GenericPlayer : GravityField {
     vertical_movement = 0f;
     if (jump_button_down) jump_button_down = false;
     if (right_stick_clicked) right_stick_clicked = false;
-
+    
     /* clamp velocity */
     rigidbody.velocity = Vector2.ClampMagnitude(rigidbody.velocity, configurator.max_velocity);
 
@@ -317,6 +335,10 @@ public abstract class GenericPlayer : GravityField {
 
       /* make sure player actually wants to apply movement forces */
       if (horizontal_movement != 0f || vertical_movement != 0f) {
+        if (!set_fixed_clinging) {
+          AffectSelfWithGravity = true;
+        }
+        
         /* get the leniency directions (leniency 2 mainly for drawing ray) */
         Vector2 movement_leniency_positive = new Vector2(Mathf.Sin((platform_positive_angle + configurator.leniency_angle) * Mathf.Deg2Rad), Mathf.Cos((platform_positive_angle + configurator.leniency_angle) * Mathf.Deg2Rad));
         Vector2 movement_leniency_positive2 = new Vector2(Mathf.Sin((platform_positive_angle - configurator.leniency_angle) * Mathf.Deg2Rad), Mathf.Cos((platform_positive_angle - configurator.leniency_angle) * Mathf.Deg2Rad));
@@ -354,6 +376,19 @@ public abstract class GenericPlayer : GravityField {
       /* jump direction */
       if (jump_button_down && is_grounded) {
         apply_stop_drag = false;
+        
+        /* if movement direction is towards the platform */
+        if (Vector2.Distance(movement_direction, -platform_hit_normal) < 0.1f) {
+          /* perform clinging */
+          velocity += -platform_hit_normal * configurator.jump_force;
+          set_fixed_clinging = true;
+          AffectSelfWithGravity = false;
+          Invoke("UnlockClinging", 0.4f);
+        } else { /* it is not towards the platform */
+          /* jump normally */
+          velocity += platform_hit_normal * configurator.jump_force;
+        }
+        
 //        if (movement_angle != 0f) {
 //          Vector2 hybrid_jump = platform_hit_normal + new Vector2(horizontal_movement, vertical_movement) * configurator.jump_angle_coefficient;
 //          if (hybrid_jump.magnitude > configurator.jump_normalize_threshold) {
@@ -362,13 +397,17 @@ public abstract class GenericPlayer : GravityField {
 //          
 //          velocity += hybrid_jump * configurator.jump_force;
 //        } else {
-          velocity += platform_hit_normal * configurator.jump_force;
+//          velocity += platform_hit_normal * configurator.jump_force;
 //        }
       }
     } else { /* assume we are either not grounded or not on valid platform */
       if (!is_grounded) {
         /* we want to move in air t(-.-t) */
         if (horizontal_movement != 0f | vertical_movement != 0f) {
+          if (!set_fixed_clinging) {
+            AffectSelfWithGravity = true;
+          }
+          
           /* angle of gravity */
           float gravity_angle = GetAngle(GetGravity().x, GetGravity().y);
 
@@ -447,7 +486,8 @@ public abstract class GenericPlayer : GravityField {
   private bool IsGrounded(bool visualize = false) {
     HashSet<RaycastHit2D> hits = GetObjectsInView(GetGravity(), configurator.ground_fov_angle, configurator.ground_ray_count, configurator.ground_ray_length, visualize);
     foreach (RaycastHit2D hit in hits) {
-      if (LayerMask.LayerToName(hit.transform.gameObject.layer) != LayerMask.LayerToName(gameObject.layer)) {
+      string hit_name = !hit.transform.parent ? hit.transform.name : hit.transform.parent.name;
+      if (LayerMask.LayerToName(hit.transform.gameObject.layer) == "Ground" || hit_name.Contains("Platform")) {
         Vector2 hit_normal = hit.normal;
         /* if the object has children then use the parent's rotation to calculate the normal */
         if (hit.collider.gameObject.transform.childCount > 0) {
@@ -474,7 +514,7 @@ public abstract class GenericPlayer : GravityField {
     }
 
     platform_angle = -1f;
-    platform_hit_normal = Vector2.negativeInfinity;
+    //platform_hit_normal = Vector2.negativeInfinity;
     return false;
   }
 
@@ -573,6 +613,10 @@ public abstract class GenericPlayer : GravityField {
   /// </summary>
   private void UnlockGravity() {
     set_fixed_gravity = false;
+  }
+
+  private void UnlockClinging() {
+    set_fixed_clinging = false;
   }
 
   /// <summary>
