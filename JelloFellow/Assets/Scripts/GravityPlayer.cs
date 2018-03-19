@@ -20,6 +20,8 @@ public abstract class GravityPlayer : Gravity {
 	private Vector2 gravity_restrictions;
 	private Vector2 gravity_restoration;
 	private bool restore_gravity;
+
+	protected bool AffectSelfWithGravity;
 	
 	protected override void Awake() {
 		base.Awake();
@@ -37,64 +39,68 @@ public abstract class GravityPlayer : Gravity {
 		
 		gravity = DefaultGravity();
 		custom_gravity = DefaultGravity();
+		AffectSelfWithGravity = true;
 	}
 
 	protected virtual void Update() {
-		/* if it is in gravity field get affected by players gravity otherwise get effected by custom gravity */
-		if (!in_gravity_field && ignore_other_fields) {
-			if (gravity_restrictions != Vector2.one) {
-				if (!restore_gravity) {
-					gravity_restoration = gravity;
-					restore_gravity = true;
-				}
+		if (AffectSelfWithGravity) {
+			/* if it is in gravity field get affected by players gravity otherwise get effected by custom gravity */
+			if (!in_gravity_field && ignore_other_fields) {
+				if (gravity_restrictions != Vector2.one) {
+					if (!restore_gravity) {
+						gravity_restoration = gravity;
+						restore_gravity = true;
+					}
 
-				gravity = new Vector2(gravity.x * gravity_restrictions.x, gravity.y * gravity_restrictions.y);
-			} else {
-				if (restore_gravity) {
-					gravity = gravity_restoration;
-					restore_gravity = false;
-				}				
-			}
-
-			rigidbody.velocity += gravity * GravityForce() * Time.deltaTime;
-
-			if (objects != null) {
-				foreach (Transform node in objects) {
-					Rigidbody2D rigidbody_node = node.gameObject.GetComponent<Rigidbody2D>();
-					if (rigidbody_node) {
-						rigidbody_node.velocity += gravity * GravityForce() * Time.deltaTime;
-						//Debug.DrawRay(node.position, gravity, Color.red);
+					gravity = new Vector2(gravity.x * gravity_restrictions.x, gravity.y * gravity_restrictions.y);
+				} else {
+					if (restore_gravity) {
+						gravity = gravity_restoration;
+						restore_gravity = false;
 					}
 				}
-			}
 
-			//Debug.DrawRay(transform.position, gravity, Color.red);
-		} else {
-			if (gravity_restrictions != Vector2.one) {
-				if (!restore_gravity) {
-					gravity_restoration = custom_gravity;
-					restore_gravity = true;
-				}
+				rigidbody.velocity += gravity * GravityForce() * Time.deltaTime;
 
-				custom_gravity = new Vector2(custom_gravity.x * gravity_restrictions.x, custom_gravity.y * gravity_restrictions.y);
-			} else {
-				if (restore_gravity) {
-					custom_gravity = gravity_restoration;
-					restore_gravity = false;
-				}				
-			}
-			rigidbody.velocity += custom_gravity * GravityForce() * Time.deltaTime;
-
-			if (objects != null) {
-				foreach (Transform node in objects) {
-					Rigidbody2D rigidbody_node = node.gameObject.GetComponent<Rigidbody2D>();
-					if (rigidbody_node) {
-						rigidbody_node.velocity += custom_gravity * GravityForce() * Time.deltaTime;
+				if (objects != null) {
+					foreach (Transform node in objects) {
+						Rigidbody2D rigidbody_node = node.gameObject.GetComponent<Rigidbody2D>();
+						if (rigidbody_node) {
+							rigidbody_node.velocity += gravity * GravityForce() * Time.deltaTime;
+							//Debug.DrawRay(node.position, gravity, Color.red);
+						}
 					}
 				}
-			}
 
-			//Debug.DrawRay(transform.position, custom_gravity, Color.red);
+				//Debug.DrawRay(transform.position, gravity, Color.red);
+			} else {
+				if (gravity_restrictions != Vector2.one) {
+					if (!restore_gravity) {
+						gravity_restoration = custom_gravity;
+						restore_gravity = true;
+					}
+
+					custom_gravity = new Vector2(custom_gravity.x * gravity_restrictions.x, custom_gravity.y * gravity_restrictions.y);
+				} else {
+					if (restore_gravity) {
+						custom_gravity = gravity_restoration;
+						restore_gravity = false;
+					}
+				}
+
+				rigidbody.velocity += custom_gravity * GravityForce() * Time.deltaTime;
+
+				if (objects != null) {
+					foreach (Transform node in objects) {
+						Rigidbody2D rigidbody_node = node.gameObject.GetComponent<Rigidbody2D>();
+						if (rigidbody_node) {
+							rigidbody_node.velocity += custom_gravity * GravityForce() * Time.deltaTime;
+						}
+					}
+				}
+
+				//Debug.DrawRay(transform.position, custom_gravity, Color.red);
+			}
 		}
 	}
 
