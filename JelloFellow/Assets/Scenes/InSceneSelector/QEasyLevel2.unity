@@ -112,16 +112,179 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
 --- !u!1 &86500009
+=======
+--- !u!1 &1991635
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 5
   m_Component:
+  - component: {fileID: 1991636}
+  - component: {fileID: 1991638}
+  - component: {fileID: 1991637}
+  m_Layer: 0
+  m_Name: Right
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1991636
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1991635}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 22.083496, y: 0, z: 0}
+  m_LocalScale: {x: 1.0000002, y: 1.0000002, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1817802546}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &1991637
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1991635}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 5.833008, y: 3.6044922}
+    newSize: {x: 5.833008, y: 3.6044922}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 1
+  serializedVersion: 2
+  m_Size: {x: 5.833008, y: 3.6044922}
+  m_EdgeRadius: 0
+--- !u!212 &1991638
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1991635}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: -1648888425
+  m_SortingLayer: -1
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: f1f195fb1a13b4daab86914ee8305444, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 5.833008, y: 3.6044922}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+--- !u!1001 &12473768
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4813493218525116, guid: 4c4e9568a5bf14557b974c2f9615c871, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 174.82
+      objectReference: {fileID: 0}
+    - target: {fileID: 4813493218525116, guid: 4c4e9568a5bf14557b974c2f9615c871, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -6.47
+      objectReference: {fileID: 0}
+    - target: {fileID: 4813493218525116, guid: 4c4e9568a5bf14557b974c2f9615c871, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4813493218525116, guid: 4c4e9568a5bf14557b974c2f9615c871, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4813493218525116, guid: 4c4e9568a5bf14557b974c2f9615c871, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4813493218525116, guid: 4c4e9568a5bf14557b974c2f9615c871, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4813493218525116, guid: 4c4e9568a5bf14557b974c2f9615c871, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4813493218525116, guid: 4c4e9568a5bf14557b974c2f9615c871, type: 2}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4813493218525116, guid: 4c4e9568a5bf14557b974c2f9615c871, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 1.632066
+      objectReference: {fileID: 0}
+    - target: {fileID: 4813493218525116, guid: 4c4e9568a5bf14557b974c2f9615c871, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 1.6320652
+      objectReference: {fileID: 0}
+    - target: {fileID: 4813493218525116, guid: 4c4e9568a5bf14557b974c2f9615c871, type: 2}
+      propertyPath: m_LocalScale.z
+      value: 1.6320652
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 4c4e9568a5bf14557b974c2f9615c871, type: 2}
+  m_IsPrefabParent: 0
+--- !u!1 &59142441
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
   - component: {fileID: 86500010}
   - component: {fileID: 86500012}
   - component: {fileID: 86500011}
+=======
+  - component: {fileID: 59142442}
+  - component: {fileID: 59142444}
+  - component: {fileID: 59142443}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
   m_Layer: 0
   m_Name: Left
   m_TagString: Untagged
@@ -129,16 +292,25 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
 --- !u!4 &86500010
+=======
+--- !u!4 &59142442
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
   m_GameObject: {fileID: 86500009}
+=======
+  m_GameObject: {fileID: 59142441}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -22.083008, y: 0, z: 0}
   m_LocalScale: {x: 1.0000002, y: 1.0000002, z: 1}
   m_Children: []
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
   m_Father: {fileID: 1705029060}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -148,6 +320,17 @@ BoxCollider2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 86500009}
+=======
+  m_Father: {fileID: 1118876617}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!60 &59142443
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 59142441}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -164,15 +347,44 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 1
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
   serializedVersion: 2
   m_Size: {x: 5.8339844, y: 3.6035156}
   m_EdgeRadius: 0
 --- !u!212 &86500012
+=======
+  m_Points:
+    m_Paths:
+    - - {x: 1.5717127, y: -0.82266796}
+      - {x: 1.6583295, y: -0.7317509}
+      - {x: 1.7144389, y: -0.6327195}
+      - {x: 1.7505646, y: -0.52535236}
+      - {x: 1.7661133, y: -0.42538702}
+      - {x: 1.7661133, y: 0.42001808}
+      - {x: 1.7547874, y: 0.51305103}
+      - {x: 1.7275555, y: 0.6045718}
+      - {x: 1.6809111, y: 0.6947932}
+      - {x: 1.6131301, y: 0.78388464}
+      - {x: 1.5303888, y: 0.8533273}
+      - {x: 1.4411187, y: 0.90613425}
+      - {x: 1.3286076, y: 0.9435668}
+      - {x: 1.2362761, y: 0.956543}
+      - {x: -1.7661133, y: 0.956543}
+      - {x: -1.7661133, y: -0.956543}
+      - {x: 1.2479131, y: -0.956543}
+      - {x: 1.3558762, y: -0.93902504}
+      - {x: 1.4719701, y: -0.8933471}
+--- !u!212 &59142444
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
   m_GameObject: {fileID: 86500009}
+=======
+  m_GameObject: {fileID: 59142441}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -211,6 +423,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
 --- !u!1 &96490709
 GameObject:
   m_ObjectHideFlags: 0
@@ -314,12 +527,16 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
 --- !u!1001 &103749995
+=======
+--- !u!1001 &81387830
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
     - target: {fileID: 4426380738153450, guid: b1dca32422e684af0a69c0bb1f67c9f8, type: 2}
       propertyPath: m_LocalPosition.x
       value: 77.4
@@ -527,143 +744,132 @@ Prefab:
         type: 2}
       propertyPath: m_LocalPosition.y
       value: 0
+=======
+    - target: {fileID: 4259851851519920, guid: 4b79f1fedb728f7409931e68fb5be7e7, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 190.56711
       objectReference: {fileID: 0}
-    - target: {fileID: 224609657305350292, guid: 89afc3a53c7f54e96a8098e250161768,
-        type: 2}
+    - target: {fileID: 4259851851519920, guid: 4b79f1fedb728f7409931e68fb5be7e7, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 3.6436858
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
+      objectReference: {fileID: 0}
+    - target: {fileID: 4259851851519920, guid: 4b79f1fedb728f7409931e68fb5be7e7, type: 2}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 224609657305350292, guid: 89afc3a53c7f54e96a8098e250161768,
-        type: 2}
+    - target: {fileID: 4259851851519920, guid: 4b79f1fedb728f7409931e68fb5be7e7, type: 2}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 224609657305350292, guid: 89afc3a53c7f54e96a8098e250161768,
-        type: 2}
+    - target: {fileID: 4259851851519920, guid: 4b79f1fedb728f7409931e68fb5be7e7, type: 2}
       propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 224609657305350292, guid: 89afc3a53c7f54e96a8098e250161768,
-        type: 2}
+    - target: {fileID: 4259851851519920, guid: 4b79f1fedb728f7409931e68fb5be7e7, type: 2}
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 224609657305350292, guid: 89afc3a53c7f54e96a8098e250161768,
-        type: 2}
+    - target: {fileID: 4259851851519920, guid: 4b79f1fedb728f7409931e68fb5be7e7, type: 2}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 224609657305350292, guid: 89afc3a53c7f54e96a8098e250161768,
-        type: 2}
+    - target: {fileID: 4259851851519920, guid: 4b79f1fedb728f7409931e68fb5be7e7, type: 2}
       propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224609657305350292, guid: 89afc3a53c7f54e96a8098e250161768,
-        type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: -380
-      objectReference: {fileID: 0}
-    - target: {fileID: 224609657305350292, guid: 89afc3a53c7f54e96a8098e250161768,
-        type: 2}
-      propertyPath: m_AnchoredPosition.y
-      value: -60
-      objectReference: {fileID: 0}
-    - target: {fileID: 224609657305350292, guid: 89afc3a53c7f54e96a8098e250161768,
-        type: 2}
-      propertyPath: m_SizeDelta.x
-      value: 640
-      objectReference: {fileID: 0}
-    - target: {fileID: 224609657305350292, guid: 89afc3a53c7f54e96a8098e250161768,
-        type: 2}
-      propertyPath: m_SizeDelta.y
-      value: 120
-      objectReference: {fileID: 0}
-    - target: {fileID: 224609657305350292, guid: 89afc3a53c7f54e96a8098e250161768,
-        type: 2}
-      propertyPath: m_AnchorMin.x
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224609657305350292, guid: 89afc3a53c7f54e96a8098e250161768,
-        type: 2}
-      propertyPath: m_AnchorMin.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224609657305350292, guid: 89afc3a53c7f54e96a8098e250161768,
-        type: 2}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224609657305350292, guid: 89afc3a53c7f54e96a8098e250161768,
-        type: 2}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224609657305350292, guid: 89afc3a53c7f54e96a8098e250161768,
-        type: 2}
-      propertyPath: m_Pivot.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 224609657305350292, guid: 89afc3a53c7f54e96a8098e250161768,
-        type: 2}
-      propertyPath: m_Pivot.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 114941056610393704, guid: 89afc3a53c7f54e96a8098e250161768,
-        type: 2}
-      propertyPath: m_FontData.m_FontSize
-      value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 114941056610393704, guid: 89afc3a53c7f54e96a8098e250161768,
-        type: 2}
-      propertyPath: m_FontData.m_MaxSize
-      value: 74
-      objectReference: {fileID: 0}
-    - target: {fileID: 114941056610393704, guid: 89afc3a53c7f54e96a8098e250161768,
-        type: 2}
-      propertyPath: m_FontData.m_Font
-      value: 
-      objectReference: {fileID: 12800000, guid: 6e981221e243443d6a6799a01e6ad79e,
-        type: 3}
-    - target: {fileID: 114941056610393704, guid: 89afc3a53c7f54e96a8098e250161768,
-        type: 2}
-      propertyPath: m_FontData.m_Alignment
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 114941056610393704, guid: 89afc3a53c7f54e96a8098e250161768,
-        type: 2}
-      propertyPath: m_Text
-      value: Timer
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 89afc3a53c7f54e96a8098e250161768, type: 2}
+  m_ParentPrefab: {fileID: 100100000, guid: 4b79f1fedb728f7409931e68fb5be7e7, type: 2}
   m_IsPrefabParent: 0
+--- !u!1001 &103749995
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4426380738153450, guid: b1dca32422e684af0a69c0bb1f67c9f8, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 77.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4426380738153450, guid: b1dca32422e684af0a69c0bb1f67c9f8, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -27.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4426380738153450, guid: b1dca32422e684af0a69c0bb1f67c9f8, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4426380738153450, guid: b1dca32422e684af0a69c0bb1f67c9f8, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4426380738153450, guid: b1dca32422e684af0a69c0bb1f67c9f8, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4426380738153450, guid: b1dca32422e684af0a69c0bb1f67c9f8, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4426380738153450, guid: b1dca32422e684af0a69c0bb1f67c9f8, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4426380738153450, guid: b1dca32422e684af0a69c0bb1f67c9f8, type: 2}
+      propertyPath: m_RootOrder
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 212892443841054430, guid: b1dca32422e684af0a69c0bb1f67c9f8,
+        type: 2}
+      propertyPath: m_Size.x
+      value: 120
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: b1dca32422e684af0a69c0bb1f67c9f8, type: 2}
+  m_IsPrefabParent: 0
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
 --- !u!224 &207223658 stripped
 RectTransform:
   m_PrefabParentObject: {fileID: 224609657305350292, guid: 89afc3a53c7f54e96a8098e250161768,
     type: 2}
   m_PrefabInternal: {fileID: 207223657}
 --- !u!1 &249773365
+=======
+--- !u!1 &114305781
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 5
   m_Component:
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
   - component: {fileID: 249773366}
   - component: {fileID: 249773368}
   - component: {fileID: 249773367}
+=======
+  - component: {fileID: 114305782}
+  - component: {fileID: 114305784}
+  - component: {fileID: 114305783}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
   m_Layer: 0
-  m_Name: Left
+  m_Name: Middle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
 --- !u!4 &249773366
+=======
+--- !u!4 &114305782
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
   m_GameObject: {fileID: 249773365}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -122.08301, y: 0, z: 0}
@@ -678,6 +884,22 @@ BoxCollider2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 249773365}
+=======
+  m_GameObject: {fileID: 114305781}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1364199832}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!60 &114305783
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 114305781}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -688,21 +910,40 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
     oldSize: {x: 5.8339844, y: 3.6035156}
     newSize: {x: 5.8339844, y: 3.6035156}
+=======
+    oldSize: {x: 3.5478516, y: 1.9130858}
+    newSize: {x: 3.5546875, y: 1.9130858}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
     adaptiveTilingThreshold: 0.5
-    drawMode: 0
+    drawMode: 2
     adaptiveTiling: 0
   m_AutoTiling: 1
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
   serializedVersion: 2
   m_Size: {x: 5.8339844, y: 3.6035156}
   m_EdgeRadius: 0
 --- !u!212 &249773368
+=======
+  m_Points:
+    m_Paths:
+    - - {x: -1.7739259, y: -0.95654297}
+      - {x: 1.7739259, y: -0.95654297}
+      - {x: 1.7739259, y: 0.95654297}
+      - {x: -1.7739259, y: 0.95654297}
+--- !u!212 &114305784
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
   m_GameObject: {fileID: 249773365}
+=======
+  m_GameObject: {fileID: 114305781}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -731,16 +972,26 @@ SpriteRenderer:
   m_SortingLayerID: -1648888425
   m_SortingLayer: -1
   m_SortingOrder: 0
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
   m_Sprite: {fileID: 21300000, guid: c12784436dc8c49028e7948d8b80b4c4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 5.8339844, y: 3.6035156}
+=======
+  m_Sprite: {fileID: 21300000, guid: 8843962ca9e24492e958ac4004b74a8e, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 2
+  m_Size: {x: 3.5546875, y: 1.9130858}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
 --- !u!43 &282139614
 Mesh:
   m_ObjectHideFlags: 0
@@ -869,6 +1120,235 @@ Mesh:
   m_BakedConvexCollisionMesh: 
   m_BakedTriangleCollisionMesh: 
   m_MeshOptimized: 0
+=======
+--- !u!1 &136591230
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 1420604122087162, guid: fad59b8a1ad959741868536e12e2acbb,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 136591232}
+  - component: {fileID: 136591231}
+  m_Layer: 0
+  m_Name: Platform (4)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &136591231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 114678614404055500, guid: fad59b8a1ad959741868536e12e2acbb,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 136591230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28ebff9546af94de1ad8789d584b7525, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  left_sprite: {fileID: 21300000, guid: 50ef53be7ffa34a8dbb4bebb4d3f0f74, type: 3}
+  mid_sprite: {fileID: 21300000, guid: 8843962ca9e24492e958ac4004b74a8e, type: 3}
+  right_sprite: {fileID: 21300000, guid: d047417bc54c0488ebeb00ea82f316ff, type: 3}
+  platform_width: 10.619141
+  use_polygon: 1
+  order_in_layer: 0
+--- !u!4 &136591232
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 4352522452745352, guid: fad59b8a1ad959741868536e12e2acbb,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 136591230}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 189.4, y: 2, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 2114625660}
+  - {fileID: 1451262953}
+  - {fileID: 771992090}
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &137947328
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4813493218525116, guid: 4c4e9568a5bf14557b974c2f9615c871, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 73.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4813493218525116, guid: 4c4e9568a5bf14557b974c2f9615c871, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -13.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4813493218525116, guid: 4c4e9568a5bf14557b974c2f9615c871, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4813493218525116, guid: 4c4e9568a5bf14557b974c2f9615c871, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4813493218525116, guid: 4c4e9568a5bf14557b974c2f9615c871, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4813493218525116, guid: 4c4e9568a5bf14557b974c2f9615c871, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4813493218525116, guid: 4c4e9568a5bf14557b974c2f9615c871, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4813493218525116, guid: 4c4e9568a5bf14557b974c2f9615c871, type: 2}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1578632835809734, guid: 4c4e9568a5bf14557b974c2f9615c871, type: 2}
+      propertyPath: m_Name
+      value: MovableCargo (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4813493218525116, guid: 4c4e9568a5bf14557b974c2f9615c871, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 1.8100749
+      objectReference: {fileID: 0}
+    - target: {fileID: 4813493218525116, guid: 4c4e9568a5bf14557b974c2f9615c871, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 1.8100758
+      objectReference: {fileID: 0}
+    - target: {fileID: 4813493218525116, guid: 4c4e9568a5bf14557b974c2f9615c871, type: 2}
+      propertyPath: m_LocalScale.z
+      value: 1.8100758
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 4c4e9568a5bf14557b974c2f9615c871, type: 2}
+  m_IsPrefabParent: 0
+--- !u!1 &198351913
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 198351914}
+  - component: {fileID: 198351916}
+  - component: {fileID: 198351915}
+  m_Layer: 0
+  m_Name: Left
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &198351914
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 198351913}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.543457, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 301845623}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!60 &198351915
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 198351913}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 3.5322266, y: 1.913086}
+    newSize: {x: 3.5322266, y: 1.913086}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 1
+  m_Points:
+    m_Paths:
+    - - {x: -1.2376254, y: 0.956543}
+      - {x: -1.3512074, y: 0.9379676}
+      - {x: -1.4478033, y: 0.9027228}
+      - {x: -1.5404865, y: 0.84791994}
+      - {x: -1.6101611, y: 0.78537273}
+      - {x: -1.667258, y: 0.7156534}
+      - {x: -1.7172203, y: 0.6279576}
+      - {x: -1.7535294, y: 0.5166322}
+      - {x: -1.7661133, y: 0.41742754}
+      - {x: -1.7661133, y: -0.44749916}
+      - {x: -1.7513472, y: -0.53351885}
+      - {x: -1.715721, y: -0.63724256}
+      - {x: -1.651852, y: -0.74037284}
+      - {x: -1.5817859, y: -0.8150885}
+      - {x: -1.4929056, y: -0.8791359}
+      - {x: -1.3838129, y: -0.93201923}
+      - {x: -1.2418041, y: -0.956543}
+      - {x: 1.7661133, y: -0.956543}
+      - {x: 1.7661133, y: 0.956543}
+--- !u!212 &198351916
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 198351913}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: -1648888425
+  m_SortingLayer: -1
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: 50ef53be7ffa34a8dbb4bebb4d3f0f74, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 3.5322266, y: 1.913086}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
 --- !u!1 &301845621
 GameObject:
   m_ObjectHideFlags: 0
@@ -915,11 +1395,19 @@ Transform:
   m_LocalPosition: {x: 92.81386, y: -9.132055, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
   - {fileID: 1287494823}
   - {fileID: 1272713205}
   - {fileID: 992088484}
   m_Father: {fileID: 0}
   m_RootOrder: 19
+=======
+  - {fileID: 198351914}
+  - {fileID: 1648606708}
+  - {fileID: 1115582057}
+  m_Father: {fileID: 0}
+  m_RootOrder: 17
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &320505762
 Prefab:
@@ -934,7 +1422,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4694469017571998, guid: f89783e438e2cd44aabfed05d0b15d56, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 6.9
+      value: 7.18
       objectReference: {fileID: 0}
     - target: {fileID: 4694469017571998, guid: f89783e438e2cd44aabfed05d0b15d56, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1153,8 +1641,13 @@ Transform:
   m_LocalPosition: {x: 3.543457, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
   m_Father: {fileID: 136591232}
   m_RootOrder: 2
+=======
+  m_Father: {fileID: 0}
+  m_RootOrder: 31
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!60 &339646005
 PolygonCollider2D:
@@ -1397,11 +1890,19 @@ Transform:
   m_LocalPosition: {x: 77.7, y: 15.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
   - {fileID: 249773366}
   - {fileID: 1019402571}
   - {fileID: 1728885306}
   m_Father: {fileID: 0}
   m_RootOrder: 28
+=======
+  - {fileID: 1593991262}
+  - {fileID: 1110540464}
+  - {fileID: 1479960719}
+  m_Father: {fileID: 0}
+  m_RootOrder: 26
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &413248321
 Prefab:
@@ -1505,11 +2006,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4903804793091344, guid: d7cbf313a08ef45019c1387cb6865326, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -22.352072
+      value: -19
       objectReference: {fileID: 0}
     - target: {fileID: 4903804793091344, guid: d7cbf313a08ef45019c1387cb6865326, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -0.56543064
+      value: 2.8
       objectReference: {fileID: 0}
     - target: {fileID: 4903804793091344, guid: d7cbf313a08ef45019c1387cb6865326, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1533,7 +2034,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4903804793091344, guid: d7cbf313a08ef45019c1387cb6865326, type: 2}
       propertyPath: m_RootOrder
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
       value: 5
+=======
+      value: 2
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
       objectReference: {fileID: 0}
     - target: {fileID: 33235034806489516, guid: d7cbf313a08ef45019c1387cb6865326,
         type: 2}
@@ -1599,6 +2104,26 @@ Prefab:
         type: 2}
       propertyPath: m_Points.m_Paths.Array.data[0].Array.data[5].y
       value: 11.477068
+      objectReference: {fileID: 0}
+    - target: {fileID: 114082026855028772, guid: d7cbf313a08ef45019c1387cb6865326,
+        type: 2}
+      propertyPath: light_width
+      value: 15.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 114082026855028772, guid: d7cbf313a08ef45019c1387cb6865326,
+        type: 2}
+      propertyPath: light_height
+      value: 18.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114082026855028772, guid: d7cbf313a08ef45019c1387cb6865326,
+        type: 2}
+      propertyPath: Horizontal
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114082026855028772, guid: d7cbf313a08ef45019c1387cb6865326,
+        type: 2}
+      propertyPath: Vertical
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d7cbf313a08ef45019c1387cb6865326, type: 2}
@@ -2449,16 +2974,19 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3bdc33ab76a324fa685cd863793a31e4, type: 2}
   m_IsPrefabParent: 0
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
 --- !u!1 &601166428
+=======
+--- !u!1 &585772069
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 601166429}
-  - component: {fileID: 601166431}
-  - component: {fileID: 601166430}
+  - component: {fileID: 585772070}
+  - component: {fileID: 585772072}
+  - component: {fileID: 585772071}
   m_Layer: 0
   m_Name: Left
   m_TagString: Untagged
@@ -2466,148 +2994,25 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &601166429
+--- !u!4 &585772070
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 601166428}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.543457, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1491846746}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!60 &601166430
-PolygonCollider2D:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 601166428}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 3.5322266, y: 1.913086}
-    newSize: {x: 3.5322266, y: 1.913086}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 1
-  m_Points:
-    m_Paths:
-    - - {x: -1.2376254, y: 0.956543}
-      - {x: -1.3512074, y: 0.9379676}
-      - {x: -1.4478033, y: 0.9027228}
-      - {x: -1.5404865, y: 0.84791994}
-      - {x: -1.6101611, y: 0.78537273}
-      - {x: -1.667258, y: 0.7156534}
-      - {x: -1.7172203, y: 0.6279576}
-      - {x: -1.7535294, y: 0.5166322}
-      - {x: -1.7661133, y: 0.41742754}
-      - {x: -1.7661133, y: -0.44749916}
-      - {x: -1.7513472, y: -0.53351885}
-      - {x: -1.715721, y: -0.63724256}
-      - {x: -1.651852, y: -0.74037284}
-      - {x: -1.5817859, y: -0.8150885}
-      - {x: -1.4929056, y: -0.8791359}
-      - {x: -1.3838129, y: -0.93201923}
-      - {x: -1.2418041, y: -0.956543}
-      - {x: 1.7661133, y: -0.956543}
-      - {x: 1.7661133, y: 0.956543}
---- !u!212 &601166431
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 601166428}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1648888425
-  m_SortingLayer: -1
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 50ef53be7ffa34a8dbb4bebb4d3f0f74, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 3.5322266, y: 1.913086}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
---- !u!114 &763364539 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114907191846490454, guid: f89783e438e2cd44aabfed05d0b15d56,
-    type: 2}
-  m_PrefabInternal: {fileID: 320505762}
-  m_Script: {fileID: 11500000, guid: 87f1fa7a810d84c4f8ed2cfed9eec8f4, type: 3}
---- !u!1 &804012165
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 804012166}
-  - component: {fileID: 804012168}
-  - component: {fileID: 804012167}
-  m_Layer: 0
-  m_Name: Left
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &804012166
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 804012165}
+  m_GameObject: {fileID: 585772069}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -22.083008, y: 0, z: 0}
   m_LocalScale: {x: 1.0000002, y: 1.0000002, z: 1}
   m_Children: []
-  m_Father: {fileID: 1817802546}
+  m_Father: {fileID: 1705029060}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &804012167
+--- !u!61 &585772071
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 804012165}
+  m_GameObject: {fileID: 585772069}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -2627,12 +3032,12 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 5.8339844, y: 3.6035156}
   m_EdgeRadius: 0
---- !u!212 &804012168
+--- !u!212 &585772072
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 804012165}
+  m_GameObject: {fileID: 585772069}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -2671,16 +3076,16 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
---- !u!1 &804635856
+--- !u!1 &603351684
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 804635857}
-  - component: {fileID: 804635859}
-  - component: {fileID: 804635858}
+  - component: {fileID: 603351685}
+  - component: {fileID: 603351687}
+  - component: {fileID: 603351686}
   m_Layer: 0
   m_Name: Right
   m_TagString: Untagged
@@ -2688,25 +3093,25 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &804635857
+--- !u!4 &603351685
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 804635856}
+  m_GameObject: {fileID: 603351684}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 22.083496, y: 0, z: 0}
   m_LocalScale: {x: 1.0000002, y: 1.0000002, z: 1}
   m_Children: []
-  m_Father: {fileID: 1817802546}
+  m_Father: {fileID: 1705029060}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &804635858
+--- !u!61 &603351686
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 804635856}
+  m_GameObject: {fileID: 603351684}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -2726,12 +3131,12 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 5.833008, y: 3.6044922}
   m_EdgeRadius: 0
---- !u!212 &804635859
+--- !u!212 &603351687
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 804635856}
+  m_GameObject: {fileID: 603351684}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -2770,16 +3175,153 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
---- !u!1 &815597786
+--- !u!43 &625267521
+Mesh:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 
+  serializedVersion: 8
+  m_SubMeshes:
+  - serializedVersion: 2
+    firstByte: 0
+    indexCount: 9
+    topology: 0
+    baseVertex: 0
+    firstVertex: 0
+    vertexCount: 6
+    localAABB:
+      m_Center: {x: 0.27092123, y: 2.231599, z: 0}
+      m_Extent: {x: 14.370668, y: 9.449492, z: 0}
+  m_Shapes:
+    vertices: []
+    shapes: []
+    channels: []
+    fullWeights: []
+  m_BindPose: []
+  m_BoneNameHashes: 
+  m_RootBoneNameHash: 0
+  m_MeshCompression: 0
+  m_IsReadable: 1
+  m_KeepVertices: 1
+  m_KeepIndices: 1
+  m_IndexFormat: 0
+  m_IndexBuffer: 050000000100020003000400040005000100
+  m_Skin: []
+  m_VertexData:
+    m_CurrentChannels: 9
+    m_VertexCount: 6
+    m_Channels:
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 3
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 12
+      format: 0
+      dimension: 2
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    m_DataSize: 120
+    _typelessdata: c0b25abf92883a4100000000c0b25abf92883a41d1de1ac1c0e53a4100000000d1de1ac1c0e53a418b0a15c1c0e53a41000000008b0a15c1c0e53a41919861c1fbf8e6c000000000919861c1fbf8e6c0f4436a41c8cbe3c000000000f4436a41c8cbe3c0dab5e74012a2374100000000dab5e74012a23741
+  m_CompressedMesh:
+    m_Vertices:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_UV:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Normals:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Tangents:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Weights:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_NormalSigns:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_TangentSigns:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_FloatColors:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_BoneIndices:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Triangles:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_UVInfo: 0
+  m_LocalAABB:
+    m_Center: {x: 0.27092123, y: 2.231599, z: 0}
+    m_Extent: {x: 14.370668, y: 9.449492, z: 0}
+  m_MeshUsageFlags: 0
+  m_BakedConvexCollisionMesh: 
+  m_BakedTriangleCollisionMesh: 
+  m_MeshOptimized: 0
+--- !u!1 &652597899
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 815597787}
-  - component: {fileID: 815597789}
-  - component: {fileID: 815597788}
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+  - component: {fileID: 601166429}
+  - component: {fileID: 601166431}
+  - component: {fileID: 601166430}
+=======
+  - component: {fileID: 652597900}
+  - component: {fileID: 652597902}
+  - component: {fileID: 652597901}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
   m_Layer: 0
   m_Name: Left
   m_TagString: Untagged
@@ -2787,25 +3329,44 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &815597787
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+--- !u!4 &601166429
+=======
+--- !u!4 &652597900
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 815597786}
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+  m_GameObject: {fileID: 601166428}
+=======
+  m_GameObject: {fileID: 652597899}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.543457, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1461075195}
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+  m_Father: {fileID: 1491846746}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!60 &815597788
+--- !u!60 &601166430
+=======
+  m_Father: {fileID: 1118876617}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!60 &652597901
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
 PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 815597786}
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+  m_GameObject: {fileID: 601166428}
+=======
+  m_GameObject: {fileID: 652597899}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -2843,12 +3404,20 @@ PolygonCollider2D:
       - {x: -1.2418041, y: -0.956543}
       - {x: 1.7661133, y: -0.956543}
       - {x: 1.7661133, y: 0.956543}
---- !u!212 &815597789
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+--- !u!212 &601166431
+=======
+--- !u!212 &652597902
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 815597786}
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+  m_GameObject: {fileID: 601166428}
+=======
+  m_GameObject: {fileID: 652597899}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -2887,16 +3456,170 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
---- !u!1 &885710638
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+--- !u!114 &763364539 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114907191846490454, guid: f89783e438e2cd44aabfed05d0b15d56,
+    type: 2}
+  m_PrefabInternal: {fileID: 320505762}
+  m_Script: {fileID: 11500000, guid: 87f1fa7a810d84c4f8ed2cfed9eec8f4, type: 3}
+--- !u!1 &804012165
+=======
+--- !u!1 &699098825
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 885710639}
-  - component: {fileID: 885710641}
-  - component: {fileID: 885710640}
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+  - component: {fileID: 804012166}
+  - component: {fileID: 804012168}
+  - component: {fileID: 804012167}
+=======
+  - component: {fileID: 699098826}
+  - component: {fileID: 699098828}
+  - component: {fileID: 699098827}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
+  m_Layer: 0
+  m_Name: Left
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+--- !u!4 &804012166
+=======
+--- !u!4 &699098826
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+  m_GameObject: {fileID: 804012165}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -22.083008, y: 0, z: 0}
+  m_LocalScale: {x: 1.0000002, y: 1.0000002, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1817802546}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &804012167
+=======
+  m_GameObject: {fileID: 699098825}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.0000002, y: 1.0000002, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1817802546}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &699098827
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+  m_GameObject: {fileID: 804012165}
+=======
+  m_GameObject: {fileID: 699098825}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+    oldSize: {x: 5.8339844, y: 3.6035156}
+    newSize: {x: 5.8339844, y: 3.6035156}
+=======
+    oldSize: {x: 5.317383, y: 3.5996094}
+    newSize: {x: 38.333008, y: 3.5996094}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 1
+  serializedVersion: 2
+  m_Size: {x: 5.8339844, y: 3.6035156}
+  m_EdgeRadius: 0
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+--- !u!212 &804012168
+=======
+--- !u!212 &699098828
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+  m_GameObject: {fileID: 804012165}
+=======
+  m_GameObject: {fileID: 699098825}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: -1648888425
+  m_SortingLayer: -1
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: c12784436dc8c49028e7948d8b80b4c4, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+  m_DrawMode: 0
+  m_Size: {x: 5.8339844, y: 3.6035156}
+=======
+  m_DrawMode: 2
+  m_Size: {x: 38.333008, y: 3.5996094}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+--- !u!1 &804635856
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 804635857}
+  - component: {fileID: 804635859}
+  - component: {fileID: 804635858}
   m_Layer: 0
   m_Name: Right
   m_TagString: Untagged
@@ -2904,25 +3627,324 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &885710639
+--- !u!4 &804635857
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 885710638}
+  m_GameObject: {fileID: 804635856}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 22.083496, y: 0, z: 0}
+  m_LocalScale: {x: 1.0000002, y: 1.0000002, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1817802546}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &804635858
+=======
+--- !u!1001 &710057681
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1208237811}
+    m_Modifications:
+    - target: {fileID: 224609657305350292, guid: 89afc3a53c7f54e96a8098e250161768,
+        type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224609657305350292, guid: 89afc3a53c7f54e96a8098e250161768,
+        type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224609657305350292, guid: 89afc3a53c7f54e96a8098e250161768,
+        type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224609657305350292, guid: 89afc3a53c7f54e96a8098e250161768,
+        type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224609657305350292, guid: 89afc3a53c7f54e96a8098e250161768,
+        type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224609657305350292, guid: 89afc3a53c7f54e96a8098e250161768,
+        type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224609657305350292, guid: 89afc3a53c7f54e96a8098e250161768,
+        type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224609657305350292, guid: 89afc3a53c7f54e96a8098e250161768,
+        type: 2}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224609657305350292, guid: 89afc3a53c7f54e96a8098e250161768,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: -195
+      objectReference: {fileID: 0}
+    - target: {fileID: 224609657305350292, guid: 89afc3a53c7f54e96a8098e250161768,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: -80
+      objectReference: {fileID: 0}
+    - target: {fileID: 224609657305350292, guid: 89afc3a53c7f54e96a8098e250161768,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 350
+      objectReference: {fileID: 0}
+    - target: {fileID: 224609657305350292, guid: 89afc3a53c7f54e96a8098e250161768,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 224609657305350292, guid: 89afc3a53c7f54e96a8098e250161768,
+        type: 2}
+      propertyPath: m_AnchorMin.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224609657305350292, guid: 89afc3a53c7f54e96a8098e250161768,
+        type: 2}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224609657305350292, guid: 89afc3a53c7f54e96a8098e250161768,
+        type: 2}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224609657305350292, guid: 89afc3a53c7f54e96a8098e250161768,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224609657305350292, guid: 89afc3a53c7f54e96a8098e250161768,
+        type: 2}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 224609657305350292, guid: 89afc3a53c7f54e96a8098e250161768,
+        type: 2}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 89afc3a53c7f54e96a8098e250161768, type: 2}
+  m_IsPrefabParent: 0
+--- !u!224 &710057682 stripped
+RectTransform:
+  m_PrefabParentObject: {fileID: 224609657305350292, guid: 89afc3a53c7f54e96a8098e250161768,
+    type: 2}
+  m_PrefabInternal: {fileID: 710057681}
+--- !u!1 &734982870
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 734982871}
+  - component: {fileID: 734982873}
+  - component: {fileID: 734982872}
+  m_Layer: 0
+  m_Name: Left
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &734982871
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 734982870}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -122.08301, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1872382648}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &734982872
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+  m_GameObject: {fileID: 804635856}
+=======
+  m_GameObject: {fileID: 734982870}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+    oldSize: {x: 5.833008, y: 3.6044922}
+    newSize: {x: 5.833008, y: 3.6044922}
+=======
+    oldSize: {x: 5.8339844, y: 3.6035156}
+    newSize: {x: 5.8339844, y: 3.6035156}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 1
+  serializedVersion: 2
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+  m_Size: {x: 5.833008, y: 3.6044922}
+  m_EdgeRadius: 0
+--- !u!212 &804635859
+=======
+  m_Size: {x: 5.8339844, y: 3.6035156}
+  m_EdgeRadius: 0
+--- !u!212 &734982873
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+  m_GameObject: {fileID: 804635856}
+=======
+  m_GameObject: {fileID: 734982870}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: -1648888425
+  m_SortingLayer: -1
+  m_SortingOrder: 0
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+  m_Sprite: {fileID: 21300000, guid: f1f195fb1a13b4daab86914ee8305444, type: 3}
+=======
+  m_Sprite: {fileID: 21300000, guid: c12784436dc8c49028e7948d8b80b4c4, type: 3}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+  m_Size: {x: 5.833008, y: 3.6044922}
+=======
+  m_Size: {x: 5.8339844, y: 3.6035156}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+--- !u!1 &815597786
+=======
+--- !u!114 &763364539 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114907191846490454, guid: f89783e438e2cd44aabfed05d0b15d56,
+    type: 2}
+  m_PrefabInternal: {fileID: 320505762}
+  m_Script: {fileID: 11500000, guid: 87f1fa7a810d84c4f8ed2cfed9eec8f4, type: 3}
+--- !u!1 &771992089
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+  - component: {fileID: 815597787}
+  - component: {fileID: 815597789}
+  - component: {fileID: 815597788}
+=======
+  - component: {fileID: 771992090}
+  - component: {fileID: 771992092}
+  - component: {fileID: 771992091}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
+  m_Layer: 0
+  m_Name: Right
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+--- !u!4 &815597787
+=======
+--- !u!4 &771992090
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+  m_GameObject: {fileID: 815597786}
+=======
+  m_GameObject: {fileID: 771992089}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.543457, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1364199832}
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+  m_Father: {fileID: 1461075195}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!60 &815597788
+=======
+  m_Father: {fileID: 136591232}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!60 &885710640
+--- !u!60 &771992091
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
 PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 885710638}
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+  m_GameObject: {fileID: 815597786}
+=======
+  m_GameObject: {fileID: 771992089}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -2941,6 +3963,8 @@ PolygonCollider2D:
   m_AutoTiling: 1
   m_Points:
     m_Paths:
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+=======
     - - {x: 1.5717127, y: -0.82266796}
       - {x: 1.6583295, y: -0.7317509}
       - {x: 1.7144389, y: -0.6327195}
@@ -2960,12 +3984,12 @@ PolygonCollider2D:
       - {x: 1.2479131, y: -0.956543}
       - {x: 1.3558762, y: -0.93902504}
       - {x: 1.4719701, y: -0.8933471}
---- !u!212 &885710641
+--- !u!212 &771992092
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 885710638}
+  m_GameObject: {fileID: 771992089}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -3004,6 +4028,360 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+--- !u!1001 &790483802
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4096066349046126, guid: f1a7cab92df76d2469888f725915a0c9, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -46.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4096066349046126, guid: f1a7cab92df76d2469888f725915a0c9, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -7.29
+      objectReference: {fileID: 0}
+    - target: {fileID: 4096066349046126, guid: f1a7cab92df76d2469888f725915a0c9, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4096066349046126, guid: f1a7cab92df76d2469888f725915a0c9, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4096066349046126, guid: f1a7cab92df76d2469888f725915a0c9, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4096066349046126, guid: f1a7cab92df76d2469888f725915a0c9, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4096066349046126, guid: f1a7cab92df76d2469888f725915a0c9, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4096066349046126, guid: f1a7cab92df76d2469888f725915a0c9, type: 2}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4096066349046126, guid: f1a7cab92df76d2469888f725915a0c9, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -90
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: f1a7cab92df76d2469888f725915a0c9, type: 2}
+  m_IsPrefabParent: 0
+--- !u!1 &825187265
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 825187266}
+  - component: {fileID: 825187268}
+  - component: {fileID: 825187267}
+  m_Layer: 0
+  m_Name: Left
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &825187266
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 825187265}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.543457, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1405886811}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!60 &825187267
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 825187265}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 3.5322266, y: 1.913086}
+    newSize: {x: 3.5322266, y: 1.913086}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 1
+  m_Points:
+    m_Paths:
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
+    - - {x: -1.2376254, y: 0.956543}
+      - {x: -1.3512074, y: 0.9379676}
+      - {x: -1.4478033, y: 0.9027228}
+      - {x: -1.5404865, y: 0.84791994}
+      - {x: -1.6101611, y: 0.78537273}
+      - {x: -1.667258, y: 0.7156534}
+      - {x: -1.7172203, y: 0.6279576}
+      - {x: -1.7535294, y: 0.5166322}
+      - {x: -1.7661133, y: 0.41742754}
+      - {x: -1.7661133, y: -0.44749916}
+      - {x: -1.7513472, y: -0.53351885}
+      - {x: -1.715721, y: -0.63724256}
+      - {x: -1.651852, y: -0.74037284}
+      - {x: -1.5817859, y: -0.8150885}
+      - {x: -1.4929056, y: -0.8791359}
+      - {x: -1.3838129, y: -0.93201923}
+      - {x: -1.2418041, y: -0.956543}
+      - {x: 1.7661133, y: -0.956543}
+      - {x: 1.7661133, y: 0.956543}
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+--- !u!212 &815597789
+=======
+--- !u!212 &825187268
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+  m_GameObject: {fileID: 815597786}
+=======
+  m_GameObject: {fileID: 825187265}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: -1648888425
+  m_SortingLayer: -1
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: 50ef53be7ffa34a8dbb4bebb4d3f0f74, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 3.5322266, y: 1.913086}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+--- !u!1 &885710638
+=======
+--- !u!1 &892341544
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+  - component: {fileID: 885710639}
+  - component: {fileID: 885710641}
+  - component: {fileID: 885710640}
+=======
+  - component: {fileID: 892341545}
+  - component: {fileID: 892341547}
+  - component: {fileID: 892341546}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
+  m_Layer: 0
+  m_Name: Right
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+--- !u!4 &885710639
+=======
+--- !u!4 &892341545
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+  m_GameObject: {fileID: 885710638}
+=======
+  m_GameObject: {fileID: 892341544}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.543457, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1364199832}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+--- !u!60 &885710640
+=======
+--- !u!60 &892341546
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+  m_GameObject: {fileID: 885710638}
+=======
+  m_GameObject: {fileID: 892341544}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 3.5322266, y: 1.913086}
+    newSize: {x: 3.5322266, y: 1.913086}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 1
+  m_Points:
+    m_Paths:
+    - - {x: 1.5717127, y: -0.82266796}
+      - {x: 1.6583295, y: -0.7317509}
+      - {x: 1.7144389, y: -0.6327195}
+      - {x: 1.7505646, y: -0.52535236}
+      - {x: 1.7661133, y: -0.42538702}
+      - {x: 1.7661133, y: 0.42001808}
+      - {x: 1.7547874, y: 0.51305103}
+      - {x: 1.7275555, y: 0.6045718}
+      - {x: 1.6809111, y: 0.6947932}
+      - {x: 1.6131301, y: 0.78388464}
+      - {x: 1.5303888, y: 0.8533273}
+      - {x: 1.4411187, y: 0.90613425}
+      - {x: 1.3286076, y: 0.9435668}
+      - {x: 1.2362761, y: 0.956543}
+      - {x: -1.7661133, y: 0.956543}
+      - {x: -1.7661133, y: -0.956543}
+      - {x: 1.2479131, y: -0.956543}
+      - {x: 1.3558762, y: -0.93902504}
+      - {x: 1.4719701, y: -0.8933471}
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+--- !u!212 &885710641
+=======
+--- !u!212 &892341547
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+  m_GameObject: {fileID: 885710638}
+=======
+  m_GameObject: {fileID: 892341544}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: -1648888425
+  m_SortingLayer: -1
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: d047417bc54c0488ebeb00ea82f316ff, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 3.5322266, y: 1.913086}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+=======
+--- !u!1 &912453061
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 12473768}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 912453062}
+  m_Layer: 0
+  m_Name: Missing Prefab
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &912453062
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 12473768}
+  m_GameObject: {fileID: 912453061}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 39
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
 --- !u!1001 &919444422
 Prefab:
   m_ObjectHideFlags: 0
@@ -3930,6 +5308,7 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3bdc33ab76a324fa685cd863793a31e4, type: 2}
   m_IsPrefabParent: 0
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
 --- !u!1001 &957180571
 Prefab:
   m_ObjectHideFlags: 0
@@ -4075,6 +5454,8 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+=======
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
 --- !u!1001 &976371777
 Prefab:
   m_ObjectHideFlags: 0
@@ -6454,16 +7835,86 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c8c217e129ed446de9b1fbba3fcbe5df, type: 2}
   m_IsPrefabParent: 0
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
 --- !u!1 &1060778526
+=======
+--- !u!1001 &1072166601
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4320690793334830, guid: 971f908aaf93e344a82768bd1beb2010, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 152.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4320690793334830, guid: 971f908aaf93e344a82768bd1beb2010, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 7.39
+      objectReference: {fileID: 0}
+    - target: {fileID: 4320690793334830, guid: 971f908aaf93e344a82768bd1beb2010, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4320690793334830, guid: 971f908aaf93e344a82768bd1beb2010, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4320690793334830, guid: 971f908aaf93e344a82768bd1beb2010, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4320690793334830, guid: 971f908aaf93e344a82768bd1beb2010, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4320690793334830, guid: 971f908aaf93e344a82768bd1beb2010, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4320690793334830, guid: 971f908aaf93e344a82768bd1beb2010, type: 2}
+      propertyPath: m_RootOrder
+      value: 26
+      objectReference: {fileID: 0}
+    - target: {fileID: 212685528780662538, guid: 971f908aaf93e344a82768bd1beb2010,
+        type: 2}
+      propertyPath: m_Size.x
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4320690793334830, guid: 971f908aaf93e344a82768bd1beb2010, type: 2}
+      propertyPath: m_LocalScale.y
+      value: -1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1430399823751832, guid: 971f908aaf93e344a82768bd1beb2010, type: 2}
+      propertyPath: m_Name
+      value: Spikes_M (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 60791026557477716, guid: 971f908aaf93e344a82768bd1beb2010,
+        type: 2}
+      propertyPath: m_SpriteTilingProperty.newSize.x
+      value: 20
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 971f908aaf93e344a82768bd1beb2010, type: 2}
+  m_IsPrefabParent: 0
+--- !u!1 &1110540463
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 5
   m_Component:
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
   - component: {fileID: 1060778527}
   - component: {fileID: 1060778529}
   - component: {fileID: 1060778528}
+=======
+  - component: {fileID: 1110540464}
+  - component: {fileID: 1110540466}
+  - component: {fileID: 1110540465}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
   m_Layer: 0
   m_Name: Middle
   m_TagString: Untagged
@@ -6471,16 +7922,25 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
 --- !u!4 &1060778527
+=======
+--- !u!4 &1110540464
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
   m_GameObject: {fileID: 1060778526}
+=======
+  m_GameObject: {fileID: 1110540463}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
   m_Father: {fileID: 136591232}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6490,6 +7950,17 @@ PolygonCollider2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1060778526}
+=======
+  m_Father: {fileID: 389514143}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &1110540465
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1110540463}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -6500,12 +7971,13 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 3.5478516, y: 1.9130858}
-    newSize: {x: 3.5546875, y: 1.9130858}
+    oldSize: {x: 5.317383, y: 3.5996094}
+    newSize: {x: 238.33301, y: 3.5996094}
     adaptiveTilingThreshold: 0.5
     drawMode: 2
     adaptiveTiling: 0
   m_AutoTiling: 1
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
   m_Points:
     m_Paths:
     - - {x: -1.7744565, y: 0.95654297}
@@ -6513,11 +7985,21 @@ PolygonCollider2D:
       - {x: 1.7744565, y: -0.95654297}
       - {x: 1.7744565, y: 0.95654297}
 --- !u!212 &1060778529
+=======
+  serializedVersion: 2
+  m_Size: {x: 5.317383, y: 3.5996094}
+  m_EdgeRadius: 0
+--- !u!212 &1110540466
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
   m_GameObject: {fileID: 1060778526}
+=======
+  m_GameObject: {fileID: 1110540463}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -6546,26 +8028,36 @@ SpriteRenderer:
   m_SortingLayerID: -1648888425
   m_SortingLayer: -1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 8843962ca9e24492e958ac4004b74a8e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2933756e5af6043859a3d6257d8d868d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
-  m_Size: {x: 3.5546875, y: 1.9130858}
+  m_Size: {x: 238.33301, y: 3.5996094}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
 --- !u!1 &1067150101
+=======
+--- !u!1 &1115582056
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 5
   m_Component:
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
   - component: {fileID: 1067150102}
   - component: {fileID: 1067150104}
   - component: {fileID: 1067150103}
+=======
+  - component: {fileID: 1115582057}
+  - component: {fileID: 1115582059}
+  - component: {fileID: 1115582058}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
   m_Layer: 0
   m_Name: Right
   m_TagString: Untagged
@@ -6573,25 +8065,44 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
 --- !u!4 &1067150102
+=======
+--- !u!4 &1115582057
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
   m_GameObject: {fileID: 1067150101}
+=======
+  m_GameObject: {fileID: 1115582056}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.543457, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
   m_Father: {fileID: 1491846746}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!60 &1067150103
+=======
+  m_Father: {fileID: 301845623}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!60 &1115582058
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
 PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
   m_GameObject: {fileID: 1067150101}
+=======
+  m_GameObject: {fileID: 1115582056}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -6629,12 +8140,20 @@ PolygonCollider2D:
       - {x: 1.2479131, y: -0.956543}
       - {x: 1.3558762, y: -0.93902504}
       - {x: 1.4719701, y: -0.8933471}
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
 --- !u!212 &1067150104
+=======
+--- !u!212 &1115582059
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
   m_GameObject: {fileID: 1067150101}
+=======
+  m_GameObject: {fileID: 1115582056}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -6779,11 +8298,19 @@ Transform:
   m_LocalPosition: {x: 16.6, y: -0.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
   - {fileID: 1512715218}
   - {fileID: 1888005124}
   - {fileID: 1914131715}
   m_Father: {fileID: 0}
   m_RootOrder: 26
+=======
+  - {fileID: 652597900}
+  - {fileID: 1755253712}
+  - {fileID: 59142442}
+  m_Father: {fileID: 0}
+  m_RootOrder: 24
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1154055758
 Prefab:
@@ -7677,6 +9204,105 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3bdc33ab76a324fa685cd863793a31e4, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1194043081
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1194043082}
+  - component: {fileID: 1194043084}
+  - component: {fileID: 1194043083}
+  m_Layer: 0
+  m_Name: Right
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1194043082
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1194043081}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 122.083496, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1872382648}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &1194043083
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1194043081}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 5.833008, y: 3.6044922}
+    newSize: {x: 5.833008, y: 3.6044922}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 1
+  serializedVersion: 2
+  m_Size: {x: 5.833008, y: 3.6044922}
+  m_EdgeRadius: 0
+--- !u!212 &1194043084
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1194043081}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: -1648888425
+  m_SortingLayer: -1
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: f1f195fb1a13b4daab86914ee8305444, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 5.833008, y: 3.6044922}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
 --- !u!1 &1208237807
 GameObject:
   m_ObjectHideFlags: 0
@@ -7750,7 +9376,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 100
   m_TargetDisplay: 0
 --- !u!224 &1208237811
 RectTransform:
@@ -7762,124 +9388,39 @@ RectTransform:
   m_LocalPosition: {x: 184.9, y: 5.7, z: 90}
   m_LocalScale: {x: 0.03705257, y: 0.03705257, z: 0.03705257}
   m_Children:
-  - {fileID: 207223658}
+  - {fileID: 710057682}
   m_Father: {fileID: 0}
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
   m_RootOrder: 31
+=======
+  m_RootOrder: 30
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
 --- !u!1 &1216508640
+=======
+--- !u!1 &1246959110
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 5
   m_Component:
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
   - component: {fileID: 1216508641}
   - component: {fileID: 1216508643}
   - component: {fileID: 1216508642}
-  m_Layer: 0
-  m_Name: Right
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1216508641
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1216508640}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 122.083496, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1872382648}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &1216508642
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1216508640}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 5.833008, y: 3.6044922}
-    newSize: {x: 5.833008, y: 3.6044922}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 1
-  serializedVersion: 2
-  m_Size: {x: 5.833008, y: 3.6044922}
-  m_EdgeRadius: 0
---- !u!212 &1216508643
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1216508640}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1648888425
-  m_SortingLayer: -1
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: f1f195fb1a13b4daab86914ee8305444, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 5.833008, y: 3.6044922}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
---- !u!1 &1272713204
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 1272713205}
-  - component: {fileID: 1272713207}
-  - component: {fileID: 1272713206}
+=======
+  - component: {fileID: 1246959111}
+  - component: {fileID: 1246959113}
+  - component: {fileID: 1246959112}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
   m_Layer: 0
   m_Name: Middle
   m_TagString: Untagged
@@ -7887,25 +9428,42 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1272713205
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+--- !u!4 &1216508641
+=======
+--- !u!4 &1246959111
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1272713204}
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+  m_GameObject: {fileID: 1216508640}
+=======
+  m_GameObject: {fileID: 1246959110}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 301845623}
+  m_Father: {fileID: 1491846746}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!60 &1272713206
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+--- !u!61 &1216508642
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1216508640}
+=======
+--- !u!60 &1246959112
 PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1272713204}
+  m_GameObject: {fileID: 1246959110}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -7922,18 +9480,29 @@ PolygonCollider2D:
     drawMode: 2
     adaptiveTiling: 0
   m_AutoTiling: 1
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+  serializedVersion: 2
+  m_Size: {x: 5.833008, y: 3.6044922}
+  m_EdgeRadius: 0
+--- !u!212 &1216508643
+=======
   m_Points:
     m_Paths:
-    - - {x: -1.7744565, y: 0.95654297}
-      - {x: -1.7744565, y: -0.95654297}
-      - {x: 1.7744565, y: -0.95654297}
-      - {x: 1.7744565, y: 0.95654297}
---- !u!212 &1272713207
+    - - {x: -1.7739259, y: -0.95654297}
+      - {x: 1.7739259, y: -0.95654297}
+      - {x: 1.7739259, y: 0.95654297}
+      - {x: -1.7739259, y: 0.95654297}
+--- !u!212 &1246959113
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1272713204}
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+  m_GameObject: {fileID: 1216508640}
+=======
+  m_GameObject: {fileID: 1246959110}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -7972,16 +9541,26 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
---- !u!1 &1287494822
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+--- !u!1 &1272713204
+=======
+--- !u!1 &1254609977
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 1287494823}
-  - component: {fileID: 1287494825}
-  - component: {fileID: 1287494824}
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+  - component: {fileID: 1272713205}
+  - component: {fileID: 1272713207}
+  - component: {fileID: 1272713206}
+=======
+  - component: {fileID: 1254609978}
+  - component: {fileID: 1254609980}
+  - component: {fileID: 1254609979}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
   m_Layer: 0
   m_Name: Left
   m_TagString: Untagged
@@ -7989,25 +9568,44 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1287494823
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+--- !u!4 &1272713205
+=======
+--- !u!4 &1254609978
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1287494822}
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+  m_GameObject: {fileID: 1272713204}
+=======
+  m_GameObject: {fileID: 1254609977}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.543457, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
   m_Father: {fileID: 301845623}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!60 &1272713206
+=======
+  m_Father: {fileID: 1461075195}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!60 &1287494824
+--- !u!60 &1254609979
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
 PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1287494822}
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+  m_GameObject: {fileID: 1272713204}
+=======
+  m_GameObject: {fileID: 1254609977}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -8026,6 +9624,13 @@ PolygonCollider2D:
   m_AutoTiling: 1
   m_Points:
     m_Paths:
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+    - - {x: -1.7744565, y: 0.95654297}
+      - {x: -1.7744565, y: -0.95654297}
+      - {x: 1.7744565, y: -0.95654297}
+      - {x: 1.7744565, y: 0.95654297}
+--- !u!212 &1272713207
+=======
     - - {x: -1.2376254, y: 0.956543}
       - {x: -1.3512074, y: 0.9379676}
       - {x: -1.4478033, y: 0.9027228}
@@ -8045,12 +9650,17 @@ PolygonCollider2D:
       - {x: -1.2418041, y: -0.956543}
       - {x: 1.7661133, y: -0.956543}
       - {x: 1.7661133, y: 0.956543}
---- !u!212 &1287494825
+--- !u!212 &1254609980
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1287494822}
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+  m_GameObject: {fileID: 1272713204}
+=======
+  m_GameObject: {fileID: 1254609977}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -8089,42 +9699,45 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
---- !u!1 &1295492916
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+--- !u!1 &1287494822
+=======
+--- !u!1 &1297291835
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 1295492917}
-  - component: {fileID: 1295492919}
-  - component: {fileID: 1295492918}
+  - component: {fileID: 1297291836}
+  - component: {fileID: 1297291838}
+  - component: {fileID: 1297291837}
   m_Layer: 0
-  m_Name: Right
+  m_Name: Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1295492917
+--- !u!4 &1297291836
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1295492916}
+  m_GameObject: {fileID: 1297291835}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.543457, y: 0, z: 0}
+  m_LocalPosition: {x: -3.543457, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1461075195}
-  m_RootOrder: 2
+  m_Father: {fileID: 1491846746}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!60 &1295492918
+--- !u!60 &1297291837
 PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1295492916}
+  m_GameObject: {fileID: 1297291835}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -8143,31 +9756,31 @@ PolygonCollider2D:
   m_AutoTiling: 1
   m_Points:
     m_Paths:
-    - - {x: 1.5717127, y: -0.82266796}
-      - {x: 1.6583295, y: -0.7317509}
-      - {x: 1.7144389, y: -0.6327195}
-      - {x: 1.7505646, y: -0.52535236}
-      - {x: 1.7661133, y: -0.42538702}
-      - {x: 1.7661133, y: 0.42001808}
-      - {x: 1.7547874, y: 0.51305103}
-      - {x: 1.7275555, y: 0.6045718}
-      - {x: 1.6809111, y: 0.6947932}
-      - {x: 1.6131301, y: 0.78388464}
-      - {x: 1.5303888, y: 0.8533273}
-      - {x: 1.4411187, y: 0.90613425}
-      - {x: 1.3286076, y: 0.9435668}
-      - {x: 1.2362761, y: 0.956543}
-      - {x: -1.7661133, y: 0.956543}
-      - {x: -1.7661133, y: -0.956543}
-      - {x: 1.2479131, y: -0.956543}
-      - {x: 1.3558762, y: -0.93902504}
-      - {x: 1.4719701, y: -0.8933471}
---- !u!212 &1295492919
+    - - {x: -1.2376254, y: 0.956543}
+      - {x: -1.3512074, y: 0.9379676}
+      - {x: -1.4478033, y: 0.9027228}
+      - {x: -1.5404865, y: 0.84791994}
+      - {x: -1.6101611, y: 0.78537273}
+      - {x: -1.667258, y: 0.7156534}
+      - {x: -1.7172203, y: 0.6279576}
+      - {x: -1.7535294, y: 0.5166322}
+      - {x: -1.7661133, y: 0.41742754}
+      - {x: -1.7661133, y: -0.44749916}
+      - {x: -1.7513472, y: -0.53351885}
+      - {x: -1.715721, y: -0.63724256}
+      - {x: -1.651852, y: -0.74037284}
+      - {x: -1.5817859, y: -0.8150885}
+      - {x: -1.4929056, y: -0.8791359}
+      - {x: -1.3838129, y: -0.93201923}
+      - {x: -1.2418041, y: -0.956543}
+      - {x: 1.7661133, y: -0.956543}
+      - {x: 1.7661133, y: 0.956543}
+--- !u!212 &1297291838
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1295492916}
+  m_GameObject: {fileID: 1297291835}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -8196,7 +9809,7 @@ SpriteRenderer:
   m_SortingLayerID: -1648888425
   m_SortingLayer: -1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d047417bc54c0488ebeb00ea82f316ff, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 50ef53be7ffa34a8dbb4bebb4d3f0f74, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -8206,6 +9819,541 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+--- !u!1 &1325190088
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1325190089}
+  - component: {fileID: 1325190091}
+  - component: {fileID: 1325190090}
+  m_Layer: 0
+  m_Name: Middle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1325190089
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1325190088}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1405886811}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!60 &1325190090
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1325190088}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 3.5478516, y: 1.9130858}
+    newSize: {x: 3.5546875, y: 1.9130858}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 2
+    adaptiveTiling: 0
+  m_AutoTiling: 1
+  m_Points:
+    m_Paths:
+    - - {x: -1.7739259, y: -0.95654297}
+      - {x: 1.7739259, y: -0.95654297}
+      - {x: 1.7739259, y: 0.95654297}
+      - {x: -1.7739259, y: 0.95654297}
+--- !u!212 &1325190091
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1325190088}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: -1648888425
+  m_SortingLayer: -1
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: 8843962ca9e24492e958ac4004b74a8e, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 2
+  m_Size: {x: 3.5546875, y: 1.9130858}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+--- !u!1 &1350927826
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+  - component: {fileID: 1287494823}
+  - component: {fileID: 1287494825}
+  - component: {fileID: 1287494824}
+=======
+  - component: {fileID: 1350927827}
+  - component: {fileID: 1350927829}
+  - component: {fileID: 1350927828}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
+  m_Layer: 0
+  m_Name: Middle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+--- !u!4 &1287494823
+=======
+--- !u!4 &1350927827
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+  m_GameObject: {fileID: 1287494822}
+=======
+  m_GameObject: {fileID: 1350927826}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.0000002, y: 1.0000002, z: 1}
+  m_Children: []
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+  m_Father: {fileID: 301845623}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!60 &1287494824
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1287494822}
+=======
+  m_Father: {fileID: 1705029060}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &1350927828
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1350927826}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 5.317383, y: 3.5996094}
+    newSize: {x: 38.333008, y: 3.5996094}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 2
+    adaptiveTiling: 0
+  m_AutoTiling: 1
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+  m_Points:
+    m_Paths:
+    - - {x: -1.2376254, y: 0.956543}
+      - {x: -1.3512074, y: 0.9379676}
+      - {x: -1.4478033, y: 0.9027228}
+      - {x: -1.5404865, y: 0.84791994}
+      - {x: -1.6101611, y: 0.78537273}
+      - {x: -1.667258, y: 0.7156534}
+      - {x: -1.7172203, y: 0.6279576}
+      - {x: -1.7535294, y: 0.5166322}
+      - {x: -1.7661133, y: 0.41742754}
+      - {x: -1.7661133, y: -0.44749916}
+      - {x: -1.7513472, y: -0.53351885}
+      - {x: -1.715721, y: -0.63724256}
+      - {x: -1.651852, y: -0.74037284}
+      - {x: -1.5817859, y: -0.8150885}
+      - {x: -1.4929056, y: -0.8791359}
+      - {x: -1.3838129, y: -0.93201923}
+      - {x: -1.2418041, y: -0.956543}
+      - {x: 1.7661133, y: -0.956543}
+      - {x: 1.7661133, y: 0.956543}
+--- !u!212 &1287494825
+=======
+  serializedVersion: 2
+  m_Size: {x: 5.317383, y: 3.5996094}
+  m_EdgeRadius: 0
+--- !u!212 &1350927829
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+  m_GameObject: {fileID: 1287494822}
+=======
+  m_GameObject: {fileID: 1350927826}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: -1648888425
+  m_SortingLayer: -1
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: 2933756e5af6043859a3d6257d8d868d, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 2
+  m_Size: {x: 38.333008, y: 3.5996094}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+--- !u!1 &1295492916
+=======
+--- !u!1 &1364199830
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 1420604122087162, guid: fad59b8a1ad959741868536e12e2acbb,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1364199832}
+  - component: {fileID: 1364199831}
+  m_Layer: 0
+  m_Name: Platform (5)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1364199831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 114678614404055500, guid: fad59b8a1ad959741868536e12e2acbb,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1364199830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28ebff9546af94de1ad8789d584b7525, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  left_sprite: {fileID: 21300000, guid: 50ef53be7ffa34a8dbb4bebb4d3f0f74, type: 3}
+  mid_sprite: {fileID: 21300000, guid: 8843962ca9e24492e958ac4004b74a8e, type: 3}
+  right_sprite: {fileID: 21300000, guid: d047417bc54c0488ebeb00ea82f316ff, type: 3}
+  platform_width: 10.619141
+  use_polygon: 1
+  order_in_layer: 0
+--- !u!4 &1364199832
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 4352522452745352, guid: fad59b8a1ad959741868536e12e2acbb,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1364199830}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 178, y: -8.7, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1411216901}
+  - {fileID: 114305782}
+  - {fileID: 892341545}
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1405886809
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 1420604122087162, guid: fad59b8a1ad959741868536e12e2acbb,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1405886811}
+  - component: {fileID: 1405886810}
+  m_Layer: 0
+  m_Name: Platform (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1405886810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 114678614404055500, guid: fad59b8a1ad959741868536e12e2acbb,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1405886809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28ebff9546af94de1ad8789d584b7525, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  left_sprite: {fileID: 21300000, guid: 50ef53be7ffa34a8dbb4bebb4d3f0f74, type: 3}
+  mid_sprite: {fileID: 21300000, guid: 8843962ca9e24492e958ac4004b74a8e, type: 3}
+  right_sprite: {fileID: 21300000, guid: d047417bc54c0488ebeb00ea82f316ff, type: 3}
+  platform_width: 10.619141
+  use_polygon: 1
+  order_in_layer: 0
+--- !u!4 &1405886811
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 4352522452745352, guid: fad59b8a1ad959741868536e12e2acbb,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1405886809}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 160.8, y: -15.8, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 825187266}
+  - {fileID: 1325190089}
+  - {fileID: 2143352695}
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1411216900
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+  - component: {fileID: 1295492917}
+  - component: {fileID: 1295492919}
+  - component: {fileID: 1295492918}
+=======
+  - component: {fileID: 1411216901}
+  - component: {fileID: 1411216903}
+  - component: {fileID: 1411216902}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
+  m_Layer: 0
+  m_Name: Left
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+--- !u!4 &1295492917
+=======
+--- !u!4 &1411216901
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+  m_GameObject: {fileID: 1295492916}
+=======
+  m_GameObject: {fileID: 1411216900}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.543457, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+  m_Father: {fileID: 1461075195}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!60 &1295492918
+=======
+  m_Father: {fileID: 1364199832}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!60 &1411216902
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+  m_GameObject: {fileID: 1295492916}
+=======
+  m_GameObject: {fileID: 1411216900}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 3.5322266, y: 1.913086}
+    newSize: {x: 3.5322266, y: 1.913086}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 1
+  m_Points:
+    m_Paths:
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+    - - {x: 1.5717127, y: -0.82266796}
+      - {x: 1.6583295, y: -0.7317509}
+      - {x: 1.7144389, y: -0.6327195}
+      - {x: 1.7505646, y: -0.52535236}
+      - {x: 1.7661133, y: -0.42538702}
+      - {x: 1.7661133, y: 0.42001808}
+      - {x: 1.7547874, y: 0.51305103}
+      - {x: 1.7275555, y: 0.6045718}
+      - {x: 1.6809111, y: 0.6947932}
+      - {x: 1.6131301, y: 0.78388464}
+      - {x: 1.5303888, y: 0.8533273}
+      - {x: 1.4411187, y: 0.90613425}
+      - {x: 1.3286076, y: 0.9435668}
+      - {x: 1.2362761, y: 0.956543}
+      - {x: -1.7661133, y: 0.956543}
+      - {x: -1.7661133, y: -0.956543}
+      - {x: 1.2479131, y: -0.956543}
+      - {x: 1.3558762, y: -0.93902504}
+      - {x: 1.4719701, y: -0.8933471}
+--- !u!212 &1295492919
+=======
+    - - {x: -1.2376254, y: 0.956543}
+      - {x: -1.3512074, y: 0.9379676}
+      - {x: -1.4478033, y: 0.9027228}
+      - {x: -1.5404865, y: 0.84791994}
+      - {x: -1.6101611, y: 0.78537273}
+      - {x: -1.667258, y: 0.7156534}
+      - {x: -1.7172203, y: 0.6279576}
+      - {x: -1.7535294, y: 0.5166322}
+      - {x: -1.7661133, y: 0.41742754}
+      - {x: -1.7661133, y: -0.44749916}
+      - {x: -1.7513472, y: -0.53351885}
+      - {x: -1.715721, y: -0.63724256}
+      - {x: -1.651852, y: -0.74037284}
+      - {x: -1.5817859, y: -0.8150885}
+      - {x: -1.4929056, y: -0.8791359}
+      - {x: -1.3838129, y: -0.93201923}
+      - {x: -1.2418041, y: -0.956543}
+      - {x: 1.7661133, y: -0.956543}
+      - {x: 1.7661133, y: 0.956543}
+--- !u!212 &1411216903
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+  m_GameObject: {fileID: 1295492916}
+=======
+  m_GameObject: {fileID: 1411216900}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: -1648888425
+  m_SortingLayer: -1
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: 50ef53be7ffa34a8dbb4bebb4d3f0f74, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 3.5322266, y: 1.913086}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
 --- !u!1001 &1321120612
 Prefab:
   m_ObjectHideFlags: 0
@@ -8253,22 +10401,33 @@ Prefab:
   m_ParentPrefab: {fileID: 100100000, guid: ffa937b54581e414d8e78957d91cb130, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1364199830
+=======
+--- !u!1 &1451262952
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 1420604122087162, guid: fad59b8a1ad959741868536e12e2acbb,
-    type: 2}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 5
   m_Component:
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
   - component: {fileID: 1364199832}
   - component: {fileID: 1364199831}
   m_Layer: 0
   m_Name: Platform (5)
+=======
+  - component: {fileID: 1451262953}
+  - component: {fileID: 1451262955}
+  - component: {fileID: 1451262954}
+  m_Layer: 0
+  m_Name: Middle
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
 --- !u!114 &1364199831
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8288,11 +10447,14 @@ MonoBehaviour:
   use_polygon: 1
   order_in_layer: 0
 --- !u!4 &1364199832
+=======
+--- !u!4 &1451262953
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
 Transform:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 4352522452745352, guid: fad59b8a1ad959741868536e12e2acbb,
-    type: 2}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
   m_GameObject: {fileID: 1364199830}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 178, y: -8.7, z: 0}
@@ -8335,11 +10497,26 @@ Transform:
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!60 &1420118156
+=======
+  m_GameObject: {fileID: 1451262952}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 136591232}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!60 &1451262954
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
 PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
   m_GameObject: {fileID: 1420118154}
+=======
+  m_GameObject: {fileID: 1451262952}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -8358,16 +10535,28 @@ PolygonCollider2D:
   m_AutoTiling: 1
   m_Points:
     m_Paths:
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
     - - {x: -1.7744565, y: 0.95654297}
       - {x: -1.7744565, y: -0.95654297}
       - {x: 1.7744565, y: -0.95654297}
       - {x: 1.7744565, y: 0.95654297}
 --- !u!212 &1420118157
+=======
+    - - {x: -1.7739259, y: -0.95654297}
+      - {x: 1.7739259, y: -0.95654297}
+      - {x: 1.7739259, y: 0.95654297}
+      - {x: -1.7739259, y: 0.95654297}
+--- !u!212 &1451262955
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
   m_GameObject: {fileID: 1420118154}
+=======
+  m_GameObject: {fileID: 1451262952}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -8498,6 +10687,7 @@ Transform:
   m_LocalPosition: {x: 76.6, y: 5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
   - {fileID: 815597787}
   - {fileID: 96490710}
   - {fileID: 1295492917}
@@ -8557,27 +10747,49 @@ Transform:
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1512715217
+=======
+  - {fileID: 1254609978}
+  - {fileID: 1511419336}
+  - {fileID: 1789478531}
+  m_Father: {fileID: 0}
+  m_RootOrder: 22
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1469662946
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 5
   m_Component:
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
   - component: {fileID: 1512715218}
   - component: {fileID: 1512715220}
   - component: {fileID: 1512715219}
   m_Layer: 0
   m_Name: Left
+=======
+  - component: {fileID: 1469662947}
+  - component: {fileID: 1469662949}
+  - component: {fileID: 1469662948}
+  m_Layer: 0
+  m_Name: Middle
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
 --- !u!4 &1512715218
+=======
+--- !u!4 &1469662947
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
   m_GameObject: {fileID: 1512715217}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.543457, y: 0, z: 0}
@@ -8592,6 +10804,22 @@ PolygonCollider2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1512715217}
+=======
+  m_GameObject: {fileID: 1469662946}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1872382648}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &1469662948
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1469662946}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -8602,12 +10830,13 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 3.5322266, y: 1.913086}
-    newSize: {x: 3.5322266, y: 1.913086}
+    oldSize: {x: 5.317383, y: 3.5996094}
+    newSize: {x: 238.33301, y: 3.5996094}
     adaptiveTilingThreshold: 0.5
-    drawMode: 0
+    drawMode: 2
     adaptiveTiling: 0
   m_AutoTiling: 1
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
   m_Points:
     m_Paths:
     - - {x: -1.2376254, y: 0.956543}
@@ -8630,11 +10859,21 @@ PolygonCollider2D:
       - {x: 1.7661133, y: -0.956543}
       - {x: 1.7661133, y: 0.956543}
 --- !u!212 &1512715220
+=======
+  serializedVersion: 2
+  m_Size: {x: 5.317383, y: 3.5996094}
+  m_EdgeRadius: 0
+--- !u!212 &1469662949
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
   m_GameObject: {fileID: 1512715217}
+=======
+  m_GameObject: {fileID: 1469662946}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -8663,38 +10902,59 @@ SpriteRenderer:
   m_SortingLayerID: -1648888425
   m_SortingLayer: -1
   m_SortingOrder: 0
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
   m_Sprite: {fileID: 21300000, guid: 50ef53be7ffa34a8dbb4bebb4d3f0f74, type: 3}
+=======
+  m_Sprite: {fileID: 21300000, guid: 2933756e5af6043859a3d6257d8d868d, type: 3}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 3.5322266, y: 1.913086}
+  m_DrawMode: 2
+  m_Size: {x: 238.33301, y: 3.5996094}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
 --- !u!1 &1565188199
+=======
+--- !u!1 &1479960718
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 5
   m_Component:
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
   - component: {fileID: 1565188200}
   - component: {fileID: 1565188202}
   - component: {fileID: 1565188201}
   m_Layer: 0
   m_Name: Middle
+=======
+  - component: {fileID: 1479960719}
+  - component: {fileID: 1479960721}
+  - component: {fileID: 1479960720}
+  m_Layer: 0
+  m_Name: Right
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
 --- !u!4 &1565188200
+=======
+--- !u!4 &1479960719
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
   m_GameObject: {fileID: 1565188199}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -8709,6 +10969,22 @@ PolygonCollider2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1565188199}
+=======
+  m_GameObject: {fileID: 1479960718}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 122.083496, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 389514143}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &1479960720
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1479960718}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -8719,12 +10995,18 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
     oldSize: {x: 3.5478516, y: 1.9130858}
     newSize: {x: 3.5546875, y: 1.9130858}
+=======
+    oldSize: {x: 5.833008, y: 3.6044922}
+    newSize: {x: 5.833008, y: 3.6044922}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
     adaptiveTilingThreshold: 0.5
     drawMode: 2
     adaptiveTiling: 0
   m_AutoTiling: 1
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
   m_Points:
     m_Paths:
     - - {x: -1.7744565, y: 0.95654297}
@@ -8732,11 +11014,21 @@ PolygonCollider2D:
       - {x: 1.7744565, y: -0.95654297}
       - {x: 1.7744565, y: 0.95654297}
 --- !u!212 &1565188202
+=======
+  serializedVersion: 2
+  m_Size: {x: 5.833008, y: 3.6044922}
+  m_EdgeRadius: 0
+--- !u!212 &1479960721
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
   m_GameObject: {fileID: 1565188199}
+=======
+  m_GameObject: {fileID: 1479960718}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -8765,39 +11057,121 @@ SpriteRenderer:
   m_SortingLayerID: -1648888425
   m_SortingLayer: -1
   m_SortingOrder: 0
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
   m_Sprite: {fileID: 21300000, guid: 8843962ca9e24492e958ac4004b74a8e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
   m_Size: {x: 3.5546875, y: 1.9130858}
+=======
+  m_Sprite: {fileID: 21300000, guid: f1f195fb1a13b4daab86914ee8305444, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 5.833008, y: 3.6044922}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
 --- !u!1 &1568944522
+=======
+--- !u!1 &1491846744
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_PrefabParentObject: {fileID: 1420604122087162, guid: fad59b8a1ad959741868536e12e2acbb,
+    type: 2}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 5
   m_Component:
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
   - component: {fileID: 1568944523}
   - component: {fileID: 1568944525}
   - component: {fileID: 1568944524}
   m_Layer: 0
   m_Name: Left
+=======
+  - component: {fileID: 1491846746}
+  - component: {fileID: 1491846745}
+  m_Layer: 0
+  m_Name: Platform (6)
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
 --- !u!4 &1568944523
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1568944522}
+=======
+--- !u!114 &1491846745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 114678614404055500, guid: fad59b8a1ad959741868536e12e2acbb,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1491846744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28ebff9546af94de1ad8789d584b7525, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  left_sprite: {fileID: 21300000, guid: 50ef53be7ffa34a8dbb4bebb4d3f0f74, type: 3}
+  mid_sprite: {fileID: 21300000, guid: 8843962ca9e24492e958ac4004b74a8e, type: 3}
+  right_sprite: {fileID: 21300000, guid: d047417bc54c0488ebeb00ea82f316ff, type: 3}
+  platform_width: 10.619141
+  use_polygon: 1
+  order_in_layer: 0
+--- !u!4 &1491846746
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 4352522452745352, guid: fad59b8a1ad959741868536e12e2acbb,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1491846744}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -35.966133, y: -21.324043, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1297291836}
+  - {fileID: 1246959111}
+  - {fileID: 2134838661}
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1511419335
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1511419336}
+  - component: {fileID: 1511419338}
+  - component: {fileID: 1511419337}
+  m_Layer: 0
+  m_Name: Middle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1511419336
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1511419335}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -122.08301, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -8805,12 +11179,21 @@ Transform:
   m_Father: {fileID: 1872382648}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
 --- !u!61 &1568944524
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1568944522}
+=======
+--- !u!60 &1511419337
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1511419335}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -8827,15 +11210,29 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 1
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
   serializedVersion: 2
   m_Size: {x: 5.8339844, y: 3.6035156}
   m_EdgeRadius: 0
 --- !u!212 &1568944525
+=======
+  m_Points:
+    m_Paths:
+    - - {x: -1.7739259, y: -0.95654297}
+      - {x: 1.7739259, y: -0.95654297}
+      - {x: 1.7739259, y: 0.95654297}
+      - {x: -1.7739259, y: 0.95654297}
+--- !u!212 &1511419338
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
   m_GameObject: {fileID: 1568944522}
+=======
+  m_GameObject: {fileID: 1511419335}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -8874,13 +11271,18 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
 --- !u!1001 &1585639818
+=======
+--- !u!1001 &1552005457
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
     - target: {fileID: 4482127956786618, guid: 65120ffb8f6394e2a82e7682949bb7ee, type: 2}
       propertyPath: m_LocalPosition.x
       value: 107.54257
@@ -8888,6 +11290,20 @@ Prefab:
     - target: {fileID: 4482127956786618, guid: 65120ffb8f6394e2a82e7682949bb7ee, type: 2}
       propertyPath: m_LocalPosition.y
       value: 6.7064505
+=======
+    - target: {fileID: 114083633773436378, guid: 65120ffb8f6394e2a82e7682949bb7ee,
+        type: 2}
+      propertyPath: LocalWayPoints.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4482127956786618, guid: 65120ffb8f6394e2a82e7682949bb7ee, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 107.27
+      objectReference: {fileID: 0}
+    - target: {fileID: 4482127956786618, guid: 65120ffb8f6394e2a82e7682949bb7ee, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 7.4
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
       objectReference: {fileID: 0}
     - target: {fileID: 4482127956786618, guid: 65120ffb8f6394e2a82e7682949bb7ee, type: 2}
       propertyPath: m_LocalPosition.z
@@ -8911,11 +11327,365 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4482127956786618, guid: 65120ffb8f6394e2a82e7682949bb7ee, type: 2}
       propertyPath: m_RootOrder
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
       value: 2
+=======
+      value: 37
+      objectReference: {fileID: 0}
+    - target: {fileID: 1661694042464410, guid: 65120ffb8f6394e2a82e7682949bb7ee, type: 2}
+      propertyPath: m_Name
+      value: WaypointSawTB (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4482127956786618, guid: 65120ffb8f6394e2a82e7682949bb7ee, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4482127956786618, guid: 65120ffb8f6394e2a82e7682949bb7ee, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4482127956786618, guid: 65120ffb8f6394e2a82e7682949bb7ee, type: 2}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114083633773436378, guid: 65120ffb8f6394e2a82e7682949bb7ee,
+        type: 2}
+      propertyPath: LocalWayPoints.Array.data[2].x
+      value: -16.24
+      objectReference: {fileID: 0}
+    - target: {fileID: 114083633773436378, guid: 65120ffb8f6394e2a82e7682949bb7ee,
+        type: 2}
+      propertyPath: LocalWayPoints.Array.data[2].y
+      value: -6
+      objectReference: {fileID: 0}
+    - target: {fileID: 114083633773436378, guid: 65120ffb8f6394e2a82e7682949bb7ee,
+        type: 2}
+      propertyPath: LocalWayPoints.Array.data[3].x
+      value: 0.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 114083633773436378, guid: 65120ffb8f6394e2a82e7682949bb7ee,
+        type: 2}
+      propertyPath: LocalWayPoints.Array.data[3].y
+      value: 2.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 114083633773436378, guid: 65120ffb8f6394e2a82e7682949bb7ee,
+        type: 2}
+      propertyPath: LocalWayPoints.Array.data[1].x
+      value: -16.24
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 65120ffb8f6394e2a82e7682949bb7ee, type: 2}
   m_IsPrefabParent: 0
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+--- !u!1 &1654238957
+=======
+--- !u!1 &1593991261
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1593991262}
+  - component: {fileID: 1593991264}
+  - component: {fileID: 1593991263}
+  m_Layer: 0
+  m_Name: Left
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1593991262
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1593991261}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -122.08301, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 389514143}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &1593991263
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1593991261}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 5.8339844, y: 3.6035156}
+    newSize: {x: 5.8339844, y: 3.6035156}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 1
+  serializedVersion: 2
+  m_Size: {x: 5.8339844, y: 3.6035156}
+  m_EdgeRadius: 0
+--- !u!212 &1593991264
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1593991261}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: -1648888425
+  m_SortingLayer: -1
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: c12784436dc8c49028e7948d8b80b4c4, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 5.8339844, y: 3.6035156}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+--- !u!1 &1647375003
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1647375004}
+  - component: {fileID: 1647375006}
+  - component: {fileID: 1647375005}
+  m_Layer: 0
+  m_Name: Left
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1647375004
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1647375003}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -22.083008, y: 0, z: 0}
+  m_LocalScale: {x: 1.0000002, y: 1.0000002, z: 1}
+  m_Children: []
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+  m_Father: {fileID: 0}
+  m_RootOrder: 38
+=======
+  m_Father: {fileID: 1817802546}
+  m_RootOrder: 0
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &1647375005
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1647375003}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 5.8339844, y: 3.6035156}
+    newSize: {x: 5.8339844, y: 3.6035156}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 1
+  serializedVersion: 2
+  m_Size: {x: 5.8339844, y: 3.6035156}
+  m_EdgeRadius: 0
+--- !u!212 &1647375006
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1647375003}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: -1648888425
+  m_SortingLayer: -1
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: c12784436dc8c49028e7948d8b80b4c4, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 5.8339844, y: 3.6035156}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+--- !u!1 &1648606707
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1648606708}
+  - component: {fileID: 1648606710}
+  - component: {fileID: 1648606709}
+  m_Layer: 0
+  m_Name: Middle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1648606708
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1648606707}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 301845623}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!60 &1648606709
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1648606707}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 3.5478516, y: 1.9130858}
+    newSize: {x: 3.5546875, y: 1.9130858}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 2
+    adaptiveTiling: 0
+  m_AutoTiling: 1
+  m_Points:
+    m_Paths:
+    - - {x: -1.7739259, y: -0.95654297}
+      - {x: 1.7739259, y: -0.95654297}
+      - {x: 1.7739259, y: 0.95654297}
+      - {x: -1.7739259, y: 0.95654297}
+--- !u!212 &1648606710
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1648606707}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: -1648888425
+  m_SortingLayer: -1
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: 8843962ca9e24492e958ac4004b74a8e, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 2
+  m_Size: {x: 3.5546875, y: 1.9130858}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
 --- !u!1 &1654238957
 GameObject:
   m_ObjectHideFlags: 0
@@ -8987,7 +11757,7 @@ Transform:
   m_LocalScale: {x: 24.61854, y: 24.618525, z: 24.618525}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 38
+  m_RootOrder: 36
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1664765254
 Prefab:
@@ -9901,11 +12671,19 @@ Transform:
   m_LocalPosition: {x: -49, y: -7.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
   - {fileID: 86500010}
   - {fileID: 2083858026}
   - {fileID: 2103946834}
   m_Father: {fileID: 0}
   m_RootOrder: 35
+=======
+  - {fileID: 585772070}
+  - {fileID: 1350927827}
+  - {fileID: 603351685}
+  m_Father: {fileID: 0}
+  m_RootOrder: 33
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!1001 &1715393337
 Prefab:
@@ -11119,28 +13897,43 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a360c922ec96342b680315993212ef19, type: 2}
   m_IsPrefabParent: 0
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
 --- !u!1 &1728885305
+=======
+--- !u!1 &1755253711
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 5
   m_Component:
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
   - component: {fileID: 1728885306}
   - component: {fileID: 1728885308}
   - component: {fileID: 1728885307}
+=======
+  - component: {fileID: 1755253712}
+  - component: {fileID: 1755253714}
+  - component: {fileID: 1755253713}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
   m_Layer: 0
-  m_Name: Right
+  m_Name: Middle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
 --- !u!4 &1728885306
+=======
+--- !u!4 &1755253712
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
   m_GameObject: {fileID: 1728885305}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 122.083496, y: 0, z: 0}
@@ -11505,11 +14298,26 @@ Transform:
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!60 &1888005125
+=======
+  m_GameObject: {fileID: 1755253711}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1118876617}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!60 &1755253713
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
 PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
   m_GameObject: {fileID: 1888005123}
+=======
+  m_GameObject: {fileID: 1755253711}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -11528,6 +14336,7 @@ PolygonCollider2D:
   m_AutoTiling: 1
   m_Points:
     m_Paths:
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
     - - {x: -1.7744565, y: 0.95654297}
       - {x: -1.7744565, y: -0.95654297}
       - {x: 1.7744565, y: -0.95654297}
@@ -11619,15 +14428,72 @@ Prefab:
   m_ParentPrefab: {fileID: 100100000, guid: ffa937b54581e414d8e78957d91cb130, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1914131714
+=======
+    - - {x: -1.7739259, y: -0.95654297}
+      - {x: 1.7739259, y: -0.95654297}
+      - {x: 1.7739259, y: 0.95654297}
+      - {x: -1.7739259, y: 0.95654297}
+--- !u!212 &1755253714
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1755253711}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: -1648888425
+  m_SortingLayer: -1
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: 8843962ca9e24492e958ac4004b74a8e, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 2
+  m_Size: {x: 3.5546875, y: 1.9130858}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+--- !u!1 &1789478530
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 5
   m_Component:
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
   - component: {fileID: 1914131715}
   - component: {fileID: 1914131717}
   - component: {fileID: 1914131716}
+=======
+  - component: {fileID: 1789478531}
+  - component: {fileID: 1789478533}
+  - component: {fileID: 1789478532}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
   m_Layer: 0
   m_Name: Right
   m_TagString: Untagged
@@ -11635,25 +14501,44 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
 --- !u!4 &1914131715
+=======
+--- !u!4 &1789478531
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
   m_GameObject: {fileID: 1914131714}
+=======
+  m_GameObject: {fileID: 1789478530}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.543457, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
   m_Father: {fileID: 1118876617}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!60 &1914131716
+=======
+  m_Father: {fileID: 1461075195}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!60 &1789478532
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
 PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
   m_GameObject: {fileID: 1914131714}
+=======
+  m_GameObject: {fileID: 1789478530}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -11691,12 +14576,20 @@ PolygonCollider2D:
       - {x: 1.2479131, y: -0.956543}
       - {x: 1.3558762, y: -0.93902504}
       - {x: 1.4719701, y: -0.8933471}
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
 --- !u!212 &1914131717
+=======
+--- !u!212 &1789478533
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
   m_GameObject: {fileID: 1914131714}
+=======
+  m_GameObject: {fileID: 1789478530}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -11735,74 +14628,114 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
---- !u!1001 &1942374533
+--- !u!1001 &1803593784
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4777891759644998, guid: 552b12b6767b548cb8eb6951dcf917a1, type: 2}
+    - target: {fileID: 4096794382923586, guid: a360c922ec96342b680315993212ef19, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -33.3
+      value: 21.628113
       objectReference: {fileID: 0}
-    - target: {fileID: 4777891759644998, guid: 552b12b6767b548cb8eb6951dcf917a1, type: 2}
+    - target: {fileID: 4096794382923586, guid: a360c922ec96342b680315993212ef19, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -10.8
+      value: -9.979724
       objectReference: {fileID: 0}
-    - target: {fileID: 4777891759644998, guid: 552b12b6767b548cb8eb6951dcf917a1, type: 2}
+    - target: {fileID: 4096794382923586, guid: a360c922ec96342b680315993212ef19, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 1.0205472
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4777891759644998, guid: 552b12b6767b548cb8eb6951dcf917a1, type: 2}
+    - target: {fileID: 4096794382923586, guid: a360c922ec96342b680315993212ef19, type: 2}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4777891759644998, guid: 552b12b6767b548cb8eb6951dcf917a1, type: 2}
+    - target: {fileID: 4096794382923586, guid: a360c922ec96342b680315993212ef19, type: 2}
       propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4777891759644998, guid: 552b12b6767b548cb8eb6951dcf917a1, type: 2}
+    - target: {fileID: 4096794382923586, guid: a360c922ec96342b680315993212ef19, type: 2}
       propertyPath: m_LocalRotation.z
-      value: -0.7071068
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4777891759644998, guid: 552b12b6767b548cb8eb6951dcf917a1, type: 2}
+    - target: {fileID: 4096794382923586, guid: a360c922ec96342b680315993212ef19, type: 2}
       propertyPath: m_LocalRotation.w
-      value: 0.7071068
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4777891759644998, guid: 552b12b6767b548cb8eb6951dcf917a1, type: 2}
+    - target: {fileID: 4096794382923586, guid: a360c922ec96342b680315993212ef19, type: 2}
       propertyPath: m_RootOrder
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
       value: 7
+=======
+      value: 6
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
       objectReference: {fileID: 0}
-    - target: {fileID: 4777891759644998, guid: 552b12b6767b548cb8eb6951dcf917a1, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: -90
+    - target: {fileID: 1898344265774328, guid: a360c922ec96342b680315993212ef19, type: 2}
+      propertyPath: m_Name
+      value: Small Platform (1)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 552b12b6767b548cb8eb6951dcf917a1, type: 2}
+  m_ParentPrefab: {fileID: 100100000, guid: a360c922ec96342b680315993212ef19, type: 2}
   m_IsPrefabParent: 0
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
 --- !u!1 &2083858025
+=======
+--- !u!1 &1817802544
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_PrefabParentObject: {fileID: 1460629986057562, guid: 10b3455ab6cf990498f65ac8fcf78f5a,
+    type: 2}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 5
   m_Component:
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
   - component: {fileID: 2083858026}
   - component: {fileID: 2083858028}
   - component: {fileID: 2083858027}
   m_Layer: 0
   m_Name: Middle
+=======
+  - component: {fileID: 1817802546}
+  - component: {fileID: 1817802545}
+  m_Layer: 0
+  m_Name: Platform_Border right
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
 --- !u!4 &2083858026
+=======
+--- !u!114 &1817802545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 114444277913514016, guid: 10b3455ab6cf990498f65ac8fcf78f5a,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1817802544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28ebff9546af94de1ad8789d584b7525, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  left_sprite: {fileID: 21300000, guid: c12784436dc8c49028e7948d8b80b4c4, type: 3}
+  mid_sprite: {fileID: 21300000, guid: 2933756e5af6043859a3d6257d8d868d, type: 3}
+  right_sprite: {fileID: 21300000, guid: f1f195fb1a13b4daab86914ee8305444, type: 3}
+  platform_width: 50
+  use_polygon: 0
+  order_in_layer: 0
+--- !u!4 &1817802546
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
 Transform:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_PrefabParentObject: {fileID: 4152701380482722, guid: 10b3455ab6cf990498f65ac8fcf78f5a,
+    type: 2}
   m_PrefabInternal: {fileID: 0}
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
   m_GameObject: {fileID: 2083858025}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -11813,9 +14746,103 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &2083858027
 BoxCollider2D:
+=======
+  m_GameObject: {fileID: 1817802544}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 204.3, y: -7.3, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1647375004}
+  - {fileID: 699098826}
+  - {fileID: 1991636}
+  m_Father: {fileID: 0}
+  m_RootOrder: 35
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!1001 &1845871711
+Prefab:
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4320690793334830, guid: 971f908aaf93e344a82768bd1beb2010, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -20.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4320690793334830, guid: 971f908aaf93e344a82768bd1beb2010, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 1.63
+      objectReference: {fileID: 0}
+    - target: {fileID: 4320690793334830, guid: 971f908aaf93e344a82768bd1beb2010, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4320690793334830, guid: 971f908aaf93e344a82768bd1beb2010, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4320690793334830, guid: 971f908aaf93e344a82768bd1beb2010, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4320690793334830, guid: 971f908aaf93e344a82768bd1beb2010, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4320690793334830, guid: 971f908aaf93e344a82768bd1beb2010, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4320690793334830, guid: 971f908aaf93e344a82768bd1beb2010, type: 2}
+      propertyPath: m_RootOrder
+      value: 33
+      objectReference: {fileID: 0}
+    - target: {fileID: 212685528780662538, guid: 971f908aaf93e344a82768bd1beb2010,
+        type: 2}
+      propertyPath: m_Size.x
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4320690793334830, guid: 971f908aaf93e344a82768bd1beb2010, type: 2}
+      propertyPath: m_LocalScale.y
+      value: -1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1430399823751832, guid: 971f908aaf93e344a82768bd1beb2010, type: 2}
+      propertyPath: m_Name
+      value: Spikes_M (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 60791026557477716, guid: 971f908aaf93e344a82768bd1beb2010,
+        type: 2}
+      propertyPath: m_SpriteTilingProperty.newSize.x
+      value: 20
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 971f908aaf93e344a82768bd1beb2010, type: 2}
+  m_IsPrefabParent: 0
+--- !u!1 &1872382646
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 1460629986057562, guid: 10b3455ab6cf990498f65ac8fcf78f5a,
+    type: 2}
   m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1872382648}
+  - component: {fileID: 1872382647}
+  m_Layer: 0
+  m_Name: Platform_Border Bottom
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1872382647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 114444277913514016, guid: 10b3455ab6cf990498f65ac8fcf78f5a,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
   m_GameObject: {fileID: 2083858025}
   m_Enabled: 1
   m_Density: 1
@@ -11838,9 +14865,27 @@ BoxCollider2D:
   m_EdgeRadius: 0
 --- !u!212 &2083858028
 SpriteRenderer:
+=======
+  m_GameObject: {fileID: 1872382646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28ebff9546af94de1ad8789d584b7525, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  left_sprite: {fileID: 21300000, guid: c12784436dc8c49028e7948d8b80b4c4, type: 3}
+  mid_sprite: {fileID: 21300000, guid: 2933756e5af6043859a3d6257d8d868d, type: 3}
+  right_sprite: {fileID: 21300000, guid: f1f195fb1a13b4daab86914ee8305444, type: 3}
+  platform_width: 250
+  use_polygon: 0
+  order_in_layer: 0
+--- !u!4 &1872382648
+Transform:
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_PrefabParentObject: {fileID: 4152701380482722, guid: 10b3455ab6cf990498f65ac8fcf78f5a,
+    type: 2}
   m_PrefabInternal: {fileID: 0}
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
   m_GameObject: {fileID: 2083858025}
   m_Enabled: 1
   m_CastShadows: 0
@@ -11881,15 +14926,63 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
 --- !u!1 &2103946833
+=======
+  m_GameObject: {fileID: 1872382646}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 77.5, y: -30.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 734982871}
+  - {fileID: 1469662947}
+  - {fileID: 1194043082}
+  m_Father: {fileID: 0}
+  m_RootOrder: 28
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1998653932
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 137947328}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1998653933}
+  m_Layer: 0
+  m_Name: Missing Prefab
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1998653933
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 137947328}
+  m_GameObject: {fileID: 1998653932}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 37
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2114625659
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 5
   m_Component:
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
   - component: {fileID: 2103946834}
   - component: {fileID: 2103946836}
   - component: {fileID: 2103946835}
+=======
+  - component: {fileID: 2114625660}
+  - component: {fileID: 2114625662}
+  - component: {fileID: 2114625661}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
   m_Layer: 0
   m_Name: Right
   m_TagString: Untagged
@@ -11897,11 +14990,16 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
 --- !u!4 &2103946834
+=======
+--- !u!4 &2114625660
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
   m_GameObject: {fileID: 2103946833}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 22.083496, y: 0, z: 0}
@@ -11916,6 +15014,22 @@ BoxCollider2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2103946833}
+=======
+  m_GameObject: {fileID: 2114625659}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.543457, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 136591232}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!60 &2114625661
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2114625659}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -11926,21 +15040,55 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
     oldSize: {x: 5.833008, y: 3.6044922}
     newSize: {x: 5.833008, y: 3.6044922}
+=======
+    oldSize: {x: 3.5322266, y: 1.913086}
+    newSize: {x: 3.5322266, y: 1.913086}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 1
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
   serializedVersion: 2
   m_Size: {x: 5.833008, y: 3.6044922}
   m_EdgeRadius: 0
 --- !u!212 &2103946836
+=======
+  m_Points:
+    m_Paths:
+    - - {x: -1.2376254, y: 0.956543}
+      - {x: -1.3512074, y: 0.9379676}
+      - {x: -1.4478033, y: 0.9027228}
+      - {x: -1.5404865, y: 0.84791994}
+      - {x: -1.6101611, y: 0.78537273}
+      - {x: -1.667258, y: 0.7156534}
+      - {x: -1.7172203, y: 0.6279576}
+      - {x: -1.7535294, y: 0.5166322}
+      - {x: -1.7661133, y: 0.41742754}
+      - {x: -1.7661133, y: -0.44749916}
+      - {x: -1.7513472, y: -0.53351885}
+      - {x: -1.715721, y: -0.63724256}
+      - {x: -1.651852, y: -0.74037284}
+      - {x: -1.5817859, y: -0.8150885}
+      - {x: -1.4929056, y: -0.8791359}
+      - {x: -1.3838129, y: -0.93201923}
+      - {x: -1.2418041, y: -0.956543}
+      - {x: 1.7661133, y: -0.956543}
+      - {x: 1.7661133, y: 0.956543}
+--- !u!212 &2114625662
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
   m_GameObject: {fileID: 2103946833}
+=======
+  m_GameObject: {fileID: 2114625659}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -11969,12 +15117,20 @@ SpriteRenderer:
   m_SortingLayerID: -1648888425
   m_SortingLayer: -1
   m_SortingOrder: 0
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
   m_Sprite: {fileID: 21300000, guid: f1f195fb1a13b4daab86914ee8305444, type: 3}
+=======
+  m_Sprite: {fileID: 21300000, guid: 50ef53be7ffa34a8dbb4bebb4d3f0f74, type: 3}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
   m_Size: {x: 5.833008, y: 3.6044922}
+=======
+  m_Size: {x: 3.5322266, y: 1.913086}
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -12073,7 +15229,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4482127956786618, guid: 65120ffb8f6394e2a82e7682949bb7ee, type: 2}
       propertyPath: m_RootOrder
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
       value: 6
+=======
+      value: 3
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity
       objectReference: {fileID: 0}
     - target: {fileID: 1661694042464410, guid: 65120ffb8f6394e2a82e7682949bb7ee, type: 2}
       propertyPath: m_Name
@@ -12133,3 +15293,240 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 65120ffb8f6394e2a82e7682949bb7ee, type: 2}
   m_IsPrefabParent: 0
+<<<<<<< HEAD:JelloFellow/Assets/Scenes/InProgressLevels/QEasyLevel2.unity
+=======
+--- !u!1 &2134838660
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 2134838661}
+  - component: {fileID: 2134838663}
+  - component: {fileID: 2134838662}
+  m_Layer: 0
+  m_Name: Right
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2134838661
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2134838660}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.543457, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1491846746}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!60 &2134838662
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2134838660}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 3.5322266, y: 1.913086}
+    newSize: {x: 3.5322266, y: 1.913086}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 1
+  m_Points:
+    m_Paths:
+    - - {x: 1.5717127, y: -0.82266796}
+      - {x: 1.6583295, y: -0.7317509}
+      - {x: 1.7144389, y: -0.6327195}
+      - {x: 1.7505646, y: -0.52535236}
+      - {x: 1.7661133, y: -0.42538702}
+      - {x: 1.7661133, y: 0.42001808}
+      - {x: 1.7547874, y: 0.51305103}
+      - {x: 1.7275555, y: 0.6045718}
+      - {x: 1.6809111, y: 0.6947932}
+      - {x: 1.6131301, y: 0.78388464}
+      - {x: 1.5303888, y: 0.8533273}
+      - {x: 1.4411187, y: 0.90613425}
+      - {x: 1.3286076, y: 0.9435668}
+      - {x: 1.2362761, y: 0.956543}
+      - {x: -1.7661133, y: 0.956543}
+      - {x: -1.7661133, y: -0.956543}
+      - {x: 1.2479131, y: -0.956543}
+      - {x: 1.3558762, y: -0.93902504}
+      - {x: 1.4719701, y: -0.8933471}
+--- !u!212 &2134838663
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2134838660}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: -1648888425
+  m_SortingLayer: -1
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: d047417bc54c0488ebeb00ea82f316ff, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 3.5322266, y: 1.913086}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+--- !u!1 &2143352694
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 2143352695}
+  - component: {fileID: 2143352697}
+  - component: {fileID: 2143352696}
+  m_Layer: 0
+  m_Name: Right
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2143352695
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2143352694}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.543457, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1405886811}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!60 &2143352696
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2143352694}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 3.5322266, y: 1.913086}
+    newSize: {x: 3.5322266, y: 1.913086}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 1
+  m_Points:
+    m_Paths:
+    - - {x: 1.5717127, y: -0.82266796}
+      - {x: 1.6583295, y: -0.7317509}
+      - {x: 1.7144389, y: -0.6327195}
+      - {x: 1.7505646, y: -0.52535236}
+      - {x: 1.7661133, y: -0.42538702}
+      - {x: 1.7661133, y: 0.42001808}
+      - {x: 1.7547874, y: 0.51305103}
+      - {x: 1.7275555, y: 0.6045718}
+      - {x: 1.6809111, y: 0.6947932}
+      - {x: 1.6131301, y: 0.78388464}
+      - {x: 1.5303888, y: 0.8533273}
+      - {x: 1.4411187, y: 0.90613425}
+      - {x: 1.3286076, y: 0.9435668}
+      - {x: 1.2362761, y: 0.956543}
+      - {x: -1.7661133, y: 0.956543}
+      - {x: -1.7661133, y: -0.956543}
+      - {x: 1.2479131, y: -0.956543}
+      - {x: 1.3558762, y: -0.93902504}
+      - {x: 1.4719701, y: -0.8933471}
+--- !u!212 &2143352697
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2143352694}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: -1648888425
+  m_SortingLayer: -1
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: d047417bc54c0488ebeb00ea82f316ff, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 3.5322266, y: 1.913086}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+>>>>>>> master:JelloFellow/Assets/Scenes/InSceneSelector/QEasyLevel2.unity

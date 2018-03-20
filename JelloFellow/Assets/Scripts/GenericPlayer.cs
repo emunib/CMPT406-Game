@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public class GenericPlayer : GravityField {
+public abstract class GenericPlayer : GravityField {
   /* the config variables for the player */
   public PlayerConfigurator configurator;
 
@@ -40,8 +39,21 @@ public class GenericPlayer : GravityField {
   protected float platform_angle { get; private set; }
   private Vector2 platform_hit_normal;
 
+  /* lock and unlock for the gravity stick */
   private bool set_fixed_gravity = false;
-
+  /* previous input accepted from the gravity stick */
+  private Vector2 prevInput = Vector2.zero;
+  private bool set_fixed_clinging = false;
+  
+  /* all the accepted inputs */
+  private float horizontal_gravity;
+  private float vertical_gravity;
+  private float left_trigger;
+  private float right_trigger;
+  private float horizontal_movement;
+  private float vertical_movement;
+  private bool jump_button_down;
+  private bool right_stick_clicked;
 
   /* store the value of the ground check every update as its more efficient to not use raycast and calculations more than once
      in the same frame */
@@ -84,15 +96,6 @@ public class GenericPlayer : GravityField {
     Physics2D.gravity = GetGravity();
   }
 
-  private float horizontal_gravity;
-  private float vertical_gravity;
-  private float left_trigger;
-  private float right_trigger;
-  private float horizontal_movement;
-  private float vertical_movement;
-  private bool jump_button_down;
-  private bool right_stick_clicked;
-  
   protected override void Update() {
     /* make sure we have something to take input from */
     if (input != null) {
@@ -114,7 +117,6 @@ public class GenericPlayer : GravityField {
 
       /* change only when the inputs are not 0 */
       if (gravity_stamina != 0 && (horizontal_gravity != 0 || vertical_gravity != 0)) {
-
         /* store the movement drags */
         if (restored_drag) {
           normal_movement_drags.SetDrags(rigidbody.angularDrag, rigidbody.drag);
@@ -192,10 +194,10 @@ public class GenericPlayer : GravityField {
       }
 
       /* get the inputs for movement */
-      if(horizontal_movement == 0f) horizontal_movement = input.GetHorizontalLeftStick();
-      if(vertical_movement == 0f) vertical_movement = input.GetVerticalLeftStick();
-      if(!jump_button_down) jump_button_down = input.GetButton3Down();
-      if(!right_stick_clicked) right_stick_clicked = input.GetRightStickDown();
+      if (horizontal_movement == 0f) horizontal_movement = input.GetHorizontalLeftStick();
+      if (vertical_movement == 0f) vertical_movement = input.GetVerticalLeftStick();
+      if (!jump_button_down) jump_button_down = input.GetButton3Down();
+      if (!right_stick_clicked) right_stick_clicked = input.GetRightStickDown();
       if (!jump_button_down) jump_button_down = input.GetRightBumperDown();
     }
 
@@ -205,19 +207,37 @@ public class GenericPlayer : GravityField {
     if (ReleasedGravity()) gravity_stamina = Mathf.Clamp(gravity_stamina - 5, configurator.min_gravity_stamina, configurator.max_gravity_stamina);
     ChangeGravityFill(Mathf.Clamp01(gravity_stamina / configurator.max_gravity_stamina));
 
+    /* clinging to platform so visually push player to ground */
+    if (!AffectSelfWithGravity) {
+      Vector2 cling_gravity = rigidbody.velocity;
+      cling_gravity += -platform_hit_normal * (configurator.jump_force * 5f);
+      
+      rigidbody.velocity += cling_gravity * Time.deltaTime;
+
+      if (configurator.apply_movement_tochild) {
+        foreach (Transform child in child_transforms) {
+          Rigidbody2D child_rigidbody = child.gameObject.GetComponent<Rigidbody2D>();
+          if (child_rigidbody) {
+            child_rigidbody.velocity += cling_gravity * Time.deltaTime;
+          }
+        }
+      }
+    }
+    
     /* run update in base class (applies gravity) */
     base.Update();
   }
 
   protected virtual void FixedUpdate() {
     HandleMovement();
-    
+
     /* we must have handled the inputs */
     horizontal_movement = 0f;
     vertical_movement = 0f;
-    if(jump_button_down) jump_button_down = false;
-    if(right_stick_clicked) right_stick_clicked = false;
+    if (jump_button_down) jump_button_down = false;
+    if (right_stick_clicked) right_stick_clicked = false;
     
+    /* clamp velocity */
     rigidbody.velocity = Vector2.ClampMagnitude(rigidbody.velocity, configurator.max_velocity);
 
     if (configurator.apply_movement_tochild) {
@@ -230,7 +250,6 @@ public class GenericPlayer : GravityField {
     }
   }
 
-  public Vector2 prevInput = Vector2.zero;
   /// <summary>
   /// Modulo operator function.
   /// https://answers.unity.com/questions/380035/c-modulus-is-wrong-1.html
@@ -239,21 +258,22 @@ public class GenericPlayer : GravityField {
     return a - b * Mathf.Floor(a / b);
   }
 
-  protected bool ReleasedGravity()
-  {
+  /// <summary>
+  /// Called after releasing the gravity stick.
+  /// </summary>
+  /// <returns>If the gravity stick was changed.</returns>
+  private bool ReleasedGravity() {
     Vector2 stick_input = new Vector2(horizontal_gravity, vertical_gravity);
     if (stick_input.magnitude < configurator.gravity_deadzone) {
       stick_input = Vector2.zero;
     }
 
-    if (is_grounded)
-    {
+    if (is_grounded) {
       prevInput = Vector2.one;
       return false;
     }
 
-    if (prevInput == Vector2.zero)
-    {
+    if (prevInput == Vector2.zero) {
       prevInput = stick_input;
       return stick_input != Vector2.zero;
     }
@@ -262,6 +282,12 @@ public class GenericPlayer : GravityField {
     return false;
   }
 
+  /// <summary>
+  /// Get the angle of a vector.
+  /// </summary>
+  /// <param name="x">X component of the vector.</param>
+  /// <param name="y">Y component of the vector.</param>
+  /// <returns>Angle of the vector.</returns>
   protected static float GetAngle(float x, float y) {
     float tmp_angle = Mathf.Atan2(x, y) * Mathf.Rad2Deg;
     /* get angle between 0 - 360, even handle negative signs with modulus */
@@ -271,6 +297,9 @@ public class GenericPlayer : GravityField {
     return tmp_angle;
   }
 
+  /// <summary>
+  /// Handles all basic movement for this player.
+  /// </summary>
   private void HandleMovement() {
     /* angle of the movement joystick */
     float movement_angle = GetAngle(horizontal_movement, vertical_movement);
@@ -282,7 +311,7 @@ public class GenericPlayer : GravityField {
 
     Vector2 velocity = rigidbody.velocity;
     bool apply_stop_drag = true;
-    
+
     /* if we are on valid platform to allow movement and jump */
     if (platform_angle != -1f) {
       /* set gravity in direction of the platform if we are on platform */
@@ -306,6 +335,10 @@ public class GenericPlayer : GravityField {
 
       /* make sure player actually wants to apply movement forces */
       if (horizontal_movement != 0f || vertical_movement != 0f) {
+        if (!set_fixed_clinging) {
+          AffectSelfWithGravity = true;
+        }
+        
         /* get the leniency directions (leniency 2 mainly for drawing ray) */
         Vector2 movement_leniency_positive = new Vector2(Mathf.Sin((platform_positive_angle + configurator.leniency_angle) * Mathf.Deg2Rad), Mathf.Cos((platform_positive_angle + configurator.leniency_angle) * Mathf.Deg2Rad));
         Vector2 movement_leniency_positive2 = new Vector2(Mathf.Sin((platform_positive_angle - configurator.leniency_angle) * Mathf.Deg2Rad), Mathf.Cos((platform_positive_angle - configurator.leniency_angle) * Mathf.Deg2Rad));
@@ -333,32 +366,48 @@ public class GenericPlayer : GravityField {
         }
 
         /* move in direction of the negative platform */
-        if (movement_distance_negative <= leniency_distance_negative) {
+        if (movement_distance_negative <= leniency_distance_negative) {          
           velocity.x = Mathf.SmoothDamp(velocity.x, platform_direction_negative.x * configurator.move_speed, ref velocity_x_smoothing, configurator.ground_acceleration);
           velocity.y = Mathf.SmoothDamp(velocity.y, platform_direction_negative.y * configurator.move_speed, ref velocity_y_smoothing, configurator.ground_acceleration);
           apply_stop_drag = false;
         }
       }
-      
+
       /* jump direction */
       if (jump_button_down && is_grounded) {
         apply_stop_drag = false;
-        /* if angle selected than shoot at an angle */
-        if (horizontal_movement != 0 || vertical_movement != 0) {
-          Vector2 hybrid_jump = platform_hit_normal + new Vector2(horizontal_movement, vertical_movement) * configurator.jump_angle_coefficient;
-          if (hybrid_jump.magnitude > configurator.jump_normalize_threshold) {
-            hybrid_jump.Normalize();
-          }
-
-          velocity += hybrid_jump * configurator.jump_force;
-        } else {
-          velocity = platform_hit_normal * configurator.jump_force;
+        
+        /* if movement direction is towards the platform */
+        if (Vector2.Distance(movement_direction, -platform_hit_normal) < 0.1f) {
+          /* perform clinging */
+          velocity += -platform_hit_normal * configurator.jump_force;
+          set_fixed_clinging = true;
+          AffectSelfWithGravity = false;
+          Invoke("UnlockClinging", 0.4f);
+        } else { /* it is not towards the platform */
+          /* jump normally */
+          velocity += platform_hit_normal * configurator.jump_force;
         }
+        
+//        if (movement_angle != 0f) {
+//          Vector2 hybrid_jump = platform_hit_normal + new Vector2(horizontal_movement, vertical_movement) * configurator.jump_angle_coefficient;
+//          if (hybrid_jump.magnitude > configurator.jump_normalize_threshold) {
+//            hybrid_jump.Normalize();
+//          }
+//          
+//          velocity += hybrid_jump * configurator.jump_force;
+//        } else {
+//          velocity += platform_hit_normal * configurator.jump_force;
+//        }
       }
     } else { /* assume we are either not grounded or not on valid platform */
       if (!is_grounded) {
         /* we want to move in air t(-.-t) */
         if (horizontal_movement != 0f | vertical_movement != 0f) {
+          if (!set_fixed_clinging) {
+            AffectSelfWithGravity = true;
+          }
+          
           /* angle of gravity */
           float gravity_angle = GetAngle(GetGravity().x, GetGravity().y);
 
@@ -396,12 +445,14 @@ public class GenericPlayer : GravityField {
 
           /* move in direction of the positive platform */
           if (movement_distance_positive <= leniency_distance_positive) {
-            rigidbody.AddForce(gravity_direction_positive * configurator.air_speed, ForceMode2D.Force);
+            //rigidbody.AddForce(gravity_direction_positive * configurator.air_speed, ForceMode2D.Force);
+            velocity = Vector3.Lerp(velocity , gravity_direction_positive * configurator.air_speed, configurator.air_acceleration);
           }
 
           /* move in direction of the negative platform */
           if (movement_distance_negative <= leniency_distance_negative) {
-            rigidbody.AddForce(gravity_direction_negative * configurator.air_speed, ForceMode2D.Force);
+            //rigidbody.AddForce(gravity_direction_negative * configurator.air_speed, ForceMode2D.Force);
+            velocity = Vector3.Lerp(velocity , gravity_direction_negative * configurator.air_speed, configurator.air_acceleration);
           }
         }
 
@@ -435,26 +486,27 @@ public class GenericPlayer : GravityField {
   private bool IsGrounded(bool visualize = false) {
     HashSet<RaycastHit2D> hits = GetObjectsInView(GetGravity(), configurator.ground_fov_angle, configurator.ground_ray_count, configurator.ground_ray_length, visualize);
     foreach (RaycastHit2D hit in hits) {
-      if (LayerMask.LayerToName(hit.transform.gameObject.layer) != LayerMask.LayerToName(gameObject.layer)) {
+      string hit_name = !hit.transform.parent ? hit.transform.name : hit.transform.parent.name;
+      if (LayerMask.LayerToName(hit.transform.gameObject.layer) == "Ground" || hit_name.Contains("Platform")) {
         Vector2 hit_normal = hit.normal;
         /* if the object has children then use the parent's rotation to calculate the normal */
-        //if (hit.collider.gameObject.transform.childCount > 0) {
-        //  hit_normal = Quaternion.AngleAxis(hit.collider.gameObject.transform.rotation.eulerAngles.z, Vector3.forward) * hit.normal;
-        //}
+        if (hit.collider.gameObject.transform.childCount > 0) {
+          hit_normal = Quaternion.AngleAxis(hit.collider.gameObject.transform.rotation.eulerAngles.z, Vector3.forward) * hit.normal;
+        }
 
         /* get platform information we just hit */
         float platform_angle_update = GetAngle(hit_normal.x, hit_normal.y);
 
         Vector2 platform_comparator = hit.transform.right;
         float angle_diff = fmod(Vector2.Angle(platform_comparator, GetGravity()), 180);
-        
+
         /* make sure the platform is within the movement angle (avoids walking upwards on platform */
         if (angle_diff >= configurator.movement_leniency_angle) {
           platform_angle = platform_angle_update;
           platform_hit_normal = hit_normal;
         } else {
-          platform_angle = -1f;
-          platform_hit_normal = Vector2.negativeInfinity;
+          //platform_angle = -1f;
+          //platform_hit_normal = Vector2.negativeInfinity;
         }
 
         return true;
@@ -462,7 +514,7 @@ public class GenericPlayer : GravityField {
     }
 
     platform_angle = -1f;
-    platform_hit_normal = Vector2.negativeInfinity;
+    //platform_hit_normal = Vector2.negativeInfinity;
     return false;
   }
 
@@ -544,19 +596,33 @@ public class GenericPlayer : GravityField {
     input = _input;
   }
 
-  //Damage Information
+  /// <summary>
+  /// Apply damage to this player.
+  /// </summary>
+  /// <param name="amount">Amount of damage to apply.</param>
   public void Damage(int amount) {
     configurator.cur_hp -= amount;
-    if (configurator.cur_hp < 0) {
-      Debug.Log("Bleh I died.");
-      SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    if (configurator.cur_hp <= 0) {
+      Death();
     }
   }
 
-  //Makes it so gravity is recieved from the right stick's angle
+  /// <summary>
+  /// A pause before accepting values from the gravity stick.
+  /// This just unlocks the "pause"
+  /// </summary>
   private void UnlockGravity() {
     set_fixed_gravity = false;
   }
+
+  private void UnlockClinging() {
+    set_fixed_clinging = false;
+  }
+
+  /// <summary>
+  /// Called when health is equal to or below 0.
+  /// </summary>
+  protected abstract void Death();
 }
 
 /// <summary>
