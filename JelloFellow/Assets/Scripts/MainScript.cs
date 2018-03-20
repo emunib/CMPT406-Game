@@ -12,6 +12,7 @@ public class MainScript : Singleton<MainScript> {
     return gravity_force;
   }
 
+  
   private void Update() {
     if (gravity_force_updater != gravity_force && OnGravityForceChange != null) {
       gravity_force_updater = gravity_force;

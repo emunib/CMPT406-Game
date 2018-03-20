@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 [RequireComponent(typeof(AudioSource))]
 // Object is to be editted in the browser 
 public class AudioManager : MonoBehaviour {
-	public AudioClip[]  mainMenuThemes;
+	public AudioClip[] mainMenuThemes;
 	public AudioClip[] levelThemes;
 	private AudioSource musicSource;
 	public Scene lastScene;
@@ -38,6 +38,7 @@ public class AudioManager : MonoBehaviour {
 		for(int i=0;i<levelThemes.Length;i++){
 		  levelClipsQ.Enqueue(levelThemes[i]);
 		}
+		
 		
 		for(int i=0;i<mainMenuThemes.Length;i++){
 			mainMenuClipsQ.Enqueue(mainMenuThemes[i]);
@@ -76,7 +77,7 @@ public class AudioManager : MonoBehaviour {
 	}
 	// Update is called once per frame
 	void Update () {
-		if (!musicSource.isPlaying )
+		if (!musicSource.isPlaying ||lastScene.name !=SceneManager.GetActiveScene().name )
 		{
 			Debug.Log("Scene name last : " + lastScene.name);
 			Debug.Log("Scene name now  : " + SceneManager.GetActiveScene().name);
