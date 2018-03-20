@@ -353,8 +353,4 @@ public class Goomba : GenericPlayer {
     
     root = groundedCheckNode;
   }
-  
-  protected override void Death() {
-    Destroy(gameObject);
-  }
 }

@@ -188,8 +188,4 @@ public class ExplodingEnemy : GenericPlayer {
   private Color InvertColor(Color color) {
     return new Color(1.0f - color.r, 1.0f - color.g, 1.0f - color.b);
   }
-  
-  protected override void Death() {
-    Destroy(gameObject);
-  }
 }

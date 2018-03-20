@@ -376,9 +376,4 @@ public class AIGoober : GenericPlayer {
     
     root = groundedCheckNode;
   }
-
-  protected override void Death() {
-    UnityJellySprite jelly = GetComponent<JellySpriteReferencePoint>().ParentJellySprite.GetComponent<UnityJellySprite>();
-    jelly.gameObject.AddComponent<DeathEffect>();
-  }
 }

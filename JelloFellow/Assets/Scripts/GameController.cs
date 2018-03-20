@@ -75,7 +75,7 @@ public class GameController : MonoBehaviour {
 		{
 			GameController.control.previousSceneName = SceneManager.GetActiveScene().name;
 			GameController.control.currSceneName = "MainMenu";
-			SceneLoader.instance.LoadSceneWithName("MainMenu");
+			SceneManager.LoadScene("MainMenu");
 		}
 	}
 }

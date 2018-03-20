@@ -162,8 +162,4 @@ public class CrawlerAI : GenericPlayer {
 		flip = !flip;
 		jelly.SetFlipHorizontal(flip);
 	}
-
-	protected override void Death() {
-		jelly.gameObject.AddComponent<DeathEffect>();
-	}
 }

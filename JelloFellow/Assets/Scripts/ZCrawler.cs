@@ -203,10 +203,6 @@ public class ZCrawler : GenericPlayer {
 		sprite_renderer.flipX = flip;
 		direction = direction * -1;
 	}
-	
-	protected override void Death() {
-		Destroy(gameObject);
-	}
 }
 
 

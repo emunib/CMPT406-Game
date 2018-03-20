@@ -10,8 +10,6 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class MenuSelector : MonoBehaviour {
-  private const float force = 2f;
-  
   [SerializeField] private Button[] buttonsArray;
   [SerializeField] private bool textColor;
   private int index;
@@ -20,15 +18,16 @@ public class MenuSelector : MonoBehaviour {
   private bool downInput;
   private bool leftInput;
   private bool rightInput;
+  private bool select;
   private Input2D input;
   private Color old_color;
   private Color highlight_color;
   private int old_index;
 
   public void Start() {
-    highlight_color = new Color32(0xFB, 0xB0, 0x3B, 0xFF);
+    highlight_color = new Color32(0x00, 0x6D, 0x66, 0xFF);
     
-    InvokeRepeating("CheckForControllerInput", 0.0f, 0.14f);
+    InvokeRepeating("CheckForControllerInput", 0.0f, 0.1f);
     input = InputController.instance.GetInput();
     buttonsArray = GetComponentsInChildren<Button>();
 
@@ -37,16 +36,17 @@ public class MenuSelector : MonoBehaviour {
       old_color = buttonsArray[index].GetComponentInChildren<Text>().color;
       buttonsArray[index].GetComponentInChildren<Text>().color = highlight_color;
       
-      Rigidbody2D _rigidbody = buttonsArray[index].GetComponent<Rigidbody2D>();
-      if(_rigidbody) _rigidbody.AddForce((Mathf.Sign(Random.Range(-1f, 1f)) == -1 ? Vector2.right : Vector2.left) * force, ForceMode2D.Impulse);
+      Rigidbody2D rigidbody = buttonsArray[index].GetComponent<Rigidbody2D>();
+      if(rigidbody) rigidbody.AddForce((Mathf.Sign(Random.Range(-1f, 1f)) == -1 ? Vector2.right : Vector2.left) * 5f, ForceMode2D.Impulse);
     }
 
     buttonsArray[index].Select();
   }
 
-  public void Update() {    
+  public void Update() {
     //If selected click the button
-    if (input.GetButton3Down()) {
+    select = input.GetButton3Down();
+    if (select) {
       buttonsArray[index].onClick.Invoke();
     }
   }
@@ -75,8 +75,8 @@ public class MenuSelector : MonoBehaviour {
         old_color = buttonsArray[index].GetComponentInChildren<Text>().color;
         buttonsArray[index].GetComponentInChildren<Text>().color = highlight_color;
 
-        Rigidbody2D _rigidbody = buttonsArray[index].GetComponent<Rigidbody2D>();
-        if(_rigidbody) _rigidbody.AddForce((Mathf.Sign(Random.Range(-1f, 1f)) == -1 ? Vector2.right : Vector2.left) * force, ForceMode2D.Impulse);
+        Rigidbody2D rigidbody = buttonsArray[index].GetComponent<Rigidbody2D>();
+        if(rigidbody) rigidbody.AddForce((Mathf.Sign(Random.Range(-1f, 1f)) == -1 ? Vector2.right : Vector2.left) * 5f, ForceMode2D.Impulse);
       }
       
       buttonsArray[index].Select();
