@@ -18,6 +18,8 @@ public class ButtonComponent : MonoBehaviour {
 	public string HandlerFunction;
 	
 	
+	
+	
 	private void OnTriggerEnter2D(Collider2D other) {
 
 		if (!set) {
