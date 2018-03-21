@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SmooshTrigger : MonoBehaviour {
+public class SmooshKillTrigger : MonoBehaviour {
 
   private int AmountJellyColliders;
   private int numColliding;

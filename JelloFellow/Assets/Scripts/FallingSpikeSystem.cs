@@ -89,26 +89,25 @@ public class FallingSpikeSystem : Gravity {
   public void PlayerHasEntered() {
     shake = true;
     isfalling = true;
-    Invoke("BeginFalling",FallStartTime); 
-    
+    Invoke("BeginFalling",FallStartTime);
+    transform.Find("trigger").GetComponent<BoxCollider2D>().enabled = false;
+
   }
 
   private void BeginFalling() {
     shake = false;
-    gravity = transform.up;
-    Invoke("EndFall",EndFallTime);
-    
+    gravity = -transform.up;
+    //Invoke("EndFall",EndFallTime);
+    Destroy(gameObject, EndFallTime);
   }
 
   private void EndFall() {
+    
     transform.position = lastPosition;
     rigidbody.velocity = Vector2.zero;
     gravity = Vector2.zero;
     isfalling = false;
-    
-
-
-
+ 
   }
 
   public bool IsFalling() {

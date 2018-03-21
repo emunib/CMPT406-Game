@@ -91,7 +91,7 @@ public class Smoosher : MonoBehaviour {
 			
 			}
 			else {
-				n = 0;
+				n = 1;
 				Invoke("StartGoDown", repeatDelay);
 
 			}
