@@ -6,7 +6,7 @@ public class Smoosher : MonoBehaviour {
 
 	[Range(1, 100)]
 	public float upspeed;
-	[Range(1, 100)]
+	//[Range(1, 100)]
 	public float downspeed;
 	[Range(1, 10)]
 	public float platformCheckRange;
@@ -19,7 +19,11 @@ public class Smoosher : MonoBehaviour {
 	[Range(1, 30)]
 	public int AmountJellyColliders;
 
-	public float ShakeRange;
+	[Range(1, 30)] public float repeatDelay;
+	[Range(1, 5)] public int repeatN;
+	public bool repeat;
+	
+	//public float ShakeRange;
 	
 	private bool doOnce;
 	private bool playerInTrigger;
@@ -35,9 +39,12 @@ public class Smoosher : MonoBehaviour {
 	private Vector3 lastPosition;
 	private bool shake;
 	private bool shakedoonce;
+	private GameObject kill_trigger;
 	
+
+	private int n;
 	
-	void Start () {
+	private void Start () {
 		
 		bar = transform.Find("SmooshBar").gameObject;
 		rod = transform.Find("Rod").gameObject;
@@ -49,80 +56,110 @@ public class Smoosher : MonoBehaviour {
 
 		rodCollider = rod.GetComponent<BoxCollider2D>();
 		shakedoonce = true;
+		n = 0;
 
+		if (!repeat) {
+			repeatN = 100000;
+		}
 	}
 	
-	
-	
-	// Update is called once per frame
-	void Update() {
+		
+	private void Update() {
 
-
+		bar.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+	
 		if (doOnce) {
+			n++;
 			doOnce = false;
 			Invoke("BeginSmooshing", StartDelay);
+
 		}
+		
+		
 
 
-
+		//At starting position. Need to start going back down. 
 		if (goingback && Vector3.Distance(bar.transform.position, transform.position) < .5) {
 			goingback = false;
 			speed = 0;
-			Invoke("StartGoDown", StayUpDelay);
+			
+			
+			if (n < repeatN) {
+
+				n++;
+				Invoke("StartGoDown", StayUpDelay);
+			
+			}
+			else {
+				n = 0;
+				Invoke("StartGoDown", repeatDelay);
+
+			}
 		}
 
 
-
-
+		//Adjust the sprite and the collider
+		float distance = Vector2.Distance(transform.position, bar.transform.position);
+		SpriteRenderer rodsprite = rod.GetComponent<SpriteRenderer>();
+		Collider2D barCollider = bar.GetComponent<BoxCollider2D>();
+		rodsprite.size = new Vector2(distance, rodsprite.size.y);
+		Vector3 middlepos = bar.transform.position - transform.position;
+		middlepos /= 2;
+		rod.transform.position = middlepos + transform.position;
+		rodCollider.size = new Vector2(rodsprite.size.y, rodsprite.size.x);
+		
+		rodCollider.size = rodsprite.size;
 
 		if (!shake) {
 			
-			Vector3 A = -transform.up;
-			bar.transform.position += A * Time.deltaTime * speed;
+			Vector3 down = -transform.up;
+			bar.GetComponent<Rigidbody2D>().velocity = down*speed;
+			
+			//bar.transform.position += A * Time.deltaTime * speed;
 			//bar.transform.position += A * speed;
 			
-			float distance = Vector2.Distance(transform.position, bar.transform.position);
-			SpriteRenderer rodsprite = rod.GetComponent<SpriteRenderer>();
-
-			rodsprite.size = new Vector2(distance, rodsprite.size.y);
-			Vector3 middlepos = bar.transform.position - transform.position;
-			middlepos /= 2;
-			rod.transform.position = middlepos + transform.position;
-			//rodCollider.size = new Vector2(rodsprite.size.y, rodsprite.size.x);
-			rodCollider.size = rodsprite.size;
-
 		
+
+			//barCollider.offset = 
 		}
+		
+		/*
+		//Attempted a Shake effect but it looked lame
 		if (shake) {
 			if (shakedoonce) {
 				lastPosition = bar.transform.position;
 				shakedoonce = false;
 			}
-			bar.transform.position = lastPosition;
+			//bar.transform.position = lastPosition;
 
 			//lastPosition = transform.position;
       
-			bar.transform.position = (Vector2)bar.transform.position + Random.insideUnitCircle*ShakeRange;
-		}
+			//bar.transform.position = (Vector2)bar.transform.position + Random.insideUnitCircle*ShakeRange;
+		}*/
 		SmooshCheck();
 
-		PlatformCheck();
+
 
 
 	}
 
-	void BeginSmooshing() {
+	
+	
+	private void BeginSmooshing() {
 		speed = initialSpeed;
 	}
 
 	
-
+/// <summary>
+/// Was doing raycast checking for the platform before. May still be usefull so don't want to get rid of it yet.
+/// But right now does nothing
+/// </summary>
 	private void PlatformCheck() {
 		Debug.DrawRay(bar.transform.position, -bar.transform.up * platformCheckRange);
 		
 		if (!goingback) {
 			RaycastHit2D hit = Physics2D.Raycast(bar.transform.position, -bar.transform.up, platformCheckRange,
-				LayerMask.GetMask("Platform"));
+				LayerMask.GetMask("Ground"));
 			if (hit.collider != null) {
 				goingback = false;
 				GoBack();
@@ -131,12 +168,12 @@ public class Smoosher : MonoBehaviour {
 
 	}
 	
-	void SmooshCheck() {
+	private void SmooshCheck() {
 
-		if (playerInTrigger && !goingback) {
+		if (playerInTrigger ) {
 			RaycastHit2D hit = Physics2D.Raycast(bar.transform.position, -bar.transform.up, platformCheckRange,
-				LayerMask.GetMask("Platform"));
-
+				LayerMask.GetMask("Ground"));
+			
 			if (hit.collider != null) {
 				goingback = false;
 				//GoBack();
@@ -160,15 +197,20 @@ public class Smoosher : MonoBehaviour {
 	private void PlayerLeftTrigger() {
 		playerInTrigger = false;
 	}
+	
 	private void GoBack() {
-		if (goingback == false) {
-			shake = true;
-			Invoke("StartGoUp",StayDownDelay);
-			goingback = true;
-
-			speed = 0;
+		
+		if (goingback) {
+			return;
 		}
 		
+
+		shake = true;
+		Invoke("StartGoUp",StayDownDelay);
+		goingback = true;
+
+		speed = 0;
+
 	}
 
 	private void StartGoDown() {
@@ -179,9 +221,9 @@ public class Smoosher : MonoBehaviour {
 	private void StartGoUp() {
 		speed = -upspeed;
 		shake = false;
-		bar.transform.position = lastPosition;
+		//bar.transform.position = lastPosition;
 
 	}
-	
+
 	
 }

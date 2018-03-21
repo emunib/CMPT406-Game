@@ -22,6 +22,8 @@ public class GravityLightSystem : MonoBehaviour {
 	private ParticleSystem[] particles;
 	private BoxCollider2D box_collider;
 
+	
+	
 	private void Start() {
 		if (Application.isPlaying) {
 			ActivateSystem();
