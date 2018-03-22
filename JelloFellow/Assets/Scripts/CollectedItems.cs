@@ -166,16 +166,21 @@ public class CollectedItems : MonoBehaviour {
 			desc_x_cur = desc_x_cur + Screen.width * 0.7f * Time.deltaTime * 5;
 		}
 
-		GUI.Label (new Rect (10, title_y_cur, Screen.width-20, 48),  "Scientist Notes: " + (numFound) + "/" + (numInScene) + " found in level", titleStyle);
+		titleStyle.fontSize = 30 * Screen.height/400;
+		style.fontSize = 16 * Screen.height/400;
+		selectedStyle.fontSize = 16 * Screen.height/400;
+		GUI.Label (new Rect (10, title_y_cur, Screen.width-20, Screen.height/10),  "Scientist Notes: " + (numFound) + "/" + (numInScene) + " found in level", titleStyle);
 
 		int i = 1;
 		while (current != null) {
 
+			float y = Screen.height/16;
+			float height = Screen.height / 15;
 			if (current.Value.isSelected ()) {
-				GUI.Label (new Rect (name_x_cur, 32 + (i * 34), Screen.width * 0.3f - 10, 30), current.Value.getName (), selectedStyle);
-				GUI.Label (new Rect (desc_x_cur, 66, Screen.width * 0.7f - 20, Screen.height - 78), current.Value.getDescription (), descriptionStyle);
+				GUI.Label (new Rect (name_x_cur, y + (i * height*1.1f), Screen.width * 0.3f - 10, height), current.Value.getName (), selectedStyle);
+				GUI.Label (new Rect (desc_x_cur, y + (i * height*1.1f), Screen.width * 0.7f - 20, Screen.height - (height*2.5f)), current.Value.getDescription (), descriptionStyle);
 			} else {
-				GUI.Label (new Rect (name_x_cur, 32 + (i * 34), Screen.width*0.3f-10, 30), current.Value.getName(), style);
+				GUI.Label (new Rect (name_x_cur, y + (i * height*1.1f), Screen.width*0.3f-10, height), current.Value.getName(), style);
 			}
 
 			current = current.Next;
