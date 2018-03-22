@@ -23,10 +23,52 @@ public class AutoPlatform : MonoBehaviour {
   private bool use_polygon;
   [CustomLabel("Order in Layer")] [Tooltip("Use PolygonCollider2D for sprites.")] [SerializeField]
   private int order_in_layer = 0;
+
+  [Header("Editing Settings")]
+  [CustomLabel("Extend from left")] [Tooltip("Extend the platform from the left side.")] [SerializeField]
+  private bool extend_left;
+  [CustomLabel("Extend from right")] [Tooltip("Extend the platform from the right side.")] [SerializeField]
+  private bool extend_right;
+  [CustomLabel("Extend from center")] [Tooltip("Extend the platform from the center side.")] [SerializeField]
+  private bool extend_center;
   
   private float platform_width_old;
+  private bool extend_left_old;
+  private bool extend_right_old;
+  private bool extend_center_old;
+
+  private void Start() {
+    extend_center = extend_center_old = true;
+    extend_left = extend_left_old = false;
+    extend_right = extend_right_old = false;
+  }
 
   private void Update() {
+    /* if all are false change center to true */
+    if (!extend_center && !extend_left && !extend_right) extend_center = true;
+    
+    /* only have one boolean be true */
+    if (extend_left_old != extend_left) {
+      extend_center = extend_center_old = false;
+      extend_right = extend_right_old = false;
+      
+      extend_left_old = extend_left;
+    }
+    
+    if (extend_right_old != extend_right) {
+      extend_center = extend_center_old = false;
+      extend_left = extend_left_old = false;
+      
+      extend_right_old = extend_right;
+    }
+    
+    if (extend_center_old != extend_center) {
+      extend_left = extend_left_old = false;
+      extend_right = extend_right_old = false;
+      
+      extend_center_old = extend_center;
+    }
+    
     /* platform width changed so update it */
     if (platform_width_old != platform_width) {
       List<Transform> tempList = transform.Cast<Transform>().ToList();
@@ -78,6 +120,11 @@ public class AutoPlatform : MonoBehaviour {
       mid_tile.transform.localRotation = Quaternion.identity;
       right_tile.transform.localRotation = Quaternion.identity;
 
+      if (!extend_center) {
+        int direction = extend_left ? 1 : -1;
+        transform.position = new Vector3(transform.position.x + (platform_width_old - platform_width)/2f * direction, transform.position.y, transform.position.z);
+      }
+      
       /* add a box collider or polygon collider */
       if (use_polygon) {
         /* add collider */
