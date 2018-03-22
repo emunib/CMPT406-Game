@@ -93,7 +93,7 @@ public abstract class GenericPlayer : GravityField {
     if (configurator.verbose_gravity) Debug.Log("Gravity depletion rate: " + gravity_depletion_rate);
     if (configurator.verbose_gravity) Debug.Log("Gravity field transition rate: " + gravity_field_transition_rate);
 
-    Physics2D.gravity = GetGravity();
+    //Physics2D.gravity = GetGravity();
   }
 
   protected override void Update() {
@@ -461,8 +461,10 @@ public abstract class GenericPlayer : GravityField {
       }
     }
 
-    /* apply the stop drag (does not let the player slide) */
-    rigidbody.drag = apply_stop_drag ? configurator.movement_linear_drag : 0f;
+    if (is_grounded) {
+      /* apply the stop drag (does not let the player slide) */
+      rigidbody.drag = apply_stop_drag ? configurator.movement_linear_drag : 0f;
+    }
 
     /* update velocity */
     rigidbody.velocity = velocity;
@@ -472,7 +474,10 @@ public abstract class GenericPlayer : GravityField {
       foreach (Transform child in child_transforms) {
         Rigidbody2D child_rigidbody = child.gameObject.GetComponent<Rigidbody2D>();
         if (child_rigidbody) {
-          child_rigidbody.drag = apply_stop_drag ? configurator.movement_linear_drag : 0f;
+          if (is_grounded) {
+            child_rigidbody.drag = apply_stop_drag ? configurator.movement_linear_drag : 0f;
+          }
+
           child_rigidbody.velocity = velocity;
         }
       }
