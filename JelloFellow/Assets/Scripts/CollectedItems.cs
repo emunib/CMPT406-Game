@@ -21,6 +21,7 @@ public class CollectedItems : MonoBehaviour {
 
 	public static CollectedItems script;	// Make a static class of self, needed for this singleton data structure
 	public bool display;					// Trigger on/off to display the items menu
+	public Font textFont;					// Font used for the text 
 
 	/**
 	 * 	Item
@@ -113,16 +114,19 @@ public class CollectedItems : MonoBehaviour {
 			titleStyle.fontSize = 30;
 			titleStyle.alignment = TextAnchor.MiddleCenter;
 			titleStyle.normal.textColor = Color.white;
+			titleStyle.font = textFont;
 
 			style = new GUIStyle ("Box");
 			style.alignment = TextAnchor.MiddleCenter;
 			style.fontSize = 18;
 			style.normal.textColor = Color.white;
+			style.font = textFont;
 
 			selectedStyle = new GUIStyle ("Box");
 			selectedStyle.alignment = TextAnchor.MiddleCenter;
 			selectedStyle.fontSize = 18;
 			selectedStyle.normal.textColor = Color.yellow;
+			selectedStyle.font = textFont;
 
 			descriptionStyle = new GUIStyle ("Box");
 			descriptionStyle.alignment = TextAnchor.UpperLeft;
@@ -281,7 +285,7 @@ public class CollectedItems : MonoBehaviour {
 		}
 
 		// Going up the list of items
-		if (input.GetButton1Down())
+		if (input.GetButton1Down() || Input.GetKeyDown("tab"))
 			display = !display;
 	}
 		
