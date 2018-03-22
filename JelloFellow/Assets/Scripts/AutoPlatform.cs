@@ -122,7 +122,7 @@ public class AutoPlatform : MonoBehaviour {
 
       if (!extend_center) {
         int direction = extend_left ? 1 : -1;
-        transform.position = new Vector3(transform.position.x + (platform_width_old - platform_width)/2f * direction, transform.position.y, transform.position.z);
+        transform.position += transform.right * (platform_width_old - platform_width)/2f * direction;
       }
       
       /* add a box collider or polygon collider */
