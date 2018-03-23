@@ -34,7 +34,7 @@ public class PlayerConfigurator : MonoBehaviour {
   [CustomRangeLabel("Stamina Depletion Time", 0f, 100f)] [Tooltip("In seconds the time to completely lose stamina.")] [SerializeField]
   public float gravity_depletion_time = 5f;
 
-  [CustomRangeLabel("Field Transition Time", 0f, 100f)] [Tooltip("The time to increase or decrease completely in seconds.")] [SerializeField]
+  [CustomRangeLabel("Field Transition Time", 0f, 100f)] [Tooltip("The timease or decrease completely in seconds.")] [SerializeField]
   public float gravity_field_transition_time = 0.6f;
 
   [Header("Movement Settings")]

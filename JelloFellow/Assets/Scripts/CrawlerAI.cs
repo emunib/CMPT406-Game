@@ -45,7 +45,6 @@ public class CrawlerAI : GenericPlayer {
 		/* spawn spin */
 		if (jelly.gameObject.transform.localScale != (Vector3) Vector2.one) {
 			float angle = jelly.gameObject.transform.rotation.eulerAngles.z == 0f ? 360f : jelly.gameObject.transform.rotation.eulerAngles.z;
-			jelly.gameObject.transform.rotation = Quaternion.Slerp(jelly.gameObject.transform.rotation, Quaternion.Euler(0,0,jelly.gameObject.transform.localScale.x * angle), 1f);
 		} else {
 			if (!is_grounded) {
 				/* call handle movement after some time so we give the AI time to settle */
@@ -104,7 +103,7 @@ public class CrawlerAI : GenericPlayer {
 				break;
 			}
 			
-			HashSet<RaycastHit2D> threat_check = GetObjectsInView(flip ? transform.right : -transform.right, 1f, 0, 5f);
+			HashSet<RaycastHit2D> threat_check = GetObjectsInView(flip ? transform.right: -transform.right, 1f, 0, 5f);
 			foreach (RaycastHit2D hit in threat_check) {
 				/* player in front */
 				if (hit.transform.CompareTag("Threat")) {
