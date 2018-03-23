@@ -1,7 +1,5 @@
 ﻿using UnityEngine;
- 
-using UnityEngine;
- 
+
 // simple camera follow script with smooth movement as well as smooth zoom in/out based on target's velocity
 public class CameraController : MonoBehaviour
 {

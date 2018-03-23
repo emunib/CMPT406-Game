@@ -60,9 +60,11 @@ public abstract class GravityField : GravityPlayer {
 
     /* rotate gravity field to point the marker towards gravity */
     Vector2 _gravity = GetGravity();
-    marker.up = -_gravity;
-    var pos = _gravity.normalized * gravityfield_visualizer.transform.localScale.x / 2;
-    marker.localPosition = transform.InverseTransformDirection(pos);
+    if (_gravity != Vector2.zero) {
+      marker.up = -_gravity;
+      var pos = _gravity.normalized * gravityfield_visualizer.transform.localScale.x / 2;
+      marker.localPosition = transform.InverseTransformDirection(pos);
+    }
   }
 
   private void OnTriggerStay2D(Collider2D other) {
