@@ -5,13 +5,15 @@ public class SceneButton : MonoBehaviour
 {
 
     // in Unity add desired scene to the button throught the inspector
-    public Object theSceneLinkedByThisButton;
-
+    //public Object theSceneLinkedByThisButton;
+    [CustomLabel("Linked scene name")]
+    public string linked_scene_name;
+    
     public void LoadByName()
     {
         GameController.control.previousSceneName = SceneManager.GetActiveScene().name;
-        GameController.control.currSceneName = theSceneLinkedByThisButton.name;
-        SceneLoader.instance.LoadSceneWithName(theSceneLinkedByThisButton.name);
+        GameController.control.currSceneName = linked_scene_name;
+        SceneLoader.instance.LoadSceneWithName(linked_scene_name);
         //SceneManager.LoadScene(theSceneLinkedByThisButton.name);
     }
 

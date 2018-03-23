@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using System.Threading;
+﻿#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UnityEngine;
 
 public class WaypointFollowV2 : MonoBehaviour {
@@ -219,6 +217,7 @@ public class WaypointFollowV2 : MonoBehaviour {
 
 	}*/
 	
+#if UNITY_EDITOR
 
 	/// <summary>
 	/// To make visualization of waypoints easier. turndrawgizmos off in 
@@ -244,4 +243,5 @@ public class WaypointFollowV2 : MonoBehaviour {
 			
 		}
 	}
+	#endif
 }
