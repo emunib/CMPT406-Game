@@ -14,7 +14,7 @@ public class WaypointFollowV2 : MonoBehaviour {
 	public bool PositionInfo;
 	[Header("Stats")]
 	public float SpinRatee;
-	[Range(0,10)]
+	[Range(0,100)]
 	public float Speed;
 
 	
