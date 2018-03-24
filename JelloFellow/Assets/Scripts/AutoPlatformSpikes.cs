@@ -8,13 +8,18 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class AutoPlatformSpikes : AutoPlatform {
 
+	[Header("Spike Settings")]
 
 	[SerializeField] private Sprite spike_sprite;
 	[CustomLabel("Spike Offset")] [Tooltip("Offset of the spikes.")] [SerializeField]
 	private float spike_offset;
 
-	private float spike_offset_old;
+	[CustomLabel("Spike Size y")] [Tooltip("Y size of sprites.")] [SerializeField]
+	private float spike_size_y = 1;
+
 	
+	private float spike_offset_old;
+	private float spike_size_old;
 	
 	/// <summary>
 	/// This is copypasta from AutoPlatform EXCEPT FOR FINAL IF
@@ -46,7 +51,7 @@ public class AutoPlatformSpikes : AutoPlatform {
 		}
     
 		/* platform width changed so update it */			//NICKS CHANGE
-		if (platform_width_old != platform_width || spike_offset_old!=spike_offset) {
+		if (platform_width_old != platform_width || spike_offset_old!=spike_offset || spike_size_old!=spike_size_y) {
 			List<Transform> tempList = transform.Cast<Transform>().ToList();
 			/* remove all gameobjects in parent */
 			foreach (Transform child in tempList) {
@@ -59,6 +64,7 @@ public class AutoPlatformSpikes : AutoPlatform {
 			
 			// NICKS CHANGE
 			spike_offset_old = spike_offset;
+			spike_size_old = spike_size_y;
 		}
 		
 		
@@ -71,7 +77,7 @@ public class AutoPlatformSpikes : AutoPlatform {
 		Vector2 spikesize = new Vector2(platform_width-1f , spike_sprite.bounds.size.y);
 		GameObject spike_tile = CreateGameObjectFromSprite(spike_sprite, "Spikes", spikesize, true);
 		spike_tile.transform.parent = transform;
-		
+		spike_tile.transform.localScale = new Vector3(spike_tile.transform.localScale.x,spike_size_y, 1f);
 		spike_tile.transform.localPosition = new Vector2(0f, spike_offset);
 
 		spike_tile.transform.localRotation = Quaternion.identity;
