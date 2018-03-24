@@ -41,6 +41,8 @@ public class AutoPlatform : MonoBehaviour {
     extend_center = extend_center_old = true;
     extend_left = extend_left_old = false;
     extend_right = extend_right_old = false;
+    
+    gameObject.layer = LayerMask.NameToLayer("Ground");
   }
 
   private void Update() {
@@ -109,6 +111,10 @@ public class AutoPlatform : MonoBehaviour {
       left_tile.transform.parent = transform;
       mid_tile.transform.parent = transform;
       right_tile.transform.parent = transform;
+
+      left_tile.layer = LayerMask.NameToLayer("Ground");
+      mid_tile.layer = LayerMask.NameToLayer("Ground");
+      right_tile.layer = LayerMask.NameToLayer("Ground");
       
       /* position the tiles */
       left_tile.transform.localPosition = new Vector2(-(platform_width - left_width)/2f, 0f);
