@@ -14,6 +14,8 @@ public class FellowPlayer : GenericPlayer {
 
 	private AudioSource _audio_source;
 	private AudioClip _splat_sound;
+
+	private Timer _timer;
 	
 	protected override void Start() {
 		base.Start();
@@ -32,6 +34,21 @@ public class FellowPlayer : GenericPlayer {
 		_deserves_highsplat = false;
 		_deserves_lowsplat = false;
 		_splat_cooldown = false;
+		
+		GameObject timer_object = GameObject.Find("Timer");
+		if (!timer_object) {
+			Debug.LogError("Timer not present in the scene.");
+		} else {
+			_timer = timer_object.GetComponentInChildren<Timer>();
+		}
+		
+		GameObject spawn_point = GameObject.Find("SpawnPoint");
+		if (!spawn_point) {
+			Debug.LogError("Spawn point not present in the scene.");
+		} else {
+			Vector2 dir = Quaternion.AngleAxis(spawn_point.transform.eulerAngles.z, Vector3.forward) * Vector3.down;
+			SetGravity(dir);
+		}
 	}
 
 	protected override void Update() {
@@ -40,7 +57,8 @@ public class FellowPlayer : GenericPlayer {
 			float angle = _jelly.gameObject.transform.rotation.eulerAngles.z == 0f ? 360f : _jelly.gameObject.transform.rotation.eulerAngles.z;
 			_jelly.gameObject.transform.rotation = Quaternion.Slerp(_jelly.gameObject.transform.rotation, Quaternion.Euler(0,0,_jelly.gameObject.transform.localScale.x * angle), 1f);
 		} else {
-		    /* allow movement after we are done spawning */
+			if(!_timer.Activate) _timer.Activate = true;
+		  /* allow movement after we are done spawning */
 			base.Update();
 
 			/* we are allowed to move so grab velocity */
@@ -80,8 +98,10 @@ public class FellowPlayer : GenericPlayer {
 	private void ResetSplatCooldown() {
 		_splat_cooldown = false;
 	}
+	
 	protected override void Death() {
 		Debug.Log("Bleh I died.");
+		_timer.Activate = false;
 		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 	}
 }

@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using System.Threading;
+﻿#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UnityEngine;
 
 public class WaypointFollowV2 : MonoBehaviour {
@@ -16,7 +14,7 @@ public class WaypointFollowV2 : MonoBehaviour {
 	public bool PositionInfo;
 	[Header("Stats")]
 	public float SpinRatee;
-	[Range(0,10)]
+	[Range(0,100)]
 	public float Speed;
 
 	
@@ -31,7 +29,8 @@ public class WaypointFollowV2 : MonoBehaviour {
 
 	private Vector2 _nextPos,_myPos;
 	
-	
+	float getscale ;
+
 	
 	private bool _goingUp = true;
 	private int posCounter;
@@ -41,11 +40,11 @@ public class WaypointFollowV2 : MonoBehaviour {
 		
 		Saw = transform.Find("Saw");
 		posCounter = 0;
-		
+		getscale= transform.localScale.x;
 		//Set the global waypoints
 		GlobalWaypoints = new Vector3[LocalWayPoints.Length];
 		for (int i = 0; i < LocalWayPoints.Length; i++) {
-			GlobalWaypoints[i] = LocalWayPoints[i] + transform.position;
+			GlobalWaypoints[i] = LocalWayPoints[i]*getscale + transform.position;
 		}
 		
 		
@@ -62,11 +61,13 @@ public class WaypointFollowV2 : MonoBehaviour {
 		SpriteRenderer track;
 
 		track = Track.GetComponent<SpriteRenderer>();
-		float distance = Vector2.Distance(GlobalWaypoints[0], GlobalWaypoints[1]);
+		float distance = Vector2.Distance(GlobalWaypoints[0], GlobalWaypoints[1])/getscale;
 		track.size = new Vector2(distance,track.size.y);
 
+		
+		
 		//Put in Middle
-		Vector3 middlesPos = GlobalWaypoints[1] - GlobalWaypoints[0];
+		Vector3 middlesPos = (GlobalWaypoints[1] - GlobalWaypoints[0])/getscale;
 		
 		
 		//Calculate the angle
@@ -114,7 +115,7 @@ public class WaypointFollowV2 : MonoBehaviour {
 			rotation = newTrack.transform.rotation.eulerAngles;
 			rotation.z = angle;
 			newTrack.transform.rotation = Quaternion.Euler(rotation);
-			distance = Vector2.Distance(p0, p1);
+			distance = Vector2.Distance(p0, p1)/getscale;
 			track.size = new Vector2(distance,track.size.y);
 		}
 
@@ -216,29 +217,33 @@ public class WaypointFollowV2 : MonoBehaviour {
 
 	}*/
 	
+
 	
+#if UNITY_EDITOR
+
 	/// <summary>
 	/// To make visualization of waypoints easier. turndrawgizmos off in 
 	/// </summary>
 	private void OnDrawGizmos() {
-		
-		
+
+		getscale = transform.localScale.x;
 		if (DebugWaypoints && LocalWayPoints != null) {
 			Gizmos.color = Color.green;
 			float size = .3f;
 
 			for (int i = 0; i < LocalWayPoints.Length; i++) {
-				Vector3 globalWaypointPos = LocalWayPoints[i] + transform.position;
+				Vector3 globalWaypointPos = LocalWayPoints[i]*getscale+ transform.position;
 				Gizmos.DrawLine(globalWaypointPos-Vector3.up*size, globalWaypointPos+Vector3.up*size);
 				Gizmos.DrawLine(globalWaypointPos-Vector3.right*size, globalWaypointPos+Vector3.right*size);
 
 				if (PositionInfo) {
-					Handles.Label(LocalWayPoints[i] + transform.position,
-						"Element " + i.ToString() + "\nLocalCoordinates " + LocalWayPoints[i].ToString());
+					Handles.Label(LocalWayPoints[i]*getscale + transform.position,
+						"Element " + i + "\nLocalCoordinates " + LocalWayPoints[i]);
 				}
 
 			}
 			
 		}
 	}
+#endif
 }
