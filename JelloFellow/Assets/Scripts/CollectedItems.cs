@@ -179,11 +179,11 @@ public class CollectedItems : MonoBehaviour {
 			float y = Screen.height/16;
 			float height = Screen.height / 15;
 			if (current.Value.isSelected ()) {
-				GUI.Label (new Rect (name_x_cur, y + (i * height*1.1f), Screen.width * 0.3f - 10, height), current.Value.getName (), selectedStyle);
-				GUI.Label (new Rect (desc_x_cur, y + (i * height*1.1f), Screen.width * 0.7f - 20, Screen.height - (height*2.5f)),
+				GUI.Label (new Rect (name_x_cur, y + (i * height*1.15f), Screen.width * 0.3f - 10, height), current.Value.getName (), selectedStyle);
+				GUI.Label (new Rect (desc_x_cur, y + (i * height*1.15f), Screen.width * 0.7f - 20, Screen.height - (height*2.5f)),
 					current.Value.getDescription (), descriptionStyle);
 			} else {
-				GUI.Label (new Rect (name_x_cur, y + (i * height*1.1f), Screen.width*0.3f-10, height), current.Value.getName(), style);
+				GUI.Label (new Rect (name_x_cur, y + (i * height*1.15f), Screen.width*0.3f-10, height), current.Value.getName(), style);
 			}
 
 			current = current.Next;
