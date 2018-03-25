@@ -90,7 +90,8 @@ public class CollectedItems : MonoBehaviour {
 
 	}
 
-	private LinkedList<Item> items;		// The list of items currently collected
+	private LinkedList<Item> items;				// The list of items currently collected
+	private LinkedList<Item> itemsToDisplay;	// Create a Linked list of items to be displayed 
 
 	// Use this for initialization, happens before start
 	void Start () {
@@ -101,6 +102,7 @@ public class CollectedItems : MonoBehaviour {
 			DontDestroyOnLoad (gameObject);
 			script = this;
 			items = new LinkedList<Item> ();
+			itemsToDisplay = new LinkedList<Item> ();
 			display = false;
 
 			title_y = 10.0f;
@@ -147,12 +149,27 @@ public class CollectedItems : MonoBehaviour {
 		numInScene = GameObject.FindGameObjectsWithTag ("Collectable").Length;
 		numFound = 0;
 
+		//int i = 1;
+		//while (current != null) {
+
+
+			//if (current.Value.isSelected ()) {
+
+			//} else {
+
+			//}
+
+			//current = current.Next;
+			//i++;
+
+		//}
+
 	}
 	
 	// Update is called once per frame
 	void OnGUI () {
 		
-		LinkedListNode<Item> current = items.First;
+		LinkedListNode<Item> current = itemsToDisplay.First;
 		int itemsInScene = GameObject.FindGameObjectsWithTag ("Collectable").Length;
 
 		// Make sure position is correct
@@ -172,6 +189,11 @@ public class CollectedItems : MonoBehaviour {
 		selectedStyle.fontSize = 16 * Screen.height/400;
 		GUI.Label (new Rect (10, title_y_cur, Screen.width-20, Screen.height/10),  "Scientist Notes: " + (numFound) + "/" + (numInScene)
 			+ " found in level", titleStyle);
+
+
+
+
+
 
 		int i = 1;
 		while (current != null) {
@@ -204,6 +226,9 @@ public class CollectedItems : MonoBehaviour {
 			thing.setName (name);
 			thing.setDescription (description);
 			items.AddLast (thing);
+			if (itemsToDisplay.Count <= 10) {
+				itemsToDisplay.AddLast (thing);
+			}
 			numFound++;
 
 			// If it's the first item found, it should be selected when the menu opens
