@@ -279,10 +279,6 @@ public class CollectedItems : MonoBehaviour {
 					current.Value.select ();
 					if (current.Next == null) {
 						if (currentAll.Next == null) {
-							//while (itemsToDisplay.First.Value.getName() != items.First.Value.getName()) {
-								//itemsToDisplay.RemoveLast ();
-								//itemsToDisplay.AddFirst ();
-							//}
 							itemsToDisplay.First.Value.select ();
 							return;
 						} else {
@@ -306,18 +302,30 @@ public class CollectedItems : MonoBehaviour {
 		}
 
 		// Going up the list of items
-		if (input.GetHorizontalLeftStick() > 0 && display) {
+		if ((input.GetHorizontalLeftStick() > 0  || Input.GetKeyDown (KeyCode.UpArrow)) && display) {
 
-			LinkedListNode<Item> current = items.First;
+			LinkedListNode<Item> current = itemsToDisplay.First;
+			LinkedListNode<Item> currentAll = items.First;
 			bool found = false;
+
+			// make sure current and currentALl point to the same item
+			while (current.Value.getName () != currentAll.Value.getName ()) {
+				currentAll = currentAll.Next;
+			}
 
 			while (current != null) {
 
 				if (current.Value.isSelected ()) {
 					current.Value.select ();
 					if (current.Previous == null) {
-						items.Last.Value.select ();
-						return;
+						if (currentAll.Previous == null) {
+							itemsToDisplay.Last.Value.select ();
+							return;
+						} else {
+							itemsToDisplay.RemoveLast ();
+							LinkedListNode<Item> prev = currentAll.Previous;
+							itemsToDisplay.AddFirst (prev.Value);
+						}
 					}
 					
 					current.Previous.Value.select ();
