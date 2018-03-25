@@ -202,7 +202,7 @@ public class CollectedItems : MonoBehaviour {
 			float height = Screen.height / 15;
 			if (current.Value.isSelected ()) {
 				GUI.Label (new Rect (name_x_cur, y + (i * height*1.15f), Screen.width * 0.3f - 10, height), current.Value.getName (), selectedStyle);
-				GUI.Label (new Rect (desc_x_cur, y + (i * height*1.15f), Screen.width * 0.7f - 20, Screen.height - (height*2.5f)),
+				GUI.Label (new Rect (desc_x_cur, y + (height*1.15f), Screen.width * 0.7f - 20, Screen.height - (height*2.5f)),
 					current.Value.getDescription (), descriptionStyle);
 			} else {
 				GUI.Label (new Rect (name_x_cur, y + (i * height*1.15f), Screen.width*0.3f-10, height), current.Value.getName(), style);
@@ -262,29 +262,45 @@ public class CollectedItems : MonoBehaviour {
 		Input2D input = InputController.instance.GetInput();
 		
 		// Going to the list of items
-		if (input.GetHorizontalLeftStick() < 0 && display) {
+		if ((input.GetHorizontalLeftStick() < 0 || Input.GetKeyDown (KeyCode.DownArrow)) && display) {
 
-			LinkedListNode<Item> current = items.First;
-			bool found = false;		// Remains false if no item in the list has yet been selected							
+			LinkedListNode<Item> current = itemsToDisplay.First;
+			LinkedListNode<Item> currentAll = items.First;
+			bool found = false;		// Remains false if no item in the list has yet been selected		
+
+			// make sure current and currentALl point to the same item
+			while (current.Value.getName () != currentAll.Value.getName ()) {
+				currentAll = currentAll.Next;
+			}
 
 			while (current != null) {
 
 				if (current.Value.isSelected ()) {
 					current.Value.select ();
 					if (current.Next == null) {
-						items.First.Value.select ();
-						return;
+						if (currentAll.Next == null) {
+							//while (itemsToDisplay.First.Value.getName() != items.First.Value.getName()) {
+								//itemsToDisplay.RemoveLast ();
+								//itemsToDisplay.AddFirst ();
+							//}
+							itemsToDisplay.First.Value.select ();
+							return;
+						} else {
+							itemsToDisplay.RemoveFirst ();
+							LinkedListNode<Item> next = currentAll.Next;
+							itemsToDisplay.AddLast (next.Value);
+						}
 					}
 					
 					current.Next.Value.select ();
 					return;
 				}
 				current = current.Next;
-
+				currentAll = currentAll.Next;
 			}
 
 			if (!found) {
-				items.First.Value.select ();
+				itemsToDisplay.First.Value.select ();
 			}
 
 		}
