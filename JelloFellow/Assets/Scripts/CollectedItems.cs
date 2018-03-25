@@ -21,6 +21,7 @@ public class CollectedItems : MonoBehaviour {
 
 	public static CollectedItems script;	// Make a static class of self, needed for this singleton data structure
 	public bool display;					// Trigger on/off to display the items menu
+	public bool remaining;					// Trigger on/off remaining notes display
 	public Font textFont;					// Font used for the text 
 
 	/**
@@ -92,7 +93,7 @@ public class CollectedItems : MonoBehaviour {
 	private LinkedList<Item> items;		// The list of items currently collected
 
 	// Use this for initialization, happens before start
-	void Awake () {
+	void Start () {
 		
 		// if items doesn't exist, make this 
 		if (script == null) {
@@ -169,7 +170,8 @@ public class CollectedItems : MonoBehaviour {
 		titleStyle.fontSize = 30 * Screen.height/400;
 		style.fontSize = 16 * Screen.height/400;
 		selectedStyle.fontSize = 16 * Screen.height/400;
-		GUI.Label (new Rect (10, title_y_cur, Screen.width-20, Screen.height/10),  "Scientist Notes: " + (numFound) + "/" + (numInScene) + " found in level", titleStyle);
+		GUI.Label (new Rect (10, title_y_cur, Screen.width-20, Screen.height/10),  "Scientist Notes: " + (numFound) + "/" + (numInScene)
+			+ " found in level", titleStyle);
 
 		int i = 1;
 		while (current != null) {
@@ -178,7 +180,8 @@ public class CollectedItems : MonoBehaviour {
 			float height = Screen.height / 15;
 			if (current.Value.isSelected ()) {
 				GUI.Label (new Rect (name_x_cur, y + (i * height*1.1f), Screen.width * 0.3f - 10, height), current.Value.getName (), selectedStyle);
-				GUI.Label (new Rect (desc_x_cur, y + (i * height*1.1f), Screen.width * 0.7f - 20, Screen.height - (height*2.5f)), current.Value.getDescription (), descriptionStyle);
+				GUI.Label (new Rect (desc_x_cur, y + (i * height*1.1f), Screen.width * 0.7f - 20, Screen.height - (height*2.5f)),
+					current.Value.getDescription (), descriptionStyle);
 			} else {
 				GUI.Label (new Rect (name_x_cur, y + (i * height*1.1f), Screen.width*0.3f-10, height), current.Value.getName(), style);
 			}
@@ -290,8 +293,16 @@ public class CollectedItems : MonoBehaviour {
 		}
 
 		// Going up the list of items
-		if (input.GetButton1Down() || Input.GetKeyDown("tab"))
-			display = !display;
+		if (input.GetButton1Down () || Input.GetKeyDown (KeyCode.Tab)) {
+			//if (GameController.control.currSceneName == "SceneSelector") {
+				Debug.Log ("scene selector");
+				display = !display;
+			//} else {
+				Debug.Log ("not scene selector");
+				remaining = !remaining;
+			//}
+		}
+
 	}
 		
 }
