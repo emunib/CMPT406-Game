@@ -17,8 +17,9 @@ public class Collectable : MonoBehaviour {
 	public float accel = 1;
 	public Sprite gray;
 
-    private void OnCollisionEnter2D(Collision2D col) {
+    private void OnTriggerEnter2D(Collider2D col) {
 		
+		Debug.Log ("trigger");
 
 		if ((col.gameObject.CompareTag ("Blob") || col.gameObject.CompareTag ("Player")) && !collected) {
 			
