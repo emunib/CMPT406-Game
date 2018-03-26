@@ -18,8 +18,6 @@ public class Collectable : MonoBehaviour {
 	public Sprite gray;
 
     private void OnTriggerEnter2D(Collider2D col) {
-		
-		Debug.Log ("trigger");
 
 		if ((col.gameObject.CompareTag ("Blob") || col.gameObject.CompareTag ("Player")) && !collected) {
 			

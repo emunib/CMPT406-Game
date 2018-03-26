@@ -18,6 +18,7 @@ public class CollectedItems : MonoBehaviour {
 	private float title_y_cur;
 	private float name_x_cur;
 	private float desc_x_cur;
+	private float title_y_rem;
 
 	public static CollectedItems script;	// Make a static class of self, needed for this singleton data structure
 	public bool display;					// Trigger on/off to display the items menu
@@ -184,19 +185,28 @@ public class CollectedItems : MonoBehaviour {
 			desc_x_cur = desc_x_cur + Screen.width * 0.7f * Time.deltaTime * 5;
 		}
 
+		if (title_y_rem < title_y && remaining) {
+			title_y_rem = title_y_rem + (title_y - title_y_rem) * Time.deltaTime * 5;
+		} else if (title_y_rem > -120 && !remaining) {
+			title_y_rem = title_y_cur - 120 * Time.deltaTime * 5;
+		}
+
 		titleStyle.fontSize = 30 * Screen.height/400;
 		style.fontSize = 16 * Screen.height/400;
 		selectedStyle.fontSize = 16 * Screen.height/400;
-		GUI.Label (new Rect (10, title_y_cur, Screen.width-20, Screen.height/10),  "Scientist Notes: " + (numFound) + "/" + (numInScene)
-			+ " found in level", titleStyle);
 
 
-
-
+		if (remaining) {
+			GUI.Label (new Rect (10, title_y_rem, Screen.width/4, Screen.height/10), (numFound) + "/" + (numInScene)
+				+ " Collectables", titleStyle);
+		} else {
+			GUI.Label (new Rect (10, title_y_rem, Screen.width-20, Screen.height/10),  "Scientist Notes: " + (numFound) + "/" + (numInScene)
+				+ " found in level", titleStyle);
+		}
 
 
 		int i = 1;
-		while (current != null) {
+		while (current != null && !remaining) {
 
 			float y = Screen.height/16;
 			float height = Screen.height / 15;
@@ -343,13 +353,13 @@ public class CollectedItems : MonoBehaviour {
 
 		// Going up the list of items
 		if (input.GetButton1Down () || Input.GetKeyDown (KeyCode.Tab)) {
-			//if (GameController.control.currSceneName == "SceneSelector") {
-				Debug.Log ("scene selector");
+			if (GameController.control.currSceneName == "SceneSelector") {
+				Debug.Log (GameController.control.currSceneName);
 				display = !display;
-			//} else {
+			} else {
 				Debug.Log ("not scene selector");
 				remaining = !remaining;
-			//}
+			}
 		}
 
 	}
