@@ -1,6 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
 
 public class CollectedItems : MonoBehaviour {
 
@@ -89,10 +92,44 @@ public class CollectedItems : MonoBehaviour {
 			return this.description;
 		}
 
+		/// <summary>
+		/// Saves the item
+		/// </summary>
+		public void save() {
+
+			if (!Directory.Exists(Application.persistentDataPath + "/Collectables")) {
+				Directory.CreateDirectory(Application.persistentDataPath + "/Collectables");
+			}
+
+			BinaryFormatter bf = new BinaryFormatter ();
+			FileStream stream = new FileStream (Application.persistentDataPath + "/Collectables/" + this.getName() + ".bin", FileMode.Create);
+
+			if (!Directory.Exists(Application.persistentDataPath + "/Collectables")) {
+				Directory.CreateDirectory(Application.persistentDataPath + "/Collectables");
+			}
+
+			string[] stats = new string[2];
+			stats [0] = this.getName ();
+			stats [1] = this.getDescription ();
+
+			bf.Serialize (stream, stats);
+			stream.Close ();
+		}
+
+
+
 	}
 
 	private LinkedList<Item> items;				// The list of items currently collected
 	private LinkedList<Item> itemsToDisplay;	// Create a Linked list of items to be displayed 
+
+	void OnApplicationQuit(){
+		LinkedListNode<Item> current = items.First;
+		while (current != null) {
+			current.Value.save ();
+			current = current.Next;
+		}
+	}
 
 	// Use this for initialization, happens before start
 	void Start () {
@@ -139,6 +176,26 @@ public class CollectedItems : MonoBehaviour {
 			descriptionStyle.normal.textColor = Color.white;
 			descriptionStyle.wordWrap = true;
 			descriptionStyle.padding = new RectOffset(40, 40, 40, 40);
+
+			// Checking if there's already items collected on this computer
+			if (File.Exists (Application.persistentDataPath + "/Collectables.bin")) {
+
+				Debug.Log (Application.persistentDataPath + "/Collectables.bin");
+
+				BinaryFormatter bf = new BinaryFormatter ();
+				FileStream stream = new FileStream (Application.persistentDataPath + "/Collectables.bin", FileMode.Create);
+
+				// If it exists, load it up!
+				LinkedList<Item> itemsTemp = bf.Deserialize(stream) as LinkedList<Item>;
+
+				// If there's more saved on the computer, thats the most recen save
+				//if (itemsTemp.Count > items.Count) {
+					items = itemsTemp;
+				//}
+
+				stream.Close ();
+
+			}
 
 
 		} else if (script != this) {
@@ -202,15 +259,13 @@ public class CollectedItems : MonoBehaviour {
 			GUI.Label (new Rect (10, title_y_rem, Screen.width/4, Screen.height/10), (numFound) + "/" + (numInScene)
 				+ " Collectables", titleStyle);
 		} else {
-			Debug.Log ("Not remaining");
 			GUI.Label (new Rect (10, title_y_cur, Screen.width-20, Screen.height/10),  "Scientist Notes: " + (numFound) + "/" + (numInScene)
-				+ " found in level", titleStyle);
+				+ " found", titleStyle);
 		}
 
 
 		int i = 1;
 		while (current != null && !remaining) {
-			Debug.Log ("Display");
 			float y = Screen.height/16;
 			float height = Screen.height / 15;
 			if (current.Value.isSelected ()) {
@@ -358,10 +413,8 @@ public class CollectedItems : MonoBehaviour {
 		if (input.GetButton1Down () || Input.GetKeyDown (KeyCode.Tab)) {
 			string name = GameController.control.currSceneName;
 			if (name == "SceneSelector" || name == "MainMenu") {
-				Debug.Log (GameController.control.currSceneName);
 				display = !display;
 			} else {
-				Debug.Log ("not scene selector");
 				remaining = !remaining;
 			}
 		}
