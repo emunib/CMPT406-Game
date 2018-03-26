@@ -15,8 +15,9 @@ public class AutoPlatformSpikes : AutoPlatform {
 	private float spike_offset;
 
 	[CustomLabel("Spike Size y")] [Tooltip("Y size of sprites.")] [SerializeField]
-	private float spike_size_y = 1;
-
+	private float spike_size_y;
+	[CustomLabel("Min Spike Size y")] [Tooltip("Min Y size of spikes.")] [SerializeField]
+	private float spike_min_size_y = 1;
 	
 	private float spike_offset_old;
 	private float spike_size_old;
@@ -25,6 +26,14 @@ public class AutoPlatformSpikes : AutoPlatform {
 	/// This is copypasta from AutoPlatform EXCEPT FOR FINAL IF
 	/// </summary>
 	protected override void Update(){
+
+		
+		
+		if (spike_size_y < spike_min_size_y) {
+			spike_size_y = 1;
+		}
+		
+		
 		/* if all are false change center to true */
 		if (!extend_center && !extend_left && !extend_right) extend_center = true;
     
@@ -75,11 +84,13 @@ public class AutoPlatformSpikes : AutoPlatform {
 	protected override void CreatePlatform() {
 		base.CreatePlatform();
 		Vector2 spikesize = new Vector2(platform_width-1f , spike_sprite.bounds.size.y);
+		
 		GameObject spike_tile = CreateGameObjectFromSprite(spike_sprite, "Spikes", spikesize, true);
 		spike_tile.transform.parent = transform;
 		spike_tile.transform.localScale = new Vector3(spike_tile.transform.localScale.x,spike_size_y, 1f);
 		spike_tile.transform.localPosition = new Vector2(0f, spike_offset);
 
+		spike_tile.GetComponent<SpriteRenderer>().sortingOrder = -1;
 		spike_tile.transform.localRotation = Quaternion.identity;
 		PolygonCollider2D spike_collider = spike_tile.AddComponent<PolygonCollider2D>();
 		spike_collider.autoTiling = true;
