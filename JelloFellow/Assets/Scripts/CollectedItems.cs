@@ -105,6 +105,7 @@ public class CollectedItems : MonoBehaviour {
 			items = new LinkedList<Item> ();
 			itemsToDisplay = new LinkedList<Item> ();
 			display = false;
+			remaining = false;
 
 			title_y = 10.0f;
 			name_x = 10.0f;
@@ -179,6 +180,7 @@ public class CollectedItems : MonoBehaviour {
 			title_y_cur = title_y_cur + (title_y - title_y_cur) * Time.deltaTime * 5;
 			name_x_cur = name_x_cur + (name_x - name_x_cur) * Time.deltaTime * 5;
 			desc_x_cur = desc_x_cur + (desc_x - desc_x_cur) * Time.deltaTime * 5;
+
 		} else if (title_y_cur > -120 && !display) {
 			title_y_cur = title_y_cur - 120 * Time.deltaTime * 5;
 			name_x_cur = name_x_cur - Screen.width * 0.3f * Time.deltaTime * 5;
@@ -200,14 +202,15 @@ public class CollectedItems : MonoBehaviour {
 			GUI.Label (new Rect (10, title_y_rem, Screen.width/4, Screen.height/10), (numFound) + "/" + (numInScene)
 				+ " Collectables", titleStyle);
 		} else {
-			GUI.Label (new Rect (10, title_y_rem, Screen.width-20, Screen.height/10),  "Scientist Notes: " + (numFound) + "/" + (numInScene)
+			Debug.Log ("Not remaining");
+			GUI.Label (new Rect (10, title_y_cur, Screen.width-20, Screen.height/10),  "Scientist Notes: " + (numFound) + "/" + (numInScene)
 				+ " found in level", titleStyle);
 		}
 
 
 		int i = 1;
 		while (current != null && !remaining) {
-
+			Debug.Log ("Display");
 			float y = Screen.height/16;
 			float height = Screen.height / 15;
 			if (current.Value.isSelected ()) {
@@ -353,7 +356,8 @@ public class CollectedItems : MonoBehaviour {
 
 		// Going up the list of items
 		if (input.GetButton1Down () || Input.GetKeyDown (KeyCode.Tab)) {
-			if (GameController.control.currSceneName == "SceneSelector") {
+			string name = GameController.control.currSceneName;
+			if (name == "SceneSelector" || name == "MainMenu") {
 				Debug.Log (GameController.control.currSceneName);
 				display = !display;
 			} else {
