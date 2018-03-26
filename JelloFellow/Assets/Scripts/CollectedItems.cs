@@ -116,12 +116,45 @@ public class CollectedItems : MonoBehaviour {
 			stream.Close ();
 		}
 
+		/// <summary>
+		/// Loads the item
+		/// </summary>
+		public static void load(string filepath, LinkedList<Item> l) {
+
+			//if (File.Exists(filepath)) {
+
+				BinaryFormatter bf = new BinaryFormatter ();
+				FileStream stream = new FileStream (filepath, FileMode.Open);
+
+				//string[] stats = new string[2];
+
+				string[] stats = bf.Deserialize (stream) as string[];
+
+				//Item i = new Item ();
+				//i.setName (stats [0]);
+				//i.setDescription (stats [1]);
+
+				script = GameObject.Find ("CollectedItems").GetComponent<CollectedItems> ();
+				Debug.Log (script.items.Count);
+				script.AddItem (stats [0], stats [1]);
+				Debug.Log (script.items.Count);
+
+				stream.Close ();
+
+				//l.AddLast (i);
+
+			//}
+
+			//return null;
+
+		}
 
 
 	}
 
 	private LinkedList<Item> items;				// The list of items currently collected
 	private LinkedList<Item> itemsToDisplay;	// Create a Linked list of items to be displayed 
+	private Item[] itemsInScene;				// Create a Linked list of items that are in the scene
 
 	void OnApplicationQuit(){
 		LinkedListNode<Item> current = items.First;
@@ -136,6 +169,9 @@ public class CollectedItems : MonoBehaviour {
 		
 		// if items doesn't exist, make this 
 		if (script == null) {
+
+			numInScene = GameObject.FindGameObjectsWithTag ("Collectable").Length;
+			numFound = 0;
 			
 			DontDestroyOnLoad (gameObject);
 			script = this;
@@ -177,24 +213,36 @@ public class CollectedItems : MonoBehaviour {
 			descriptionStyle.wordWrap = true;
 			descriptionStyle.padding = new RectOffset(40, 40, 40, 40);
 
-			// Checking if there's already items collected on this computer
-			if (File.Exists (Application.persistentDataPath + "/Collectables.bin")) {
+			if (!Directory.Exists(Application.persistentDataPath + "/Collectables")) {
+				Directory.CreateDirectory(Application.persistentDataPath + "/Collectables");
+			}
 
-				Debug.Log (Application.persistentDataPath + "/Collectables.bin");
+			int count = 0;
+			foreach (string file in Directory.GetFiles(Application.persistentDataPath + "/Collectables")) {
 
-				BinaryFormatter bf = new BinaryFormatter ();
-				FileStream stream = new FileStream (Application.persistentDataPath + "/Collectables.bin", FileMode.Create);
+				//Debug.Log (count);
+				Item.load (file, items);
+				numFound--;
 
-				// If it exists, load it up!
-				LinkedList<Item> itemsTemp = bf.Deserialize(stream) as LinkedList<Item>;
 
-				// If there's more saved on the computer, thats the most recen save
-				//if (itemsTemp.Count > items.Count) {
-					items = itemsTemp;
-				//}
+				count++;
 
-				stream.Close ();
+			}
 
+			GameObject[] obs = GameObject.FindGameObjectsWithTag ("Collectable");
+
+			for (int i = 0; i < obs.Length; i++) {
+				string name = obs [i].gameObject.name;
+				LinkedListNode<Item> cur = items.First;
+				while (cur != null) {
+					if (name == cur.Value.getName()) {
+						
+						Collectable s = obs [i].GetComponent<Collectable> ();
+						s.setCollected (true);
+						numFound++;
+					}
+					cur = cur.Next;
+				}
 			}
 
 
@@ -205,23 +253,11 @@ public class CollectedItems : MonoBehaviour {
 
 		}
 
-		numInScene = GameObject.FindGameObjectsWithTag ("Collectable").Length;
-		numFound = 0;
-
-		//int i = 1;
-		//while (current != null) {
+		//itemsInScene = GameObject.FindGameObjectsWithTag ("Collectable") as Item[];
+		//numInScene = itemsInScene.Length;
 
 
-			//if (current.Value.isSelected ()) {
-
-			//} else {
-
-			//}
-
-			//current = current.Next;
-			//i++;
-
-		//}
+		//for int i = 
 
 	}
 	
@@ -293,7 +329,11 @@ public class CollectedItems : MonoBehaviour {
 			Item thing = new Item ();
 			thing.setName (name);
 			thing.setDescription (description);
+			if (items == null)
+				items = new LinkedList<Item> ();
 			items.AddLast (thing);
+			if (itemsToDisplay == null)
+				itemsToDisplay = new LinkedList<Item> ();
 			if (itemsToDisplay.Count <= 10) {
 				itemsToDisplay.AddLast (thing);
 			}
@@ -313,7 +353,10 @@ public class CollectedItems : MonoBehaviour {
 	/// <returns><c>true</c>, if it was collected, <c>false</c> otherwise.</returns>
 	/// <param name="name">Name.</param>
 	public bool isCollected(string name) {
-		
+
+		if (items == null) 
+			return false;
+
 		LinkedListNode<Item> current = items.First;
 
 		while (current != null) {
@@ -416,6 +459,7 @@ public class CollectedItems : MonoBehaviour {
 				display = !display;
 			} else {
 				remaining = !remaining;
+				Debug.Log (itemsToDisplay.Count);
 			}
 		}
 
