@@ -499,7 +499,7 @@ public abstract class GenericPlayer : GravityField {
       if (LayerMask.LayerToName(hit.transform.gameObject.layer) == "Ground" || hit_name.Contains("Platform")) {
         Vector2 hit_normal = hit.normal;
         /* if the object has children then use the parent's rotation to calculate the normal */
-        if (hit.collider.gameObject.transform.childCount > 0) {
+        if (hit.collider.gameObject.transform.childCount > 0 && hit_name.Contains("Platform")) {
           hit_normal = Quaternion.AngleAxis(hit.collider.gameObject.transform.rotation.eulerAngles.z, Vector3.forward) * hit.normal;
         }
 
