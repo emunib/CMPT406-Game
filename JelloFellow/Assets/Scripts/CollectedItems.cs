@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 using System;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
@@ -28,6 +29,7 @@ public class CollectedItems : MonoBehaviour {
 	public bool remaining;					// Trigger on/off remaining notes display
 	public Font textFont;					// Font used for the text 
 
+
 	/**
 	 * 	Item
 	 * 
@@ -40,6 +42,7 @@ public class CollectedItems : MonoBehaviour {
 		private string name = "No Name.";				// Name of the collectable item
 		private string description = "No description.";	// Its description. 
 		private bool selected = false;					// Whether or not the current item is selected
+		private Texture2D image = null;
 
 		/// <summary>
 		/// Sets the name.
@@ -55,6 +58,14 @@ public class CollectedItems : MonoBehaviour {
 		/// <param name="d">String D.</param>
 		public void setDescription (string d) {
 			this.description = d;
+		}
+
+		/// <summary>
+		/// Sets the image.
+		/// </summary>
+		/// <param name="t">Texture2D t.</param>
+		public void setImage (Texture2D t) {
+			this.image = t;
 		}
 
 		/// <summary>
@@ -93,6 +104,14 @@ public class CollectedItems : MonoBehaviour {
 		}
 
 		/// <summary>
+		/// Gets the Image.
+		/// </summary>
+		/// <returns>The description.</returns>
+		public Texture2D getImage () {
+			return this.image;
+		}
+
+		/// <summary>
 		/// Saves the item
 		/// </summary>
 		public void save() {
@@ -108,9 +127,16 @@ public class CollectedItems : MonoBehaviour {
 				Directory.CreateDirectory(Application.persistentDataPath + "/Collectables");
 			}
 
-			string[] stats = new string[2];
+			string[] stats = new string[3];
 			stats [0] = this.getName ();
 			stats [1] = this.getDescription ();
+
+			if (this.getImage() == null) {
+				stats [2] = "No Image";
+			} else {
+				Debug.Log(AssetDatabase.GetAssetPath (this.getImage ()));
+				stats [2] = AssetDatabase.GetAssetPath (this.getImage ());
+			}
 
 			bf.Serialize (stream, stats);
 			stream.Close ();
@@ -121,31 +147,22 @@ public class CollectedItems : MonoBehaviour {
 		/// </summary>
 		public static void load(string filepath, LinkedList<Item> l) {
 
-			//if (File.Exists(filepath)) {
 
-				BinaryFormatter bf = new BinaryFormatter ();
-				FileStream stream = new FileStream (filepath, FileMode.Open);
+			BinaryFormatter bf = new BinaryFormatter ();
+			FileStream stream = new FileStream (filepath, FileMode.Open);
 
-				//string[] stats = new string[2];
+			string[] stats = bf.Deserialize (stream) as string[];
 
-				string[] stats = bf.Deserialize (stream) as string[];
+			script = GameObject.Find ("CollectedItems").GetComponent<CollectedItems> ();
+			if (stats [2] == null) {
+				script.AddItem (stats [0], stats [1], null);
+			} else {
+				Texture2D t = (Texture2D)AssetDatabase.LoadAssetAtPath (stats [2], typeof(Texture2D));
+				script.AddItem (stats [0], stats [1], t);
+			}
 
-				//Item i = new Item ();
-				//i.setName (stats [0]);
-				//i.setDescription (stats [1]);
+			stream.Close ();
 
-				script = GameObject.Find ("CollectedItems").GetComponent<CollectedItems> ();
-				Debug.Log (script.items.Count);
-				script.AddItem (stats [0], stats [1]);
-				Debug.Log (script.items.Count);
-
-				stream.Close ();
-
-				//l.AddLast (i);
-
-			//}
-
-			//return null;
 
 		}
 
@@ -297,6 +314,7 @@ public class CollectedItems : MonoBehaviour {
 		} else {
 			GUI.Label (new Rect (10, title_y_cur, Screen.width-20, Screen.height/10),  "Scientist Notes: " + (numFound) + "/" + (numInScene)
 				+ " found", titleStyle);
+			
 		}
 
 
@@ -308,6 +326,7 @@ public class CollectedItems : MonoBehaviour {
 				GUI.Label (new Rect (name_x_cur, y + (i * height*1.15f), Screen.width * 0.3f - 10, height), current.Value.getName (), selectedStyle);
 				GUI.Label (new Rect (desc_x_cur, y + (height*1.15f), Screen.width * 0.7f - 20, Screen.height - (height*2.5f)),
 					current.Value.getDescription (), descriptionStyle);
+				//GUI.DrawTexture (new Rect (200, 200, 400, 200), current.Value.getImage (), ScaleMode.ScaleToFit);
 			} else {
 				GUI.Label (new Rect (name_x_cur, y + (i * height*1.15f), Screen.width*0.3f-10, height), current.Value.getName(), style);
 			}
@@ -323,12 +342,17 @@ public class CollectedItems : MonoBehaviour {
 	/// </summary>
 	/// <param name="name">Name of the item.</param>
 	/// <param name="description">Description of the item.</param>
-	public void AddItem(string name, string description){
+	public void AddItem(string name, string description, Texture2D image){
+
+		if (image != null) {
+			Debug.Log (AssetDatabase.GetAssetPath (image));
+		}
 
 		if (!isCollected(name)) {
 			Item thing = new Item ();
 			thing.setName (name);
 			thing.setDescription (description);
+			thing.setImage (image);
 			if (items == null)
 				items = new LinkedList<Item> ();
 			items.AddLast (thing);
