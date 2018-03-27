@@ -90,7 +90,7 @@ public class SceneSelectorScene : MonoBehaviour {
     }
     
     //Scroll the screen to the proper hight
-    scrollRect.verticalNormalizedPosition = Mathf.Lerp(scrollRect.verticalNormalizedPosition, yPos + (-Mathf.Sign(yPos) * 0.2f), Time.deltaTime * scrollSpeed);
+    scrollRect.verticalNormalizedPosition = Mathf.Lerp(scrollRect.verticalNormalizedPosition, yPos + (-Mathf.Sign(yPos) * 0.08f), Time.deltaTime * scrollSpeed);
   }
 
   private void CheckForControllerInput() {

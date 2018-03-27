@@ -45,7 +45,7 @@ public class GameController : Singleton<GameController> {
 		if (File.Exists(Application.persistentDataPath + "/highScores.dat"))
 		{
 			BinaryFormatter bf = new BinaryFormatter();
-			FileStream file = File.Open(Application.persistentDataPath + "/highScores.dat",FileMode.Open);
+			FileStream file = File.Open(Application.persistentDataPath + "/highScores.dat", FileMode.Open);
 			HighScores scores = (HighScores)bf.Deserialize(file);
 
 			instance.highScores = scores;
