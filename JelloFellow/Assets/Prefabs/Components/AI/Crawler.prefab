@@ -161,14 +161,16 @@ MonoBehaviour:
   is_raycast_origin: 1
   max_velocity: 80
   apply_gravity_tochild: 0
-  apply_movement_tochild: 0
+  apply_movement_tochild: 1
   ChildComponents: []
+  gravity_deadzone: 0.9
   gravity_angular_drag: 0.5
   gravity_linear_drag: 3
   max_gravity_stamina: 100
   min_gravity_stamina: 0
   gravity_depletion_time: 5
   gravity_field_transition_time: 0.6
+  movement_deadzone: 0.6
   movement_linear_drag: 5
   move_speed: 12
   air_speed: 2
@@ -185,7 +187,7 @@ MonoBehaviour:
   verbose_gravity: 0
   show_gravity: 0
   gravity_ray_color: {r: 0, g: 0, b: 0, a: 1}
-  visualize_ground_check: 1
+  visualize_ground_check: 0
   visualize_fov_edge: {r: 0, g: 0, b: 1, a: 1}
   visualize_fov_inbetween: {r: 1, g: 0, b: 0, a: 1}
   verbose_movement: 0
@@ -195,7 +197,6 @@ MonoBehaviour:
   movement_leniency_color: {r: 0, g: 0, b: 1, a: 1}
   cur_hp: 0
   max_hp: 0
-  gravity_deadzone: 0.9
 --- !u!114 &114222318247767610
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -80,8 +80,8 @@ public class AIGoober : GenericPlayer {
 
 
 
-  public int maxAttacks =10;
-  public float attackCdTime = .4f;
+  public int maxAttacks =100;
+  public float attackCdTime = 1f;
   public float attackNumCdTime = 5f;
 
   public int numAttacks = 0;
@@ -92,10 +92,11 @@ public class AIGoober : GenericPlayer {
     //Only Jump If I can
     if (grounded &&attackOffCd) {
       //attackOffCd = false;
-      //Invoke("ResetAttackCD",attackCdTime);
       if (numAttacks < maxAttacks) {
      
         _input.button3_down = true;
+        attackOffCd= false;
+        Invoke("ResetAttackCD",attackCdTime);
 
         numAttacks++;
         //goomba_input.jumpbtndown = true;
@@ -113,7 +114,7 @@ public class AIGoober : GenericPlayer {
 
   private void ResetNumAttacks() {
     numAttacks = 0;
-
+    attackOffCd = true;
   }
 
   
@@ -150,7 +151,7 @@ public class AIGoober : GenericPlayer {
       Debug.DrawRay(transform.position,fwdangle,Color.magenta);
 
   
-      //float platform_angle = PlatformAngle();
+      //float platform_aangle = PlatformAngle();
       //float pa = PlatformAngle();
       float angle1 = platform_angle - 100f;
       float angle2 = platform_angle + 100f;
@@ -231,14 +232,36 @@ public class AIGoober : GenericPlayer {
 
         attackVector = game_object.transform.position - transform.position;
 
-        float plat_angle = PlatformAngle();
+        float plat_angle = platform_angle;
+        print("PA "+platform_angle);
+        print("left stick" + _input.leftstickx +"  "+ _input.leftsticky);
+        print(_input);
+        
+       
         
         //TODO: FIX Bug on 225degree angled platforms
-        if ((plat_angle > 45 && plat_angle < 135) || (plat_angle>=225 &&plat_angle<=315)) {
+        if (plat_angle > 45 && plat_angle <= 135) {
+          if (direction == -1 && attackVector.y >= 0) {
+            Flip();
+          }
+          else if (direction == 1 && attackVector.y < 0) {
+            Flip();
+          }
+        }
+        else if(plat_angle >=225 && plat_angle <=315){
+       
           if (direction == -1 && attackVector.y < 0) {
             Flip();
           }
-          else if (direction == 1 && attackVector.y >= 0) {
+          else if (direction == 1 && attackVector.y > 0) {
+            Flip();
+          }
+        }
+        else if (plat_angle > 135 && plat_angle < 225) {
+          if (direction == -1 && attackVector.x >= 0) {
+            Flip();
+          }
+          else if (direction == 1 && attackVector.x < 0) {
             Flip();
           }
         }
@@ -250,6 +273,13 @@ public class AIGoober : GenericPlayer {
             Flip();
           }
         }
+        
+        float platform_walk_angle = platform_angle - 90;
+        Vector2 movement_direction = new Vector2(Mathf.Sin(platform_walk_angle * Mathf.Deg2Rad), Mathf.Cos(platform_walk_angle * Mathf.Deg2Rad));
+    
+        /* use the left control stick to move in direction */
+        _input.leftstickx = movement_direction.x * direction;
+        _input.leftsticky = movement_direction.y * direction;
 
         return true;
       }

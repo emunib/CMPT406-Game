@@ -129,9 +129,11 @@ public abstract class GravityField : GravityPlayer {
     //return gravity_field.radius;
   }
 
+  private float vel;
   protected void ChangeGravityFill(float progress)
   {
-    mask.localPosition = new Vector2(0, Mathf.Lerp(-2.35f, -1.25f, progress));
+    var y = Mathf.SmoothDamp(mask.localPosition.y, Mathf.Lerp(-1.8f, -.6f, progress), ref vel, 0.1f, Mathf.Infinity);
+    mask.localPosition = new Vector2(0, y);
   }
 
   private void SetSorting()

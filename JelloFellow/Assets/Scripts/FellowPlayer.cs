@@ -3,6 +3,8 @@ using UnityEngine.SceneManagement;
 
 public class FellowPlayer : GenericPlayer {
 	private const string splatsound_path = "Sounds/Splat";
+	private const string deathsound_path = "Sounds/player_death";
+	private const string gravityfieldsound_path = "Sounds/gravity_field";
 	private const float highsplat_velocity = 25f;
 	private const float lowsplat_velocity = 10f;
 	
@@ -11,11 +13,15 @@ public class FellowPlayer : GenericPlayer {
 	private bool _deserves_lowsplat;
 	private bool _deserves_highsplat;
 	private bool _splat_cooldown;
+	private bool _gravity_sound;
 
 	private AudioSource _audio_source;
 	private AudioClip _splat_sound;
+	private AudioClip _death_sound;
+	private AudioClip _gravityfield_sound;
 
-	private Timer _timer;
+	public Timer _timer;
+	public bool Pause;
 	
 	protected override void Start() {
 		base.Start();
@@ -30,6 +36,8 @@ public class FellowPlayer : GenericPlayer {
 		_audio_source.playOnAwake = false;
 
 		_splat_sound = Resources.Load<AudioClip>(splatsound_path);
+		_death_sound = Resources.Load<AudioClip>(deathsound_path);
+		_gravityfield_sound = Resources.Load<AudioClip>(gravityfieldsound_path);
 		
 		_deserves_highsplat = false;
 		_deserves_lowsplat = false;
@@ -49,6 +57,8 @@ public class FellowPlayer : GenericPlayer {
 			Vector2 dir = Quaternion.AngleAxis(spawn_point.transform.eulerAngles.z, Vector3.forward) * Vector3.down;
 			SetGravity(dir);
 		}
+
+		Pause = false;
 	}
 
 	protected override void Update() {
@@ -57,12 +67,24 @@ public class FellowPlayer : GenericPlayer {
 			float angle = _jelly.gameObject.transform.rotation.eulerAngles.z == 0f ? 360f : _jelly.gameObject.transform.rotation.eulerAngles.z;
 			_jelly.gameObject.transform.rotation = Quaternion.Slerp(_jelly.gameObject.transform.rotation, Quaternion.Euler(0,0,_jelly.gameObject.transform.localScale.x * angle), 1f);
 		} else {
-			if(!_timer.Activate) _timer.Activate = true;
+			if (!_timer.Activate) {
+				_timer.Activate = true;
+			}
 		  /* allow movement after we are done spawning */
-			base.Update();
+			if(!Pause) base.Update();
 
 			/* we are allowed to move so grab velocity */
 			Vector2 velocity = rigidbody.velocity;
+
+			if (_input.GetHorizontalRightStick() != 0f || _input.GetVerticalRightStick() != 0f) {
+				if (!_gravity_sound) {
+					_gravity_sound = true;
+					_audio_source.PlayOneShot(_gravityfield_sound, 1f);
+				}
+			} else {
+				_gravity_sound = false;
+			}
+			
 			/* make sure we haven't already decided that the player deserves a splat */
 			if (!_deserves_highsplat && !_deserves_lowsplat && !is_grounded && !_splat_cooldown) {
 				/* if velocity in either direction is greater then the low splat threshold */
@@ -86,7 +108,7 @@ public class FellowPlayer : GenericPlayer {
 					}
 
 					if (_deserves_lowsplat) {
-						_audio_source.PlayOneShot(_splat_sound, Random.Range(0.1f, 0.4f));
+						_audio_source.PlayOneShot(_splat_sound, Random.Range(0f, 0.1f));
 						_deserves_lowsplat = false;
 						Invoke("ResetSplatCooldown", 0.5f);
 					}
@@ -100,8 +122,8 @@ public class FellowPlayer : GenericPlayer {
 	}
 	
 	protected override void Death() {
-		Debug.Log("Bleh I died.");
 		_timer.Activate = false;
+		_audio_source.PlayOneShot(_death_sound, Random.Range(0.5f, 1f));
 		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 	}
 }

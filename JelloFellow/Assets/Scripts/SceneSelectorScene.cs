@@ -12,6 +12,8 @@ using UnityEngine.UI;
 
 [RequireComponent(typeof(ScrollRect))]
 public class SceneSelectorScene : MonoBehaviour {
+  private const string menuchoosesound_path = "Sounds/menu_choose";
+  private const string menuselectsound_path = "Sounds/menu_select2";
   private const string scenebutton_path = "Prefabs/UI/SceneButton";
   private const string scenepreview_path = "LevelPreviews/";
   private const string scenepreviewtest_path = "LevelPreviews/Test";
@@ -35,10 +37,20 @@ public class SceneSelectorScene : MonoBehaviour {
   private Color old_color;
   private Color highlight_color;
   private int old_index;
+  
+  private AudioSource _audio_source;
+  private AudioClip _choose_sound;
+  private AudioClip _scroll_sound;
 
   private void Start() {
-    highlight_color = new Color32(0xFB, 0xB0, 0x3B, 0xFF);
+    highlight_color = new Color32(0xFF, 0xCA, 0x3A, 0xFF);
     scenebutton = Resources.Load(scenebutton_path);
+    
+    _audio_source = gameObject.AddComponent<AudioSource>();
+    _audio_source.playOnAwake = false;
+    
+    _choose_sound = Resources.Load<AudioClip>(menuchoosesound_path);
+    _scroll_sound = Resources.Load<AudioClip>(menuselectsound_path);
 
     for (int i = 0; i < scenes.Length; i++) {
       GameObject button = Instantiate(scenebutton) as GameObject;
@@ -69,6 +81,7 @@ public class SceneSelectorScene : MonoBehaviour {
     old_index = index;
     old_color = buttonsArray[index].GetComponentInChildren<Text>().color;
     buttonsArray[index].GetComponentInChildren<Text>().color = highlight_color;
+    _audio_source.PlayOneShot(_scroll_sound, 1f);
     buttonsArray[index].Select();
 
     row = 0;
@@ -86,6 +99,7 @@ public class SceneSelectorScene : MonoBehaviour {
   private void Update() {    
     //If selected click the button
     if (input.GetButton3Down()) {
+      _audio_source.PlayOneShot(_choose_sound, 1f);
       buttonsArray[index].onClick.Invoke();
     }
     
@@ -138,6 +152,7 @@ public class SceneSelectorScene : MonoBehaviour {
       old_color = buttonsArray[index].GetComponentInChildren<Text>().color;
       buttonsArray[index].GetComponentInChildren<Text>().color = highlight_color;
 
+      _audio_source.PlayOneShot(_scroll_sound, 1f);
       buttonsArray[index].Select();
       //Don't scroll the screen if there are 2 or less rows of scenes
       if (ammountOfRows > 2) {

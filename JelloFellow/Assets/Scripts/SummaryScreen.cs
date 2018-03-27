@@ -22,9 +22,9 @@ public class SummaryScreen : MonoBehaviour
 	{
 		input = InputController.instance.GetInput();
 		// If there was a previous scene write out the name of that scene
-		if (GameController.control.previousSceneName != "")
+		if (GameController.instance.previousSceneName != "")
 		{
-			sceneName.text = GameController.control.previousSceneName;
+			sceneName.text = GameController.instance.previousSceneName;
 		}
 
 		//if the time to complete the level was an actual time write out what the time was
@@ -44,13 +44,13 @@ public class SummaryScreen : MonoBehaviour
 //		}
 		
 		//if there was a previous high score write out that high score
-		if(GameController.control.highScores.highScoreDictionary.ContainsKey(GameController.control.previousSceneName))
+		if(GameController.instance.highScores.highScoreDictionary.ContainsKey(GameController.instance.previousSceneName))
 		{
-			highScore.text = "Record: " + GameController.control.highScores.highScoreDictionary[GameController.control.previousSceneName];
+			highScore.text = "Record: " + GameController.instance.highScores.highScoreDictionary[GameController.instance.previousSceneName];
 		}
 
 		//If there is not a specified set of boundaries to get medals for this level do checks with default values
-		if (!scoreBoundaries.ContainsKey(GameController.control.previousSceneName))
+		if (!scoreBoundaries.ContainsKey(GameController.instance.previousSceneName))
 		{
 			//check if the time is better than 100s if so make a bronze star appear
 			if (100.00 > Timer.timeToDisplay)
@@ -80,19 +80,19 @@ public class SummaryScreen : MonoBehaviour
 		else
 		{
 			//if better than the bronze boundary show a bronze star
-			if (scoreBoundaries[GameController.control.previousSceneName].boundaries[2] > Timer.timeToDisplay)
+			if (scoreBoundaries[GameController.instance.previousSceneName].boundaries[2] > Timer.timeToDisplay)
 			{
 				bronzeStar.alpha = 1f;
 				bronzeStar.GetComponentInParent<Image>().color = new Color(0.82f, 0.41f, 0.11f, 1f);
 				//if better than the silver boundary show two silver stars
-				if (scoreBoundaries[GameController.control.previousSceneName].boundaries[1] > Timer.timeToDisplay)
+				if (scoreBoundaries[GameController.instance.previousSceneName].boundaries[1] > Timer.timeToDisplay)
 				{
 					silverStar.alpha = 1f;
 					Color silverColor = new Color(0.76f, 0.76f, 0.76f, 1f);
 					bronzeStar.GetComponentInParent<Image>().color = silverColor;
 					silverStar.GetComponentInParent<Image>().color = silverColor;
 					//if better than the gold boundary show three gold stars
-					if (scoreBoundaries[GameController.control.previousSceneName].boundaries[0] > Timer.timeToDisplay)
+					if (scoreBoundaries[GameController.instance.previousSceneName].boundaries[0] > Timer.timeToDisplay)
 					{
 						goldStar.alpha = 1f;
 						Color goldColor = new Color(0.83f, 0.68f, 0.21f, 1f);
@@ -120,20 +120,20 @@ public class SummaryScreen : MonoBehaviour
 		select = input.GetButton3Down();
 		if (select)
 		{
-			if(GameController.control.highScores.highScoreDictionary.ContainsKey(GameController.control.previousSceneName) == false)
+			if(GameController.instance.highScores.highScoreDictionary.ContainsKey(GameController.instance.previousSceneName) == false)
 			{
-				GameController.control.highScores.highScoreDictionary.Add(GameController.control.previousSceneName, "");
+				GameController.instance.highScores.highScoreDictionary.Add(GameController.instance.previousSceneName, "");
 			}
 
-			if (GameController.control.highScores.highScoreDictionary[GameController.control.previousSceneName].Equals("") ||
-			    float.Parse(GameController.control.highScores.highScoreDictionary[GameController.control.previousSceneName]) >
+			if (GameController.instance.highScores.highScoreDictionary[GameController.instance.previousSceneName].Equals("") ||
+			    float.Parse(GameController.instance.highScores.highScoreDictionary[GameController.instance.previousSceneName]) >
 			    Timer.timeToDisplay)
 			{
-				GameController.control.highScores.highScoreDictionary[GameController.control.previousSceneName] =
+				GameController.instance.highScores.highScoreDictionary[GameController.instance.previousSceneName] =
 					"" + Timer.timeToDisplay.ToString("0.00");
 			}
 
-			GameController.control.Save();
+			GameController.instance.Save();
 			button.onClick.Invoke();
 		}
 	}

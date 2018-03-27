@@ -16,14 +16,14 @@ public class Collectable : MonoBehaviour {
 	public float max_y_speed = 1;
 	public float accel = 1;
 	public Sprite gray;
+	public Texture2D image;
 
-    private void OnCollisionEnter2D(Collision2D col) {
-		
+    private void OnTriggerEnter2D(Collider2D col) {
 
 		if ((col.gameObject.CompareTag ("Blob") || col.gameObject.CompareTag ("Player")) && !collected) {
 			
 			script = GameObject.Find ("CollectedItems").GetComponent<CollectedItems> ();
-			script.AddItem (gameObject.name, description);
+			script.AddItem (gameObject.name, description, image);
 			setCollected(true);
 		}
 
