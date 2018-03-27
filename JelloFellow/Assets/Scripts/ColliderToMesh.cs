@@ -17,6 +17,7 @@ using UnityEngine;
 			int pointCount = 0;
 			pointCount = pc2.GetTotalPointCount();
 			MeshFilter mf = GetComponent<MeshFilter>();
+			
 			Mesh mesh = new Mesh();
 			Vector2[] points = pc2.points;
 			Vector3[] vertices = new Vector3[pointCount];
