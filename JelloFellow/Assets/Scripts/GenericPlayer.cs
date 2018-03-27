@@ -329,9 +329,14 @@ public abstract class GenericPlayer : GravityField {
     if (leftstick_clicked && is_grounded) {
       /* perform clinging */
       AffectSelfWithGravity = false;
-    } else if(leftstick_unclicked) { /* when the left stick click is let go of */
-      AffectSelfWithGravity = true;
     }
+
+    if (horizontal_movement != 0f || vertical_movement != 0f) {
+      if (!AffectSelfWithGravity) AffectSelfWithGravity = true;
+    }
+//    else if(leftstick_unclicked) { /* when the left stick click is let go of */
+//      AffectSelfWithGravity = true;
+//    }
     
     /* if we are on valid platform to allow movement and jump */
     if (platform_angle != -1f) {
@@ -355,7 +360,7 @@ public abstract class GenericPlayer : GravityField {
       if (configurator.show_movement) Debug.DrawRay(transform.position, platform_direction_negative * configurator.move_speed, configurator.platform_direction_color);
 
       /* make sure player actually wants to apply movement forces */
-      if (horizontal_movement != 0f || vertical_movement != 0f) {
+      if (horizontal_movement != 0f || vertical_movement != 0f) {        
         /* get the leniency directions (leniency 2 mainly for drawing ray) */
         Vector2 movement_leniency_positive = new Vector2(Mathf.Sin((platform_positive_angle + configurator.leniency_angle) * Mathf.Deg2Rad), Mathf.Cos((platform_positive_angle + configurator.leniency_angle) * Mathf.Deg2Rad));
         Vector2 movement_leniency_positive2 = new Vector2(Mathf.Sin((platform_positive_angle - configurator.leniency_angle) * Mathf.Deg2Rad), Mathf.Cos((platform_positive_angle - configurator.leniency_angle) * Mathf.Deg2Rad));
@@ -409,7 +414,7 @@ public abstract class GenericPlayer : GravityField {
 //        }
       }
     } else { /* assume we are either not grounded or not on valid platform */
-      if (!is_grounded) {
+      if (!is_grounded) {        
         /* we want to move in air t(-.-t) */
         if (horizontal_movement != 0f | vertical_movement != 0f) {
           /* angle of gravity */

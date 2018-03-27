@@ -20,7 +20,7 @@ public class FellowPlayer : GenericPlayer {
 	private AudioClip _death_sound;
 	private AudioClip _gravityfield_sound;
 
-	private Timer _timer;
+	public Timer _timer;
 	
 	protected override void Start() {
 		base.Start();
