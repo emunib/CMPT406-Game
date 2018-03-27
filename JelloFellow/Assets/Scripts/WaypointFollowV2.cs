@@ -17,6 +17,7 @@ public class WaypointFollowV2 : MonoBehaviour {
 	[Range(0,100)]
 	public float Speed;
 
+	public bool buildTrack;
 	
 	
 	private Transform Saw;
@@ -47,8 +48,9 @@ public class WaypointFollowV2 : MonoBehaviour {
 			GlobalWaypoints[i] = LocalWayPoints[i]*getscale + transform.position;
 		}
 		
-		
-		BuildTracks();
+		if (buildTrack){
+			BuildTracks();
+		}
 
 	}
 

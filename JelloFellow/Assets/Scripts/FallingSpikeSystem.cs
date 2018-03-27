@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.Serialization.Formatters;
 using UnityEngine;
 using UnityEngine.Video;
 
@@ -10,6 +11,7 @@ using UnityEngine.Video;
 /// Component will only have gravity acting upon it.
 /// </summary>
 [RequireComponent(typeof(Rigidbody2D))]
+
 public class FallingSpikeSystem : Gravity {
 
   public string PlayerLayer;
@@ -17,6 +19,12 @@ public class FallingSpikeSystem : Gravity {
   public float shakeRange;
   public float FallStartTime;
   public float EndFallTime;
+  public Vector2 TriggerOffset;
+  public Vector2 TriggerSize;
+  
+  [SerializeField]
+  private BoxCollider2D trigger;
+
 
 
   
@@ -61,6 +69,9 @@ public class FallingSpikeSystem : Gravity {
     lastPosition = transform.position;
 
     rigidbody.freezeRotation = true;
+    //trigger = transform.Find("trigger").GetComponent<BoxCollider2D>();
+
+
 
 
   }
@@ -84,13 +95,16 @@ public class FallingSpikeSystem : Gravity {
       transform.position = (Vector2)transform.position + Random.insideUnitCircle*shakeRange;
     }
     
+  
+
   }
 
   public void PlayerHasEntered() {
     shake = true;
     isfalling = true;
     Invoke("BeginFalling",FallStartTime);
-    transform.Find("trigger").GetComponent<BoxCollider2D>().enabled = false;
+    trigger.enabled = false;
+
 
   }
 
@@ -137,4 +151,16 @@ public class FallingSpikeSystem : Gravity {
   public override void SetGravityLightRestrictions(Vector2 _restrictions) {
     gravity_restrictions = _restrictions;
   }
+  
+#if UNITY_EDITOR
+  private void OnDrawGizmos() {
+
+    if (TriggerSize == Vector2.zero) {
+      TriggerSize = Vector2.one;
+    }
+    
+    trigger.offset = TriggerOffset;
+    trigger.size = TriggerSize;
+  }
+#endif
 }
