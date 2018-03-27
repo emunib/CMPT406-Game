@@ -7,14 +7,15 @@ public class SceneLoader : Singleton<SceneLoader> {
   private const string loadingscreen_path = "Prefabs/UI/LoadingCanvas";
   private const float scaletransition_speed = 50f;
   private const string loading_string = "Loading...";
-  
+
+  private GameObject loading_canvas;
   private GameObject loading_gameobject;
   private Slider bar;
   private Text text;
   private AsyncOperation async_operation;
 
   private void Awake() {
-    GameObject loading_canvas = Resources.Load<GameObject>(loadingscreen_path);
+    loading_canvas = Resources.Load<GameObject>(loadingscreen_path);
     loading_canvas = Instantiate(loading_canvas, transform);
     loading_gameobject = loading_canvas.transform.Find("LoadingScreen").gameObject;
     loading_gameobject.transform.localScale = Vector3.zero;
@@ -39,9 +40,15 @@ public class SceneLoader : Singleton<SceneLoader> {
   }
 
   private IEnumerator LoadLevel(string _name) {
-    async_operation = SceneManager.LoadSceneAsync(_name);
+    async_operation = SceneManager.LoadSceneAsync(_name, LoadSceneMode.Single);
+    //async_operation.allowSceneActivation = false;
+    
     while (!async_operation.isDone) {
-      bar.value = async_operation.progress;
+      float progress = Mathf.Clamp01(async_operation.progress / 0.9f);
+      bar.value = progress;
+//      if (async_operation.progress >= 0.9f) {
+//        async_operation.allowSceneActivation = true;
+//      }
       yield return null;
     }
     ResetLoadingScreen();

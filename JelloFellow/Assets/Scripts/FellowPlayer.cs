@@ -41,6 +41,14 @@ public class FellowPlayer : GenericPlayer {
 		} else {
 			_timer = timer_object.GetComponentInChildren<Timer>();
 		}
+		
+		GameObject spawn_point = GameObject.Find("SpawnPoint");
+		if (!spawn_point) {
+			Debug.LogError("Spawn point not present in the scene.");
+		} else {
+			Vector2 dir = Quaternion.AngleAxis(spawn_point.transform.eulerAngles.z, Vector3.forward) * Vector3.down;
+			SetGravity(dir);
+		}
 	}
 
 	protected override void Update() {

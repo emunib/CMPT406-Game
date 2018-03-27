@@ -30,7 +30,7 @@ public class SceneSelectorScene : MonoBehaviour {
   private int row;
   private int ammountOfRows;
 
-  [SerializeField] public Object[] scenes;
+  [SerializeField] public string[] scenes;
   private Object scenebutton;
   private Color old_color;
   private Color highlight_color;
@@ -42,18 +42,23 @@ public class SceneSelectorScene : MonoBehaviour {
 
     for (int i = 0; i < scenes.Length; i++) {
       GameObject button = Instantiate(scenebutton) as GameObject;
-      button.transform.SetParent(transform.Find("Panel"), false);
-      button.GetComponentInChildren<SceneButton>().theSceneLinkedByThisButton = scenes[i];
-      
-      string _name = scenes[i].name;
-      if (name == "MainMenu") {
-        _name = "Back";
+      if (button != null) {
+        button.transform.SetParent(transform.Find("Panel"), false);
+        button.GetComponentInChildren<SceneButton>().linked_scene_name = scenes[i];
+
+        string _name = scenes[i];
+        if (name == "MainMenu") {
+          _name = "Back";
+        }
+
+        button.GetComponentInChildren<Text>().text = _name;
+        button.GetComponentInChildren<Text>().color = new Color32(0x00, 0xBC, 0x66, 0xFF);
+
+        Sprite sprite = Resources.Load<Sprite>(scenepreview_path + scenes[i]);
+        button.GetComponent<Image>().sprite = sprite != null ? sprite : Resources.Load<Sprite>(scenepreviewtest_path);
+      } else {
+        Debug.LogError("Button is null.");
       }
-      button.GetComponentInChildren<Text>().text = _name;
-      button.GetComponentInChildren<Text>().color = new Color32(0x00, 0xBC, 0x66, 0xFF);
-      
-      Sprite sprite = Resources.Load<Sprite>(scenepreview_path + scenes[i].name);
-      button.GetComponent<Image>().sprite = sprite != null ? sprite : Resources.Load<Sprite>(scenepreviewtest_path);
     }
 
     InvokeRepeating("CheckForControllerInput", 0.0f, 0.14f);
@@ -85,7 +90,7 @@ public class SceneSelectorScene : MonoBehaviour {
     }
     
     //Scroll the screen to the proper hight
-    scrollRect.verticalNormalizedPosition = Mathf.Lerp(scrollRect.verticalNormalizedPosition, yPos + (-Mathf.Sign(yPos) * 0.08f), Time.deltaTime * scrollSpeed);
+    scrollRect.verticalNormalizedPosition = Mathf.Lerp(scrollRect.verticalNormalizedPosition, yPos + (-Mathf.Sign(yPos) * 0.2f), Time.deltaTime * scrollSpeed);
   }
 
   private void CheckForControllerInput() {

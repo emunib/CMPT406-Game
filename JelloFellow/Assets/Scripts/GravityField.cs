@@ -60,9 +60,11 @@ public abstract class GravityField : GravityPlayer {
 
     /* rotate gravity field to point the marker towards gravity */
     Vector2 _gravity = GetGravity();
-    marker.up = -_gravity;
-    var pos = _gravity.normalized * gravityfield_visualizer.transform.localScale.x / 2;
-    marker.localPosition = transform.InverseTransformDirection(pos);
+    if (_gravity != Vector2.zero) {
+      marker.up = -_gravity;
+      var pos = _gravity.normalized * gravityfield_visualizer.transform.localScale.x / 2;
+      marker.localPosition = transform.InverseTransformDirection(pos);
+    }
   }
 
   private void OnTriggerStay2D(Collider2D other) {
@@ -127,9 +129,11 @@ public abstract class GravityField : GravityPlayer {
     //return gravity_field.radius;
   }
 
+  private float vel;
   protected void ChangeGravityFill(float progress)
   {
-    mask.localPosition = new Vector2(0, Mathf.Lerp(-2.35f, -1.25f, progress));
+    var y = Mathf.SmoothDamp(mask.localPosition.y, Mathf.Lerp(-1.8f, -.6f, progress), ref vel, 0.1f, Mathf.Infinity);
+    mask.localPosition = new Vector2(0, y);
   }
 
   private void SetSorting()
