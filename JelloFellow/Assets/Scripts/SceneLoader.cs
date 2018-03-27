@@ -41,14 +41,14 @@ public class SceneLoader : Singleton<SceneLoader> {
 
   private IEnumerator LoadLevel(string _name) {
     async_operation = SceneManager.LoadSceneAsync(_name, LoadSceneMode.Single);
-    async_operation.allowSceneActivation = false;
+    //async_operation.allowSceneActivation = false;
     
     while (!async_operation.isDone) {
       float progress = Mathf.Clamp01(async_operation.progress / 0.9f);
       bar.value = progress;
-      if (async_operation.progress >= 0.9f) {
-        async_operation.allowSceneActivation = true;
-      }
+//      if (async_operation.progress >= 0.9f) {
+//        async_operation.allowSceneActivation = true;
+//      }
       yield return null;
     }
     ResetLoadingScreen();
