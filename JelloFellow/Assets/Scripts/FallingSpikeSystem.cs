@@ -152,15 +152,15 @@ public class FallingSpikeSystem : Gravity {
     gravity_restrictions = _restrictions;
   }
   
-#if UNITY_EDITOR
-  private void OnDrawGizmos() {
-
-    if (TriggerSize == Vector2.zero) {
-      TriggerSize = Vector2.one;
-    }
-    
-    trigger.offset = TriggerOffset;
-    trigger.size = TriggerSize;
-  }
-#endif
+//#if UNITY_EDITOR
+//  private void OnDrawGizmos() {
+//
+//    if (TriggerSize == Vector2.zero) {
+//      TriggerSize = Vector2.one;
+//    }
+//    
+//    trigger.offset = TriggerOffset;
+//    trigger.size = TriggerSize;
+//  }
+//#endif
 }
