@@ -26,7 +26,7 @@ public class MenuSelector : MonoBehaviour {
   private int old_index;
 
   public void Start() {
-    highlight_color = new Color32(0xFB, 0xB0, 0x3B, 0xFF);
+    highlight_color = new Color32(0xFF, 0xCA, 0x3A, 0xFF);
     
     InvokeRepeating("CheckForControllerInput", 0.0f, 0.14f);
     input = InputController.instance.GetInput();

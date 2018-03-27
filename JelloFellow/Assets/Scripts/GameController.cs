@@ -15,6 +15,8 @@ public class GameController : Singleton<GameController> {
 	
 	// Use this for initialization
 	void Awake () {
+		if(instance != this) Destroy(gameObject);
+		
 		input = InputController.instance.GetInput();
 		
 		currSceneName = SceneManager.GetActiveScene().name;
@@ -45,7 +47,7 @@ public class GameController : Singleton<GameController> {
 		if (File.Exists(Application.persistentDataPath + "/highScores.dat"))
 		{
 			BinaryFormatter bf = new BinaryFormatter();
-			FileStream file = File.Open(Application.persistentDataPath + "/highScores.dat",FileMode.Open);
+			FileStream file = File.Open(Application.persistentDataPath + "/highScores.dat", FileMode.Open);
 			HighScores scores = (HighScores)bf.Deserialize(file);
 
 			instance.highScores = scores;
