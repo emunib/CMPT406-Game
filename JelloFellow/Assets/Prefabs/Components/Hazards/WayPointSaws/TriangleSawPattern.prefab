@@ -38,6 +38,7 @@ GameObject:
   - component: {fileID: 212520570354627128}
   - component: {fileID: 58778892768361398}
   - component: {fileID: 114833445315207044}
+  - component: {fileID: 82329562338398218}
   m_Layer: 0
   m_Name: Saw
   m_TagString: Untagged
@@ -87,6 +88,86 @@ CircleCollider2D:
   m_Offset: {x: -0.000038146973, y: 0}
   serializedVersion: 2
   m_Radius: 2.2034707
+--- !u!82 &82329562338398218
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1263410249866050}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: e3222fd6090e5aa4f98362621d43c567, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 5
+  MaxDistance: 10
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!114 &114833445315207044
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -116,8 +197,9 @@ MonoBehaviour:
   CircularWaypoints: 1
   DebugWaypoints: 1
   PositionInfo: 1
-  SpinRatee: 2
+  SpinRatee: 10
   Speed: 6.89
+  buildTrack: 0
 --- !u!212 &212520570354627128
 SpriteRenderer:
   m_ObjectHideFlags: 1
