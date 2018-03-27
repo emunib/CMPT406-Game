@@ -11,8 +11,8 @@ public class SceneButton : MonoBehaviour
     
     public void LoadByName()
     {
-        GameController.control.previousSceneName = SceneManager.GetActiveScene().name;
-        GameController.control.currSceneName = linked_scene_name;
+        GameController.instance.previousSceneName = SceneManager.GetActiveScene().name;
+        GameController.instance.currSceneName = linked_scene_name;
         SceneLoader.instance.LoadSceneWithName(linked_scene_name);
         //SceneManager.LoadScene(theSceneLinkedByThisButton.name);
     }

@@ -17,8 +17,8 @@ public class EndGoalPoint : MonoBehaviour
 		Debug.Log ("Entered");
 		if (hit.gameObject.CompareTag("Player"))
         {            
-            GameController.control.previousSceneName = SceneManager.GetActiveScene().name;
-            GameController.control.currSceneName = "LevelSummary";
+            GameController.instance.previousSceneName = SceneManager.GetActiveScene().name;
+            GameController.instance.currSceneName = "LevelSummary";
             SceneLoader.instance.LoadSceneWithName("LevelSummary");
         }
     }
