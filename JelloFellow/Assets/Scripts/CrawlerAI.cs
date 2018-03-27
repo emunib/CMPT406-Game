@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class CrawlerAI : GenericPlayer {
 	private const string player_tag = "Player";
-	private const float rotation_speed = 1.5f;
+	private const float rotation_speed = 2f;
 	
 	private GenericEnemyInput _input;
 	private UnityJellySprite jelly;
@@ -73,8 +73,14 @@ public class CrawlerAI : GenericPlayer {
 			float angle2 = platform_angle + 120f;
 			float angle = flip ? Mathf.Max(angle1, angle2) : Mathf.Min(angle1, angle2);
 
+			HashSet<RaycastHit2D> forward_check = GetObjectsInView(flip ? transform.right : -transform.right, 45f, 2, 2f, true);
+			foreach (RaycastHit2D hit in forward_check) {
+				HandleOtherInFront();
+				break;
+			}
+			
 			Vector2 forwardangle_direction = new Vector2(Mathf.Sin(angle * Mathf.Deg2Rad), Mathf.Cos(angle * Mathf.Deg2Rad));
-			HashSet<RaycastHit2D> leaving_ground = GetObjectsInView(forwardangle_direction, 1f, 0, 4f, true);
+			HashSet<RaycastHit2D> leaving_ground = GetObjectsInView(forwardangle_direction, 1f, 0, 4f);
 			if (leaving_ground.Count <= 0) {
 				HandleLeavingGround();
 			} else {
@@ -92,16 +98,13 @@ public class CrawlerAI : GenericPlayer {
 				}
 			}
 			
-			HashSet<RaycastHit2D> forward_check = GetObjectsInView(flip ? transform.right : -transform.right, 1f, 0, 2f, true);
-			foreach (RaycastHit2D hit in forward_check) {
+			HashSet<RaycastHit2D> player_check = GetObjectsInView(transform.up, 180f, 12, 2f);
+			foreach (RaycastHit2D hit in player_check) {
 				/* player in front */
 				if (hit.transform.CompareTag(player_tag)) {
 					HandlePlayerInFront(hit.transform.gameObject);
 					break;
 				}
-
-				HandleOtherInFront();
-				break;
 			}
 			
 			HashSet<RaycastHit2D> threat_check = GetObjectsInView(flip ? transform.right : -transform.right, 1f, 0, 5f);

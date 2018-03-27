@@ -403,37 +403,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95ebc626c6d7f45d39024b0124708db1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!84 &464698038
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: 
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  m_Width: 554
-  m_Height: 1412
-  m_AntiAliasing: 1
-  m_DepthFormat: 2
-  m_ColorFormat: 0
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 0
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
 --- !u!20 &477161179 stripped
 Camera:
   m_PrefabParentObject: {fileID: 20325495211556284, guid: 87ac4dbfe51314c4ab3f660b9f0e7b35,
@@ -556,7 +525,7 @@ Prefab:
         type: 2}
       propertyPath: m_TargetTexture
       value: 
-      objectReference: {fileID: 464698038}
+      objectReference: {fileID: 2093976904}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 622e2143f77a44fef8b3abc57585e2a0, type: 2}
   m_IsPrefabParent: 0
@@ -1384,48 +1353,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
---- !u!1001 &2016836949
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4610703466815258, guid: 596eed761fdf6f1499dfcf536207e89d, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 284.9455
-      objectReference: {fileID: 0}
-    - target: {fileID: 4610703466815258, guid: 596eed761fdf6f1499dfcf536207e89d, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 129.04865
-      objectReference: {fileID: 0}
-    - target: {fileID: 4610703466815258, guid: 596eed761fdf6f1499dfcf536207e89d, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: -3.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4610703466815258, guid: 596eed761fdf6f1499dfcf536207e89d, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4610703466815258, guid: 596eed761fdf6f1499dfcf536207e89d, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4610703466815258, guid: 596eed761fdf6f1499dfcf536207e89d, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4610703466815258, guid: 596eed761fdf6f1499dfcf536207e89d, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4610703466815258, guid: 596eed761fdf6f1499dfcf536207e89d, type: 2}
-      propertyPath: m_RootOrder
-      value: 7
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 596eed761fdf6f1499dfcf536207e89d, type: 2}
-  m_IsPrefabParent: 0
 --- !u!20 &2055525822 stripped
 Camera:
   m_PrefabParentObject: {fileID: 20158179604184188, guid: 622e2143f77a44fef8b3abc57585e2a0,
@@ -1493,3 +1420,34 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!84 &2093976904
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  m_Width: 384
+  m_Height: 816
+  m_AntiAliasing: 1
+  m_DepthFormat: 2
+  m_ColorFormat: 0
+  m_MipMap: 0
+  m_GenerateMips: 1
+  m_SRGB: 0
+  m_UseDynamicScale: 0
+  m_BindMS: 0
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 0
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1

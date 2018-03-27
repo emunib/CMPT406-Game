@@ -10,6 +10,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class MenuSelector : MonoBehaviour {
+  private const string menuchoosesound_path = "Sounds/menu_choose";
+  private const string menuselectsound_path = "Sounds/menu_select2";
   private const float force = 2f;
   
   [SerializeField] private Button[] buttonsArray;
@@ -24,7 +26,11 @@ public class MenuSelector : MonoBehaviour {
   private Color old_color;
   private Color highlight_color;
   private int old_index;
-
+  
+  private AudioSource _audio_source;
+  private AudioClip _choose_sound;
+  private AudioClip _scroll_sound;
+  
   public void Start() {
     highlight_color = new Color32(0xFF, 0xCA, 0x3A, 0xFF);
     
@@ -32,6 +38,12 @@ public class MenuSelector : MonoBehaviour {
     input = InputController.instance.GetInput();
     buttonsArray = GetComponentsInChildren<Button>();
 
+    _audio_source = gameObject.AddComponent<AudioSource>();
+    _audio_source.playOnAwake = false;
+    
+    _choose_sound = Resources.Load<AudioClip>(menuchoosesound_path);
+    _scroll_sound = Resources.Load<AudioClip>(menuselectsound_path);
+    
     if (textColor) {
       old_index = index;
       old_color = buttonsArray[index].GetComponentInChildren<Text>().color;
@@ -41,12 +53,14 @@ public class MenuSelector : MonoBehaviour {
       if(_rigidbody) _rigidbody.AddForce((Mathf.Sign(Random.Range(-1f, 1f)) == -1 ? Vector2.right : Vector2.left) * force, ForceMode2D.Impulse);
     }
 
+    _audio_source.PlayOneShot(_scroll_sound, 1f);
     buttonsArray[index].Select();
   }
 
   public void Update() {    
     //If selected click the button
     if (input.GetButton3Down()) {
+      _audio_source.PlayOneShot(_choose_sound, 1f);
       buttonsArray[index].onClick.Invoke();
     }
   }
@@ -79,6 +93,7 @@ public class MenuSelector : MonoBehaviour {
         if(_rigidbody) _rigidbody.AddForce((Mathf.Sign(Random.Range(-1f, 1f)) == -1 ? Vector2.right : Vector2.left) * force, ForceMode2D.Impulse);
       }
       
+      _audio_source.PlayOneShot(_scroll_sound, 1f);
       buttonsArray[index].Select();
     }
 
