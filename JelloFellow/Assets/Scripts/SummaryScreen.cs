@@ -12,6 +12,7 @@ public class SummaryScreen : MonoBehaviour
 	public Text 		sceneName;
 	public Text  		timeScore;
 	public Text  		highScore;
+	public Text  		collected;
 	public CanvasGroup 	goldStar;
 	public CanvasGroup 	silverStar;
 	public CanvasGroup	bronzeStar;
@@ -31,6 +32,16 @@ public class SummaryScreen : MonoBehaviour
 		{
 			timeScore.text = "Time: " + Timer.timeToDisplay.ToString("0.00");
 		}
+		
+		//if there were collectibles on previous level
+//		if (CollectedItems.script.GetNumInScene() != 0)
+//		{
+//			collected.text = "Collected: " + CollectedItems.script.GetNumFound() + "/" + CollectedItems.script.GetNumInScene();
+//		}
+//		else
+//		{
+//			collected.text = "Collected:    ";
+//		}
 		
 		//if there was a previous high score write out that high score
 		if(GameController.control.highScores.highScoreDictionary.ContainsKey(GameController.control.previousSceneName))
