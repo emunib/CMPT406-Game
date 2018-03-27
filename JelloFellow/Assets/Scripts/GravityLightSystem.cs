@@ -22,7 +22,9 @@ public class GravityLightSystem : MonoBehaviour {
 	private ParticleSystem[] particles;
 	private BoxCollider2D box_collider;
 
-	
+	//Nick Change
+	public float init_sim_speed;
+	public float end_init_speed_time;
 	
 	private void Start() {
 		if (Application.isPlaying) {
@@ -110,6 +112,18 @@ public class GravityLightSystem : MonoBehaviour {
 			shape.scale = new Vector3(light_width * 2f, light_height, 1f);
 			shape.radius = light_width;
 		}
+		
+		
+		//Nick Change in ActivateSystem
+		var m = particles[0].main;
+		m.simulationSpeed = init_sim_speed;
+		Invoke("EndInitSpeed", end_init_speed_time);
+	}
+
+
+	private void EndInitSpeed() {
+		var m = particles[0].main;
+		m.simulationSpeed= 1;
 	}
 
 	private void OnTriggerEnter2D(Collider2D other) {
