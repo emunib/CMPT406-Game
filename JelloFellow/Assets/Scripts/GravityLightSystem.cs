@@ -23,8 +23,8 @@ public class GravityLightSystem : MonoBehaviour {
 	private BoxCollider2D box_collider;
 
 	//Nick Change
-	public float init_sim_speed;
-	public float end_init_speed_time;
+	public float init_sim_speed=30;
+	public float end_init_speed_time=.5f;
 	
 	private void Start() {
 		if (Application.isPlaying) {
