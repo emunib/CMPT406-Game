@@ -23,7 +23,8 @@ public class EndGoalPoint : MonoBehaviour
 		if (hit.gameObject.CompareTag("Player"))
         {
             FellowPlayer _player = hit.gameObject.transform.parent.GetComponentInChildren<FellowPlayer>();
-            _player._timer.Activate = false;
+            _player._timer.Stop = false;
+            _player.Pause = true;
             if ((_audio_source = GetComponent<AudioSource>()) != null && !_playing) {
                 _audio_source.Stop();
                 _complete_sound = Resources.Load<AudioClip>(completesound_path);

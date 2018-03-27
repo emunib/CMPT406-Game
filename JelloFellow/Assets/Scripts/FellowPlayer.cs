@@ -21,6 +21,7 @@ public class FellowPlayer : GenericPlayer {
 	private AudioClip _gravityfield_sound;
 
 	public Timer _timer;
+	public bool Pause;
 	
 	protected override void Start() {
 		base.Start();
@@ -56,6 +57,8 @@ public class FellowPlayer : GenericPlayer {
 			Vector2 dir = Quaternion.AngleAxis(spawn_point.transform.eulerAngles.z, Vector3.forward) * Vector3.down;
 			SetGravity(dir);
 		}
+
+		Pause = false;
 	}
 
 	protected override void Update() {
@@ -64,9 +67,11 @@ public class FellowPlayer : GenericPlayer {
 			float angle = _jelly.gameObject.transform.rotation.eulerAngles.z == 0f ? 360f : _jelly.gameObject.transform.rotation.eulerAngles.z;
 			_jelly.gameObject.transform.rotation = Quaternion.Slerp(_jelly.gameObject.transform.rotation, Quaternion.Euler(0,0,_jelly.gameObject.transform.localScale.x * angle), 1f);
 		} else {
-			if(!_timer.Activate) _timer.Activate = true;
+			if (!_timer.Activate) {
+				_timer.Activate = true;
+			}
 		  /* allow movement after we are done spawning */
-			base.Update();
+			if(!Pause) base.Update();
 
 			/* we are allowed to move so grab velocity */
 			Vector2 velocity = rigidbody.velocity;

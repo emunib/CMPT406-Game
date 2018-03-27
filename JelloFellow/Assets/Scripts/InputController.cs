@@ -41,6 +41,7 @@ public class InputController : Singleton<InputController> {
     
     /* instantiate other known singletons if must past this point */
     AudioManager _audio_manager = AudioManager.instance;
+    GameController _game_controller = GameController.instance;
   }
   
   /// <summary>

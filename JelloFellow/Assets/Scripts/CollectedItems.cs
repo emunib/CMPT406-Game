@@ -489,7 +489,7 @@ public class CollectedItems : MonoBehaviour {
 
 		// Going up the list of items
 		if (input.GetButton1Down () || Input.GetKeyDown (KeyCode.Tab)) {
-			string name = GameController.control.currSceneName;
+			string name = GameController.instance.currSceneName;
 			if (name == "SceneSelector" || name == "MainMenu") {
 				display = !display;
 			} else {
