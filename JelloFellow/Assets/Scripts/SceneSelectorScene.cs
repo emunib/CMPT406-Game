@@ -37,7 +37,7 @@ public class SceneSelectorScene : MonoBehaviour {
   private int old_index;
 
   private void Start() {
-    highlight_color = new Color32(0xFB, 0xB0, 0x3B, 0xFF);
+    highlight_color = new Color32(0xFF, 0xCA, 0x3A, 0xFF);
     scenebutton = Resources.Load(scenebutton_path);
 
     for (int i = 0; i < scenes.Length; i++) {

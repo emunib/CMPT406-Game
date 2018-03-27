@@ -27,6 +27,8 @@ public class AutoPlatform : MonoBehaviour {
   private bool use_polygon;
   [CustomLabel("Order in Layer")] [Tooltip("Use PolygonCollider2D for sprites.")] [SerializeField]
   private int order_in_layer = 0;
+  [CustomLabel("Color")] [Tooltip("Color of the platform.")] [SerializeField]
+  private Color color = Color.white;
 
   [Header("Editing Settings")]
   [CustomLabel("Extend from left")] [Tooltip("Extend the platform from the left side.")] [SerializeField]
@@ -35,6 +37,16 @@ public class AutoPlatform : MonoBehaviour {
   protected bool extend_right;
   [CustomLabel("Extend from center")] [Tooltip("Extend the platform from the center side.")] [SerializeField]
   protected bool extend_center;
+
+  [Header("Background Settings")]
+  [CustomLabel("Top")] [Tooltip("Create background tile on top.")] [SerializeField]
+  private bool background_top;
+  [CustomLabel("Left")] [Tooltip("Create background tile on left.")] [SerializeField]
+  private bool background_left;
+  [CustomLabel("Right")] [Tooltip("Create background tile on right.")] [SerializeField]
+  private bool background_right;
+  [CustomLabel("Bottom")] [Tooltip("Create background tile on bottom.")] [SerializeField]
+  private bool background_bottom;
   
   protected float platform_width_old;
   protected bool extend_left_old;
@@ -187,6 +199,7 @@ public class AutoPlatform : MonoBehaviour {
     GameObject _obj = new GameObject(_name);
     SpriteRenderer _renderer = _obj.AddComponent<SpriteRenderer>();
     _renderer.sprite = _sprite;
+    _renderer.color = color;
     if (_tiled) {
       _renderer.drawMode = SpriteDrawMode.Tiled;
       _renderer.tileMode = SpriteTileMode.Continuous;
