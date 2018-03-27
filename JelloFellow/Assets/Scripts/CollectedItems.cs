@@ -27,6 +27,7 @@ public class CollectedItems : MonoBehaviour {
 	public static CollectedItems script;	// Make a static class of self, needed for this singleton data structure
 	public bool display;					// Trigger on/off to display the items menu
 	public bool remaining;					// Trigger on/off remaining notes display
+	public bool showImage;					// Show the preview image for the collectable
 	public Font textFont;					// Font used for the text 
 
 
@@ -196,6 +197,7 @@ public class CollectedItems : MonoBehaviour {
 			itemsToDisplay = new LinkedList<Item> ();
 			display = false;
 			remaining = false;
+			showImage = false;
 
 			title_y = 10.0f;
 			name_x = 10.0f;
@@ -317,16 +319,21 @@ public class CollectedItems : MonoBehaviour {
 			
 		}
 
+		Texture2D img = null;
 
 		int i = 1;
 		while (current != null && !remaining) {
 			float y = Screen.height/16;
 			float height = Screen.height / 15;
 			if (current.Value.isSelected ()) {
+				
 				GUI.Label (new Rect (name_x_cur, y + (i * height*1.15f), Screen.width * 0.3f - 10, height), current.Value.getName (), selectedStyle);
 				GUI.Label (new Rect (desc_x_cur, y + (height*1.15f), Screen.width * 0.7f - 20, Screen.height - (height*2.5f)),
 					current.Value.getDescription (), descriptionStyle);
-				//GUI.DrawTexture (new Rect (200, 200, 400, 200), current.Value.getImage (), ScaleMode.ScaleToFit);
+
+				// Save the image to be later drawn on top
+				img = current.Value.getImage ();
+				
 			} else {
 				GUI.Label (new Rect (name_x_cur, y + (i * height*1.15f), Screen.width*0.3f-10, height), current.Value.getName(), style);
 			}
@@ -335,6 +342,10 @@ public class CollectedItems : MonoBehaviour {
 			i++;
 
 		}
+
+		if (showImage && img != null) 
+			GUI.DrawTexture (new Rect (0, 0, Screen.width, Screen.height), img, ScaleMode.ScaleToFit);
+		
 	}
 
 	/// <summary>
@@ -485,6 +496,11 @@ public class CollectedItems : MonoBehaviour {
 				remaining = !remaining;
 				Debug.Log (itemsToDisplay.Count);
 			}
+		}
+
+		// Going up the list of items
+		if (input.GetButton3Down () || Input.GetKeyDown (KeyCode.Space) && display) {
+			showImage = !showImage;
 		}
 
 	}
