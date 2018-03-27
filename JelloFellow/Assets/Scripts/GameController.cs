@@ -15,6 +15,8 @@ public class GameController : Singleton<GameController> {
 	
 	// Use this for initialization
 	void Awake () {
+		if(instance != this) Destroy(gameObject);
+		
 		input = InputController.instance.GetInput();
 		
 		currSceneName = SceneManager.GetActiveScene().name;
