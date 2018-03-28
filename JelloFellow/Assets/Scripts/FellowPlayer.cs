@@ -124,6 +124,11 @@ public class FellowPlayer : GenericPlayer {
 	protected override void Death() {
 		_timer.Activate = false;
 		_audio_source.PlayOneShot(_death_sound, Random.Range(0.5f, 1f));
-		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+		_jelly.gameObject.AddComponent<DeathEffect>();
+	}
+
+	protected void OnDestroy()
+	{
+		SceneLoader.instance.LoadSceneWithName(SceneManager.GetActiveScene().name);
 	}
 }
