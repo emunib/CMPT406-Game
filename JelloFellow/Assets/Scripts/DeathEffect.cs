@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 
+[RequireComponent(typeof(JellySprite))]
+[DisallowMultipleComponent]
 public class DeathEffect : MonoBehaviour {
     private JellySprite _jelly;
     private Vector2 _vel;
