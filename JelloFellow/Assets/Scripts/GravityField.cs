@@ -62,8 +62,7 @@ public abstract class GravityField : GravityPlayer {
     Vector2 _gravity = GetGravity();
     if (_gravity != Vector2.zero) {
       marker.up = -_gravity;
-      var pos = _gravity.normalized * gravityfield_visualizer.transform.localScale.x / 2;
-      marker.localPosition = transform.InverseTransformDirection(pos);
+      marker.localPosition = _gravity.normalized * gravityfield_visualizer.transform.localScale.x / 2;
     }
   }
 
