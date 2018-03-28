@@ -3,7 +3,10 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 [RequireComponent(typeof(AudioSource))]
 // Object is to be editted in the browser 
-public class AudioManager : MonoBehaviour {
+public class AudioManager : Singleton<AudioManager> {
+	private const string mainMenuThemesPath = "Music/MainMenu";
+	private const string levelThemesPath = "Music/InGame";
+	
 	public AudioClip[]  mainMenuThemes;
 	public AudioClip[] levelThemes;
 	private AudioSource musicSource;
@@ -14,17 +17,19 @@ public class AudioManager : MonoBehaviour {
 	public Queue<AudioClip> levelClipsQ;
 	// Use this for initialization
 	void Awake () {
-		DontDestroyOnLoad (gameObject);
-		if (FindObjectsOfType(GetType()).Length > 1)
-		{
-			Destroy(gameObject);
-		}
+		if(instance != this) Destroy(gameObject);
+
+		mainMenuThemes = Resources.LoadAll<AudioClip>(mainMenuThemesPath);
+		levelThemes = Resources.LoadAll<AudioClip>(levelThemesPath);
+		
 		musicSource = gameObject.GetComponent<AudioSource>();
+		if (!musicSource) musicSource = gameObject.AddComponent<AudioSource>();
+		musicSource.volume = 0.75f;
+		musicSource.loop = true;
+		
 		InitQueues();
 		DecideAndPlayClip();
 		//lastScene = SceneManager.GetActiveScene();
-
-
 	}
 
 	void InitQueues()
@@ -72,8 +77,8 @@ public class AudioManager : MonoBehaviour {
 
 	}
 	// Update is called once per frame
-	void Update () {
-		if (!musicSource.isPlaying )
+	void LateUpdate () {
+		if (!musicSource.isPlaying || lastScene.name != SceneManager.GetActiveScene().name)
 		{
 			Debug.Log("Scene name last : " + lastScene.name);
 			Debug.Log("Scene name now  : " + SceneManager.GetActiveScene().name);

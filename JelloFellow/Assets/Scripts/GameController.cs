@@ -6,26 +6,17 @@ using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameController : MonoBehaviour {
+public class GameController : Singleton<GameController> {
 
 	public string previousSceneName = "";
 	public string currSceneName = "";
-	public static GameController control;
 	public HighScores highScores = new HighScores();
 	private Input2D 	input;
 	
 	// Use this for initialization
 	void Awake () {
-		if (control == null)
-		{
-			DontDestroyOnLoad(gameObject);
-			control = this;
-		}
-		else if(control != this)
-		{
-			Destroy(gameObject);
-		}
-
+		if(instance != this) Destroy(gameObject);
+		
 		input = InputController.instance.GetInput();
 		
 		currSceneName = SceneManager.GetActiveScene().name;
@@ -38,14 +29,14 @@ public class GameController : MonoBehaviour {
 		FileStream file = File.Create(Application.persistentDataPath + "/highScores.dat");
         
 		
-		if(!control.highScores.highScoreDictionary.ContainsKey(control.currSceneName))
+		if(!instance.highScores.highScoreDictionary.ContainsKey(instance.currSceneName))
 		{
-			control.highScores.highScoreDictionary.Add(control.currSceneName, "");
+			instance.highScores.highScoreDictionary.Add(instance.currSceneName, "");
 		}
-		control.highScores.highScoreDictionary[control.currSceneName] = "" + Timer.timeToDisplay;
+		instance.highScores.highScoreDictionary[instance.currSceneName] = "" + Timer.timeToDisplay;
 		
 		HighScores scores = new HighScores();
-		scores = control.highScores;
+		scores = instance.highScores;
 		
 		bf.Serialize(file,scores);
 		file.Close();
@@ -56,10 +47,10 @@ public class GameController : MonoBehaviour {
 		if (File.Exists(Application.persistentDataPath + "/highScores.dat"))
 		{
 			BinaryFormatter bf = new BinaryFormatter();
-			FileStream file = File.Open(Application.persistentDataPath + "/highScores.dat",FileMode.Open);
+			FileStream file = File.Open(Application.persistentDataPath + "/highScores.dat", FileMode.Open);
 			HighScores scores = (HighScores)bf.Deserialize(file);
 
-			control.highScores = scores;
+			instance.highScores = scores;
 		}
 	}
 	
@@ -73,8 +64,8 @@ public class GameController : MonoBehaviour {
 		if (input.GetStartButtonDown() && currSceneName != "MainMenu" && 
 		    currSceneName != "SceneSelector" && currSceneName != "LevelSummary")
 		{
-			GameController.control.previousSceneName = SceneManager.GetActiveScene().name;
-			GameController.control.currSceneName = "MainMenu";
+			instance.previousSceneName = SceneManager.GetActiveScene().name;
+			instance.currSceneName = "MainMenu";
 			SceneLoader.instance.LoadSceneWithName("MainMenu");
 		}
 	}

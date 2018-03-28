@@ -14,9 +14,10 @@ public class WaypointFollowV2 : MonoBehaviour {
 	public bool PositionInfo;
 	[Header("Stats")]
 	public float SpinRatee;
-	[Range(0,10)]
+	[Range(0,100)]
 	public float Speed;
 
+	public bool buildTrack;
 	
 	
 	private Transform Saw;
@@ -47,8 +48,9 @@ public class WaypointFollowV2 : MonoBehaviour {
 			GlobalWaypoints[i] = LocalWayPoints[i]*getscale + transform.position;
 		}
 		
-		
-		BuildTracks();
+		if (buildTrack){
+			BuildTracks();
+		}
 
 	}
 
@@ -217,6 +219,8 @@ public class WaypointFollowV2 : MonoBehaviour {
 
 	}*/
 	
+
+	
 #if UNITY_EDITOR
 
 	/// <summary>
@@ -224,24 +228,24 @@ public class WaypointFollowV2 : MonoBehaviour {
 	/// </summary>
 	private void OnDrawGizmos() {
 
-		
+		getscale = transform.localScale.x;
 		if (DebugWaypoints && LocalWayPoints != null) {
 			Gizmos.color = Color.green;
 			float size = .3f;
 
 			for (int i = 0; i < LocalWayPoints.Length; i++) {
-				Vector3 globalWaypointPos = LocalWayPoints[i]*getscale + transform.position;
+				Vector3 globalWaypointPos = LocalWayPoints[i]*getscale+ transform.position;
 				Gizmos.DrawLine(globalWaypointPos-Vector3.up*size, globalWaypointPos+Vector3.up*size);
 				Gizmos.DrawLine(globalWaypointPos-Vector3.right*size, globalWaypointPos+Vector3.right*size);
 
 				if (PositionInfo) {
 					Handles.Label(LocalWayPoints[i]*getscale + transform.position,
-						"Element " + i.ToString() + "\nLocalCoordinates " + LocalWayPoints[i].ToString());
+						"Element " + i + "\nLocalCoordinates " + LocalWayPoints[i]);
 				}
 
 			}
 			
 		}
 	}
-	#endif
+#endif
 }
