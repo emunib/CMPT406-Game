@@ -24,12 +24,14 @@ public class CollectedItems : MonoBehaviour {
 	private float name_x_cur;
 	private float desc_x_cur;
 	private float title_y_rem;
+	private float curTime = 0;				// How long the remaining GUI has been on the screen for
 
 	public static CollectedItems script;	// Make a static class of self, needed for this singleton data structure
 	public bool display;					// Trigger on/off to display the items menu
 	public bool remaining;					// Trigger on/off remaining notes display
 	public bool showImage;					// Show the preview image for the collectable
 	public Font textFont;					// Font used for the text 
+	public float stayTime = 5;				// How long the remaining collectables GUI should remain on screen
 
 
 	/**
@@ -518,6 +520,14 @@ public class CollectedItems : MonoBehaviour {
 		// Going up the list of items
 		if (input.GetButton3Down () || Input.GetKeyDown (KeyCode.Space) && display) {
 			showImage = !showImage;
+		}
+
+		if (remaining) {
+			curTime = curTime + Time.deltaTime;
+			if (curTime > stayTime) {
+				remaining = false;
+				curTime = 0;
+			}
 		}
 
 	}
