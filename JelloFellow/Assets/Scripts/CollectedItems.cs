@@ -510,5 +510,15 @@ public class CollectedItems : MonoBehaviour {
 		}
 
 	}
+
+	public int GetNumInScene()
+	{
+		return numInScene;
+	}
+
+	public int GetNumFound()
+	{
+		return numFound;
+	}
 		
 }

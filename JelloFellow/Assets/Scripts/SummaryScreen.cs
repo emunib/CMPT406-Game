@@ -34,14 +34,14 @@ public class SummaryScreen : MonoBehaviour
 		}
 		
 		//if there were collectibles on previous level
-//		if (CollectedItems.script.GetNumInScene() != 0)
-//		{
-//			collected.text = "Collected: " + CollectedItems.script.GetNumFound() + "/" + CollectedItems.script.GetNumInScene();
-//		}
-//		else
-//		{
-//			collected.text = "Collected:    ";
-//		}
+		if (GameController.instance.numCollecablesPrevScene != 0)
+		{
+			collected.text = "Collected: " + GameController.instance.numCollectedPrevScene + "/" + GameController.instance.numCollecablesPrevScene;
+		}
+		else
+		{
+			collected.text = "Collected:    ";
+		}
 		
 		//if there was a previous high score write out that high score
 		if(GameController.instance.highScores.highScoreDictionary.ContainsKey(GameController.instance.previousSceneName))
