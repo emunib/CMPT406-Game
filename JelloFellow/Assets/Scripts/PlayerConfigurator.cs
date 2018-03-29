@@ -4,6 +4,9 @@ public class PlayerConfigurator : MonoBehaviour {
   [Header("General Settings")]
   [CustomLabel("Raycast Origin")] [Tooltip("Should the main object be an origin of raycasting.")] [SerializeField]
   public bool is_raycast_origin = true;
+  
+  [CustomLabel("Animate Field")] [Tooltip("Should the gravity field have a wave animation.")] [SerializeField]
+  public bool animate;
 
   [CustomRangeLabel("Max Velocity", 0f, 100f)] [Tooltip("The max velocity this player is allowed to reach.")] [SerializeField]
   public float max_velocity = 50f;
