@@ -64,6 +64,9 @@ public class Collectable : MonoBehaviour {
 			}
 		}
 
+		Collider2D col = GetComponent<Collider2D>();
+		col.isTrigger = true;
+
 	}
 	
 	// Update is called once per frame
