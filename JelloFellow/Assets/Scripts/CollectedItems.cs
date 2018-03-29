@@ -250,12 +250,6 @@ public class CollectedItems : MonoBehaviour {
 
 		}
 
-		//itemsInScene = GameObject.FindGameObjectsWithTag ("Collectable") as Item[];
-		//numInScene = itemsInScene.Length;
-
-
-		//for int i = 
-
 	}
 
 	/// <summary>
@@ -278,6 +272,7 @@ public class CollectedItems : MonoBehaviour {
 
 		// Get an array of all collectables in the level
 		GameObject[] obs = GameObject.FindGameObjectsWithTag ("Collectable");
+		numInScene = obs.Length;
 
 		for (int i = 0; i < obs.Length; i++) {
 
@@ -325,7 +320,7 @@ public class CollectedItems : MonoBehaviour {
 		if (title_y_rem < title_y && remaining) {
 			title_y_rem = title_y_rem + (title_y - title_y_rem) * Time.deltaTime * 5;
 		} else if (title_y_rem > -120 && !remaining) {
-			title_y_rem = title_y_cur - 120 * Time.deltaTime * 5;
+			title_y_rem = title_y_rem - 120 * Time.deltaTime * 5;
 		}
 
 		titleStyle.fontSize = 30 * Screen.height/400;
@@ -333,9 +328,13 @@ public class CollectedItems : MonoBehaviour {
 		selectedStyle.fontSize = 16 * Screen.height/400;
 
 
-		if (remaining) {
-			GUI.Label (new Rect (10, title_y_rem, Screen.width/4, Screen.height/10), (numFound) + "/" + (numInScene)
+		if (name != "SceneSelector" && name != "MainMenu") {
+			if (numInScene > 0) {
+				GUI.Label (new Rect (10, title_y_rem, Screen.width / 4, Screen.height / 10), (numFound) + "/" + (numInScene)
 				+ " Collectables", titleStyle);
+			} else {
+				GUI.Label (new Rect (10, title_y_rem, Screen.width / 4, Screen.height / 10), "No Collectables", titleStyle);
+			}
 		} else {
 			GUI.Label (new Rect (10, title_y_cur, Screen.width-20, Screen.height/10),  "Scientist Notes: " + (numFound) + "/" + (numInScene)
 				+ " found", titleStyle);
@@ -377,12 +376,6 @@ public class CollectedItems : MonoBehaviour {
 	/// <param name="name">Name of the item.</param>
 	/// <param name="description">Description of the item.</param>
 	public void AddItem(string name, string description, Texture2D image){
-
-		if (image != null) {
-			#if UNITY_EDITOR
-			Debug.Log (AssetDatabase.GetAssetPath (image));
-			#endif
-		}
 
 		if (!isCollected(name)) {
 			Item thing = new Item ();
@@ -519,7 +512,6 @@ public class CollectedItems : MonoBehaviour {
 				display = !display;
 			} else {
 				remaining = !remaining;
-				Debug.Log (itemsToDisplay.Count);
 			}
 		}
 
