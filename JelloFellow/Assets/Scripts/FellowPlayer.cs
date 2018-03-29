@@ -22,6 +22,7 @@ public class FellowPlayer : GenericPlayer {
 
 	public Timer _timer;
 	public bool Pause;
+	private bool is_dead;
 	
 	protected override void Start() {
 		base.Start();
@@ -59,6 +60,7 @@ public class FellowPlayer : GenericPlayer {
 		}
 
 		Pause = false;
+		is_dead = false;
 	}
 
 	protected override void Update() {
@@ -122,9 +124,12 @@ public class FellowPlayer : GenericPlayer {
 	}
 	
 	protected override void Death() {
-		_timer.Activate = false;
-		_audio_source.PlayOneShot(_death_sound, Random.Range(0.5f, 1f));
-		_jelly.gameObject.AddComponent<DeathEffect>();
+		if (!is_dead) {
+			_timer.Activate = false;
+			_audio_source.PlayOneShot(_death_sound, Random.Range(0.5f, 1f));
+			_jelly.gameObject.AddComponent<DeathEffect>();
+			is_dead = true;
+		}
 	}
 
 //	protected void OnDestroy()
