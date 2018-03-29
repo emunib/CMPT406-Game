@@ -1,10 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
-using System;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class CollectedItems : MonoBehaviour {
 
@@ -135,8 +135,10 @@ public class CollectedItems : MonoBehaviour {
 			if (this.getImage() == null) {
 				stats [2] = "No Image";
 			} else {
+				#if UNITY_EDITOR
 				Debug.Log(AssetDatabase.GetAssetPath (this.getImage ()));
 				stats [2] = AssetDatabase.GetAssetPath (this.getImage ());
+				#endif
 			}
 
 			bf.Serialize (stream, stats);
@@ -158,8 +160,10 @@ public class CollectedItems : MonoBehaviour {
 			if (stats [2] == null) {
 				script.AddItem (stats [0], stats [1], null);
 			} else {
+				#if UNITY_EDITOR
 				Texture2D t = (Texture2D)AssetDatabase.LoadAssetAtPath (stats [2], typeof(Texture2D));
 				script.AddItem (stats [0], stats [1], t);
+				#endif
 			}
 
 			stream.Close ();
@@ -356,7 +360,9 @@ public class CollectedItems : MonoBehaviour {
 	public void AddItem(string name, string description, Texture2D image){
 
 		if (image != null) {
+			#if UNITY_EDITOR
 			Debug.Log (AssetDatabase.GetAssetPath (image));
+			#endif
 		}
 
 		if (!isCollected(name)) {

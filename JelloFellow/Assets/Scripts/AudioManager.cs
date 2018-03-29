@@ -25,6 +25,7 @@ public class AudioManager : Singleton<AudioManager> {
 		musicSource = gameObject.GetComponent<AudioSource>();
 		if (!musicSource) musicSource = gameObject.AddComponent<AudioSource>();
 		musicSource.volume = 0.75f;
+		musicSource.loop = true;
 		
 		InitQueues();
 		DecideAndPlayClip();
