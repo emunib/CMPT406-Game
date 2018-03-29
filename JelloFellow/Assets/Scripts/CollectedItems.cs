@@ -2,6 +2,7 @@
 using UnityEngine;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using UnityEngine.SceneManagement;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -236,37 +237,10 @@ public class CollectedItems : MonoBehaviour {
 			descriptionStyle.wordWrap = true;
 			descriptionStyle.padding = new RectOffset(40, 40, 40, 40);
 
-			if (!Directory.Exists(Application.persistentDataPath + "/Collectables")) {
-				Directory.CreateDirectory(Application.persistentDataPath + "/Collectables");
-			}
-
-			int count = 0;
-			foreach (string file in Directory.GetFiles(Application.persistentDataPath + "/Collectables")) {
-
-				//Debug.Log (count);
-				Item.load (file, items);
-				numFound--;
-
-
-				count++;
-
-			}
-
-			GameObject[] obs = GameObject.FindGameObjectsWithTag ("Collectable");
-
-			for (int i = 0; i < obs.Length; i++) {
-				string name = obs [i].gameObject.name;
-				LinkedListNode<Item> cur = items.First;
-				while (cur != null) {
-					if (name == cur.Value.getName()) {
-						
-						Collectable s = obs [i].GetComponent<Collectable> ();
-						s.setCollected (true);
-						numFound++;
-					}
-					cur = cur.Next;
-				}
-			}
+			// Since start() is called after on scene loaded, the number of collected items
+			// must be counted here as well, as it would be overwritten by the singleton
+			// when the game is started
+			countCollected();
 
 
 		} else if (script != this) {
@@ -283,6 +257,51 @@ public class CollectedItems : MonoBehaviour {
 		//for int i = 
 
 	}
+
+	/// <summary>
+	/// Counts the collected items in the scene and adjusts 
+	/// the scripts data accordingly.
+	/// </summary>
+	void countCollected() {
+		
+		if (!Directory.Exists(Application.persistentDataPath + "/Collectables")) {
+			Directory.CreateDirectory(Application.persistentDataPath + "/Collectables");
+		}
+
+		foreach (string file in Directory.GetFiles(Application.persistentDataPath + "/Collectables")) {
+
+			//Debug.Log (count);
+			Item.load (file, items);
+			numFound--;
+
+		}
+
+		// Get an array of all collectables in the level
+		GameObject[] obs = GameObject.FindGameObjectsWithTag ("Collectable");
+
+		for (int i = 0; i < obs.Length; i++) {
+
+			// Get the object's name
+			string name = obs [i].gameObject.name;
+			LinkedListNode<Item> cur = items.First;
+			while (cur != null) {
+
+				// If our object's name exists in the list of items, it is collected
+				if (name == cur.Value.getName()) {
+
+					Collectable s = obs [i].GetComponent<Collectable> ();
+					s.setCollected (true);
+					numFound++;
+				}
+				cur = cur.Next;
+			}
+		}
+	}
+
+	void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
+		countCollected ();
+	}
+
 	
 	// Update is called once per frame
 	void OnGUI () {
