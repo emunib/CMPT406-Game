@@ -9,8 +9,8 @@ using UnityEditor;
 
 public class CollectedItems : MonoBehaviour {
 
-	private int numInScene;
-	private int numFound;
+	protected int numInScene;
+	protected int numFound;
 	private GUIStyle titleStyle;
 	private GUIStyle style;
 	private GUIStyle selectedStyle;
@@ -188,6 +188,8 @@ public class CollectedItems : MonoBehaviour {
 			current = current.Next;
 		}
 	}
+
+
 
 	// Use this for initialization, happens before start
 	void Start () {
