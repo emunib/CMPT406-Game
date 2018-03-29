@@ -39,6 +39,10 @@ public class EndGoalPoint : MonoBehaviour
         _playing = false;
         GameController.instance.previousSceneName = SceneManager.GetActiveScene().name;
         GameController.instance.currSceneName = "LevelSummary";
+        GameController.instance.numCollecablesPrevScene =
+            GameObject.Find("CollectedItems").GetComponent<CollectedItems>().GetNumInScene();
+        GameController.instance.numCollectedPrevScene =
+            GameObject.Find("CollectedItems").GetComponent<CollectedItems>().GetNumFound();
         SceneLoader.instance.LoadSceneWithName("LevelSummary");
     }
     

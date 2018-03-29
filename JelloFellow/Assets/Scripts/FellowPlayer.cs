@@ -127,8 +127,8 @@ public class FellowPlayer : GenericPlayer {
 		_jelly.gameObject.AddComponent<DeathEffect>();
 	}
 
-	protected void OnDestroy()
-	{
-		SceneLoader.instance.LoadSceneWithName(SceneManager.GetActiveScene().name);
-	}
+//	protected void OnDestroy()
+//	{
+//		SceneLoader.instance.LoadSceneWithName(SceneManager.GetActiveScene().name);
+//	}
 }

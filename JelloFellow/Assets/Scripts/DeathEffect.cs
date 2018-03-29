@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(JellySprite))]
 [DisallowMultipleComponent]
@@ -21,7 +22,7 @@ public class DeathEffect : MonoBehaviour {
                 point.Body2D.velocity = Vector2.zero;
             }
         }
-        else Destroy(gameObject);
+        else SceneLoader.instance.LoadSceneWithName(SceneManager.GetActiveScene().name);
 
         transform.localScale = Vector2.SmoothDamp(transform.localScale, Vector2.zero, ref _vel, ShrinkTime, Mathf.Infinity, Time.deltaTime);
     }
