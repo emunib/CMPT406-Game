@@ -21,7 +21,7 @@ public class DeathEffect : MonoBehaviour
         if (scale.x <= 0.02f || scale.y <= 0.02f)
         {
             if (CompareTag("Player")) SceneLoader.instance.LoadSceneWithName(SceneManager.GetActiveScene().name);
-            Destroy(this);
+            Destroy(_jelly.gameObject);
         }
 
         transform.localScale = Vector2.SmoothDamp(transform.localScale, Vector2.zero, ref _vel, ShrinkTime,
