@@ -94,6 +94,18 @@ public abstract class GenericPlayer : GravityField {
     if (configurator.verbose_gravity) Debug.Log("Gravity depletion rate: " + gravity_depletion_rate);
     if (configurator.verbose_gravity) Debug.Log("Gravity field transition rate: " + gravity_field_transition_rate);
 
+    if (!configurator.animate)
+    {
+      Destroy(transform.Find("GravityField/Field/Mask").gameObject);
+      
+      var fill = transform.Find("GravityField/Field/Full").GetComponent<SpriteRenderer>();
+      fill.maskInteraction = SpriteMaskInteraction.None;
+    }
+
+    transform.Find("GravityField/Field/Full").GetComponent<SpriteRenderer>().color = configurator.field_color;
+    transform.Find("GravityField/Field/Outline").GetComponent<SpriteRenderer>().color = configurator.outline_colour;
+    transform.Find("GravityField/Marker").GetComponent<SpriteRenderer>().color = configurator.outline_colour;
+
     //Physics2D.gravity = GetGravity();
   }
 
@@ -208,7 +220,7 @@ public abstract class GenericPlayer : GravityField {
 
     /* update the gravity field fill to represent the gravity stamina */
     if (ReleasedGravity()) gravity_stamina = Mathf.Clamp(gravity_stamina - 5, configurator.min_gravity_stamina, configurator.max_gravity_stamina);
-    ChangeGravityFill(Mathf.Clamp01(gravity_stamina / configurator.max_gravity_stamina));
+    if (configurator.animate) ChangeGravityFill(Mathf.Clamp01(gravity_stamina / configurator.max_gravity_stamina));
 
     /* clinging to platform so visually push player to ground */
     if (!AffectSelfWithGravity) {
