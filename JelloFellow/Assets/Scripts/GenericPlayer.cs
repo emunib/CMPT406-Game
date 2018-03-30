@@ -102,6 +102,10 @@ public abstract class GenericPlayer : GravityField {
       fill.maskInteraction = SpriteMaskInteraction.None;
     }
 
+    transform.Find("GravityField/Field/Full").GetComponent<SpriteRenderer>().color = configurator.field_color;
+    transform.Find("GravityField/Field/Outline").GetComponent<SpriteRenderer>().color = configurator.outline_colour;
+    transform.Find("GravityField/Marker").GetComponent<SpriteRenderer>().color = configurator.outline_colour;
+
     //Physics2D.gravity = GetGravity();
   }
 

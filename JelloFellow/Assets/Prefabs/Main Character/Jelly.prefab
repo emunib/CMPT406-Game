@@ -77,6 +77,7 @@ GameObject:
   - component: {fileID: 114355152878994212}
   - component: {fileID: 114393375773873280}
   - component: {fileID: 114700531205646230}
+  - component: {fileID: 114866260055958988}
   m_Layer: 11
   m_Name: Jelly
   m_TagString: Player
@@ -216,6 +217,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   is_raycast_origin: 1
   animate: 1
+  field_color: {r: 0, g: 1, b: 0.13888231, a: 0.11764706}
+  outline_colour: {r: 0.116061166, g: 0.6862745, b: 0, a: 1}
   max_velocity: 50
   apply_gravity_tochild: 1
   apply_movement_tochild: 1
@@ -366,6 +369,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GrowTime: 0.4
+--- !u!114 &114866260055958988
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1774356478298352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d791fe3ddc32724394aa80adac537f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GrowTime: 0.3
 --- !u!114 &114907191846490454
 MonoBehaviour:
   m_ObjectHideFlags: 1
