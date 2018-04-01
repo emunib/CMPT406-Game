@@ -56,6 +56,8 @@ public abstract class GenericPlayer : GravityField {
   private bool leftstick_clicked;
   private bool leftstick_unclicked;
 
+  public bool AllowAnyMovement { private get; set; }
+
   /* store the value of the ground check every update as its more efficient to not use raycast and calculations more than once
      in the same frame */
   protected bool is_grounded { get; private set; }
@@ -106,12 +108,13 @@ public abstract class GenericPlayer : GravityField {
     transform.Find("GravityField/Field/Outline").GetComponent<SpriteRenderer>().color = configurator.outline_colour;
     transform.Find("GravityField/Marker").GetComponent<SpriteRenderer>().color = configurator.outline_colour;
 
+    AllowAnyMovement = true;
     //Physics2D.gravity = GetGravity();
   }
 
   protected override void Update() {
     /* make sure we have something to take input from */
-    if (input != null) {
+    if (input != null && AllowAnyMovement) {
       /* check if player is grounded (store this check as its efficient to not use raycast system more than once
          in the same update loop */
       is_grounded = IsGrounded(configurator.visualize_ground_check);
@@ -244,7 +247,7 @@ public abstract class GenericPlayer : GravityField {
   }
 
   protected virtual void FixedUpdate() {
-    HandleMovement();
+    if(AllowAnyMovement) HandleMovement();
 
     /* we must have handled the inputs */
     horizontal_movement = 0f;

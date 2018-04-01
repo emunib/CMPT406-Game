@@ -2,11 +2,32 @@
 using UnityEngine;
 
 public class SimpleInput : Input2D {
+  private float left_trigger;
+  private float right_trigger;
+  private float horizontal_right_stick;
+  private float vertical_right_stick;
+  private bool button3_down;
+  private bool right_bumper_down;
+  private bool leftstick_down;
+  private bool rightstick_down;
+  
   public override float GetLeftTrigger() {
+    if(left_trigger != 0f) {
+      float tmp = left_trigger;
+      left_trigger = 0f;
+      return tmp;
+    }
+    
     return Input.GetAxis(ControllerInfo.LeftTrigger());
   }
   
   public override float GetRightTrigger() {
+    if(right_trigger != 0f) {
+      float tmp = right_trigger;
+      right_trigger = 0f;
+      return tmp;
+    }
+    
     return Input.GetAxis(ControllerInfo.RightTrigger());
   }
   
@@ -19,10 +40,22 @@ public class SimpleInput : Input2D {
   }
   
   public override float GetHorizontalRightStick() {
+    if(horizontal_right_stick != 0f) {
+      float tmp = horizontal_right_stick;
+      horizontal_right_stick = 0f;
+      return tmp;
+    }
+    
     return Input.GetAxis(ControllerInfo.Horizontal_RStick());
   }
   
   public override float GetVerticalRightStick() {
+    if(vertical_right_stick != 0f) {
+      float tmp = vertical_right_stick;
+      vertical_right_stick = 0f;
+      return tmp;
+    }
+    
     return Input.GetAxis(ControllerInfo.Vertical_RStick());
   }
 
@@ -35,6 +68,11 @@ public class SimpleInput : Input2D {
   }
   
   public override bool GetRightBumperDown() {
+    if(right_bumper_down) {
+      right_bumper_down = false;
+      return true;
+    }
+    
     return Input.GetButtonDown(ControllerInfo.RightBumper());
   }
   
@@ -59,6 +97,11 @@ public class SimpleInput : Input2D {
   }
   
   public override bool GetButton3Down() {
+    if(button3_down) {
+      button3_down = false;
+      return true;
+    }
+    
     return Input.GetButtonDown(ControllerInfo.Button3());
   }
   
@@ -75,6 +118,11 @@ public class SimpleInput : Input2D {
   }
   
   public override bool GetLeftStickDown() {
+    if(leftstick_down) {
+      leftstick_down = false;
+      return true;
+    }
+    
     return Input.GetButtonDown(ControllerInfo.Button_LStick());
   }
   
@@ -83,6 +131,11 @@ public class SimpleInput : Input2D {
   }
   
   public override bool GetRightStickDown() {
+    if(rightstick_down) {
+      rightstick_down = false;
+      return true;
+    }
+    
     return Input.GetButtonDown(ControllerInfo.Button_RStick());
   }
   
@@ -96,5 +149,37 @@ public class SimpleInput : Input2D {
   
   public override bool GetStartButtonUp() {
     return Input.GetButtonUp(ControllerInfo.StartButton());
+  }
+
+  public void SetLeftTrigger(float _value) {
+    left_trigger = _value;
+  }
+  
+  public void SetRightTrigger(float _value) {
+    right_trigger = _value;
+  }
+  
+  public void SetHorizontalRightStick(float _value) {
+    horizontal_right_stick = _value;
+  }
+  
+  public void SetVerticalRightStick(float _value) {
+    vertical_right_stick = _value;
+  }
+  
+  public void SetRightBumperDown(bool _value) {
+    right_bumper_down = _value;
+  }
+  
+  public void SetButton3Down(bool _value) {
+    button3_down = _value;
+  }
+  
+  public void SetLeftStickDown(bool _value) {
+    leftstick_down = _value;
+  }
+  
+  public void SetRightStickDown(bool _value) {
+    rightstick_down = _value;
   }
 }

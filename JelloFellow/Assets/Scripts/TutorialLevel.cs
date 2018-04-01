@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.PostProcessing;
 
 public class TutorialLevel : MonoBehaviour
 {
@@ -24,7 +25,7 @@ public class TutorialLevel : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () {
-
+		
 		if (transform.position.x > 20 && !first_tut_complete)
 		{
 			Time.timeScale = 0;
@@ -70,7 +71,7 @@ public class TutorialLevel : MonoBehaviour
 	private void FirstTutorial()
 	{
 		// Display prompt for minimum of 5 seconds
-		StartCoroutine("Jump");
+		StartCoroutine(Jump());
 	}
 	
 	private void SecondTutorial()
@@ -93,11 +94,33 @@ public class TutorialLevel : MonoBehaviour
 		StartCoroutine("Explore");
 	}
 
-	private void Jump()
-	{
+	private IEnumerator Jump() {
+		PostProcessingBehaviour effects = Camera.main.GetComponent<PostProcessingBehaviour>();
+		effects.profile.depthOfField.enabled = true;
+
+		UnityJellySprite _jelly = GetComponent<UnityJellySprite>();
+		_jelly.CentralPoint.GameObject.GetComponent<GenericPlayer>().AllowAnyMovement = false;
+		
+		Input2D _input = InputController.instance.GetInput();
+		bool jump_button1 = false;
+		bool jump_button2 = false;
+		while (!jump_button1 && !jump_button2) {
+			jump_button1 = _input.GetButton3Down();
+			jump_button2 = _input.GetRightBumperDown();
+			
+			yield return null;
+		}
+
+		_jelly.CentralPoint.GameObject.GetComponent<GenericPlayer>().AllowAnyMovement = true;
+		yield return null;
+		if (_input.GetType() == typeof(SimpleInput)) {
+			((SimpleInput)_input).SetButton3Down(true);
+		}
+		
+		effects.profile.depthOfField.enabled = false;
 		// while not pressing "x" (Jump) then constantly loop
 		// break when pressed and exit coroutine
-		
+
 		// Be sure to actually jump
 	}
 
