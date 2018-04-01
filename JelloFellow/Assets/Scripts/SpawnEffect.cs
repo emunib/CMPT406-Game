@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 
 [RequireComponent(typeof(JellySprite))]
+[DisallowMultipleComponent]
 public class SpawnEffect : MonoBehaviour
 {
 	private JellySprite _jelly;

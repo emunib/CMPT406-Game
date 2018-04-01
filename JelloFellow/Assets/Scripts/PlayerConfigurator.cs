@@ -4,9 +4,19 @@ public class PlayerConfigurator : MonoBehaviour {
   [Header("General Settings")]
   [CustomLabel("Raycast Origin")] [Tooltip("Should the main object be an origin of raycasting.")] [SerializeField]
   public bool is_raycast_origin = true;
-
+  
   [CustomRangeLabel("Max Velocity", 0f, 100f)] [Tooltip("The max velocity this player is allowed to reach.")] [SerializeField]
   public float max_velocity = 50f;
+  
+  [Header("Gravity Field Settings")]
+  [CustomLabel("Animate Field")] [Tooltip("Should the gravity field have a wave animation.")] [SerializeField]
+  public bool animate;
+  
+  [CustomLabel("Field Fill Colour")] [Tooltip("Colour of the gravity field fill.")] [SerializeField]
+  public Color field_color;
+  
+  [CustomLabel("Field Outline Colour")] [Tooltip("Colour of the gravity field outline and marker.")] [SerializeField]
+  public Color outline_colour;
 
   [Header("Child Settings")]
   [CustomLabel("Apply Gravity")] [Tooltip("Apply gravity to the child objects.")] [SerializeField]
@@ -19,6 +29,9 @@ public class PlayerConfigurator : MonoBehaviour {
   public ChildComponent[] ChildComponents;
 
   [Header("Gravity Settings")]
+  [CustomRangeLabel("Gravity Deadzone", 0f, 1f)] [Tooltip("Deadzone for the gravity stick.")] [SerializeField]
+  public float gravity_deadzone = 0.9f;
+  
   [CustomLabel("Angular Drag")] [Tooltip("Angular drag applied while changing gravity.")] [SerializeField]
   public float gravity_angular_drag = 0.5f;
 
@@ -38,6 +51,9 @@ public class PlayerConfigurator : MonoBehaviour {
   public float gravity_field_transition_time = 0.6f;
 
   [Header("Movement Settings")]
+  [CustomRangeLabel("Movement Deadzone", 0f, 1f)] [Tooltip("Deadzone for the movement stick.")] [SerializeField]
+  public float movement_deadzone = 0.6f;
+  
   [CustomLabel("Linear Drag")] [Tooltip("Linear drag applied while changing movement.")] [SerializeField]
   public float movement_linear_drag = 5f;
 
@@ -114,12 +130,10 @@ public class PlayerConfigurator : MonoBehaviour {
 
   public bool IsRaycastOrigin { get; set; }
   
-  [Header("Health Settings")] [Range(1, 1000)]
+  [Header("Health Settings")]
+  [CustomRangeLabel("Start HP", 1f, 1000f)] [Tooltip("HP to start with for the player.")] [SerializeField]
   public int cur_hp;
 
-  [Range(1, 1000)]
+  [CustomRangeLabel("Max HP", 1f, 1000f)] [Tooltip("Max HP of the player.")] [SerializeField]
   public int max_hp;
-  
-  [Range(0, 1)]
-  public float gravity_deadzone = 0.9f;
 }

@@ -22,7 +22,14 @@ public class CameraController : MonoBehaviour
     [Range(0, 1f)] public float ZoomOutSmoothTime = .75f; // approx time it takes to zoom out, smaller is faster
  
     private float _zoomSpeed;
- 
+
+    private void Awake() {
+        GameObject _jelly = GameObject.Find("Jelly");
+        if (_jelly) {
+            Jelly = _jelly.GetComponent<JellySprite>();
+        }
+    }
+
     // update camera after target movement has occurred in Update()
     private void LateUpdate()
     {

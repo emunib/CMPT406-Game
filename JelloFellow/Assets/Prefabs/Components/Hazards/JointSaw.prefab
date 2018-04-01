@@ -110,6 +110,7 @@ GameObject:
   - component: {fileID: 114659310841825150}
   - component: {fileID: 58098442458325704}
   - component: {fileID: 114626059632287094}
+  - component: {fileID: 82117828055395980}
   m_Layer: 0
   m_Name: blade_1
   m_TagString: Untagged
@@ -213,7 +214,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1045830315013932}
   m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 5.5019875, y: 9.251574, z: -0.18635695}
+  m_LocalPosition: {x: -8.4, y: 21, z: -0.18635695}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4889124572707802}
@@ -434,6 +435,86 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 5.3623047, y: 0.76464844}
   m_EdgeRadius: 0
+--- !u!82 &82117828055395980
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1792094534360164}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 93da03d70dd20431cabbf1706f5b9563, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 5
+  MaxDistance: 10
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!114 &114013479729780696
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -478,7 +559,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33c501fc6ebcd4b9eb2f508ca541144c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spin: 2
+  spin: 10
 --- !u!114 &114849666148954626
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -791,7 +872,7 @@ HingeJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: -2.44, y: 0}
-  m_ConnectedAnchor: {x: 0.2899999, y: 0.000000012676298}
+  m_ConnectedAnchor: {x: 0.28999895, y: 0.0000000126762565}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
@@ -814,7 +895,7 @@ HingeJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: -2.6811523, y: 0}
-  m_ConnectedAnchor: {x: 2.4188466, y: -0.00000084794294}
+  m_ConnectedAnchor: {x: 2.4188476, y: -0.0000008479429}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0

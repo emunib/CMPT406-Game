@@ -12,6 +12,8 @@ using UnityEngine.UI;
 
 [RequireComponent(typeof(ScrollRect))]
 public class SceneSelectorScene : MonoBehaviour {
+  private const string menuchoosesound_path = "Sounds/menu_choose";
+  private const string menuselectsound_path = "Sounds/menu_select2";
   private const string scenebutton_path = "Prefabs/UI/SceneButton";
   private const string scenepreview_path = "LevelPreviews/";
   private const string scenepreviewtest_path = "LevelPreviews/Test";
@@ -30,30 +32,45 @@ public class SceneSelectorScene : MonoBehaviour {
   private int row;
   private int ammountOfRows;
 
-  [SerializeField] public Object[] scenes;
+  [SerializeField] public string[] scenes;
   private Object scenebutton;
   private Color old_color;
   private Color highlight_color;
   private int old_index;
+  
+  private AudioSource _audio_source;
+  private AudioClip _choose_sound;
+  private AudioClip _scroll_sound;
 
   private void Start() {
-    highlight_color = new Color32(0xFB, 0xB0, 0x3B, 0xFF);
+    highlight_color = new Color32(0xFF, 0xCA, 0x3A, 0xFF);
     scenebutton = Resources.Load(scenebutton_path);
+    
+    _audio_source = gameObject.AddComponent<AudioSource>();
+    _audio_source.playOnAwake = false;
+    
+    _choose_sound = Resources.Load<AudioClip>(menuchoosesound_path);
+    _scroll_sound = Resources.Load<AudioClip>(menuselectsound_path);
 
     for (int i = 0; i < scenes.Length; i++) {
       GameObject button = Instantiate(scenebutton) as GameObject;
-      button.transform.SetParent(transform.Find("Panel"), false);
-      button.GetComponentInChildren<SceneButton>().theSceneLinkedByThisButton = scenes[i];
-      
-      string _name = scenes[i].name;
-      if (name == "MainMenu") {
-        _name = "Back";
+      if (button != null) {
+        button.transform.SetParent(transform.Find("Panel"), false);
+        button.GetComponentInChildren<SceneButton>().linked_scene_name = scenes[i];
+
+        string _name = scenes[i];
+        if (name == "MainMenu") {
+          _name = "Back";
+        }
+
+        button.GetComponentInChildren<Text>().text = _name;
+        button.GetComponentInChildren<Text>().color = new Color32(0x00, 0xBC, 0x66, 0xFF);
+
+        Sprite sprite = Resources.Load<Sprite>(scenepreview_path + scenes[i]);
+        button.GetComponent<Image>().sprite = sprite != null ? sprite : Resources.Load<Sprite>(scenepreviewtest_path);
+      } else {
+        Debug.LogError("Button is null.");
       }
-      button.GetComponentInChildren<Text>().text = _name;
-      button.GetComponentInChildren<Text>().color = new Color32(0x00, 0xBC, 0x66, 0xFF);
-      
-      Sprite sprite = Resources.Load<Sprite>(scenepreview_path + scenes[i].name);
-      button.GetComponent<Image>().sprite = sprite != null ? sprite : Resources.Load<Sprite>(scenepreviewtest_path);
     }
 
     InvokeRepeating("CheckForControllerInput", 0.0f, 0.14f);
@@ -64,6 +81,7 @@ public class SceneSelectorScene : MonoBehaviour {
     old_index = index;
     old_color = buttonsArray[index].GetComponentInChildren<Text>().color;
     buttonsArray[index].GetComponentInChildren<Text>().color = highlight_color;
+    _audio_source.PlayOneShot(_scroll_sound, 1f);
     buttonsArray[index].Select();
 
     row = 0;
@@ -81,11 +99,12 @@ public class SceneSelectorScene : MonoBehaviour {
   private void Update() {    
     //If selected click the button
     if (input.GetButton3Down()) {
+      _audio_source.PlayOneShot(_choose_sound, 1f);
       buttonsArray[index].onClick.Invoke();
     }
     
     //Scroll the screen to the proper hight
-    scrollRect.verticalNormalizedPosition = Mathf.Lerp(scrollRect.verticalNormalizedPosition, yPos + (-Mathf.Sign(yPos) * 0.08f), Time.deltaTime * scrollSpeed);
+    scrollRect.verticalNormalizedPosition = Mathf.Lerp(scrollRect.verticalNormalizedPosition, yPos + (-Mathf.Sign(yPos) * 0.06f), Time.deltaTime * scrollSpeed);
   }
 
   private void CheckForControllerInput() {
@@ -133,6 +152,7 @@ public class SceneSelectorScene : MonoBehaviour {
       old_color = buttonsArray[index].GetComponentInChildren<Text>().color;
       buttonsArray[index].GetComponentInChildren<Text>().color = highlight_color;
 
+      _audio_source.PlayOneShot(_scroll_sound, 1f);
       buttonsArray[index].Select();
       //Don't scroll the screen if there are 2 or less rows of scenes
       if (ammountOfRows > 2) {

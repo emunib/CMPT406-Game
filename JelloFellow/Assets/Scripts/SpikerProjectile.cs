@@ -16,6 +16,6 @@ public class SpikerProjectile : MonoBehaviour {
 
 	private void OnBecameInvisible() {
 		/* invisible to the scene, destroy the projectile */
-		Destroy(gameObject);
+		if(movement) Destroy(gameObject);
 	}
 }

@@ -27,7 +27,7 @@ GameObject:
   - component: {fileID: 114289856241717970}
   m_Layer: 13
   m_Name: Goober
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -96,8 +96,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1336931962785822}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 78.6, y: -10.4, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.9520214, y: 86.673416, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4527604730688256}
@@ -114,7 +114,6 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -130,7 +129,6 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -158,20 +156,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   is_raycast_origin: 1
+  animate: 0
+  field_color: {r: 1, g: 0, b: 0, a: 0.116}
+  outline_colour: {r: 0.7205882, g: 0, b: 0.1618579, a: 1}
   max_velocity: 80
   apply_gravity_tochild: 1
   apply_movement_tochild: 1
   ChildComponents: []
+  gravity_deadzone: 0.9
   gravity_angular_drag: 0.5
   gravity_linear_drag: 3
   max_gravity_stamina: 0.06
   min_gravity_stamina: 0
   gravity_depletion_time: 2
   gravity_field_transition_time: 0.6
+  movement_deadzone: 0.6
   movement_linear_drag: 5
   move_speed: 30
-  air_speed: 2
-  jump_force: 25
+  air_speed: 0.000003
+  jump_force: 22
   jump_normalize_threshold: 84
   leniency_angle: 42
   jump_angle_coefficient: 0.8
@@ -194,7 +197,6 @@ MonoBehaviour:
   movement_leniency_color: {r: 0, g: 0, b: 1, a: 1}
   cur_hp: 0
   max_hp: 0
-  gravity_deadzone: 0.9
 --- !u!114 &114533248150289246
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -301,7 +303,6 @@ SpriteRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -317,7 +318,6 @@ SpriteRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -345,7 +345,6 @@ SpriteRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -361,7 +360,6 @@ SpriteRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
