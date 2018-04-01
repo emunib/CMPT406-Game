@@ -38,6 +38,10 @@ public class InputController : Singleton<InputController> {
       input = gameObject.AddComponent<ManualInput>();
       Debug.LogWarning("Please plugin a valid controller, and restart the game. Manual control has been given.");
     }
+    
+    /* instantiate other known singletons if must past this point */
+    AudioManager _audio_manager = AudioManager.instance;
+    GameController _game_controller = GameController.instance;
   }
   
   /// <summary>

@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 212324131026099246}
   - component: {fileID: 114702789903448020}
   - component: {fileID: 61256413794865136}
+  - component: {fileID: 114429494208890362}
   m_Layer: 0
   m_Name: better_Letter
   m_TagString: Collectable
@@ -35,13 +36,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1820504870563830}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.125348, y: -8.071567, z: 0}
+  m_LocalRotation: {x: -0, y: 0.9993557, z: -0, w: 0.035891615}
+  m_LocalPosition: {x: -14.883192, y: 66.60718, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.5}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 175.886, z: 0}
 --- !u!61 &61256413794865136
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -51,7 +52,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.000002861023, y: -0.16984272}
@@ -59,7 +60,7 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 36.7, y: 41.54}
-    newSize: {x: 5, y: 5}
+    newSize: {x: 21.929998, y: 29.059998}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -67,6 +68,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 21.984568, y: 29.118242}
   m_EdgeRadius: 0
+--- !u!114 &114429494208890362
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1820504870563830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8370ffec02071244b8f5c7a005154063, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rate: 150
 --- !u!114 &114702789903448020
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -84,6 +97,7 @@ MonoBehaviour:
   max_y_speed: 1
   accel: 1
   gray: {fileID: 21300000, guid: 0fcdcc4d1817e4b4ea1d7143138cbfea, type: 3}
+  image: {fileID: 0}
 --- !u!212 &212324131026099246
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -93,6 +107,7 @@ SpriteRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -108,6 +123,7 @@ SpriteRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -116,12 +132,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d29cbd3796817474e81bd25baa01d01a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 574e0732e17f49a4a8432adf02bcfcc4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 5, y: 5}
+  m_Size: {x: 21.929998, y: 29.059998}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

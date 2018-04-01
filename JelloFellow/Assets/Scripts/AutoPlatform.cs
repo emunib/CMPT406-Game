@@ -2,6 +2,10 @@
 using System.Linq;
 using UnityEngine;
 
+
+//Nick added this line
+[SelectionBase]
+
 [ExecuteInEditMode]
 public class AutoPlatform : MonoBehaviour {
   private const string platform_sortinglayer = "Platform";
@@ -18,32 +22,46 @@ public class AutoPlatform : MonoBehaviour {
 
   [Header("Settings")]
   [CustomLabel("Platform Width")] [Tooltip("Width of the platform.")] [SerializeField]
-  private float platform_width;
+  protected float platform_width;
   [CustomLabel("Use PolygonCollider2D")] [Tooltip("Use PolygonCollider2D for sprites.")] [SerializeField]
   private bool use_polygon;
   [CustomLabel("Order in Layer")] [Tooltip("Use PolygonCollider2D for sprites.")] [SerializeField]
   private int order_in_layer = 0;
+  [CustomLabel("Color")] [Tooltip("Color of the platform.")] [SerializeField]
+  private Color color = Color.white;
 
   [Header("Editing Settings")]
   [CustomLabel("Extend from left")] [Tooltip("Extend the platform from the left side.")] [SerializeField]
-  private bool extend_left;
+  protected bool extend_left;
   [CustomLabel("Extend from right")] [Tooltip("Extend the platform from the right side.")] [SerializeField]
-  private bool extend_right;
+  protected bool extend_right;
   [CustomLabel("Extend from center")] [Tooltip("Extend the platform from the center side.")] [SerializeField]
-  private bool extend_center;
-  
-  private float platform_width_old;
-  private bool extend_left_old;
-  private bool extend_right_old;
-  private bool extend_center_old;
+  protected bool extend_center;
 
-  private void Start() {
+  [Header("Background Settings")]
+  [CustomLabel("Top")] [Tooltip("Create background tile on top.")] [SerializeField]
+  private bool background_top;
+  [CustomLabel("Left")] [Tooltip("Create background tile on left.")] [SerializeField]
+  private bool background_left;
+  [CustomLabel("Right")] [Tooltip("Create background tile on right.")] [SerializeField]
+  private bool background_right;
+  [CustomLabel("Bottom")] [Tooltip("Create background tile on bottom.")] [SerializeField]
+  private bool background_bottom;
+  
+  protected float platform_width_old;
+  protected bool extend_left_old;
+  protected bool extend_right_old;
+  protected bool extend_center_old;
+
+  protected void Start() {
     extend_center = extend_center_old = true;
     extend_left = extend_left_old = false;
     extend_right = extend_right_old = false;
+    
+    gameObject.layer = LayerMask.NameToLayer("Ground");
   }
 
-  private void Update() {
+  protected virtual void Update() {
     /* if all are false change center to true */
     if (!extend_center && !extend_left && !extend_right) extend_center = true;
     
@@ -83,7 +101,7 @@ public class AutoPlatform : MonoBehaviour {
     }
   }
 
-  private void CreatePlatform() {
+   protected virtual void CreatePlatform() {
     /* make sure all sprites are set or do not create a platform */
     if (left_sprite && mid_sprite && right_sprite) {
       /* find out the minimum width of the platform */
@@ -109,6 +127,10 @@ public class AutoPlatform : MonoBehaviour {
       left_tile.transform.parent = transform;
       mid_tile.transform.parent = transform;
       right_tile.transform.parent = transform;
+
+      left_tile.layer = LayerMask.NameToLayer("Ground");
+      mid_tile.layer = LayerMask.NameToLayer("Ground");
+      right_tile.layer = LayerMask.NameToLayer("Ground");
       
       /* position the tiles */
       left_tile.transform.localPosition = new Vector2(-(platform_width - left_width)/2f, 0f);
@@ -122,7 +144,7 @@ public class AutoPlatform : MonoBehaviour {
 
       if (!extend_center) {
         int direction = extend_left ? 1 : -1;
-        transform.position = new Vector3(transform.position.x + (platform_width_old - platform_width)/2f * direction, transform.position.y, transform.position.z);
+        transform.position += transform.right * (platform_width_old - platform_width)/2f * direction;
       }
       
       /* add a box collider or polygon collider */
@@ -173,10 +195,11 @@ public class AutoPlatform : MonoBehaviour {
     }
   }
 
-  private GameObject CreateGameObjectFromSprite(Sprite _sprite, string _name, Vector2 _size, bool _tiled = false) {
+  protected GameObject CreateGameObjectFromSprite(Sprite _sprite, string _name, Vector2 _size, bool _tiled = false) {
     GameObject _obj = new GameObject(_name);
     SpriteRenderer _renderer = _obj.AddComponent<SpriteRenderer>();
     _renderer.sprite = _sprite;
+    _renderer.color = color;
     if (_tiled) {
       _renderer.drawMode = SpriteDrawMode.Tiled;
       _renderer.tileMode = SpriteTileMode.Continuous;
