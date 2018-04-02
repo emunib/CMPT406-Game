@@ -9,8 +9,8 @@ using UnityEditor;
 
 public class CollectedItems : MonoBehaviour {
 
-	protected int numInScene;
-	protected int numFound;
+	private int numInScene;
+	private int numFound;
 	private GUIStyle titleStyle;
 	private GUIStyle style;
 	private GUIStyle selectedStyle;
@@ -198,6 +198,9 @@ public class CollectedItems : MonoBehaviour {
 		if (script == null) {
 
 			numInScene = GameObject.FindGameObjectsWithTag ("Collectable").Length;
+			if (numInScene == null) {
+				numInScene = 0;
+			}
 			numFound = 0;
 			
 			DontDestroyOnLoad (gameObject);
@@ -276,9 +279,14 @@ public class CollectedItems : MonoBehaviour {
 
 		// Get an array of all collectables in the level
 		GameObject[] obs = GameObject.FindGameObjectsWithTag ("Collectable");
-		numInScene = obs.Length;
 
-		for (int i = 0; i < obs.Length; i++) {
+		if (obs != null) {
+			numInScene = obs.Length;
+		} else {
+			numInScene = 0;
+		}
+
+		for (int i = 0; i < numInScene; i++) {
 
 			// Get the object's name
 			string name = obs [i].gameObject.name;
@@ -301,6 +309,21 @@ public class CollectedItems : MonoBehaviour {
 		countCollected ();
 	}
 
+	/// <summary>
+	/// Gets the number of items in scene.
+	/// </summary>
+	/// <returns>The number of items.</returns>
+	public int getNumInScene () {
+		return numInScene;
+	}
+
+	/// <summary>
+	/// Gets the number of items found.
+	/// </summary>
+	/// <returns>The number found.</returns>
+	public int getNumFound () {
+		return numFound;
+	}
 	
 	// Update is called once per frame
 	void OnGUI () {
@@ -331,18 +354,19 @@ public class CollectedItems : MonoBehaviour {
 		style.fontSize = 16 * Screen.height/400;
 		selectedStyle.fontSize = 16 * Screen.height/400;
 
-
-		if (name != "SceneSelector" && name != "MainMenu") {
+		if (GameController.instance.currSceneName == "SceneSelector") {
+			
+			GUI.Label (new Rect (10, title_y_cur, Screen.width - 20, Screen.height / 10), "Scientist Notes: " + (numFound) + "/" + (numInScene)
+			+ " found", titleStyle);
+			
+		} else {
+			Debug.Log (name);
 			if (numInScene > 0) {
 				GUI.Label (new Rect (10, title_y_rem, Screen.width / 4, Screen.height / 10), (numFound) + "/" + (numInScene)
-				+ " Collectables", titleStyle);
+					+ " Collectables", titleStyle);
 			} else {
 				GUI.Label (new Rect (10, title_y_rem, Screen.width / 4, Screen.height / 10), "No Collectables", titleStyle);
 			}
-		} else {
-			GUI.Label (new Rect (10, title_y_cur, Screen.width-20, Screen.height/10),  "Scientist Notes: " + (numFound) + "/" + (numInScene)
-				+ " found", titleStyle);
-			
 		}
 
 		Texture2D img = null;
@@ -512,7 +536,7 @@ public class CollectedItems : MonoBehaviour {
 		// Going up the list of items
 		if (input.GetButton1Down () || Input.GetKeyDown (KeyCode.Tab)) {
 			string name = GameController.instance.currSceneName;
-			if (name == "SceneSelector" || name == "MainMenu") {
+			if (name == "SceneSelector") {
 				display = !display;
 			} else {
 				remaining = !remaining;
