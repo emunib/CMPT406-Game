@@ -37,16 +37,6 @@ public class AutoPlatform : MonoBehaviour {
   protected bool extend_right;
   [CustomLabel("Extend from center")] [Tooltip("Extend the platform from the center side.")] [SerializeField]
   protected bool extend_center;
-
-  [Header("Background Settings")]
-  [CustomLabel("Top")] [Tooltip("Create background tile on top.")] [SerializeField]
-  private bool background_top;
-  [CustomLabel("Left")] [Tooltip("Create background tile on left.")] [SerializeField]
-  private bool background_left;
-  [CustomLabel("Right")] [Tooltip("Create background tile on right.")] [SerializeField]
-  private bool background_right;
-  [CustomLabel("Bottom")] [Tooltip("Create background tile on bottom.")] [SerializeField]
-  private bool background_bottom;
   
   protected float platform_width_old;
   protected bool extend_left_old;
