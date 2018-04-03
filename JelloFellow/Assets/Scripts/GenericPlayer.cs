@@ -98,7 +98,7 @@ public abstract class GenericPlayer : GravityField {
     {
       Destroy(transform.Find("GravityField/Field/Mask").gameObject);
       
-      var fill = transform.Find("GravityField/Field/Full").GetComponent<SpriteRenderer>();
+      SpriteRenderer fill = transform.Find("GravityField/Field/Full").GetComponent<SpriteRenderer>();
       fill.maskInteraction = SpriteMaskInteraction.None;
     }
 
@@ -195,7 +195,7 @@ public abstract class GenericPlayer : GravityField {
 
       if (is_grounded) {
         /* recharge gravity as its not being manipulated and the player is grounded */
-        gravity_stamina = Mathf.Clamp(gravity_stamina - gravity_depletion_rate * Time.deltaTime, configurator.min_gravity_stamina, configurator.max_gravity_stamina);
+        gravity_stamina = Mathf.Clamp(gravity_stamina - (!AffectSelfWithGravity ? gravity_depletion_rate/2f : gravity_depletion_rate) * Time.deltaTime, configurator.min_gravity_stamina, configurator.max_gravity_stamina);
         if (configurator.verbose_gravity) Debug.Log("Gravity Stamina: " + gravity_stamina);
 
         /* restore movement drags */
@@ -344,7 +344,12 @@ public abstract class GenericPlayer : GravityField {
     }
 
     if (horizontal_movement != 0f || vertical_movement != 0f) {
-      if (!AffectSelfWithGravity) AffectSelfWithGravity = true;
+      if (!AffectSelfWithGravity) {
+        AffectSelfWithGravity = true;
+        SetGravity(-platform_hit_normal);
+        set_fixed_gravity = true;
+        Invoke("UnlockGravity", 0.2f);
+      }
     }
 //    else if(leftstick_unclicked) { /* when the left stick click is let go of */
 //      AffectSelfWithGravity = true;
