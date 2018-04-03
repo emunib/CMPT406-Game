@@ -13,8 +13,11 @@ public class FallingSpikeTrigger : MonoBehaviour {
 	}
 	
 	private void OnTriggerEnter2D(Collider2D other) {
-		if (!fallingSystem.IsFalling() &&other.gameObject.layer == LayerMask.NameToLayer(fallingSystem.PlayerLayer)) {
+		if (!fallingSystem.IsFalling() 
+		    && other.gameObject.layer == LayerMask.NameToLayer(fallingSystem.PlayerLayer) 
+		    && other.gameObject.tag == "Player") {
 			
+	
 			fallingSystem.PlayerHasEntered();
 		}
 	}
