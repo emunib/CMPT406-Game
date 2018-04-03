@@ -1,49 +1,41 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
-using Object = UnityEngine.Object;
+﻿using UnityEngine;
 
-public class EndGoalPoint : MonoBehaviour
-{
-    private const string completesound_path = "Sounds/level_complete";
-//    private GameObject slime;
-//
-//    private void Start()
-//    {
-//        slime = GameObject.Find("SlimePlayer");
-//    }
-    
-    private AudioSource _audio_source;
-    private AudioClip _complete_sound;
-    private bool _playing;
-    
-    void OnTriggerEnter2D(Collider2D hit) {
-		Debug.Log ("Entered");
-		if (hit.gameObject.CompareTag("Player"))
-        {
-            FellowPlayer _player = hit.gameObject.transform.parent.GetComponentInChildren<FellowPlayer>();
-            _player._timer.Stop = false;
-            _player.Pause = true;
-            if ((_audio_source = GetComponent<AudioSource>()) != null && !_playing) {
-                _audio_source.Stop();
-                _complete_sound = Resources.Load<AudioClip>(completesound_path);
-                _audio_source.PlayOneShot(_complete_sound, 0.6f);
-                _playing = true;
-            }
-            Invoke("LevelSummary", 1.5f);
-        }
-    }
+public class EndGoalPoint : MonoBehaviour {
+  private const string completesound_path = "Sounds/level_complete";
 
-    private void LevelSummary() {
-        _playing = false;
-        GameController.instance.previousSceneName = SceneManager.GetActiveScene().name;
-        GameController.instance.currSceneName = "LevelSummary";
-        GameController.instance.numCollecablesPrevScene =
-            GameObject.Find("CollectedItems").GetComponent<CollectedItems>().GetNumInScene();
-        GameController.instance.numCollectedPrevScene =
-            GameObject.Find("CollectedItems").GetComponent<CollectedItems>().GetNumFound();
-        SceneLoader.instance.LoadSceneWithName("LevelSummary");
+  private AudioSource _audio_source;
+  private AudioClip _complete_sound;
+  private bool _playing;
+  private Timer _timer;
+  private bool _endgoal_hit;
+
+  private void Awake() {
+    _endgoal_hit = false;
+  }
+
+  private void OnTriggerEnter2D(Collider2D hit) {
+    if (hit.gameObject.CompareTag("Player") && !_endgoal_hit) {
+      FellowPlayer _player = hit.gameObject.transform.parent.GetComponentInChildren<FellowPlayer>();
+      _player._timer.Stop = false;
+      _player.Pause = true;
+      if ((_audio_source = GetComponent<AudioSource>()) != null && !_playing) {
+        _audio_source.Stop();
+        _complete_sound = Resources.Load<AudioClip>(completesound_path);
+        _audio_source.PlayOneShot(_complete_sound, 0.6f);
+        _playing = true;
+      }
+
+      /* disable collider for jello so he doesn't die after hitting goal */
+      _player.transform.parent.gameObject.SetActive(false);
+      _timer = _player._timer;
+      Invoke("LevelSummary", 1.5f);
+      _endgoal_hit = true;
     }
-    
+  }
+
+  private void LevelSummary() {
+    _playing = false;
+    _endgoal_hit = false;
+    MainScript.instance.LoadSummary(_timer.getTime());
+  }
 }
