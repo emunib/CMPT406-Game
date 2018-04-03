@@ -55,9 +55,9 @@ public class AudioManager : Singleton<AudioManager> {
 		if (currentScene.name == "SceneSelector" || currentScene.name == "MainMenu")
 		{
 			
-			Debug.Log("Playing Main Menu Theme");
+			//Debug.Log("Playing Main Menu Theme");
 			clipToPlay= mainMenuClipsQ.Dequeue();
-			Debug.Log("Playing the next tune in the mainMenuClips queue : " + clipToPlay.name);
+			//Debug.Log("Playing the next tune in the mainMenuClips queue : " + clipToPlay.name);
 
 			levelClipsQ.Enqueue(clipToPlay);
 		}
@@ -68,7 +68,7 @@ public class AudioManager : Singleton<AudioManager> {
 			//int rand = (int) Random.Range(0, levelThemes.Length);
 			//clipToPlay = levelThemes[rand];
 			clipToPlay = levelClipsQ.Dequeue();
-			Debug.Log("Playing the next tune in the levelClips queue : " + clipToPlay.name);
+			//Debug.Log("Playing the next tune in the levelClips queue : " + clipToPlay.name);
 			levelClipsQ.Enqueue(clipToPlay);
 		}
 
@@ -80,8 +80,8 @@ public class AudioManager : Singleton<AudioManager> {
 	void LateUpdate () {
 		if (!musicSource.isPlaying || lastScene.name != SceneManager.GetActiveScene().name)
 		{
-			Debug.Log("Scene name last : " + lastScene.name);
-			Debug.Log("Scene name now  : " + SceneManager.GetActiveScene().name);
+			//Debug.Log("Scene name last : " + lastScene.name);
+			//Debug.Log("Scene name now  : " + SceneManager.GetActiveScene().name);
 			DecideAndPlayClip();
 			
 		}

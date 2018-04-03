@@ -2,28 +2,30 @@
 using UnityEngine;
 
 [Serializable]
-public class SceneInfo : MonoBehaviour {
+public class SceneInfo {
   [CustomLabel("Name of Scene")]
-  public string _name;
+  public string name;
   [CustomLabel("Creator of Scene")]
-  public string _creator;
+  public string creator;
   [CustomLabel("Total Number of Collectables")]
-  public int _total_collectables;
+  public int total_collectables;
   [CustomLabel("Gold Score Boundary")]
-  public GoldBoundary _gold_boundary;
+  public GoldBoundary gold_boundary;
   [CustomLabel("Silver Score Boundary")]
-  public SilverBoundary _silver_boundary;
+  public SilverBoundary silver_boundary;
   [CustomLabel("Bronze Score Boundary")]
-  public BronzeBoundary _bronze_boundary;
+  public BronzeBoundary bronze_boundary;
   [CustomLabel("Scene Category")]
-  public Category _category;
+  public Category category;
   [CustomLabel("Index in the Category")]
-  public int _category_index;
-  [ReadOnly] public bool _locked = true;
-  [ReadOnly] public int _collected_collectables;
-  [ReadOnly] public float _previous_attempt_score;
-  [ReadOnly] public float _highscore;
-  [ReadOnly] public Medal _achieved_medal = Medal.None;
+  public int category_index;
+  [CustomLabel("Name of the scene image")]
+  public string image_name;
+  [ReadOnly] public bool locked = true;
+  [ReadOnly] public int collected_collectables;
+  [ReadOnly] public float previous_attempt_score;
+  [ReadOnly] public float highscore;
+  [ReadOnly] public Medal achieved_medal = Medal.None;
 }
 
 [Serializable]

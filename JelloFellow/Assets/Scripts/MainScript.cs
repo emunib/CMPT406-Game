@@ -94,16 +94,13 @@ public class MainScript : Singleton<MainScript> {
     } else {
       reset_text.text = "Unknown Input...";
     }
-
+    
     FellowPlayer _player = GameObject.Find("Jelly").GetComponent<UnityJellySprite>().CentralPoint.GameObject.GetComponent<FellowPlayer>();
-    _player._timer.Stop = false;
     _player.Pause = true;
-
-    /* disable collider for jello so he doesn't die */
-    _player.transform.parent.gameObject.SetActive(false);
-
     PostProcessingBehaviour effects = Camera.main.gameObject.GetComponent<PostProcessingBehaviour>();
     effects.profile.depthOfField.enabled = true;
+    
+    Time.timeScale = 0f;
     
     /* show reset menu */
     bool a_button = false;
@@ -114,17 +111,15 @@ public class MainScript : Singleton<MainScript> {
       yield return null;
     }
     
+    Time.timeScale = 1f;
+    
     effects.profile.depthOfField.enabled = false;
     reset_canvas.SetActive(false);
     reset_active = false;
     
     if (a_button) {
       /* continue scene */
-      _player._timer.Stop = true;
       _player.Pause = false;
-
-      /* enable collider for jello so he doesn't die */
-      _player.transform.parent.gameObject.SetActive(true);
     } else if (b_button) {
       /* go back to the scene selector */
       instance.LoadSceneWithName("SceneSelector");
@@ -144,17 +139,17 @@ public class MainScript : Singleton<MainScript> {
     SceneInfo value;
     if (scene_informations.SceneInfos.TryGetValue(current_scene_name, out value)) {
       /* update the previously played time */
-      value._previous_attempt_score = _time;
+      value.previous_attempt_score = _time;
       /* update highscore if time is lesser */
-      if (value._highscore > value._previous_attempt_score) value._highscore = value._previous_attempt_score;
+      if (value.highscore > value.previous_attempt_score) value.highscore = value.previous_attempt_score;
       
       /* update medal if better */
-      if (_time < value._gold_boundary.boundary) {
-        if(value._achieved_medal > Medal.Gold) value._achieved_medal = Medal.Gold;
-      } else if (_time < value._silver_boundary.boundary) {
-        if(value._achieved_medal > Medal.Silver) value._achieved_medal = Medal.Silver;
-      } else if (_time < value._bronze_boundary.boundary) {
-        if(value._achieved_medal > Medal.Bronze) value._achieved_medal = Medal.Bronze;
+      if (_time < value.gold_boundary.boundary) {
+        if(value.achieved_medal > Medal.Gold) value.achieved_medal = Medal.Gold;
+      } else if (_time < value.silver_boundary.boundary) {
+        if(value.achieved_medal > Medal.Silver) value.achieved_medal = Medal.Silver;
+      } else if (_time < value.bronze_boundary.boundary) {
+        if(value.achieved_medal > Medal.Bronze) value.achieved_medal = Medal.Bronze;
       }
     }
 
@@ -171,5 +166,13 @@ public class MainScript : Singleton<MainScript> {
   /// <returns>SceneInfo for the previous scene</returns>
   public SceneInfo GetPrevSceneInfo() {
     return current_scene_name == "LevelSummary" ? current_scene_info : null;
-  }  
+  }
+
+  /// <summary>
+  /// Return all of the loaded or newly created scenes information.
+  /// </summary>
+  /// <returns>All of the SceneInfos of the scene</returns>
+  public ScenesInformation GetScenesInformation() {
+    return scene_informations;
+  }
 }

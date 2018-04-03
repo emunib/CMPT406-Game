@@ -61,7 +61,9 @@ public class InputController : Singleton<InputController> {
     } else {
       if(info.GetType() == typeof(Ps4ControllerInfo)) {
         return ControllerType.PS4;
-      } else if(info.GetType() == typeof(XBoxOneControllerInfo)) {
+      }
+      
+      if(info.GetType() == typeof(XBoxOneControllerInfo)) {
         return ControllerType.XBOXONE;
       }
     }

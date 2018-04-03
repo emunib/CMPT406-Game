@@ -20,6 +20,7 @@ public class DeathEffect : MonoBehaviour {
     
     reset_canvas = Resources.Load<GameObject>(resetmenu_path);
     reset_canvas = Instantiate(reset_canvas);
+    reset_canvas.GetComponent<Canvas>().sortingOrder = 101;
     reset_text = reset_canvas.GetComponentInChildren<Text>();
     reset_canvas.SetActive(false);
     destroyed = false;

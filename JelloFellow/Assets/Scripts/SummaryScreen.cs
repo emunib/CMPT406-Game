@@ -31,23 +31,23 @@ public class SummaryScreen : MonoBehaviour {
     Text continue_text = transform.Find("Continue").gameObject.GetComponent<Text>();
     
     if (_sceneinfo != null) {
-      level_name.text = _sceneinfo._name;
-      timescore.text = "Score: " + _sceneinfo._previous_attempt_score.ToString("0.00");
-      highscore.text = "Highscore: " + _sceneinfo._highscore.ToString("0.00");
-      collected.text = "Collected " + _sceneinfo._collected_collectables + " of " + _sceneinfo._total_collectables;
-      if (_sceneinfo._achieved_medal == Medal.Gold) {
+      level_name.text = _sceneinfo.name;
+      timescore.text = "Score: " + _sceneinfo.previous_attempt_score.ToString("0.00");
+      highscore.text = "Highscore: " + _sceneinfo.highscore.ToString("0.00");
+      collected.text = "Collected " + _sceneinfo.collected_collectables + " of " + _sceneinfo.total_collectables;
+      if (_sceneinfo.achieved_medal == Medal.Gold) {
         medal_1.color = gold_color;
         medal_2.color = gold_color;
         medal_3.color = gold_color;
-      } else if (_sceneinfo._achieved_medal == Medal.Silver) {
+      } else if (_sceneinfo.achieved_medal == Medal.Silver) {
         medal_1.color = silver_color;
         medal_2.color = silver_color;
         medal_3.color = transparent_color;
-      } else if (_sceneinfo._achieved_medal == Medal.Bronze) {
+      } else if (_sceneinfo.achieved_medal == Medal.Bronze) {
         medal_1.color = bronze_color;
         medal_2.color = transparent_color;
         medal_3.color = transparent_color;
-      } else if (_sceneinfo._achieved_medal == Medal.None) {
+      } else if (_sceneinfo.achieved_medal == Medal.None) {
         medal_1.color = transparent_color;
         medal_2.color = transparent_color;
         medal_3.color = transparent_color;
@@ -57,7 +57,7 @@ public class SummaryScreen : MonoBehaviour {
       StartCoroutine(MedalTransitioner(medal_2));
       StartCoroutine(MedalTransitioner(medal_3));
 
-      level_credit.text = "Created by " + _sceneinfo._creator;
+      level_credit.text = "Created by " + _sceneinfo.creator;
     } else {
       level_name.text = "NULL";
       timescore.text = "Score: NULL";
