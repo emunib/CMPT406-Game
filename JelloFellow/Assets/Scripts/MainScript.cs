@@ -53,6 +53,10 @@ public class MainScript : Singleton<MainScript> {
     reset_text = reset_canvas.GetComponentInChildren<Text>();
     reset_canvas.SetActive(false);
     reset_active = false;
+    if (current_scene_name != "MainMenu" || current_scene_name != "LevelSummary") {
+      PostProcessingBehaviour effects = Camera.main.gameObject.GetComponent<PostProcessingBehaviour>();
+      effects.profile.depthOfField.enabled = false;
+    }
   }
 
   private void LoadGame() {
