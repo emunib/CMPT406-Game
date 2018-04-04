@@ -148,8 +148,16 @@ public class SceneSelector : MonoBehaviour {
     cursor.Value.Select();
 
     while (true) {
-      vertical_position = 1 - (float) cursor.Value.GetSceneInfo().category / (rows - 1);
+      _input = InputController.instance.input;
 
+      //this is the center point of the visible area
+      var maskHalfSize = ((RectTransform)vertical_scroll.transform).rect.size*0.5f;
+      var contentSize = ((RectTransform)cursor.Value.transform.parent.parent).rect.size;
+      //we want the position to be at the middle of the visible area
+      //so get the normalized center offset based on the visible area width and height
+      var normalizedOffsetPosition = new Vector2(maskHalfSize.x / contentSize.x, maskHalfSize.y / contentSize.y);
+      vertical_position = (1 - (float) cursor.Value.GetSceneInfo().category / (rows - 1)) * normalizedOffsetPosition.y;
+        
       float horizontal = _input.GetHorizontalLeftStick();
       float vertical = _input.GetVerticalLeftStick();
       

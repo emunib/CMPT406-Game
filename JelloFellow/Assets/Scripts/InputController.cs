@@ -66,7 +66,7 @@ public class InputController : Singleton<InputController> {
     }
 
     if (info == null) {
-      no_input = false;
+      no_input = true;
     }
     
     if (no_input) {
