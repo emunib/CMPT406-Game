@@ -70,6 +70,95 @@ public class ScenesInformation {
 		Push.image_name = "Push";
 		SceneInfos.Add(Push.name, Push);
 		
+		SceneInfo Lift = new SceneInfo();
+		Lift.name = "Lift";
+		Lift.creator = "Cody B.";
+		Lift.total_collectables = 3;
+		Lift.gold_boundary = new GoldBoundary { boundary = 19f};
+		Lift.silver_boundary = new SilverBoundary { boundary = 30f};
+		Lift.bronze_boundary = new BronzeBoundary { boundary = 40f};
+		Lift.category = Category.World2;
+		Lift.category_index = 2;
+		Lift.image_name = "Lift";
+		SceneInfos.Add(Lift.name, Lift);
+		
+		SceneInfo LivingBreezy = new SceneInfo();
+		LivingBreezy.name = "Living Breezy";
+		LivingBreezy.creator = "Sarah V.";
+		LivingBreezy.total_collectables = 3;
+		LivingBreezy.gold_boundary = new GoldBoundary { boundary = 4.5f};
+		LivingBreezy.silver_boundary = new SilverBoundary { boundary = 6f};
+		LivingBreezy.bronze_boundary = new BronzeBoundary { boundary = 10f};
+		LivingBreezy.category = Category.World2;
+		LivingBreezy.category_index = 3;
+		LivingBreezy.image_name = "Living Breezy";
+		SceneInfos.Add(LivingBreezy.name, LivingBreezy);
+		
+		SceneInfo YeeHaw = new SceneInfo();
+		YeeHaw.name = "Yee Haw";
+		YeeHaw.creator = "Nick B.";
+		YeeHaw.total_collectables = 3;
+		YeeHaw.gold_boundary = new GoldBoundary { boundary = 17f};
+		YeeHaw.silver_boundary = new SilverBoundary { boundary = 22f};
+		YeeHaw.bronze_boundary = new BronzeBoundary { boundary = 35f};
+		YeeHaw.category = Category.World2;
+		YeeHaw.category_index = 4;
+		YeeHaw.image_name = "Yee Haw";
+		SceneInfos.Add(YeeHaw.name, YeeHaw);
+		
+		SceneInfo Squeeeeze = new SceneInfo();
+		Squeeeeze.name = "Squeeeeze";
+		Squeeeeze.creator = "Sarah V.";
+		Squeeeeze.total_collectables = 3;
+		Squeeeeze.gold_boundary = new GoldBoundary { boundary = 5f};
+		Squeeeeze.silver_boundary = new SilverBoundary { boundary = 10f};
+		Squeeeeze.bronze_boundary = new BronzeBoundary { boundary = 15f};
+		Squeeeeze.category = Category.World3;
+		Squeeeeze.category_index = 1;
+		Squeeeeze.image_name = "Squeeeeze";
+		SceneInfos.Add(Squeeeeze.name, Squeeeeze);
+		
+		SceneInfo Jump = new SceneInfo();
+		Jump.name = "Jump";
+		Jump.creator = "Cody B.";
+		Jump.total_collectables = 3;
+		Jump.gold_boundary = new GoldBoundary { boundary = 15f};
+		Jump.silver_boundary = new SilverBoundary { boundary = 18f};
+		Jump.bronze_boundary = new BronzeBoundary { boundary = 25f};
+		Jump.category = Category.World3;
+		Jump.category_index = 2;
+		Jump.image_name = "Jump";
+		SceneInfos.Add(Jump.name, Jump);
+		
+		SceneInfo Breakout = new SceneInfo();
+		Breakout.name = "Breakout";
+		Breakout.creator = "Parker N.";
+		Breakout.total_collectables = 3;
+		Breakout.gold_boundary = new GoldBoundary { boundary = 20f};
+		Breakout.silver_boundary = new SilverBoundary { boundary = 25f};
+		Breakout.bronze_boundary = new BronzeBoundary { boundary = 35f};
+		Breakout.category = Category.World3;
+		Breakout.category_index = 3;
+		Breakout.image_name = "Breakout";
+		SceneInfos.Add(Breakout.name, Breakout);
+		
+		SceneInfo DeathHallway = new SceneInfo();
+		DeathHallway.name = "Death Hallway";
+		DeathHallway.creator = "Cody B.";
+		DeathHallway.total_collectables = 3;
+		DeathHallway.gold_boundary = new GoldBoundary { boundary = 25f};
+		DeathHallway.silver_boundary = new SilverBoundary { boundary = 32f};
+		DeathHallway.bronze_boundary = new BronzeBoundary { boundary = 42f};
+		DeathHallway.category = Category.World3;
+		DeathHallway.category_index = 4;
+		DeathHallway.image_name = "Death Hallway";
+		SceneInfos.Add(DeathHallway.name, DeathHallway);
+		
+		
+		
+		
+		
+		
 		
 		
 		
