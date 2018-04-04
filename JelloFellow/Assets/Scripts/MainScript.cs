@@ -47,7 +47,7 @@ public class MainScript : Singleton<MainScript> {
     /* this is if we start from current scene to test in editor */
     if (current_scene_name.Length == 0) current_scene_name = SceneManager.GetActiveScene().name;
     LoadGame();
-    _input = InputController.instance.GetInput();
+    
     reset_canvas = Resources.Load<GameObject>(resetmenu_path);
     reset_canvas = Instantiate(reset_canvas, transform);
     reset_text = reset_canvas.GetComponentInChildren<Text>();
@@ -94,6 +94,8 @@ public class MainScript : Singleton<MainScript> {
   }
   
   private void Update() {
+    _input = InputController.instance.input;
+    
     if (gravity_force_updater != gravity_force && OnGravityForceChange != null) {
       gravity_force_updater = gravity_force;
       OnGravityForceChange(gravity_force);

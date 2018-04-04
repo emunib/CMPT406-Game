@@ -46,8 +46,7 @@ public class DeathEffect : MonoBehaviour {
 
   private IEnumerator PlayerDeath() {
     reset_canvas.SetActive(true);
-    Input2D _input = InputController.instance.GetInput();
-
+    
     if (InputController.instance.type() == ControllerType.XBOXONE) {
       reset_text.text = "Press B to Exit\nPress A to Try Again?";
     } else if (InputController.instance.type() == ControllerType.PS4) {
@@ -70,6 +69,7 @@ public class DeathEffect : MonoBehaviour {
     bool a_button = false;
     bool b_button = false;
     while (!a_button && !b_button) {
+      Input2D _input = InputController.instance.input;
       a_button = _input.GetButton3Down();
       b_button = _input.GetButton2Down();
       yield return null;
