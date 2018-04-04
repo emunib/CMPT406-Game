@@ -14,7 +14,7 @@ public class GameController : Singleton<GameController> {
 	public int numCollectedPrevScene = 0;
 	public HighScores highScores = new HighScores();
 	private Input2D 	input;
-	
+
 	// Use this for initialization
 	void Awake () {
 		if(instance != this) Destroy(gameObject);

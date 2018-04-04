@@ -54,20 +54,34 @@ public class MainScript : Singleton<MainScript> {
     reset_canvas.SetActive(false);
     reset_active = false;
   }
-  
+
   private void LoadGame() {
     /* if saved data exists then load from it otherwise create new scene information */
     if (File.Exists(Application.persistentDataPath + gamedata_filename)) {
       BinaryFormatter bf = new BinaryFormatter();
       FileStream file = File.Open(Application.persistentDataPath + gamedata_filename, FileMode.Open);
       scene_informations = (ScenesInformation) bf.Deserialize(file);
+      ScenesInformation tmp_scene_informations = new ScenesInformation();
+
+      bool updated = false;
+      /* update the saved file if new level has been added */
+      foreach (string scene_information_key in tmp_scene_informations.SceneInfos.Keys) {
+        if (!scene_informations.SceneInfos.ContainsKey(scene_information_key)) {
+          if (!updated) updated = true;
+          Debug.Log("Updated saved gamedata (" + scene_information_key + ")...");
+          SceneInfo _value;
+          tmp_scene_informations.SceneInfos.TryGetValue(scene_information_key, out _value);
+          scene_informations.SceneInfos.Add(scene_information_key, _value);
+        }
+      }
       file.Close();
+      if(updated) Save();
     } else {
       scene_informations = new ScenesInformation();
     }
   }
   
-  public void Save() {
+  private void Save() {
     /* save gamedata to file, and if file exists overwrite it */
     BinaryFormatter bf = new BinaryFormatter();
     FileStream file = File.Create(Application.persistentDataPath + gamedata_filename);
