@@ -13,7 +13,7 @@ using UnityEngine.SceneManagement;
 public class AudioManager : Singleton<AudioManager> {
   private const string mainMenuThemesPath = "Music/MainMenu";
   private const string levelThemesPath = "Music/InGame";
-  private const float fade_duration = 0.5f;
+  private const float fade_duration = 0.8f;
 
   public AudioClip[] mainMenuThemes;
   public AudioClip[] levelThemes;
@@ -23,6 +23,7 @@ public class AudioManager : Singleton<AudioManager> {
   public Queue<AudioClip> mainMenuClipsQ;
   private string currentSceneName;
   public Queue<AudioClip> levelClipsQ;
+  private bool initial;
 
   private void Awake() {
     if (instance != this) Destroy(gameObject);
@@ -44,6 +45,7 @@ public class AudioManager : Singleton<AudioManager> {
     }
 
     currentSceneName = SceneManager.GetActiveScene().name;
+    initial = true;
     InitQueues();
     DecideAndPlayClip();
   }
@@ -85,42 +87,48 @@ public class AudioManager : Singleton<AudioManager> {
   }
 
   private void Play(AudioClip clip) {
-    //Prevent fading the same clip on both players 
-    if (clip == _player[ActivePlayer].clip) {
-      return;
-    }
-
-    //Kill all playing
-    foreach (IEnumerator i in fader) {
-      if (i != null) {
-        StopCoroutine(i);
+    if (!initial) {
+      //Prevent fading the same clip on both players 
+      if (clip == _player[ActivePlayer].clip) {
+        return;
       }
+
+      //Kill all playing
+      foreach (IEnumerator i in fader) {
+        if (i != null) {
+          StopCoroutine(i);
+        }
+      }
+
+      //Fade-out the active play, if it is not silent (eg: first start)
+      if (_player[ActivePlayer].volume > 0) {
+        fader[0] = FadeAudioSource(_player[ActivePlayer], fade_duration, 0.0f, () => { fader[0] = null; });
+        StartCoroutine(fader[0]);
+      }
+
+      //Fade-in the new clip
+      int NextPlayer = (ActivePlayer + 1) % _player.Length;
+      _player[NextPlayer].clip = clip;
+      _player[NextPlayer].Play();
+      fader[1] = FadeAudioSource(_player[NextPlayer], fade_duration, 0.75f, () => { fader[1] = null; });
+      StartCoroutine(fader[1]);
+
+      //Register new active player
+      ActivePlayer = NextPlayer;
+    } else {
+      _player[ActivePlayer].clip = clip;
+      _player[ActivePlayer].Play();
+      initial = false;
     }
-
-    //Fade-out the active play, if it is not silent (eg: first start)
-    if (_player[ActivePlayer].volume > 0) {
-      fader[0] = FadeAudioSource(_player[ActivePlayer], fade_duration, 0.0f, () => { fader[0] = null; });
-      StartCoroutine(fader[0]);
-    }
-
-    //Fade-in the new clip
-    int NextPlayer = (ActivePlayer + 1) % _player.Length;
-    _player[NextPlayer].clip = clip;
-    _player[NextPlayer].Play();
-    fader[1] = FadeAudioSource(_player[NextPlayer], fade_duration, 0.75f, () => { fader[1] = null; });
-    StartCoroutine(fader[1]);
-
-    //Register new active player
-    ActivePlayer = NextPlayer;
   }
 
   private void DecideAndPlayClip() {
     AudioClip clipToPlay;
     if (currentSceneName == "SceneSelector" || currentSceneName == "MainMenu") {
-      clipToPlay = mainMenuClipsQ.Dequeue();
-      levelClipsQ.Enqueue(clipToPlay);
+      clipToPlay = mainMenuClipsQ.Count > 0 ? mainMenuClipsQ.Dequeue() : null;
+      mainMenuClipsQ.Enqueue(clipToPlay);
     } else {
-      clipToPlay = levelClipsQ.Dequeue();
+      clipToPlay = levelClipsQ.Count > 0 ? levelClipsQ.Dequeue() : null;
       levelClipsQ.Enqueue(clipToPlay);
     }
 
