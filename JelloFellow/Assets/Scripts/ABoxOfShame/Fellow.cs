@@ -1,10 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class Fellow : MonoBehaviour {
-	private Input2D input;
-	
-	
+public class Fellow : MonoBehaviour {	
 	//Camera
 	private Camera cam;
 
@@ -73,7 +70,6 @@ public class Fellow : MonoBehaviour {
 		}
 		lr = GetComponent<LineRenderer> ();
 		_rigidbody2D = GetComponent<Rigidbody2D>();
-		input = InputController.instance.GetInput();
 		InitCooldowns ();
 
 		foreach (var node in _nodes)
@@ -195,10 +191,10 @@ public class Fellow : MonoBehaviour {
 		float gravity = 9.81f;
 
 		// analog inputs
-		float hor = input.GetHorizontalRightStick();
-		float ver = input.GetVerticalRightStick();
-		float hor_m = input.GetHorizontalLeftStick();
-		float ver_m = input.GetVerticalLeftStick();
+		float hor = InputController.instance.input.GetHorizontalRightStick();
+		float ver = InputController.instance.input.GetVerticalRightStick();
+		float hor_m = InputController.instance.input.GetHorizontalLeftStick();
+		float ver_m = InputController.instance.input.GetVerticalLeftStick();
 
 		leftStickAngle =  (Mathf.Atan2 (ver_m,hor_m)*Mathf.Rad2Deg + 360) %360;
 
@@ -212,7 +208,7 @@ public class Fellow : MonoBehaviour {
 		//float ver_m = Input.GetAxis ("Vertical");
 		
 
-		bool jump = input.GetButton3Down();
+		bool jump = InputController.instance.input.GetButton3Down();
 		if (jump) {
 
 		}

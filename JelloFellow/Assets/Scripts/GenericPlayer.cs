@@ -94,6 +94,18 @@ public abstract class GenericPlayer : GravityField {
     if (configurator.verbose_gravity) Debug.Log("Gravity depletion rate: " + gravity_depletion_rate);
     if (configurator.verbose_gravity) Debug.Log("Gravity field transition rate: " + gravity_field_transition_rate);
 
+    if (!configurator.animate)
+    {
+      Destroy(transform.Find("GravityField/Field/Mask").gameObject);
+      
+      SpriteRenderer fill = transform.Find("GravityField/Field/Full").GetComponent<SpriteRenderer>();
+      fill.maskInteraction = SpriteMaskInteraction.None;
+    }
+
+    transform.Find("GravityField/Field/Full").GetComponent<SpriteRenderer>().color = configurator.field_color;
+    transform.Find("GravityField/Field/Outline").GetComponent<SpriteRenderer>().color = configurator.outline_colour;
+    transform.Find("GravityField/Marker").GetComponent<SpriteRenderer>().color = configurator.outline_colour;
+
     //Physics2D.gravity = GetGravity();
   }
 
@@ -183,7 +195,7 @@ public abstract class GenericPlayer : GravityField {
 
       if (is_grounded) {
         /* recharge gravity as its not being manipulated and the player is grounded */
-        gravity_stamina = Mathf.Clamp(gravity_stamina - gravity_depletion_rate * Time.deltaTime, configurator.min_gravity_stamina, configurator.max_gravity_stamina);
+        gravity_stamina = Mathf.Clamp(gravity_stamina - (!AffectSelfWithGravity ? gravity_depletion_rate/2f : gravity_depletion_rate) * Time.deltaTime, configurator.min_gravity_stamina, configurator.max_gravity_stamina);
         if (configurator.verbose_gravity) Debug.Log("Gravity Stamina: " + gravity_stamina);
 
         /* restore movement drags */
@@ -208,7 +220,7 @@ public abstract class GenericPlayer : GravityField {
 
     /* update the gravity field fill to represent the gravity stamina */
     if (ReleasedGravity()) gravity_stamina = Mathf.Clamp(gravity_stamina - 5, configurator.min_gravity_stamina, configurator.max_gravity_stamina);
-    ChangeGravityFill(Mathf.Clamp01(gravity_stamina / configurator.max_gravity_stamina));
+    if (configurator.animate) ChangeGravityFill(Mathf.Clamp01(gravity_stamina / configurator.max_gravity_stamina));
 
     /* clinging to platform so visually push player to ground */
     if (!AffectSelfWithGravity) {
@@ -332,7 +344,12 @@ public abstract class GenericPlayer : GravityField {
     }
 
     if (horizontal_movement != 0f || vertical_movement != 0f) {
-      if (!AffectSelfWithGravity) AffectSelfWithGravity = true;
+      if (!AffectSelfWithGravity) {
+        AffectSelfWithGravity = true;
+        SetGravity(-platform_hit_normal);
+        set_fixed_gravity = true;
+        Invoke("UnlockGravity", 0.2f);
+      }
     }
 //    else if(leftstick_unclicked) { /* when the left stick click is let go of */
 //      AffectSelfWithGravity = true;
@@ -488,6 +505,23 @@ public abstract class GenericPlayer : GravityField {
           }
 
           child_rigidbody.velocity = velocity;
+        }
+      }
+    }
+  }
+
+  public Vector2 GetVelocity() {
+    return rigidbody.velocity;
+  }
+  
+  public void AddVelocity(Vector2 _velocity) {
+    rigidbody.velocity = _velocity;
+    
+    if (configurator.apply_movement_tochild) {
+      foreach (Transform child in child_transforms) {
+        Rigidbody2D child_rigidbody = child.gameObject.GetComponent<Rigidbody2D>();
+        if (child_rigidbody) {
+          child_rigidbody.velocity = _velocity;
         }
       }
     }

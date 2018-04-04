@@ -22,13 +22,12 @@ public class FellowPlayer : GenericPlayer {
 
 	public Timer _timer;
 	public bool Pause;
+	private bool is_dead;
 	
 	protected override void Start() {
 		base.Start();
 		
-		_input = InputController.instance.GetInput();
 		SetIgnoreFields(true);
-		SetInput(_input);
 		SetFieldRadius(2f);
 		
 		_jelly = GetComponent<JellySpriteReferencePoint>().ParentJellySprite.GetComponent<UnityJellySprite>();
@@ -59,9 +58,13 @@ public class FellowPlayer : GenericPlayer {
 		}
 
 		Pause = false;
+		is_dead = false;
 	}
 
 	protected override void Update() {
+		_input = InputController.instance.input;
+		SetInput(_input);
+		
 		/* spawn spin */
 		if (_jelly.gameObject.transform.localScale != (Vector3) Vector2.one) {
 			float angle = _jelly.gameObject.transform.rotation.eulerAngles.z == 0f ? 360f : _jelly.gameObject.transform.rotation.eulerAngles.z;
@@ -122,13 +125,16 @@ public class FellowPlayer : GenericPlayer {
 	}
 	
 	protected override void Death() {
-		_timer.Activate = false;
-		_audio_source.PlayOneShot(_death_sound, Random.Range(0.5f, 1f));
-		_jelly.gameObject.AddComponent<DeathEffect>();
+		if (!is_dead) {
+			_timer.Activate = false;
+			_audio_source.PlayOneShot(_death_sound, Random.Range(0.5f, 1f));
+			_jelly.gameObject.AddComponent<DeathEffect>();
+			is_dead = true;
+		}
 	}
 
-	protected void OnDestroy()
-	{
-		SceneLoader.instance.LoadSceneWithName(SceneManager.GetActiveScene().name);
-	}
+//	protected void OnDestroy()
+//	{
+//		SceneLoader.instance.LoadSceneWithName(SceneManager.GetActiveScene().name);
+//	}
 }

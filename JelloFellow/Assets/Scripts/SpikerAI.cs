@@ -35,9 +35,9 @@ public class SpikerAI : GenericPlayer {
 		projectiles = jelly.gameObject.GetComponentsInChildren<SpikerProjectile>();
 		original_color = jelly.gameObject.GetComponent<Renderer>().material.color;
 
-		foreach (SpikerProjectile projectile in projectiles) {
-			projectile.gameObject.SetActive(false);
-		}
+		//foreach (SpikerProjectile projectile in projectiles) {
+		//	projectile.gameObject.SetActive(false);
+		//}
 	}
 
 	protected override void Update() {

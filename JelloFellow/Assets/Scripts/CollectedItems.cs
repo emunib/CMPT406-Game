@@ -281,7 +281,7 @@ public class CollectedItems : MonoBehaviour {
 	/// </summary>
 	void countCollected() {
 
-		if (GameController.instance.currSceneName != "SceneSelector") {
+		if (GameController.instance.currSceneName != "SceneSelector" && GameController.instance.currSceneName !="MainMenu") {
 			numFound = 0;
 			if (!Directory.Exists (Application.persistentDataPath + "/Collectables")) {
 				Directory.CreateDirectory (Application.persistentDataPath + "/Collectables");
@@ -432,7 +432,8 @@ public class CollectedItems : MonoBehaviour {
 		style.fontSize = 16 * Screen.height/400;
 		selectedStyle.fontSize = 16 * Screen.height/400;
 
-		if (GameController.instance.currSceneName == "SceneSelector") {
+		string name = GameController.instance.currSceneName;
+		if (name == "SceneSelector" || name =="MainMenu") {
 			  
 			GUI.Label (new Rect (10, title_y_cur, Screen.width - 20, Screen.height / 10), "Scientist Notes: " + (numFound) + "/" + (items.Count)
 			+ " found", titleStyle);
@@ -581,8 +582,11 @@ public class CollectedItems : MonoBehaviour {
 	}
 
 	public void Update() {
+	 	
+		//Input2D input = InputController.instance.GetInput();
 
-		Input2D input = InputController.instance.GetInput();
+		Input2D input = InputController.instance.input;
+
 		
 		// Going to the list of items
 		if ((input.GetHorizontalLeftStick() < 0 || Input.GetKeyDown (KeyCode.DownArrow)) && display) {
@@ -667,7 +671,7 @@ public class CollectedItems : MonoBehaviour {
 		// Going up the list of items
 		if (input.GetButton1Down () || Input.GetKeyDown (KeyCode.Tab)) {
 			string name = GameController.instance.currSceneName;
-			if (name == "SceneSelector") {
+			if (name == "SceneSelector" || name =="MainMenu") {
 				display = !display;
 			} else {
 				remaining = !remaining;
@@ -689,6 +693,16 @@ public class CollectedItems : MonoBehaviour {
 			}
 		}
 
+	}
+
+	public int GetNumInScene()
+	{
+		return numInScene;
+	}
+
+	public int GetNumFound()
+	{
+		return numFound;
 	}
 		
 }

@@ -218,6 +218,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   is_raycast_origin: 1
   max_velocity: 50
+  animate: 1
+  field_color: {r: 0, g: 1, b: 0.13888231, a: 0.11764706}
+  outline_colour: {r: 0.116061166, g: 0.6862745, b: 0, a: 1}
   apply_gravity_tochild: 1
   apply_movement_tochild: 1
   ChildComponents:
@@ -281,12 +284,14 @@ MonoBehaviour:
     RaycastOrigin: 0
   - Child: {fileID: 0}
     RaycastOrigin: 0
+  gravity_deadzone: 0.9
   gravity_angular_drag: 0.5
   gravity_linear_drag: 1.75
   max_gravity_stamina: 100
   min_gravity_stamina: 0
   gravity_depletion_time: 5
   gravity_field_transition_time: 0.6
+  movement_deadzone: 0.6
   movement_linear_drag: 5
   move_speed: 23
   air_speed: 30
@@ -313,7 +318,6 @@ MonoBehaviour:
   movement_leniency_color: {r: 0, g: 0, b: 1, a: 1}
   cur_hp: 0
   max_hp: 0
-  gravity_deadzone: 0.9
 --- !u!114 &114487060404033590
 MonoBehaviour:
   m_ObjectHideFlags: 1
