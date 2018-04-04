@@ -4,7 +4,8 @@ using UnityEditor;
 using UnityEngine;
 
 public class WaypointFollowV2 : MonoBehaviour {
-
+	[Header("Sprite")]
+	public Sprite track_sprite;
 
 	[Header("Waypoints")]
 	public Vector3[] LocalWayPoints;
@@ -17,14 +18,14 @@ public class WaypointFollowV2 : MonoBehaviour {
 	[Range(0,100)]
 	public float Speed;
 
-	public bool buildTrack;
+	public float track_size_offset_x;
 	
+	
+	public bool buildTrack;
+
 	
 	private Transform Saw;
 	
-	private int fromWaypointIndex = 0;
-
-	//private float percentBetweenWaypoints = 0;
 
 	private Vector3[] GlobalWaypoints;
 
@@ -35,8 +36,8 @@ public class WaypointFollowV2 : MonoBehaviour {
 	
 	private bool _goingUp = true;
 	private int posCounter;
+	
 
-	private GameObject Track;
 	void Start () {
 		
 		Saw = transform.Find("Saw");
@@ -55,17 +56,26 @@ public class WaypointFollowV2 : MonoBehaviour {
 	}
 
 	
+	
+	
 	/// <summary>
 	/// We're going to fill in the tracks based on the positions of the waypoints
 	/// </summary>
 	private void BuildTracks() {
-		Track = GameObject.Find("track");
-		SpriteRenderer track;
-
-		track = Track.GetComponent<SpriteRenderer>();
+		GameObject tr = new GameObject("track");
+		SpriteRenderer sp = tr.AddComponent<SpriteRenderer>();
+		sp.sprite = track_sprite;
+		sp.drawMode = SpriteDrawMode.Tiled;
+		sp.tileMode = SpriteTileMode.Continuous;
+		tr.transform.parent = transform;
+		
+		
+		
 		float distance = Vector2.Distance(GlobalWaypoints[0], GlobalWaypoints[1])/getscale;
-		track.size = new Vector2(distance,track.size.y);
+		sp.size = new Vector2(distance+track_size_offset_x,sp.size.y);
 
+	
+		
 		
 		
 		//Put in Middle
@@ -75,12 +85,14 @@ public class WaypointFollowV2 : MonoBehaviour {
 		//Calculate the angle
 		float angle = Mathf.Atan2(GlobalWaypoints[1].y - GlobalWaypoints[0].y, GlobalWaypoints[1].x - GlobalWaypoints[0].x) *
 		              180 / Mathf.PI;
+
 		middlesPos /= 2;
+		middlesPos += LocalWayPoints[0];
 		
-		Track.transform.localPosition = middlesPos;
-		Vector3 rotation = track.transform.rotation.eulerAngles;
+		tr.transform.localPosition = middlesPos;
+		Vector3 rotation = sp.transform.rotation.eulerAngles;
 		rotation.z = angle;
-		track.transform.rotation = Quaternion.Euler(rotation);
+		sp.transform.rotation = Quaternion.Euler(rotation);
 
 		
 	
@@ -88,7 +100,7 @@ public class WaypointFollowV2 : MonoBehaviour {
 
 		for (int i = 1; i < GlobalWaypoints.Length; i++) {
 			
-			GameObject newTrack = Instantiate(Track,this.transform);
+			GameObject newTrack = Instantiate(tr, transform);
 
 			
 			p0 = GlobalWaypoints[i];
@@ -106,7 +118,7 @@ public class WaypointFollowV2 : MonoBehaviour {
 				p1 = GlobalWaypoints[i+1];
 			}		
 		
-			track = newTrack.GetComponent<SpriteRenderer>();
+			sp = newTrack.GetComponent<SpriteRenderer>();
 
 			angle = Mathf.Atan2(p1.y - p0.y, p1.x - p0.x) *
 			        180 / Mathf.PI;
@@ -118,10 +130,12 @@ public class WaypointFollowV2 : MonoBehaviour {
 			rotation.z = angle;
 			newTrack.transform.rotation = Quaternion.Euler(rotation);
 			distance = Vector2.Distance(p0, p1)/getscale;
-			track.size = new Vector2(distance,track.size.y);
+			sp.size = new Vector2(distance+track_size_offset_x,sp.size.y);
 		}
 
 	}
+	
+	
 	
 	
 	// Update is called once per frame

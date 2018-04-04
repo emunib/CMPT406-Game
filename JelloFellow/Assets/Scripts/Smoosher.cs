@@ -38,7 +38,6 @@ public class Smoosher : MonoBehaviour {
 
 	private Vector3 lastPosition;
 	private bool shake;
-	private bool shakedoonce;
 	private GameObject kill_trigger;
 	
 
@@ -55,7 +54,6 @@ public class Smoosher : MonoBehaviour {
 		doOnce = true;
 
 		rodCollider = rod.GetComponent<BoxCollider2D>();
-		shakedoonce = true;
 		n = 0;
 
 		if (!repeat) {
@@ -101,7 +99,6 @@ public class Smoosher : MonoBehaviour {
 		//Adjust the sprite and the collider
 		float distance = Vector2.Distance(transform.position, bar.transform.position);
 		SpriteRenderer rodsprite = rod.GetComponent<SpriteRenderer>();
-		Collider2D barCollider = bar.GetComponent<BoxCollider2D>();
 		rodsprite.size = new Vector2(distance, rodsprite.size.y);
 		Vector3 middlepos = bar.transform.position - transform.position;
 		middlepos /= 2;
@@ -115,12 +112,8 @@ public class Smoosher : MonoBehaviour {
 			Vector3 down = -transform.up;
 			bar.GetComponent<Rigidbody2D>().velocity = down*speed;
 			
-			//bar.transform.position += A * Time.deltaTime * speed;
-			//bar.transform.position += A * speed;
 			
-		
 
-			//barCollider.offset = 
 		}
 		
 		/*

@@ -31,8 +31,8 @@ public class AIGoober : GenericPlayer {
   private HashSet<RaycastHit2D> grounded_game_objects;
 
   private bool grounded;
-  private bool firstPlat = true;
-  private bool turnOffCd = true;
+  //private bool firstPlat = true;
+  //private bool turnOffCd = true;
   private Vector2 attackVector;
   
   private GenericEnemyInput _input;
@@ -60,7 +60,7 @@ public class AIGoober : GenericPlayer {
     
     base.FixedUpdate();
 
-    Vector2 g = new Vector2(_input.rightstickx,_input.rightsticky);
+    //Vector2 g = new Vector2(_input.rightstickx,_input.rightsticky);
     
     _input.DefaultValues();
     
@@ -288,7 +288,6 @@ public class AIGoober : GenericPlayer {
     
   }
 
-  private Vector2 groundedNormalVector;
   
   /// <summary>
   /// Check if the player is in an "Upright" position
@@ -319,7 +318,7 @@ public class AIGoober : GenericPlayer {
       }
       
 
-      groundedNormalVector = groundhit.normal;
+      //groundedNormalVector = groundhit.normal;
 
     }
 
