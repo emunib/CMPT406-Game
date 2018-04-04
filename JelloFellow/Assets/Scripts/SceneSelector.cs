@@ -226,6 +226,12 @@ public class SceneSelector : MonoBehaviour {
       _audio_source.PlayOneShot(_choose_sound, 1f);
       MainScript.instance.LoadSceneWithName(cursor.Value.GetSceneInfo().name);
     }
+
+    /* go back to main menu */
+    if (_input.GetButton2Down()) {
+      _audio_source.PlayOneShot(_choose_sound, 1f);
+      MainScript.instance.LoadSceneWithName("MainMenu");
+    }
     
     /* smoothly scroll to the vertical position of the category */
     vertical_scroll.verticalNormalizedPosition = Mathf.Lerp(vertical_scroll.verticalNormalizedPosition, vertical_position, Time.deltaTime * scroll_speed);
