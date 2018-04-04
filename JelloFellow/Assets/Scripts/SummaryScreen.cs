@@ -81,8 +81,6 @@ public class SummaryScreen : MonoBehaviour {
     } else {
       continue_text.text = "Unknown Input...";
     }
-    
-    _input = InputController.instance.GetInput();
   }
 
   private IEnumerator MedalTransitioner(Graphic _medal) {
@@ -108,6 +106,7 @@ public class SummaryScreen : MonoBehaviour {
   }
 
   private void Update() {
+    _input = InputController.instance.input;
     if (_input.GetButton3Down()) {
       MainScript.instance.LoadSceneWithName("SceneSelector");
     }

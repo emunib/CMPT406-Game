@@ -31,7 +31,6 @@ public class SceneSelector : MonoBehaviour {
   private void Start() {
     ScenesInformation _scenes_information = MainScript.instance.GetScenesInformation();
     SceneInfo[] _scene_infos = _scenes_information.GetAllInfo();
-    _input = InputController.instance.GetInput();
     
     _audio_source = gameObject.AddComponent<AudioSource>();
     _audio_source.playOnAwake = false;
@@ -221,6 +220,8 @@ public class SceneSelector : MonoBehaviour {
   }
 
   private void Update() {
+    _input = InputController.instance.input;
+    
     /* if the button is pressed then load the scene */
     if (_input.GetButton3Down()) {
       _audio_source.PlayOneShot(_choose_sound, 1f);

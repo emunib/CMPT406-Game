@@ -5,12 +5,12 @@
 /// Recognizes different controllers, and sees if they are supported.
 /// </summary>
 public class InputController : Singleton<InputController> {
-  private Input2D input;
+  public Input2D input { private set; get; }
   private InputControllerInfo info;
+  private bool no_input;
   
   private void Awake() {    
     /* default values */
-		input = gameObject.AddComponent<SimpleInput>();
     info = null;
     
     /* get the valid controller in the joystick names */
@@ -33,8 +33,10 @@ public class InputController : Singleton<InputController> {
     if (info != null) {
       /* output controller type */
       Debug.Log("Controller: " + info.controller_type());
+      input = gameObject.AddComponent<SimpleInput>();
       input.Init(info);
     } else {
+      no_input = true;
       input = gameObject.AddComponent<ManualInput>();
       Debug.LogWarning("Please plugin a valid controller, and restart the game. Manual control has been given.");
     }
@@ -44,13 +46,39 @@ public class InputController : Singleton<InputController> {
     GameController _game_controller = GameController.instance;
     MainScript _main_script = MainScript.instance;
   }
-  
-  /// <summary>
-  /// Grabs the auto-assigned input based on the controller.
-  /// </summary>
-  /// <returns>Auto-assigned input.</returns>
-  public Input2D GetInput() {
-    return input;
+
+  private void Update() {
+    /* get the valid controller in the joystick names */
+    foreach (string controller in Input.GetJoystickNames()) {
+      string lower_controller = controller.ToLower();
+
+      /* xbox support */
+      if (lower_controller.Contains("xbox") || lower_controller.Contains("microsoft")) {
+        info = gameObject.AddComponent<XBoxOneControllerInfo>();
+        break;
+      } 
+      
+      /* ps4 support */
+      if(lower_controller.Contains("sony")) {
+        info = gameObject.AddComponent<Ps4ControllerInfo>();
+        break;
+      }
+    }
+
+    if (info == null) {
+      no_input = false;
+    }
+    
+    if (no_input) {
+      if (info != null) {
+        /* output controller type */
+        Debug.Log("Controller: " + info.controller_type());
+        Destroy(gameObject.GetComponent<ManualInput>());
+        input = gameObject.AddComponent<SimpleInput>();
+        input.Init(info);
+        no_input = false;
+      }
+    }
   }
 
   public ControllerType type() {

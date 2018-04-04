@@ -19,7 +19,7 @@ public class GameController : Singleton<GameController> {
 	void Awake () {
 		if(instance != this) Destroy(gameObject);
 		
-		input = InputController.instance.GetInput();
+		input = InputController.instance.input;
 		
 		currSceneName = SceneManager.GetActiveScene().name;
 		Load();

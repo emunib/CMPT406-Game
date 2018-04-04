@@ -74,7 +74,7 @@ public class SceneSelectorScene : MonoBehaviour {
     }
 
     InvokeRepeating("CheckForControllerInput", 0.0f, 0.14f);
-    input = InputController.instance.GetInput();
+
     scrollRect = GetComponent<ScrollRect>();
     buttonsArray = GetComponentsInChildren<Button>();
 
@@ -97,6 +97,8 @@ public class SceneSelectorScene : MonoBehaviour {
   }
 
   private void Update() {    
+    input = InputController.instance.input;
+    
     //If selected click the button
     if (input.GetButton3Down()) {
       _audio_source.PlayOneShot(_choose_sound, 1f);
@@ -108,6 +110,8 @@ public class SceneSelectorScene : MonoBehaviour {
   }
 
   private void CheckForControllerInput() {
+    input = InputController.instance.input;
+    
     float hor_m = input.GetHorizontalLeftStick();
     float ver_m = input.GetVerticalLeftStick();
 

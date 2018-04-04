@@ -5,7 +5,6 @@ public class EyeController : MonoBehaviour
     public Transform Parent;
     public Vector2 OffsetFromEyeCentre;
     
-    private Input2D _input;
     private Vector2 _position;
     private Vector2 _vel;
     private float _xScale;
@@ -17,13 +16,9 @@ public class EyeController : MonoBehaviour
         _yScale = Parent.transform.localScale.y * transform.localScale.y;
     }
 
-    private void Start()
-    {
-        _input = InputController.instance.GetInput();
-    }
-
     private void Update()
     {
+        Input2D _input = InputController.instance.input;
         var dir = new Vector2(_input.GetHorizontalLeftStick(), _input.GetVerticalLeftStick());
         dir = dir.normalized;
         dir = new Vector2(dir.x * _xScale, dir.y * _yScale);

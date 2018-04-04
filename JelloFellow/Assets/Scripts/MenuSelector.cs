@@ -36,7 +36,6 @@ public class MenuSelector : MonoBehaviour {
     highlight_color = new Color32(0xFF, 0xCA, 0x3A, 0xFF);
     
     InvokeRepeating("CheckForControllerInput", 0.0f, 0.14f);
-    input = InputController.instance.GetInput();
     buttonsArray = GetComponentsInChildren<Button>();
 
     _audio_source = gameObject.AddComponent<AudioSource>();
@@ -58,7 +57,9 @@ public class MenuSelector : MonoBehaviour {
     buttonsArray[index].Select();
   }
 
-  public void Update() {    
+  public void Update() {
+    input = InputController.instance.input;
+    
     //If selected click the button
     if (input.GetButton3Down()) {
       _audio_source.PlayOneShot(_choose_sound, 1f);
@@ -67,6 +68,7 @@ public class MenuSelector : MonoBehaviour {
   }
 
   private void CheckForControllerInput() {
+    input = InputController.instance.input;
     float ver_m = input.GetVerticalLeftStick();
     
     if (ver_m != 0f && ver_m != annoyance_sign) {

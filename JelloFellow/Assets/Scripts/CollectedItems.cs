@@ -411,7 +411,7 @@ public class CollectedItems : MonoBehaviour {
 	}
 
 	public void Update() {
-		Input2D input = InputController.instance.GetInput();
+		Input2D input = InputController.instance.input;
 		
 		// Going to the list of items
 		if ((input.GetHorizontalLeftStick() < 0 || Input.GetKeyDown (KeyCode.DownArrow)) && display) {

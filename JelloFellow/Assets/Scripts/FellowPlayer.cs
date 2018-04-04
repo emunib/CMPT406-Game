@@ -27,9 +27,7 @@ public class FellowPlayer : GenericPlayer {
 	protected override void Start() {
 		base.Start();
 		
-		_input = InputController.instance.GetInput();
 		SetIgnoreFields(true);
-		SetInput(_input);
 		SetFieldRadius(2f);
 		
 		_jelly = GetComponent<JellySpriteReferencePoint>().ParentJellySprite.GetComponent<UnityJellySprite>();
@@ -64,6 +62,9 @@ public class FellowPlayer : GenericPlayer {
 	}
 
 	protected override void Update() {
+		_input = InputController.instance.input;
+		SetInput(_input);
+		
 		/* spawn spin */
 		if (_jelly.gameObject.transform.localScale != (Vector3) Vector2.one) {
 			float angle = _jelly.gameObject.transform.rotation.eulerAngles.z == 0f ? 360f : _jelly.gameObject.transform.rotation.eulerAngles.z;

@@ -6,22 +6,16 @@ public class EyesController : MonoBehaviour
     [Range(0, 1)] public float YOffsetFromCentre;
     [Range(0, 0.2f)] public float SmoothTime;
     [Range(0, 1)] public float Distance;
-    private Input2D _input;
     private Vector2 _vel;
     private Vector2 _position;
     private GravityPlayer _player;
     //private Vector2 _gravDir = Vector2.down;
 
-
-    // Use this for initialization
-    private void Start()
-    {
-        _input = InputController.instance.GetInput();
-    }
-
     // Update is called once per frame
     private void LateUpdate()
     {
+        Input2D _input = InputController.instance.input;
+        
         if (!_player)
         {
             _player = gameObject.GetComponentInParent<JellySprite>().CentralPoint.GameObject
