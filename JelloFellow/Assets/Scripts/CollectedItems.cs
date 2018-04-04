@@ -544,9 +544,11 @@ public class CollectedItems : MonoBehaviour {
 		}
 
 		// Going up the list of items
-		if (input.GetButton3Down () || Input.GetKeyDown (KeyCode.Space) && display) {
+		if ((input.GetButton3Down () || Input.GetKeyDown (KeyCode.Space)) && display) {
 			showImage = !showImage;
 		}
+			
+	
 
 		if (remaining) {
 			curTime = curTime + Time.deltaTime;
