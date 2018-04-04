@@ -21,6 +21,7 @@ public class CollectedItems : MonoBehaviour {
 	private float desc_x;
 
 	private float title_y_cur;
+	private float prompt_y_cur;
 	private float name_x_cur;
 	private float desc_x_cur;
 	private float title_y_rem;
@@ -205,8 +206,6 @@ public class CollectedItems : MonoBehaviour {
 			current = current.Next;
 		}
 	}
-
-
 
 	// Use this for initialization, happens before start
 	void Start () {
@@ -405,14 +404,22 @@ public class CollectedItems : MonoBehaviour {
 		// Make sure position is correct
 		// If current position is higher than it should be, and it's to be displayed, then it should go down
 		if (title_y_cur < title_y && display) {
+			
 			title_y_cur = title_y_cur + (title_y - title_y_cur) * Time.deltaTime * 5;
 			name_x_cur = name_x_cur + (name_x - name_x_cur) * Time.deltaTime * 5;
 			desc_x_cur = desc_x_cur + (desc_x - desc_x_cur) * Time.deltaTime * 5;
 
 		} else if (title_y_cur > -120 && !display) {
+			
 			title_y_cur = title_y_cur - 120 * Time.deltaTime * 5;
 			name_x_cur = name_x_cur - Screen.width * 0.3f * Time.deltaTime * 5;
 			desc_x_cur = desc_x_cur + Screen.width * 0.7f * Time.deltaTime * 5;
+		}
+
+		if (prompt_y_cur > -120 && display) {
+			prompt_y_cur = prompt_y_cur - 120 * Time.deltaTime * 5;
+		} else if (prompt_y_cur < title_y && !display) {
+			prompt_y_cur = prompt_y_cur + (title_y - prompt_y_cur) * Time.deltaTime * 5;
 		}
 
 		if (title_y_rem < title_y && remaining) {
@@ -426,9 +433,11 @@ public class CollectedItems : MonoBehaviour {
 		selectedStyle.fontSize = 16 * Screen.height/400;
 
 		if (GameController.instance.currSceneName == "SceneSelector") {
-			
+			  
 			GUI.Label (new Rect (10, title_y_cur, Screen.width - 20, Screen.height / 10), "Scientist Notes: " + (numFound) + "/" + (items.Count)
 			+ " found", titleStyle);
+
+			GUI.Label (new Rect (10, prompt_y_cur, Screen.width/4 - 20, Screen.height / 15), "Y - View Collection", style);
 			
 		} else {
 			if (numInScene > 0) {
