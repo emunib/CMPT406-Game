@@ -6,6 +6,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class SceneSelector : MonoBehaviour {
+  private const string menuchoosesound_path = "Sounds/menu_choose";
+  private const string menuselectsound_path = "Sounds/menu_select2";
   private const string category_path = "Prefabs/UI/Category";
   private const string scene_path = "Prefabs/UI/Scene";
   private const string scenepreview_path = "LevelPreviews/";
@@ -22,11 +24,19 @@ public class SceneSelector : MonoBehaviour {
   private float vertical_position;
   private int rows;
   private Input2D _input;
-
+  private AudioSource _audio_source;
+  private AudioClip _choose_sound;
+  private AudioClip _scroll_sound;
+  
   private void Start() {
     ScenesInformation _scenes_information = MainScript.instance.GetScenesInformation();
     SceneInfo[] _scene_infos = _scenes_information.GetAllInfo();
     _input = InputController.instance.GetInput();
+    
+    _audio_source = gameObject.AddComponent<AudioSource>();
+    _audio_source.playOnAwake = false;
+    _choose_sound = Resources.Load<AudioClip>(menuchoosesound_path);
+    _scroll_sound = Resources.Load<AudioClip>(menuselectsound_path);
     
     /* make sure we actually have scenes to organize */
     if (_scene_infos.Length > 0) {
@@ -88,39 +98,41 @@ public class SceneSelector : MonoBehaviour {
       cursor_subject = new LinkedList<SceneOrganizer>();
       
       foreach (KeyValuePair<Category, SortedList<int, SceneInfo>> scenes_category in sorted_sceneinfo) {
-        Category _category_enum = scenes_category.Key;
-        /* instantiate the category */
-        GameObject _category = Instantiate(category_resource, Categories.transform);
-        GameObject _scenes = _category.transform.Find("Scenes").gameObject;
-        
-        /* update category settings */
-        CategoryOrganizer category_org = _category.GetComponent<CategoryOrganizer>();
-        category_org.SetTitle(VerticalText(_category_enum.ToString()), text_color);
-        category_org.SetBackgroundColor(background_color);
-        
-        foreach (KeyValuePair<int, SceneInfo> scenes_info in scenes_category.Value) {
-          SceneInfo _info = scenes_info.Value;
-          
-          /* instantiate the scene */
-          GameObject _scene = Instantiate(scene_resource, _scenes.transform);
-          
-          /* update the scene settings */
-          SceneOrganizer scene_org = _scene.GetComponent<SceneOrganizer>();
-          scene_org.SetTitle(_info.name, text_color);
-          if (preview_images.ContainsKey(_info.image_name)) {
-            Sprite _preview;
-            preview_images.TryGetValue(_info.image_name, out _preview);
-            scene_org.SetSceneImage(_preview);
-          } else {
-            scene_org.SetSceneImage(test_image);
+        SortedList<int, SceneInfo> scenes_sorted_list = scenes_category.Value;
+        if (scenes_sorted_list.Count > 0) {
+          Category _category_enum = scenes_category.Key;
+          /* instantiate the category */
+          GameObject _category = Instantiate(category_resource, Categories.transform);
+          GameObject _scenes = _category.transform.Find("Scenes").gameObject;
+
+          /* update category settings */
+          CategoryOrganizer category_org = _category.GetComponent<CategoryOrganizer>();
+          category_org.SetTitle(VerticalText(_category_enum.ToString()), text_color);
+          category_org.SetBackgroundColor(background_color);
+
+          foreach (KeyValuePair<int, SceneInfo> scenes_info in scenes_sorted_list) {
+            SceneInfo _info = scenes_info.Value;
+
+            /* instantiate the scene */
+            GameObject _scene = Instantiate(scene_resource, _scenes.transform);
+
+            /* update the scene settings */
+            SceneOrganizer scene_org = _scene.GetComponent<SceneOrganizer>();
+            scene_org.SetTitle(_info.name, text_color);
+            if (preview_images.ContainsKey(_info.image_name)) {
+              Sprite _preview;
+              preview_images.TryGetValue(_info.image_name, out _preview);
+              scene_org.SetSceneImage(_preview);
+            } else {
+              scene_org.SetSceneImage(test_image);
+            }
+
+            scene_org.SetBackgroundColor(scene_backgroundcolor);
+            scene_org.SetSelectedColor(scene_selectedcolor);
+            scene_org.SetSceneInfo(_info);
+            /* add to the list of cursors */
+            cursor_subject.AddLast(scene_org);
           }
-          scene_org.SetBackgroundColor(scene_backgroundcolor);
-          scene_org.SetSelectedColor(scene_selectedcolor);
-          scene_org.SetSceneInfo(_info);
-          /* add to the list of cursors */
-          cursor_subject.AddLast(scene_org);
-          
-          //print(scenes_category.Key + ", " + _info.name);
         }
       }
 
@@ -140,6 +152,7 @@ public class SceneSelector : MonoBehaviour {
       vertical_position = 1 - (float) cursor.Value.GetSceneInfo().category / (rows - 1);
 
       float horizontal = _input.GetHorizontalLeftStick();
+      float vertical = _input.GetVerticalLeftStick();
       
       /* go right (handle scenes in category) */
       if (horizontal == 1f) {
@@ -148,6 +161,7 @@ public class SceneSelector : MonoBehaviour {
             cursor.Value.Deselect();
             cursor = cursor.Next;
             cursor.Value.Select();
+            _audio_source.PlayOneShot(_scroll_sound, 1f);
           }
         }
       } else if (horizontal == -1f) { /* go left */
@@ -156,11 +170,10 @@ public class SceneSelector : MonoBehaviour {
             cursor.Value.Deselect();
             cursor = cursor.Previous;
             cursor.Value.Select();
+            _audio_source.PlayOneShot(_scroll_sound, 1f);
           }
         }
       }
-      
-      float vertical = _input.GetVerticalLeftStick();
 
       /* go up (handle categories themselves) */
       if (vertical == 1f) {
@@ -184,6 +197,7 @@ public class SceneSelector : MonoBehaviour {
               if(tmp1 != null) cursor = tmp1;
             }
             cursor.Value.Select();
+            _audio_source.PlayOneShot(_scroll_sound, 1f);
             break;
           }
           tmp = tmp.Previous;
@@ -195,6 +209,7 @@ public class SceneSelector : MonoBehaviour {
             cursor.Value.Deselect();
             cursor = tmp;
             cursor.Value.Select();
+            _audio_source.PlayOneShot(_scroll_sound, 1f);
             break;
           }
           tmp = tmp.Next;
@@ -208,7 +223,8 @@ public class SceneSelector : MonoBehaviour {
   private void Update() {
     /* if the button is pressed then load the scene */
     if (_input.GetButton3Down()) {
-      print(cursor.Value.GetSceneInfo().name);
+      _audio_source.PlayOneShot(_choose_sound, 1f);
+      MainScript.instance.LoadSceneWithName(cursor.Value.GetSceneInfo().name);
     }
     
     /* smoothly scroll to the vertical position of the category */

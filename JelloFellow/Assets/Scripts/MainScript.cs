@@ -25,7 +25,15 @@ public class MainScript : Singleton<MainScript> {
   public delegate void OnGravityForceChangeDelegate(float _gravity_force);
   public event OnGravityForceChangeDelegate OnGravityForceChange;
 
+  /// <summary>
+  /// Called when scene was just changed.
+  /// </summary>
+  /// <param name="scene_name">Name of the current scene</param>
+  /// <param name="prev_scene_name">Name of the previous scene</param>
   public delegate void OnSceneChangeDelegate(string scene_name, string prev_scene_name);
+  /// <summary>
+  /// Event which one can subscribe to recieve on scene change events.
+  /// </summary>
   public event OnSceneChangeDelegate OnSceneChange;
 
   private SceneInfo current_scene_info;
@@ -141,7 +149,7 @@ public class MainScript : Singleton<MainScript> {
       /* update the previously played time */
       value.previous_attempt_score = _time;
       /* update highscore if time is lesser */
-      if (value.highscore > value.previous_attempt_score) value.highscore = value.previous_attempt_score;
+      if (value.highscore == 0f || value.highscore > value.previous_attempt_score) value.highscore = value.previous_attempt_score;
       
       /* update medal if better */
       if (_time < value.gold_boundary.boundary) {
