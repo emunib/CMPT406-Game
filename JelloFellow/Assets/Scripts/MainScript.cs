@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MainScript : Singleton<MainScript> {
-  private const string gamedata_filename = "gamedata.sav";
+  private const string gamedata_filename = "/gamedata.sav";
   private const string resetmenu_path = "Prefabs/UI/ResetMenu";
   private GameObject reset_canvas;
   private Text reset_text;
@@ -61,6 +61,7 @@ public class MainScript : Singleton<MainScript> {
       BinaryFormatter bf = new BinaryFormatter();
       FileStream file = File.Open(Application.persistentDataPath + gamedata_filename, FileMode.Open);
       scene_informations = (ScenesInformation) bf.Deserialize(file);
+      file.Close();
     } else {
       scene_informations = new ScenesInformation();
     }
@@ -160,7 +161,10 @@ public class MainScript : Singleton<MainScript> {
         if(value.achieved_medal > Medal.Bronze) value.achieved_medal = Medal.Bronze;
       }
     }
-
+    
+    /* save before going to the level summary */
+    Save();
+    
     current_scene_info = value;
     current_scene_name = "LevelSummary";
     SceneLoader.instance.LoadSceneWithName("LevelSummary");
