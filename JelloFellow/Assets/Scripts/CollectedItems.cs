@@ -98,7 +98,7 @@ public class CollectedItems : MonoBehaviour {
 		/// </summary>
 		/// <returns><c>true</c>, if item was collected, <c>false</c> otherwise.</returns>
 		public bool isCollected() {
-			return selected;
+			return collected;
 		}
 
 		/// <summary>
@@ -176,6 +176,10 @@ public class CollectedItems : MonoBehaviour {
 			FileStream stream = new FileStream (filepath, FileMode.Open);
 
 			string[] stats = bf.Deserialize (stream) as string[];
+
+			Debug.Log (stats [2]);
+			Debug.Log("^^^^ stats[2] vvvvvvv bool.parse");
+			Debug.Log( bool.Parse(stats[2]));
 
 			script = GameObject.Find ("CollectedItems").GetComponent<CollectedItems> ();
 			if (stats [3] == null) {
@@ -343,7 +347,7 @@ public class CollectedItems : MonoBehaviour {
 			LinkedListNode<Item> cur = items.First;
 
 			while (cur != null) {
-
+				Debug.Log (cur.Value.isCollected ());
 				if (cur.Value.isCollected ()) {
 					numFound++;
 				}
@@ -440,7 +444,7 @@ public class CollectedItems : MonoBehaviour {
 
 		if (GameController.instance.currSceneName == "SceneSelector") {
 			
-			GUI.Label (new Rect (10, title_y_cur, Screen.width - 20, Screen.height / 10), "Scientist Notes: " + (numFound) + "/" + (numInScene)
+			GUI.Label (new Rect (10, title_y_cur, Screen.width - 20, Screen.height / 10), "Scientist Notes: " + (numFound) + "/" + (items.Count)
 			+ " found", titleStyle);
 			
 		} else {
@@ -488,7 +492,7 @@ public class CollectedItems : MonoBehaviour {
 	/// <param name="description">Description of the item.</param>
 	public void AddItem(string name, string description, bool collected, Texture2D image){
 
-		if (!isCollected(name)) {
+		if (!isCollected (name)) {
 			
 			Item thing = new Item ();
 			thing.setName (name);
@@ -514,6 +518,8 @@ public class CollectedItems : MonoBehaviour {
 			if (numFound == 1) {
 				items.First.Value.select ();
 			}
+		} else {
+			setCollected (name);
 		}
 
 	}
@@ -537,6 +543,48 @@ public class CollectedItems : MonoBehaviour {
 		}
 
 		return false;
+
+	}
+
+	/// <summary>
+	/// Checks if the item of the given name is already collected
+	/// </summary>
+	/// <returns><c>true</c>, if it was collected, <c>false</c> otherwise.</returns>
+	/// <param name="name">Name.</param>
+	public bool getCollected(string name) {
+
+		if (items == null) 
+			return false;
+
+		LinkedListNode<Item> current = items.First;
+
+		while (current != null) {
+			if (current.Value.getName () == name && current.Value.isCollected())
+				return true;
+			current = current.Next;
+		}
+
+		return false;
+
+	}
+
+	/// <summary>
+	/// Checks if the item of the given name is already collected
+	/// </summary>
+	/// <returns><c>true</c>, if it was collected, <c>false</c> otherwise.</returns>
+	/// <param name="name">Name.</param>
+	public void setCollected(string name) {
+
+		LinkedListNode<Item> current = items.First;
+
+		while (current != null) {
+			if (current.Value.getName () == name) {
+				current.Value.setCollected (true);
+				break;
+			}
+			current = current.Next;
+		}
+
 
 	}
 
