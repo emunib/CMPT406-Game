@@ -15,6 +15,7 @@ public class CollectedItems : MonoBehaviour {
 	private GUIStyle style;
 	private GUIStyle selectedStyle;
 	private GUIStyle descriptionStyle;
+	private bool needToCount;				// Acts as a trigger if the items need to be counted again
 
 	private float title_y;
 	private float name_x;
@@ -157,7 +158,6 @@ public class CollectedItems : MonoBehaviour {
 				stats [3] = "No Image";
 			} else {
 				#if UNITY_EDITOR
-				Debug.Log(AssetDatabase.GetAssetPath (this.getImage ()));
 				stats [3] = AssetDatabase.GetAssetPath (this.getImage ());
 				#endif
 			}
@@ -178,7 +178,7 @@ public class CollectedItems : MonoBehaviour {
 			string[] stats = bf.Deserialize (stream) as string[];
 
 			script = GameObject.Find ("CollectedItems").GetComponent<CollectedItems> ();
-			if (stats [2] == null) {
+			if (stats [3] == null) {
 				script.AddItem (stats [0], stats [1], bool.Parse(stats[2]), null);
 			} else {
 				#if UNITY_EDITOR
@@ -216,6 +216,7 @@ public class CollectedItems : MonoBehaviour {
 		if (script == null) {
 
 			numInScene = GameObject.FindGameObjectsWithTag ("Collectable").Length;
+			Debug.Log ("HAHAHAHAHAHA" + numInScene.ToString());
 			if (numInScene == null) {
 				numInScene = 0;
 			}
@@ -282,49 +283,82 @@ public class CollectedItems : MonoBehaviour {
 	/// the scripts data accordingly.
 	/// </summary>
 	void countCollected() {
-		
-		if (!Directory.Exists(Application.persistentDataPath + "/Collectables")) {
-			Directory.CreateDirectory(Application.persistentDataPath + "/Collectables");
-		}
 
-		foreach (string file in Directory.GetFiles(Application.persistentDataPath + "/Collectables")) {
+		if (GameController.instance.currSceneName != "SceneSelector") {
+			numFound = 0;
+			if (!Directory.Exists (Application.persistentDataPath + "/Collectables")) {
+				Directory.CreateDirectory (Application.persistentDataPath + "/Collectables");
+			}
 
-			//Debug.Log (count);
-			Item.load (file, items);
-			numFound--;
+			foreach (string file in Directory.GetFiles(Application.persistentDataPath + "/Collectables")) {
 
-		}
+				//Debug.Log (count);
+				Item.load (file, items);
+				//numFound--;
 
-		// Get an array of all collectables in the level
-		GameObject[] obs = GameObject.FindGameObjectsWithTag ("Collectable");
+			}
 
-		if (obs != null) {
-			numInScene = obs.Length;
-		} else {
-			numInScene = 0;
-		}
+			// Get an array of all collectables in the level
+			GameObject[] obs = GameObject.FindGameObjectsWithTag ("Collectable");
 
-		for (int i = 0; i < numInScene; i++) {
+			if (obs != null) {
+				numInScene = obs.Length;
+			} else {
+				numInScene = 0;
+			}
 
-			// Get the object's name
-			string name = obs [i].gameObject.name;
-			LinkedListNode<Item> cur = items.First;
-			while (cur != null) {
+			numInScene = GameObject.FindGameObjectsWithTag ("Collectable").Length;
+			Debug.Log ("HAHAHAHAHAHAHAHAHA    " + numInScene.ToString ());
 
-				// If our object's name exists in the list of items, it is collected
-				if (name == cur.Value.getName()) {
+			for (int i = 0; i < numInScene; i++) {
 
-					Collectable s = obs [i].GetComponent<Collectable> ();
-					s.setCollected (true);
+				// Get the object's name
+				string name = obs [i].gameObject.name;
+				LinkedListNode<Item> cur = items.First;
+				Collectable c = obs [i].GetComponent<Collectable> ();
+
+				Debug.Log("WHAT THE FUCK IS THIS SHIT");
+
+				if (c.isCollected ()) {
 					numFound++;
 				}
-				cur = cur.Next;
+
 			}
+
+		} else {
+
+			if (!Directory.Exists (Application.persistentDataPath + "/Collectables")) {
+				Directory.CreateDirectory (Application.persistentDataPath + "/Collectables");
+			}
+
+			foreach (string file in Directory.GetFiles(Application.persistentDataPath + "/Collectables")) {
+
+				//Debug.Log (count);
+				Item.load (file, items);
+				//numFound--;
+
+			}
+
+			numInScene = items.Count;
+			LinkedListNode<Item> cur = items.First;
+
+			while (cur != null) {
+
+				if (cur.Value.isCollected ()) {
+					numFound++;
+				}
+
+				cur = cur.Next;
+
+			}
+
 		}
 	}
 
 	void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
+		//WaitForSeconds (10);
 		countCollected ();
+		//needToCount = true;
 	}
 
 	/// <summary>
@@ -341,6 +375,34 @@ public class CollectedItems : MonoBehaviour {
 	/// <returns>The number found.</returns>
 	public int getNumFound () {
 		return numFound;
+	}
+
+	/// <summary>
+	/// Gets the number of items found.
+	/// </summary>
+	public void increaseNumFound () {
+		numFound++;
+	}
+
+	/// <summary>
+	/// Gets the number of items found.
+	/// </summary>
+	public void increaseNumInScene () {
+		numInScene++;
+	}
+
+	/// <summary>
+	/// Gets the number of items found.
+	/// </summary>
+	public void zeroNumFound () {
+		numFound = 0;
+	}
+
+	/// <summary>
+	/// Gets the number of items found.
+	/// </summary>
+	public void zeroNumInScene () {
+		numInScene = 0;
 	}
 	
 	// Update is called once per frame
@@ -368,6 +430,10 @@ public class CollectedItems : MonoBehaviour {
 			title_y_rem = title_y_rem - 120 * Time.deltaTime * 5;
 		}
 
+		if (numInScene == 0) {
+			countCollected ();
+		}
+
 		titleStyle.fontSize = 30 * Screen.height/400;
 		style.fontSize = 16 * Screen.height/400;
 		selectedStyle.fontSize = 16 * Screen.height/400;
@@ -378,7 +444,6 @@ public class CollectedItems : MonoBehaviour {
 			+ " found", titleStyle);
 			
 		} else {
-			Debug.Log (name);
 			if (numInScene > 0) {
 				GUI.Label (new Rect (10, title_y_rem, Screen.width / 4, Screen.height / 10), (numFound) + "/" + (numInScene)
 					+ " Collectables", titleStyle);
@@ -442,7 +507,8 @@ public class CollectedItems : MonoBehaviour {
 				itemsToDisplay.AddLast (thing);
 			}
 
-			numFound++;
+			if (collected)
+				//numFound++;
 
 			// If it's the first item found, it should be selected when the menu opens
 			if (numFound == 1) {
@@ -475,6 +541,11 @@ public class CollectedItems : MonoBehaviour {
 	}
 
 	public void Update() {
+
+		if (needToCount) {
+			countCollected ();
+			needToCount = false;
+		}
 		Input2D input = InputController.instance.GetInput();
 		
 		// Going to the list of items

@@ -24,6 +24,7 @@ public class Collectable : MonoBehaviour {
 			
 			script = GameObject.Find ("CollectedItems").GetComponent<CollectedItems> ();
 			script.AddItem (gameObject.name, description, true, image);
+			script.increaseNumFound ();
 			setCollected(true);
 		}
 
@@ -37,6 +38,19 @@ public class Collectable : MonoBehaviour {
 		collected = x;
 		gameObject.GetComponent<SpriteRenderer> ().sprite = gray;
 		Destroy(gameObject.GetComponent<BoxCollider2D> ());
+	}
+
+	/// <summary>
+	/// gets collected.
+	/// </summary>
+	public bool isCollected() {
+		return collected;
+	}
+
+	void Awake() {
+		script = GameObject.Find ("CollectedItems").GetComponent<CollectedItems> ();
+		script.zeroNumFound ();
+		script.zeroNumInScene ();
 	}
 
     // Use this for initialization
@@ -66,6 +80,10 @@ public class Collectable : MonoBehaviour {
 
 		Collider2D col = GetComponent<Collider2D>();
 		col.isTrigger = true;
+
+		script.increaseNumInScene ();
+		if (collected)
+			script.increaseNumFound();
 
 	}
 	
