@@ -42,6 +42,7 @@ public class InputController : Singleton<InputController> {
     /* instantiate other known singletons if must past this point */
     AudioManager _audio_manager = AudioManager.instance;
     GameController _game_controller = GameController.instance;
+    MainScript _main_script = MainScript.instance;
   }
   
   /// <summary>
@@ -51,4 +52,24 @@ public class InputController : Singleton<InputController> {
   public Input2D GetInput() {
     return input;
   }
+
+  public ControllerType type() {
+    if (info == null) {
+      if (input.GetType() == typeof(ManualInput)) {
+        return ControllerType.MANUAL;
+      }
+    } else {
+      if(info.GetType() == typeof(Ps4ControllerInfo)) {
+        return ControllerType.PS4;
+      }
+      
+      if(info.GetType() == typeof(XBoxOneControllerInfo)) {
+        return ControllerType.XBOXONE;
+      }
+    }
+
+    return ControllerType.UNKNOWN;
+  }
 }
+
+public enum ControllerType { MANUAL, PS4, XBOXONE, UNKNOWN }

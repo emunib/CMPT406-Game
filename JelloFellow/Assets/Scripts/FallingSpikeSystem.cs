@@ -69,9 +69,7 @@ public class FallingSpikeSystem : Gravity {
     lastPosition = transform.position;
 
     rigidbody.freezeRotation = true;
-    //trigger = transform.Find("trigger").GetComponent<BoxCollider2D>();
-
-
+    trigger = transform.Find("trigger").GetComponent<BoxCollider2D>();
 
 
   }
@@ -131,10 +129,10 @@ public class FallingSpikeSystem : Gravity {
   
 
   public override void InGravityField() {
-    /*if (gravity_settable) {
+    if (gravity_settable) {
       in_gravity_field = true;
     }
-    */
+    
   }
 
   public override void OutsideGravityField() {

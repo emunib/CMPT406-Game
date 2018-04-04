@@ -14,7 +14,7 @@ public class GameController : Singleton<GameController> {
 	public int numCollectedPrevScene = 0;
 	public HighScores highScores = new HighScores();
 	private Input2D 	input;
-	
+
 	// Use this for initialization
 	void Awake () {
 		if(instance != this) Destroy(gameObject);
@@ -62,13 +62,13 @@ public class GameController : Singleton<GameController> {
 		public Dictionary<String, String> highScoreDictionary = new Dictionary<string, string>();
 	}
 	
-	void Update () {
-		if (input.GetStartButtonDown() && currSceneName != "MainMenu" && 
-		    currSceneName != "SceneSelector" && currSceneName != "LevelSummary")
-		{
-			instance.previousSceneName = SceneManager.GetActiveScene().name;
-			instance.currSceneName = "MainMenu";
-			SceneLoader.instance.LoadSceneWithName("MainMenu");
-		}
-	}
+//	void Update () {
+//		if (input.GetStartButtonDown() && currSceneName != "MainMenu" && 
+//		    currSceneName != "SceneSelector" && currSceneName != "LevelSummary")
+//		{
+//			instance.previousSceneName = SceneManager.GetActiveScene().name;
+//			instance.currSceneName = "MainMenu";
+//			SceneLoader.instance.LoadSceneWithName("MainMenu");
+//		}
+//	}
 }

@@ -30,6 +30,7 @@ public class MenuSelector : MonoBehaviour {
   private AudioSource _audio_source;
   private AudioClip _choose_sound;
   private AudioClip _scroll_sound;
+  private float annoyance_sign;
   
   public void Start() {
     highlight_color = new Color32(0xFF, 0xCA, 0x3A, 0xFF);
@@ -67,6 +68,11 @@ public class MenuSelector : MonoBehaviour {
 
   private void CheckForControllerInput() {
     float ver_m = input.GetVerticalLeftStick();
+    
+    if (ver_m != 0f && ver_m != annoyance_sign) {
+      _audio_source.PlayOneShot(_scroll_sound, 1f);
+      annoyance_sign = Mathf.Sign(ver_m);
+    }
 
     if (Mathf.Abs(ver_m) > 0) {
       //Move Up
@@ -93,7 +99,6 @@ public class MenuSelector : MonoBehaviour {
         if(_rigidbody) _rigidbody.AddForce((Mathf.Sign(Random.Range(-1f, 1f)) == -1 ? Vector2.right : Vector2.left) * force, ForceMode2D.Impulse);
       }
       
-      _audio_source.PlayOneShot(_scroll_sound, 1f);
       buttonsArray[index].Select();
     }
 

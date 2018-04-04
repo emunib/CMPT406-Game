@@ -147,7 +147,7 @@ RectTransform:
   - {fileID: 1936550742}
   - {fileID: 1246525938}
   m_Father: {fileID: 1730417012}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
@@ -403,7 +403,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95ebc626c6d7f45d39024b0124708db1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!84 &105350331
+--- !u!84 &168684027
 RenderTexture:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -414,8 +414,8 @@ RenderTexture:
     Hash: 00000000000000000000000000000000
   m_ForcedFallbackFormat: 4
   m_DownscaleFallback: 0
-  m_Width: 2006
-  m_Height: 596
+  m_Width: 1920
+  m_Height: 1080
   m_AntiAliasing: 1
   m_DepthFormat: 2
   m_ColorFormat: 0
@@ -557,6 +557,10 @@ Prefab:
       propertyPath: m_TargetTexture
       value: 
       objectReference: {fileID: 2083509103}
+    - target: {fileID: 1731873218663860, guid: 622e2143f77a44fef8b3abc57585e2a0, type: 2}
+      propertyPath: m_TagString
+      value: BackgroundCamera
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 622e2143f77a44fef8b3abc57585e2a0, type: 2}
   m_IsPrefabParent: 0
@@ -590,7 +594,7 @@ RectTransform:
   m_Children:
   - {fileID: 1684256069}
   m_Father: {fileID: 1730417012}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -764,7 +768,7 @@ RectTransform:
   - {fileID: 58136728}
   - {fileID: 697111154}
   m_Father: {fileID: 1730417012}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1245,9 +1249,9 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
-  - {fileID: 911722747}
   - {fileID: 16696118}
   - {fileID: 1299987745}
+  - {fileID: 911722747}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
