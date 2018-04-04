@@ -23,7 +23,7 @@ public class Collectable : MonoBehaviour {
 		if ((col.gameObject.CompareTag ("Blob") || col.gameObject.CompareTag ("Player")) && !collected) {
 			
 			script = GameObject.Find ("CollectedItems").GetComponent<CollectedItems> ();
-			script.AddItem (gameObject.name, description, image);
+			script.AddItem (gameObject.name, description, true, image);
 			setCollected(true);
 		}
 

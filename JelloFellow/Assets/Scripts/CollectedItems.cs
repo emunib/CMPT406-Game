@@ -45,6 +45,7 @@ public class CollectedItems : MonoBehaviour {
 
 		private string name = "No Name.";				// Name of the collectable item
 		private string description = "No description.";	// Its description. 
+		private bool collected = false;					// Whether it's been collected
 		private bool selected = false;					// Whether or not the current item is selected
 		private Texture2D image = null;
 
@@ -73,6 +74,14 @@ public class CollectedItems : MonoBehaviour {
 		}
 
 		/// <summary>
+		/// Sets the collected.
+		/// </summary>
+		/// <param name="c">If set to <c>true</c> c.</param>
+		public void setCollected (bool c) {
+			this.collected = c;
+		}
+
+		/// <summary>
 		/// Toggle whether the current item is selected.
 		/// </summary>
 		public void select () {
@@ -81,6 +90,14 @@ public class CollectedItems : MonoBehaviour {
 			} else {
 				this.selected = true;
 			}
+		}
+
+		/// <summary>
+		/// Check if the item is collected.
+		/// </summary>
+		/// <returns><c>true</c>, if item was collected, <c>false</c> otherwise.</returns>
+		public bool isCollected() {
+			return selected;
 		}
 
 		/// <summary>
@@ -131,16 +148,17 @@ public class CollectedItems : MonoBehaviour {
 				Directory.CreateDirectory(Application.persistentDataPath + "/Collectables");
 			}
 
-			string[] stats = new string[3];
+			string[] stats = new string[4];
 			stats [0] = this.getName ();
 			stats [1] = this.getDescription ();
+			stats [2] = this.isCollected() ? "true" : "false";
 
 			if (this.getImage() == null) {
-				stats [2] = "No Image";
+				stats [3] = "No Image";
 			} else {
 				#if UNITY_EDITOR
 				Debug.Log(AssetDatabase.GetAssetPath (this.getImage ()));
-				stats [2] = AssetDatabase.GetAssetPath (this.getImage ());
+				stats [3] = AssetDatabase.GetAssetPath (this.getImage ());
 				#endif
 			}
 
@@ -161,11 +179,11 @@ public class CollectedItems : MonoBehaviour {
 
 			script = GameObject.Find ("CollectedItems").GetComponent<CollectedItems> ();
 			if (stats [2] == null) {
-				script.AddItem (stats [0], stats [1], null);
+				script.AddItem (stats [0], stats [1], bool.Parse(stats[2]), null);
 			} else {
 				#if UNITY_EDITOR
 				Texture2D t = (Texture2D)AssetDatabase.LoadAssetAtPath (stats [2], typeof(Texture2D));
-				script.AddItem (stats [0], stats [1], t);
+				script.AddItem (stats [0], stats [1], bool.Parse(stats[2]), t);
 				#endif
 			}
 
@@ -403,21 +421,27 @@ public class CollectedItems : MonoBehaviour {
 	/// </summary>
 	/// <param name="name">Name of the item.</param>
 	/// <param name="description">Description of the item.</param>
-	public void AddItem(string name, string description, Texture2D image){
+	public void AddItem(string name, string description, bool collected, Texture2D image){
 
 		if (!isCollected(name)) {
+			
 			Item thing = new Item ();
 			thing.setName (name);
 			thing.setDescription (description);
 			thing.setImage (image);
+			thing.setCollected (collected);
+
 			if (items == null)
 				items = new LinkedList<Item> ();
+			
 			items.AddLast (thing);
+
 			if (itemsToDisplay == null)
 				itemsToDisplay = new LinkedList<Item> ();
 			if (itemsToDisplay.Count <= 10) {
 				itemsToDisplay.AddLast (thing);
 			}
+
 			numFound++;
 
 			// If it's the first item found, it should be selected when the menu opens
