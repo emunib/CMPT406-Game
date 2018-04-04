@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Timer : MonoBehaviour
 {
 	private float startTime;
-	static public float timeToDisplay;
+	public static float timeToDisplay;
 	private string timeText;
 	
 	public Text timer;
@@ -14,15 +14,15 @@ public class Timer : MonoBehaviour
 	public bool Stop;
 	
 	private void Awake () {
-		if (transform.parent) {
-			Canvas _canvas = transform.parent.GetComponent<Canvas>();
-			if (_canvas) {
-				_canvas.renderMode = RenderMode.ScreenSpaceCamera;
-				_canvas.pixelPerfect = true;
-				_canvas.worldCamera = Camera.main;
-				_canvas.sortingOrder = 100;
-			}
-		}
+//		if (transform.parent) {
+//			Canvas _canvas = transform.parent.GetComponent<Canvas>();
+//			if (_canvas) {
+//				_canvas.renderMode = RenderMode.ScreenSpaceCamera;
+//				_canvas.pixelPerfect = true;
+//				_canvas.worldCamera = Camera.main;
+//				_canvas.sortingOrder = 100;
+//			}
+//		}
 
 		Stop = true;
 	}

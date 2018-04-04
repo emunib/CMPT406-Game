@@ -44,6 +44,7 @@ namespace UnityStandardAssets.ImageEffects
         private void OnEnable()
         {
             bgTargetTexture = new RenderTexture(Screen.width, Screen.height, 24);
+            if(!backgroundCamera) backgroundCamera = GameObject.FindGameObjectWithTag("BackgroundCamera").GetComponent<Camera>();
             backgroundCamera.targetTexture = bgTargetTexture;
         }
 

@@ -4,6 +4,7 @@ using UnityEditor;
 #endif
 using UnityEngine;
 
+#if UNITY_EDITOR
 /// <summary>
 /// Custom label for serialized fields.
 /// Code URL: https://answers.unity.com/questions/1005277/can-i-change-variable-name-on-inspector.html
@@ -14,8 +15,7 @@ public class CustomLabel : PropertyAttribute {
   public CustomLabel(string _label) {
     label = _label;
   }
-
-#if UNITY_EDITOR
+  
   [CustomPropertyDrawer(typeof(CustomLabel))]
   public class ThisPropertyDrawer : PropertyDrawer {
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {      
@@ -24,7 +24,6 @@ public class CustomLabel : PropertyAttribute {
       EditorGUI.PropertyField(position, property, label);  
     }
   }
-#endif
 }
 
 /// <summary>
@@ -43,7 +42,6 @@ public class CustomRangeLabel : PropertyAttribute {
     label = _label;
   }
 
-#if UNITY_EDITOR
   [CustomPropertyDrawer(typeof(CustomRangeLabel))]
   public class ThisPropertyDrawer : PropertyDrawer {
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
@@ -62,5 +60,19 @@ public class CustomRangeLabel : PropertyAttribute {
       }
     }
   }
-#endif
 }
+
+public class ReadOnlyAttribute : PropertyAttribute {}
+[CustomPropertyDrawer(typeof(ReadOnlyAttribute))]
+public class ReadOnlyDrawer : PropertyDrawer {
+  public override float GetPropertyHeight(SerializedProperty property, GUIContent label) {
+    return EditorGUI.GetPropertyHeight(property, label, true);
+  }
+ 
+  public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
+    GUI.enabled = false;
+    EditorGUI.PropertyField(position, property, label, true);
+    GUI.enabled = true;
+  }
+}
+#endif
