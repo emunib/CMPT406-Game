@@ -154,6 +154,154 @@ public class ScenesInformation {
 		DeathHallway.image_name = "Death Hallway";
 		SceneInfos.Add(DeathHallway.name, DeathHallway);
 		
+		SceneInfo Ram = new SceneInfo();
+		Ram.name = "Ram";
+		Ram.creator = "Sarah V.";
+		Ram.total_collectables = 3;
+		Ram.gold_boundary = new GoldBoundary { boundary = 5};
+		Ram.silver_boundary = new SilverBoundary { boundary = 8f};
+		Ram.bronze_boundary = new BronzeBoundary { boundary = 10f};
+		Ram.category = Category.World4;
+		Ram.category_index = 1;
+		Ram.image_name = "Ram";
+		SceneInfos.Add(Ram.name, Ram);
+		
+		SceneInfo TinyTest = new SceneInfo();
+		TinyTest.name = "Tiny Test";
+		TinyTest.creator = "Parker N.";
+		TinyTest.total_collectables = 3;
+		TinyTest.gold_boundary = new GoldBoundary { boundary = 2.5f};
+		TinyTest.silver_boundary = new SilverBoundary { boundary = 5f};
+		TinyTest.bronze_boundary = new BronzeBoundary { boundary = 10f};
+		TinyTest.category = Category.World4;
+		TinyTest.category_index = 2;
+		TinyTest.image_name = "Tiny Test";
+		SceneInfos.Add(TinyTest.name, TinyTest);
+		
+		SceneInfo Ascension = new SceneInfo();
+		Ascension.name = "Ascension";
+		Ascension.creator = "Cody B.";
+		Ascension.total_collectables = 3;
+		Ascension.gold_boundary = new GoldBoundary { boundary = 2.5f};
+		Ascension.silver_boundary = new SilverBoundary { boundary = 5f};
+		Ascension.bronze_boundary = new BronzeBoundary { boundary = 10f};
+		Ascension.category = Category.World4;
+		Ascension.category_index = 3;
+		Ascension.image_name = "Ascension";
+		SceneInfos.Add(Ascension.name, Ascension);
+		
+		SceneInfo RitaHayworth = new SceneInfo();
+		RitaHayworth.name = "Rita Hayworth";
+		RitaHayworth.creator = "Austin P.";
+		RitaHayworth.total_collectables = 3;
+		RitaHayworth.gold_boundary = new GoldBoundary { boundary = 63f};
+		RitaHayworth.silver_boundary = new SilverBoundary { boundary = 96f};
+		RitaHayworth.bronze_boundary = new BronzeBoundary { boundary = 139f};
+		RitaHayworth.category = Category.World4;
+		RitaHayworth.category_index = 4;
+		RitaHayworth.image_name = "Rita Hayworth";
+		SceneInfos.Add(RitaHayworth.name, RitaHayworth);
+		
+		SceneInfo HeadsUp = new SceneInfo();
+		HeadsUp.name = "Heads Up!";
+		HeadsUp.creator = "Qummar G.";
+		HeadsUp.total_collectables = 3;
+		HeadsUp.gold_boundary = new GoldBoundary { boundary = 26f};
+		HeadsUp.silver_boundary = new SilverBoundary { boundary = 43f};
+		HeadsUp.bronze_boundary = new BronzeBoundary { boundary = 60f};
+		HeadsUp.category = Category.World5;
+		HeadsUp.category_index = 1;
+		HeadsUp.image_name = "Heads Up!";
+		SceneInfos.Add(HeadsUp.name, HeadsUp);
+		
+		SceneInfo DeathAlley = new SceneInfo();
+		DeathAlley.name = "Death Alley";
+		DeathAlley.creator = "Qummar G.";
+		DeathAlley.total_collectables = 3;
+		DeathAlley.gold_boundary = new GoldBoundary { boundary = 11f};
+		DeathAlley.silver_boundary = new SilverBoundary { boundary = 13f};
+		DeathAlley.bronze_boundary = new BronzeBoundary { boundary = 18f};
+		DeathAlley.category = Category.World5;
+		DeathAlley.category_index = 2;
+		DeathAlley.image_name = "Death Alley";
+		SceneInfos.Add(DeathAlley.name, DeathAlley);
+		
+		SceneInfo MyBiggestFan = new SceneInfo();
+		MyBiggestFan.name = "My Biggest Fan";
+		MyBiggestFan.creator = "Austin P.";
+		MyBiggestFan.total_collectables = 3;
+		MyBiggestFan.gold_boundary = new GoldBoundary { boundary = 25f};
+		MyBiggestFan.silver_boundary = new SilverBoundary { boundary = 35f};
+		MyBiggestFan.bronze_boundary = new BronzeBoundary { boundary = 45f};
+		MyBiggestFan.category = Category.World5;
+		MyBiggestFan.category_index = 3;
+		MyBiggestFan.image_name = "My Biggest Fan";
+		SceneInfos.Add(MyBiggestFan.name, MyBiggestFan);
+		
+		SceneInfo Endurance = new SceneInfo();
+		Endurance.name = "Endurance";
+		Endurance.creator = "Austin P.";
+		Endurance.total_collectables = 3;
+		Endurance.gold_boundary = new GoldBoundary { boundary = 11f};
+		Endurance.silver_boundary = new SilverBoundary { boundary = 13f};
+		Endurance.bronze_boundary = new BronzeBoundary { boundary = 18f};
+		Endurance.category = Category.World5;
+		Endurance.category_index = 4;
+		Endurance.image_name = "Endurance";
+		SceneInfos.Add(Endurance.name, Endurance);
+		
+		SceneInfo TheTrek = new SceneInfo();
+		TheTrek.name = "The Trek";
+		TheTrek.creator = "Parker N.";
+		TheTrek.total_collectables = 3;
+		TheTrek.gold_boundary = new GoldBoundary { boundary = 25f};
+		TheTrek.silver_boundary = new SilverBoundary { boundary = 35f};
+		TheTrek.bronze_boundary = new BronzeBoundary { boundary = 45f};
+		TheTrek.category = Category.World6;
+		TheTrek.category_index = 1;
+		TheTrek.image_name = "The Trek";
+		SceneInfos.Add(TheTrek.name, TheTrek);
+		
+		SceneInfo SlantMountain = new SceneInfo();
+		SlantMountain.name = "Slant Mountain";
+		SlantMountain.creator = "Parker N.";
+		SlantMountain.total_collectables = 3;
+		SlantMountain.gold_boundary = new GoldBoundary { boundary = 11f};
+		SlantMountain.silver_boundary = new SilverBoundary { boundary = 21f};
+		SlantMountain.bronze_boundary = new BronzeBoundary { boundary = 26f};
+		SlantMountain.category = Category.World6;
+		SlantMountain.category_index = 2;
+		SlantMountain.image_name = "Slant Mountain";
+		SceneInfos.Add(SlantMountain.name, SlantMountain);
+		
+		SceneInfo Dexterity = new SceneInfo();
+		Dexterity.name = "Dexterity";
+		Dexterity.creator = "Qummar G.";
+		Dexterity.total_collectables = 3;
+		Dexterity.gold_boundary = new GoldBoundary { boundary = 27f};
+		Dexterity.silver_boundary = new SilverBoundary { boundary = 62f};
+		Dexterity.bronze_boundary = new BronzeBoundary { boundary = 92f};
+		Dexterity.category = Category.World6;
+		Dexterity.category_index = 3;
+		Dexterity.image_name = "Dexterity";
+		SceneInfos.Add(Dexterity.name, Dexterity);
+		
+		SceneInfo Careful = new SceneInfo();
+		Careful.name = "Careful";
+		Careful.creator = "Qummar G.";
+		Careful.total_collectables = 3;
+		Careful.gold_boundary = new GoldBoundary { boundary = 18f};
+		Careful.silver_boundary = new SilverBoundary { boundary = 29f};
+		Careful.bronze_boundary = new BronzeBoundary { boundary = 42f};
+		Careful.category = Category.World6;
+		Careful.category_index = 4;
+		Careful.image_name = "Careful";
+		SceneInfos.Add(Careful.name, Careful);
+		
+		
+		
+		
+		
 		
 		
 		

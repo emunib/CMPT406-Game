@@ -30,7 +30,7 @@ public class SceneInfo {
 
 [Serializable]
 public enum Category {
-  World1, World2, World3, World4, World5
+  World1, World2, World3, World4, World5, World6, World7, Bonus
 }
 
 [Serializable]
