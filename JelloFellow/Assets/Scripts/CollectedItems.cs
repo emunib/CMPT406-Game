@@ -15,7 +15,6 @@ public class CollectedItems : MonoBehaviour {
 	private GUIStyle style;
 	private GUIStyle selectedStyle;
 	private GUIStyle descriptionStyle;
-	private bool needToCount;				// Acts as a trigger if the items need to be counted again
 
 	private float title_y;
 	private float name_x;
@@ -177,10 +176,6 @@ public class CollectedItems : MonoBehaviour {
 
 			string[] stats = bf.Deserialize (stream) as string[];
 
-			Debug.Log (stats [2]);
-			Debug.Log("^^^^ stats[2] vvvvvvv bool.parse");
-			Debug.Log( bool.Parse(stats[2]));
-
 			script = GameObject.Find ("CollectedItems").GetComponent<CollectedItems> ();
 			if (stats [3] == null) {
 				script.AddItem (stats [0], stats [1], bool.Parse(stats[2]), null);
@@ -220,7 +215,6 @@ public class CollectedItems : MonoBehaviour {
 		if (script == null) {
 
 			numInScene = GameObject.FindGameObjectsWithTag ("Collectable").Length;
-			Debug.Log ("HAHAHAHAHAHA" + numInScene.ToString());
 			if (numInScene == null) {
 				numInScene = 0;
 			}
@@ -296,9 +290,7 @@ public class CollectedItems : MonoBehaviour {
 
 			foreach (string file in Directory.GetFiles(Application.persistentDataPath + "/Collectables")) {
 
-				//Debug.Log (count);
 				Item.load (file, items);
-				//numFound--;
 
 			}
 
@@ -312,7 +304,6 @@ public class CollectedItems : MonoBehaviour {
 			}
 
 			numInScene = GameObject.FindGameObjectsWithTag ("Collectable").Length;
-			Debug.Log ("HAHAHAHAHAHAHAHAHA    " + numInScene.ToString ());
 
 			for (int i = 0; i < numInScene; i++) {
 
@@ -320,8 +311,6 @@ public class CollectedItems : MonoBehaviour {
 				string name = obs [i].gameObject.name;
 				LinkedListNode<Item> cur = items.First;
 				Collectable c = obs [i].GetComponent<Collectable> ();
-
-				Debug.Log("WHAT THE FUCK IS THIS SHIT");
 
 				if (c.isCollected ()) {
 					numFound++;
@@ -337,9 +326,7 @@ public class CollectedItems : MonoBehaviour {
 
 			foreach (string file in Directory.GetFiles(Application.persistentDataPath + "/Collectables")) {
 
-				//Debug.Log (count);
 				Item.load (file, items);
-				//numFound--;
 
 			}
 
@@ -347,7 +334,7 @@ public class CollectedItems : MonoBehaviour {
 			LinkedListNode<Item> cur = items.First;
 
 			while (cur != null) {
-				Debug.Log (cur.Value.isCollected ());
+				
 				if (cur.Value.isCollected ()) {
 					numFound++;
 				}
@@ -432,10 +419,6 @@ public class CollectedItems : MonoBehaviour {
 			title_y_rem = title_y_rem + (title_y - title_y_rem) * Time.deltaTime * 5;
 		} else if (title_y_rem > -120 && !remaining) {
 			title_y_rem = title_y_rem - 120 * Time.deltaTime * 5;
-		}
-
-		if (numInScene == 0) {
-			countCollected ();
 		}
 
 		titleStyle.fontSize = 30 * Screen.height/400;
@@ -590,10 +573,6 @@ public class CollectedItems : MonoBehaviour {
 
 	public void Update() {
 
-		if (needToCount) {
-			countCollected ();
-			needToCount = false;
-		}
 		Input2D input = InputController.instance.GetInput();
 		
 		// Going to the list of items
