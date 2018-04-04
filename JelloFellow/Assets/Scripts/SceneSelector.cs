@@ -11,7 +11,8 @@ public class SceneSelector : MonoBehaviour {
   private const string category_path = "Prefabs/UI/Category";
   private const string scene_path = "Prefabs/UI/Scene";
   private const string scenepreview_path = "LevelPreviews/";
-  private const float scroll_speed = 10f;
+  private const float scroll_speed = 6f;
+  private const float scroll_smooth_time = 0.08f;
   
   private GameObject category_resource;
   private GameObject scene_resource;
@@ -20,9 +21,8 @@ public class SceneSelector : MonoBehaviour {
   private SortedDictionary<Category, SortedList<int, SceneInfo>> sorted_sceneinfo;
   private LinkedList<SceneOrganizer> cursor_subject;
   private LinkedListNode<SceneOrganizer> cursor;
-  private ScrollRect vertical_scroll;
-  private float vertical_position;
-  private int rows;
+  private RectTransform scrolling_pane;
+  private Vector3 vertical_position;
   private Input2D _input;
   private AudioSource _audio_source;
   private AudioClip _choose_sound;
@@ -42,7 +42,7 @@ public class SceneSelector : MonoBehaviour {
       GameObject WorldsView = GameObject.Find("WorldsView");
       GameObject Categories = WorldsView.transform.Find("Categories").gameObject;
 
-      vertical_scroll = WorldsView.GetComponent<ScrollRect>();
+      scrolling_pane = Categories.GetComponent<RectTransform>();
       
       category_resource = Resources.Load<GameObject>(category_path);
       scene_resource = Resources.Load<GameObject>(scene_path);
@@ -62,7 +62,6 @@ public class SceneSelector : MonoBehaviour {
       
       /* Category enum to array (sorted in way it was entered) */
       Array _categories = Enum.GetValues(typeof(Category));
-      rows = _categories.Length;
       sorted_sceneinfo = new SortedDictionary<Category, SortedList<int, SceneInfo>>();
       
       /* loop max because 2 if statements is better than 2 loops */
@@ -93,6 +92,7 @@ public class SceneSelector : MonoBehaviour {
       Color background_color = new Color32(0x29, 0x2B, 0x2B, 0xFF);
       Color scene_backgroundcolor = new Color32(0x29, 0x2B, 0x2B, 0xFF);
       Color scene_selectedcolor = new Color32(0xFF, 0xCA, 0x3A, 0xFF);
+      Color title_background_color = new Color32(0xFF, 0xFF, 0xFF, 0x0A);
       
       cursor_subject = new LinkedList<SceneOrganizer>();
       
@@ -108,6 +108,7 @@ public class SceneSelector : MonoBehaviour {
           CategoryOrganizer category_org = _category.GetComponent<CategoryOrganizer>();
           category_org.SetTitle(VerticalText(_category_enum.ToString()), text_color);
           category_org.SetBackgroundColor(background_color);
+          category_org.SetTitleBackgroundColor(title_background_color);
 
           foreach (KeyValuePair<int, SceneInfo> scenes_info in scenes_sorted_list) {
             SceneInfo _info = scenes_info.Value;
@@ -150,14 +151,9 @@ public class SceneSelector : MonoBehaviour {
     while (true) {
       _input = InputController.instance.input;
 
-      //this is the center point of the visible area
-      var maskHalfSize = ((RectTransform)vertical_scroll.transform).rect.size*0.5f;
-      var contentSize = ((RectTransform)cursor.Value.transform.parent.parent).rect.size;
-      //we want the position to be at the middle of the visible area
-      //so get the normalized center offset based on the visible area width and height
-      var normalizedOffsetPosition = new Vector2(maskHalfSize.x / contentSize.x, maskHalfSize.y / contentSize.y);
-      vertical_position = (1 - (float) cursor.Value.GetSceneInfo().category / (rows - 1)) * normalizedOffsetPosition.y;
-        
+      float pos_y = (int) cursor.Value.GetSceneInfo().category * 450 - 450/2f;
+      vertical_position = new Vector3(0f, scrolling_pane.sizeDelta.y / -2 + pos_y, 0f);
+      
       float horizontal = _input.GetHorizontalLeftStick();
       float vertical = _input.GetVerticalLeftStick();
       
@@ -223,10 +219,11 @@ public class SceneSelector : MonoBehaviour {
         }
       }
       
-      yield return new WaitForSecondsRealtime(0.16f);
+      yield return new WaitForSecondsRealtime(0.18f);
     }
   }
 
+  private Vector3 scroll_velocity;
   private void Update() {
     _input = InputController.instance.input;
     
@@ -243,7 +240,8 @@ public class SceneSelector : MonoBehaviour {
     }
     
     /* smoothly scroll to the vertical position of the category */
-    vertical_scroll.verticalNormalizedPosition = Mathf.Lerp(vertical_scroll.verticalNormalizedPosition, vertical_position, Time.deltaTime * scroll_speed);
+    scrolling_pane.localPosition = Vector3.SmoothDamp(scrolling_pane.localPosition, vertical_position, ref scroll_velocity, scroll_smooth_time);
+    //scrolling_pane.localPosition = Vector3.Lerp(scrolling_pane.localPosition, vertical_position, Time.deltaTime * scroll_speed);
   }
 
 
