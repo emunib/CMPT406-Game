@@ -42,9 +42,9 @@ public class InputController : Singleton<InputController> {
     }
     
     /* instantiate other known singletons if must past this point */
-    AudioManager _audio_manager = AudioManager.instance;
-    GameController _game_controller = GameController.instance;
     MainScript _main_script = MainScript.instance;
+    AudioManager _audio_manager = AudioManager.instance;
+    CollectableItems _collectable_items = CollectableItems.instance;
   }
 
   private void Update() {

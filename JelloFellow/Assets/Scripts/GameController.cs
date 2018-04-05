@@ -8,18 +8,18 @@ using UnityEngine.SceneManagement;
 
 public class GameController : Singleton<GameController> {
 
-	public string previousSceneName = "";
+//	public string previousSceneName = "";
 	public string currSceneName = "";
-	public int numCollecablesPrevScene = 0;
-	public int numCollectedPrevScene = 0;
+//	public int numCollecablesPrevScene = 0;
+//	public int numCollectedPrevScene = 0;
 	public HighScores highScores = new HighScores();
-	private Input2D 	input;
+	//private Input2D 	input;
 
 	// Use this for initialization
 	void Awake () {
 		if(instance != this) Destroy(gameObject);
 		
-		input = InputController.instance.input;
+		//input = InputController.instance.input;
 		
 		currSceneName = SceneManager.GetActiveScene().name;
 		Load();
