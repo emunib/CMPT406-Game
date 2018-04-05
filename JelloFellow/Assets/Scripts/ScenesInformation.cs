@@ -99,7 +99,7 @@ public class ScenesInformation {
 		SceneInfo YeeHaw = new SceneInfo();
 		YeeHaw.name = "Yee Haw";
 		YeeHaw.creator = "Nick B.";
-		YeeHaw.total_collectables = 3;
+		YeeHaw.total_collectables = 1;
 		YeeHaw.gold_boundary = new GoldBoundary { boundary = 17f};
 		YeeHaw.silver_boundary = new SilverBoundary { boundary = 22f};
 		YeeHaw.bronze_boundary = new BronzeBoundary { boundary = 35f};
