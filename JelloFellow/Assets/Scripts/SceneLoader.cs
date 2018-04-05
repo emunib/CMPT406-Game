@@ -13,7 +13,8 @@ public class SceneLoader : Singleton<SceneLoader> {
   private Slider bar;
   private Text text;
   private AsyncOperation async_operation;
-
+  public delegate void LoadCompleteDelegate(string scene_name);
+  
   private void Awake() {
     loading_canvas = Resources.Load<GameObject>(loadingscreen_path);
     loading_canvas = Instantiate(loading_canvas, transform);
@@ -24,22 +25,22 @@ public class SceneLoader : Singleton<SceneLoader> {
     loading_gameobject.SetActive(false);
   }
 
-  public void LoadSceneWithName(string _name) {
+  public void LoadSceneWithName(string _name, LoadCompleteDelegate _loaddelegate) {
     text.text = loading_string;
     loading_gameobject.SetActive(true);
-    StartCoroutine(ScaleLoadScene(_name));
+    StartCoroutine(ScaleLoadScene(_name, _loaddelegate));
   }
 
-  private IEnumerator ScaleLoadScene(string _name) {
+  private IEnumerator ScaleLoadScene(string _name, LoadCompleteDelegate _loaddelegate) {
     while (loading_gameobject.transform.localScale != Vector3.one) {
       loading_gameobject.transform.localScale = Vector3.Lerp(loading_gameobject.transform.localScale, Vector3.one, Time.deltaTime * scaletransition_speed);
       yield return null;
     }
 
-    StartCoroutine(LoadLevel(_name));
+    StartCoroutine(LoadLevel(_name, _loaddelegate));
   }
 
-  private IEnumerator LoadLevel(string _name) {
+  private IEnumerator LoadLevel(string _name, LoadCompleteDelegate _loaddelegate) {
     async_operation = SceneManager.LoadSceneAsync(_name, LoadSceneMode.Single);
     //async_operation.allowSceneActivation = false;
     
@@ -51,6 +52,8 @@ public class SceneLoader : Singleton<SceneLoader> {
 //      }
       yield return null;
     }
+
+    _loaddelegate(_name);
     ResetLoadingScreen();
   }
 

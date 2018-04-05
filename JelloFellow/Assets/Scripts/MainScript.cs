@@ -165,13 +165,16 @@ public class MainScript : Singleton<MainScript> {
     }
   }
 
-  public void LoadSceneWithName(string _name) {
+  private void UpdateScenename(string _name) {
     current_scene_name = _name;
-    SceneLoader.instance.LoadSceneWithName(_name);
+  }
+  
+  public void LoadSceneWithName(string _name) {
+    SceneLoader.instance.LoadSceneWithName(_name, UpdateScenename);
   }
   
   public void ReloadCurrentScene() {
-    SceneLoader.instance.LoadSceneWithName(current_scene_name);
+    SceneLoader.instance.LoadSceneWithName(current_scene_name, UpdateScenename);
   }
   
   public void LoadSummary(float _time) {
@@ -196,8 +199,7 @@ public class MainScript : Singleton<MainScript> {
     Save();
     
     current_scene_info = value;
-    current_scene_name = "LevelSummary";
-    SceneLoader.instance.LoadSceneWithName("LevelSummary");
+    SceneLoader.instance.LoadSceneWithName("LevelSummary", UpdateScenename);
   }
 
   /// <summary>

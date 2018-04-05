@@ -210,6 +210,7 @@ public class CollectedItems : MonoBehaviour {
 
 	// Use this for initialization, happens before start
 	void Start () {
+		Destroy(this);
 		
 		// if items doesn't exist, make this 
 		if (script == null) {

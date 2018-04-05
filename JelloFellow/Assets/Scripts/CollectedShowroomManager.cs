@@ -31,7 +31,7 @@ public class CollectedShowroomManager : MonoBehaviour {
     GameObject notetext = transform.Find("NotesView").Find("NoteText").gameObject;
     note = notetext.transform.Find("Text").gameObject.GetComponent<Text>();
     notesview_background = notetext.GetComponent<Image>();
-    note.text = "";
+    note.text = "None Found";
 
     day_resource = Resources.Load<GameObject>(day_path);
     days = new SortedList<int, GameObject>();
@@ -69,6 +69,12 @@ public class CollectedShowroomManager : MonoBehaviour {
         day_text.text = "Day " + day;
         days[day] = day_gameobject;
       }
+      
+      if (days.Count > 0f) {
+        days_crusormanager = new LinkedList<GameObject>(days.Values);
+        cursor = days_crusormanager.First;
+        SelectCursor();
+      }
     }
   }
 
@@ -83,24 +89,26 @@ public class CollectedShowroomManager : MonoBehaviour {
     }
 
     while (true) {
-      Input2D _input = InputController.instance.input;
-      float vertical = _input.GetVerticalLeftStick();
-      
-      float pos_y = days.IndexOfKey(GetDayAtCursor()) * 100 - 100/2f;
-      vertical_position = new Vector3(0f, scrolling_pane.sizeDelta.y / -2 + pos_y, 0f);
-      
-      /* go up (handle categories themselves) */
-      if (vertical == 1f) {
-        if (cursor.Previous != null) {
-          DeselectCursor();
-          cursor = cursor.Previous;
-          SelectCursor();
-        }
-      } else if (vertical == -1f) { /* go down */
-        if (cursor.Next != null) {
-          DeselectCursor();
-          cursor = cursor.Next;
-          SelectCursor();
+      if (cursor != null) {
+        Input2D _input = InputController.instance.input;
+        float vertical = _input.GetVerticalLeftStick();
+
+        float pos_y = days.IndexOfKey(GetDayAtCursor()) * 100 - 100 / 2f;
+        vertical_position = new Vector3(0f, scrolling_pane.sizeDelta.y / -2 + pos_y, 0f);
+
+        /* go up (handle categories themselves) */
+        if (vertical == 1f) {
+          if (cursor.Previous != null) {
+            DeselectCursor();
+            cursor = cursor.Previous;
+            SelectCursor();
+          }
+        } else if (vertical == -1f) { /* go down */
+          if (cursor.Next != null) {
+            DeselectCursor();
+            cursor = cursor.Next;
+            SelectCursor();
+          }
         }
       }
 

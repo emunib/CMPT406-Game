@@ -170,19 +170,21 @@ public class AudioManager : Singleton<AudioManager> {
   }
 
   private void DecideAndPlayClip() {
-    AudioClip clipToPlay;
+    AudioClip clipToPlay = null;
     
     if (currentSceneName == "SceneSelector" || currentSceneName == "MainMenu") {
       clipToPlay = mainMenuClipsQ.Count > 0 ? mainMenuClipsQ.Dequeue() : null;
       mainMenuClipsQ.Enqueue(clipToPlay);
     }
     else {
-      Category world = MainScript.instance.GetScenesInformation().SceneInfos[currentSceneName].category;
+      if(MainScript.instance.GetScenesInformation().SceneInfos.ContainsKey(currentSceneName)) {
+        Category world = MainScript.instance.GetScenesInformation().SceneInfos[currentSceneName].category;
 
-      
-      clipToPlay = worldClipsQ[(int) world].Count > 0 ? worldClipsQ[(int) world].Dequeue() : null;
-      worldClipsQ[(int) world].Enqueue(clipToPlay);
-      
+
+        clipToPlay = worldClipsQ[(int) world].Count > 0 ? worldClipsQ[(int) world].Dequeue() : null;
+        worldClipsQ[(int) world].Enqueue(clipToPlay);
+      }
+
 //
 //      else {
 //        clipToPlay = levelClipsQ.Count > 0 ? levelClipsQ.Dequeue() : null;
@@ -190,7 +192,7 @@ public class AudioManager : Singleton<AudioManager> {
 //      }
     }
 
-    Play(clipToPlay);
+    if(clipToPlay != null) Play(clipToPlay);
   }
 
   private void SceneWasChanged(string scene_name, string prev_scene) {
