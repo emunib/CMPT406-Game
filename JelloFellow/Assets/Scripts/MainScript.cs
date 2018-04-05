@@ -111,6 +111,16 @@ public class MainScript : Singleton<MainScript> {
       StartCoroutine(PlayerInput());
       reset_active = true;
     }
+
+    #if UNITY_EDITOR
+    if (_input.GetButton4Down()) {
+      if (File.Exists(Application.persistentDataPath + gamedata_filename)) {
+        File.Delete(Application.persistentDataPath + gamedata_filename);
+        Debug.Log("Game data file deleted.");
+        UnityEditor.EditorApplication.isPlaying = false;
+      }
+    }
+    #endif
   }
   
   private IEnumerator PlayerInput() {

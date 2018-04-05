@@ -7,12 +7,15 @@ public class CollectedShowroomManager : MonoBehaviour {
   private const string day_path = "Prefabs/UI/Day";
   private readonly Color deselected_color = new Color32(0x00, 0xBC, 0x66, 0xFF);
   private readonly Color selected_color = new Color32(0xFF, 0xCA, 0x3A, 0xFF);
+  private const float scroll_smooth_time = 0.08f;
   
   private Image background;
   private GameObject days_parent;
   private Text note;
   private Image daysview_background;
   private Image notesview_background;
+  private RectTransform scrolling_pane;
+  private Vector3 vertical_position;
   
   private GameObject day_resource;
   private SortedList<int, GameObject> days;
@@ -23,10 +26,12 @@ public class CollectedShowroomManager : MonoBehaviour {
     background = transform.Find("Background").gameObject.GetComponent<Image>();
     GameObject daysview = transform.Find("DaysView").gameObject;
     days_parent = daysview.transform.Find("Days").gameObject;
+    scrolling_pane = days_parent.GetComponent<RectTransform>();
     daysview_background = daysview.GetComponent<Image>();
     GameObject notetext = transform.Find("NotesView").Find("NoteText").gameObject;
     note = notetext.transform.Find("Text").gameObject.GetComponent<Text>();
     notesview_background = notetext.GetComponent<Image>();
+    note.text = "";
 
     day_resource = Resources.Load<GameObject>(day_path);
     days = new SortedList<int, GameObject>();
@@ -71,13 +76,18 @@ public class CollectedShowroomManager : MonoBehaviour {
     /* wait a frame for instantiat to complete so we can set the cursor */
     yield return null;
 
-    days_crusormanager = new LinkedList<GameObject>(days.Values);
-    cursor = days_crusormanager.First;
-    SelectCursor();
-    
+    if (days.Count > 0f) {
+      days_crusormanager = new LinkedList<GameObject>(days.Values);
+      cursor = days_crusormanager.First;
+      SelectCursor();
+    }
+
     while (true) {
       Input2D _input = InputController.instance.input;
       float vertical = _input.GetVerticalLeftStick();
+      
+      float pos_y = days.IndexOfKey(GetDayAtCursor()) * 100 - 100/2f;
+      vertical_position = new Vector3(0f, scrolling_pane.sizeDelta.y / -2 + pos_y, 0f);
       
       /* go up (handle categories themselves) */
       if (vertical == 1f) {
@@ -97,17 +107,30 @@ public class CollectedShowroomManager : MonoBehaviour {
       yield return new WaitForSecondsRealtime(0.15f);
     }
   }
+  
+  private Vector3 scroll_velocity;
+  private void Update() {    
+    /* smoothly scroll to the vertical position of the category */
+    scrolling_pane.localPosition = Vector3.SmoothDamp(scrolling_pane.localPosition, vertical_position, ref scroll_velocity, scroll_smooth_time);
+  }
 
   private void SelectCursor() {
-    GameObject value = cursor.Value;
-    value.GetComponentInChildren<Text>().color = selected_color;
-    
+    if (cursor != null) {
+      GameObject value = cursor.Value;
+      value.GetComponentInChildren<Text>().color = selected_color;
+      note.text = MainScript.instance.GetScenesInformation().Collectables[GetDayAtCursor()];
+    }
+  }
+
+  private int GetDayAtCursor() {
     List<int> keys = new List<int>(days.Keys);
     foreach (int day in keys) {
       if (days[day] == cursor.Value) {
-        note.text = MainScript.instance.GetScenesInformation().Collectables[day];
+        return day;
       }
     }
+
+    return -1;
   }
   
   private void DeselectCursor() {

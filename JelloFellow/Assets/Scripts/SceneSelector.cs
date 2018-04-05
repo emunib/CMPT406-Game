@@ -103,10 +103,10 @@ public class SceneSelector : MonoBehaviour {
           /* instantiate the category */
           GameObject _category = Instantiate(category_resource, Categories.transform);
           GameObject _scenes = _category.transform.Find("Scenes").gameObject;
-
+          
           /* update category settings */
           CategoryOrganizer category_org = _category.GetComponent<CategoryOrganizer>();
-          category_org.SetTitle(VerticalText(_category_enum.ToString()), text_color);
+          category_org.SetTitle(VerticalText("W * " + (int)_category_enum), text_color);
           category_org.SetBackgroundColor(background_color);
           category_org.SetTitleBackgroundColor(title_background_color);
 
