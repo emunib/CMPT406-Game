@@ -25,12 +25,17 @@ public class AudioManager : Singleton<AudioManager> {
   public Queue<AudioClip> levelClipsQ;
   private bool initial;
 
+
+  public Queue<AudioClip>[] worldClipsQ;
+  
   private void Awake() {
     if (instance != this) Destroy(gameObject);
 
     mainMenuThemes = Resources.LoadAll<AudioClip>(mainMenuThemesPath);
     levelThemes = Resources.LoadAll<AudioClip>(levelThemesPath);
 
+    
+    
     MainScript.instance.OnSceneChange += SceneWasChanged;
     //Generate the two AudioSources
     _player = new[] {gameObject.AddComponent<AudioSource>(), gameObject.AddComponent<AudioSource>()};
@@ -53,13 +58,55 @@ public class AudioManager : Singleton<AudioManager> {
   private void InitQueues() {
     mainMenuClipsQ = new Queue<AudioClip>();
     levelClipsQ = new Queue<AudioClip>();
-
+    worldClipsQ = new Queue<AudioClip>[7];
+    for (int i =0; i<7; i++){
+      worldClipsQ[i] = new Queue<AudioClip>();
+    }
+    
     for (int i = 0; i < levelThemes.Length; i++) {
       levelClipsQ.Enqueue(levelThemes[i]);
     }
 
     for (int i = 0; i < mainMenuThemes.Length; i++) {
       mainMenuClipsQ.Enqueue(mainMenuThemes[i]);
+    }
+
+    foreach (AudioClip song in levelThemes) {
+      if (song.name == "jello_1.2") {
+
+        for (var i = 0; i < 5; i++) {
+          worldClipsQ[i].Enqueue(song);
+        }
+      }
+
+      if (song.name == "jello_2") {
+        for (var i = 0; i < 5; i++) {
+           worldClipsQ[i].Enqueue(song);
+        }
+      }
+
+      if (song.name == "jello_3") {
+        worldClipsQ[1].Enqueue(song);
+        worldClipsQ[2].Enqueue(song);
+        worldClipsQ[3].Enqueue(song);
+
+      }
+      if (song.name == "jello_quiet") {
+        worldClipsQ[0].Enqueue(song);
+        worldClipsQ[1].Enqueue(song);
+        worldClipsQ[2].Enqueue(song);
+      }
+      if (song.name == "Dystopia - Chamomild") {
+        for (int  i= 5; i < worldClipsQ.Length; i++) {
+          worldClipsQ[i].Enqueue(song);
+        }
+      }
+      if (song.name == "Jello Cup - Chamomild (1)") {
+        worldClipsQ[5].Enqueue(song);
+        worldClipsQ[6].Enqueue(song);
+
+      }
+      
     }
   }
 
@@ -124,12 +171,23 @@ public class AudioManager : Singleton<AudioManager> {
 
   private void DecideAndPlayClip() {
     AudioClip clipToPlay;
+    
     if (currentSceneName == "SceneSelector" || currentSceneName == "MainMenu") {
       clipToPlay = mainMenuClipsQ.Count > 0 ? mainMenuClipsQ.Dequeue() : null;
       mainMenuClipsQ.Enqueue(clipToPlay);
-    } else {
-      clipToPlay = levelClipsQ.Count > 0 ? levelClipsQ.Dequeue() : null;
-      levelClipsQ.Enqueue(clipToPlay);
+    }
+    else {
+      Category world = MainScript.instance.GetScenesInformation().SceneInfos[currentSceneName].category;
+
+      
+      clipToPlay = worldClipsQ[(int) world].Count > 0 ? worldClipsQ[(int) world].Dequeue() : null;
+      worldClipsQ[(int) world].Enqueue(clipToPlay);
+      
+//
+//      else {
+//        clipToPlay = levelClipsQ.Count > 0 ? levelClipsQ.Dequeue() : null;
+//        levelClipsQ.Enqueue(clipToPlay);
+//      }
     }
 
     Play(clipToPlay);
@@ -137,6 +195,8 @@ public class AudioManager : Singleton<AudioManager> {
 
   private void SceneWasChanged(string scene_name, string prev_scene) {
     currentSceneName = scene_name;
+    
+    
     DecideAndPlayClip();
   }
 }
