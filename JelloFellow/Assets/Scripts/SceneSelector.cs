@@ -219,7 +219,7 @@ public class SceneSelector : MonoBehaviour {
         }
       }
       
-      yield return new WaitForSecondsRealtime(0.18f);
+      yield return new WaitForSecondsRealtime(0.15f);
     }
   }
 
