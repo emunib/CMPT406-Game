@@ -199,6 +199,7 @@ public class MainScript : Singleton<MainScript> {
     Save();
     
     current_scene_info = value;
+    current_scene_name = "LevelSummary";
     SceneLoader.instance.LoadSceneWithName("LevelSummary", UpdateScenename);
   }
 
