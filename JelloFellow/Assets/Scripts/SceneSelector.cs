@@ -106,7 +106,7 @@ public class SceneSelector : MonoBehaviour {
           
           /* update category settings */
           CategoryOrganizer category_org = _category.GetComponent<CategoryOrganizer>();
-          category_org.SetTitle(VerticalText("W * " + (int)_category_enum), text_color);
+          category_org.SetTitle(VerticalText("" + (int)_category_enum), text_color);
           category_org.SetBackgroundColor(background_color);
           category_org.SetTitleBackgroundColor(title_background_color);
 
@@ -180,42 +180,51 @@ public class SceneSelector : MonoBehaviour {
 
       /* go up (handle categories themselves) */
       if (vertical == 1f) {
+        int i = 0;
         LinkedListNode<SceneOrganizer> tmp = cursor;
-        while (tmp != null) {
+        while (tmp != null && i != 4) {
+          i++;
+          tmp = tmp.Previous;
+        }
+
+        if (tmp != null) {
           if (tmp.Value.GetSceneInfo().category != cursor.Value.GetSceneInfo().category) {
             cursor.Value.Deselect();
             cursor = tmp;
 
-            SortedList<int, SceneInfo> value;
-            sorted_sceneinfo.TryGetValue(cursor.Value.GetSceneInfo().category, out value);
-            if (value != null) {
-              int x = value.Count - 1;
-              int i = 0;
-              LinkedListNode<SceneOrganizer> tmp1 = cursor;
-              while (i != x && tmp1 != null) {
-                tmp1 = tmp1.Previous;
-                i++;
-              }
+//            SortedList<int, SceneInfo> value;
+//            sorted_sceneinfo.TryGetValue(cursor.Value.GetSceneInfo().category, out value);
+//            if (value != null) {
+//              int x = value.Count - 1;
+//              int j = 0;
+//              LinkedListNode<SceneOrganizer> tmp1 = cursor;
+//              while (j != x && tmp1 != null) {
+//                tmp1 = tmp1.Previous;
+//                j++;
+//              }
+//
+//              if (tmp1 != null) cursor = tmp1;
+//            }
 
-              if(tmp1 != null) cursor = tmp1;
-            }
             cursor.Value.Select();
             _audio_source.PlayOneShot(_scroll_sound, 1f);
-            break;
           }
-          tmp = tmp.Previous;
         }
       } else if (vertical == -1f) { /* go down */
         LinkedListNode<SceneOrganizer> tmp = cursor;
-        while (tmp != null) {
+        int i = 0;
+        while (tmp != null && i != 4) {
+          i++;
+          tmp = tmp.Next;
+        }
+
+        if (tmp != null) {
           if (tmp.Value.GetSceneInfo().category != cursor.Value.GetSceneInfo().category) {
             cursor.Value.Deselect();
             cursor = tmp;
             cursor.Value.Select();
             _audio_source.PlayOneShot(_scroll_sound, 1f);
-            break;
           }
-          tmp = tmp.Next;
         }
       }
       
