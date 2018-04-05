@@ -298,8 +298,53 @@ public class ScenesInformation {
 		Careful.image_name = "Careful";
 		SceneInfos.Add(Careful.name, Careful);
 		
+		SceneInfo CakeWalk = new SceneInfo();
+		CakeWalk.name = "Cake Walk";
+		CakeWalk.creator = "Qummar G.";
+		CakeWalk.total_collectables = 3;
+		CakeWalk.gold_boundary = new GoldBoundary { boundary = 21f};
+		CakeWalk.silver_boundary = new SilverBoundary { boundary = 25f};
+		CakeWalk.bronze_boundary = new BronzeBoundary { boundary = 30f};
+		CakeWalk.category = Category.World7;
+		CakeWalk.category_index = 1;
+		CakeWalk.image_name = "Cake Walk";
+		SceneInfos.Add(CakeWalk.name, CakeWalk);
 		
+		SceneInfo FrustrationStation = new SceneInfo();
+		FrustrationStation.name = "Frustration Station";
+		FrustrationStation.creator = "Qummar G.";
+		FrustrationStation.total_collectables = 3;
+		FrustrationStation.gold_boundary = new GoldBoundary { boundary = 38f};
+		FrustrationStation.silver_boundary = new SilverBoundary { boundary = 48f};
+		FrustrationStation.bronze_boundary = new BronzeBoundary { boundary = 60f};
+		FrustrationStation.category = Category.World7;
+		FrustrationStation.category_index = 2;
+		FrustrationStation.image_name = "Frustration Station";
+		SceneInfos.Add(FrustrationStation.name, FrustrationStation);
 		
+		SceneInfo ChaosFactory = new SceneInfo();
+		ChaosFactory.name = "Chaos Factory";
+		ChaosFactory.creator = "Qummar G.";
+		ChaosFactory.total_collectables = 3;
+		ChaosFactory.gold_boundary = new GoldBoundary { boundary = 40f};
+		ChaosFactory.silver_boundary = new SilverBoundary { boundary = 79f};
+		ChaosFactory.bronze_boundary = new BronzeBoundary { boundary = 100f};
+		ChaosFactory.category = Category.World7;
+		ChaosFactory.category_index = 3;
+		ChaosFactory.image_name = "Chaos Factory";
+		SceneInfos.Add(ChaosFactory.name, ChaosFactory);
+		
+		SceneInfo QummarsCavern = new SceneInfo();
+		QummarsCavern.name = "Qummar's Cavern";
+		QummarsCavern.creator = "Qummar G.";
+		QummarsCavern.total_collectables = 3;
+		QummarsCavern.gold_boundary = new GoldBoundary { boundary = 75f};
+		QummarsCavern.silver_boundary = new SilverBoundary { boundary = 118f};
+		QummarsCavern.bronze_boundary = new BronzeBoundary { boundary = 180f};
+		QummarsCavern.category = Category.World7;
+		QummarsCavern.category_index = 4;
+		QummarsCavern.image_name = "Qummar's Cavern";
+		SceneInfos.Add(QummarsCavern.name, QummarsCavern);
 		
 		
 		
