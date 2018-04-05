@@ -26,6 +26,7 @@ public class CollectedItems : MonoBehaviour {
 	private float desc_x_cur;
 	private float title_y_rem;
 	private float curTime = 0;				// How long the remaining GUI has been on the screen for
+	private float select_timer = 0;
 
 	public static CollectedItems script;	// Make a static class of self, needed for this singleton data structure
 	public bool display;					// Trigger on/off to display the items menu
@@ -311,9 +312,9 @@ public class CollectedItems : MonoBehaviour {
 				LinkedListNode<Item> cur = items.First;
 				Collectable c = obs [i].GetComponent<Collectable> ();
 
-				if (c.isCollected ()) {
-					numFound++;
-				}
+//				if (c.isCollected ()) {
+//					numFound++;
+//				}
 
 			}
 
@@ -583,13 +584,15 @@ public class CollectedItems : MonoBehaviour {
 
 	public void Update() {
 	 	
-		//Input2D input = InputController.instance.GetInput();
+		select_timer = select_timer + Time.deltaTime;
 
 		Input2D input = InputController.instance.input;
 
 		
 		// Going to the list of items
-		if ((input.GetHorizontalLeftStick() < 0 || Input.GetKeyDown (KeyCode.DownArrow)) && display) {
+		if ((input.GetHorizontalLeftStick() > 0 || Input.GetKeyDown (KeyCode.DownArrow)) && display && select_timer > 0.25) {
+
+			select_timer = 0;
 
 			LinkedListNode<Item> current = itemsToDisplay.First;
 			LinkedListNode<Item> currentAll = items.First;
@@ -629,7 +632,9 @@ public class CollectedItems : MonoBehaviour {
 		}
 
 		// Going up the list of items
-		if ((input.GetHorizontalLeftStick() > 0  || Input.GetKeyDown (KeyCode.UpArrow)) && display) {
+		if ((input.GetHorizontalLeftStick() < 0  || Input.GetKeyDown (KeyCode.UpArrow)) && display && select_timer > 0.25) {
+
+			select_timer = 0;
 
 			LinkedListNode<Item> current = itemsToDisplay.First;
 			LinkedListNode<Item> currentAll = items.First;

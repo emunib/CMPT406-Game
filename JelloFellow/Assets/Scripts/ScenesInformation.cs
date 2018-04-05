@@ -6,8 +6,10 @@ using UnityEngine;
 [Serializable]
 public class ScenesInformation {
 	public readonly Dictionary<string, SceneInfo> SceneInfos;
+	public Dictionary<int, string> Collectables;
 
 	public ScenesInformation() {
+		Collectables = new Dictionary<int, string>();
 		SceneInfos = new Dictionary<string, SceneInfo>();
 		
 		SceneInfo welcome = new SceneInfo();
@@ -25,7 +27,7 @@ public class ScenesInformation {
 		SceneInfo easy_peezy = new SceneInfo();
 		easy_peezy.name = "Easy Peezy";
 		easy_peezy.creator = "Sarah V.";
-		easy_peezy.total_collectables = 3;
+		easy_peezy.total_collectables = 2;
 		easy_peezy.gold_boundary = new GoldBoundary { boundary = 5f};
 		easy_peezy.silver_boundary = new SilverBoundary { boundary = 7f};
 		easy_peezy.bronze_boundary = new BronzeBoundary { boundary = 10f};
@@ -36,7 +38,7 @@ public class ScenesInformation {
 		
 		SceneInfo TheSpikeyWay = new SceneInfo();
 		TheSpikeyWay.name = "The Spikey Way";
-		TheSpikeyWay.creator = "Qummar G.";
+		TheSpikeyWay.creator = "Qammer G.";
 		TheSpikeyWay.total_collectables = 3;
 		TheSpikeyWay.gold_boundary = new GoldBoundary { boundary = 8f};
 		TheSpikeyWay.silver_boundary = new SilverBoundary { boundary = 10f};
@@ -204,7 +206,7 @@ public class ScenesInformation {
 		
 		SceneInfo HeadsUp = new SceneInfo();
 		HeadsUp.name = "Heads Up!";
-		HeadsUp.creator = "Qummar G.";
+		HeadsUp.creator = "Qammer G.";
 		HeadsUp.total_collectables = 3;
 		HeadsUp.gold_boundary = new GoldBoundary { boundary = 26f};
 		HeadsUp.silver_boundary = new SilverBoundary { boundary = 43f};
@@ -216,7 +218,7 @@ public class ScenesInformation {
 		
 		SceneInfo DeathAlley = new SceneInfo();
 		DeathAlley.name = "Death Alley";
-		DeathAlley.creator = "Qummar G.";
+		DeathAlley.creator = "Qammer G.";
 		DeathAlley.total_collectables = 3;
 		DeathAlley.gold_boundary = new GoldBoundary { boundary = 11f};
 		DeathAlley.silver_boundary = new SilverBoundary { boundary = 13f};
@@ -276,7 +278,7 @@ public class ScenesInformation {
 		
 		SceneInfo Dexterity = new SceneInfo();
 		Dexterity.name = "Dexterity";
-		Dexterity.creator = "Qummar G.";
+		Dexterity.creator = "Qammer G.";
 		Dexterity.total_collectables = 3;
 		Dexterity.gold_boundary = new GoldBoundary { boundary = 27f};
 		Dexterity.silver_boundary = new SilverBoundary { boundary = 62f};
@@ -288,7 +290,7 @@ public class ScenesInformation {
 		
 		SceneInfo Careful = new SceneInfo();
 		Careful.name = "Careful";
-		Careful.creator = "Qummar G.";
+		Careful.creator = "Qammer G.";
 		Careful.total_collectables = 3;
 		Careful.gold_boundary = new GoldBoundary { boundary = 18f};
 		Careful.silver_boundary = new SilverBoundary { boundary = 29f};
@@ -300,7 +302,7 @@ public class ScenesInformation {
 		
 		SceneInfo CakeWalk = new SceneInfo();
 		CakeWalk.name = "Cake Walk";
-		CakeWalk.creator = "Qummar G.";
+		CakeWalk.creator = "Qammer G.";
 		CakeWalk.total_collectables = 3;
 		CakeWalk.gold_boundary = new GoldBoundary { boundary = 21f};
 		CakeWalk.silver_boundary = new SilverBoundary { boundary = 25f};
@@ -312,7 +314,7 @@ public class ScenesInformation {
 		
 		SceneInfo FrustrationStation = new SceneInfo();
 		FrustrationStation.name = "Frustration Station";
-		FrustrationStation.creator = "Qummar G.";
+		FrustrationStation.creator = "Qammer G.";
 		FrustrationStation.total_collectables = 3;
 		FrustrationStation.gold_boundary = new GoldBoundary { boundary = 38f};
 		FrustrationStation.silver_boundary = new SilverBoundary { boundary = 48f};
@@ -324,7 +326,7 @@ public class ScenesInformation {
 		
 		SceneInfo ChaosFactory = new SceneInfo();
 		ChaosFactory.name = "Chaos Factory";
-		ChaosFactory.creator = "Qummar G.";
+		ChaosFactory.creator = "Qammer G.";
 		ChaosFactory.total_collectables = 3;
 		ChaosFactory.gold_boundary = new GoldBoundary { boundary = 40f};
 		ChaosFactory.silver_boundary = new SilverBoundary { boundary = 79f};
@@ -334,17 +336,17 @@ public class ScenesInformation {
 		ChaosFactory.image_name = "Chaos Factory";
 		SceneInfos.Add(ChaosFactory.name, ChaosFactory);
 		
-		SceneInfo QummarsCavern = new SceneInfo();
-		QummarsCavern.name = "Qummar's Cavern";
-		QummarsCavern.creator = "Qummar G.";
-		QummarsCavern.total_collectables = 3;
-		QummarsCavern.gold_boundary = new GoldBoundary { boundary = 75f};
-		QummarsCavern.silver_boundary = new SilverBoundary { boundary = 118f};
-		QummarsCavern.bronze_boundary = new BronzeBoundary { boundary = 180f};
-		QummarsCavern.category = Category.World7;
-		QummarsCavern.category_index = 4;
-		QummarsCavern.image_name = "Qummar's Cavern";
-		SceneInfos.Add(QummarsCavern.name, QummarsCavern);
+		SceneInfo QammersCavern = new SceneInfo();
+		QammersCavern.name = "Qammer's Cavern";
+		QammersCavern.creator = "Qammer G.";
+		QammersCavern.total_collectables = 3;
+		QammersCavern.gold_boundary = new GoldBoundary { boundary = 75f};
+		QammersCavern.silver_boundary = new SilverBoundary { boundary = 118f};
+		QammersCavern.bronze_boundary = new BronzeBoundary { boundary = 180f};
+		QammersCavern.category = Category.World7;
+		QammersCavern.category_index = 4;
+		QammersCavern.image_name = "Qammer's Cavern";
+		SceneInfos.Add(QammersCavern.name, QammersCavern);
 		
 		
 		

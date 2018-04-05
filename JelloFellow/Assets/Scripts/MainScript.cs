@@ -85,7 +85,7 @@ public class MainScript : Singleton<MainScript> {
     }
   }
   
-  private void Save() {
+  public void Save() {
     /* save gamedata to file, and if file exists overwrite it */
     BinaryFormatter bf = new BinaryFormatter();
     FileStream file = File.Create(Application.persistentDataPath + gamedata_filename);
