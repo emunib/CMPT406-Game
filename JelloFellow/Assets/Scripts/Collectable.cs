@@ -23,7 +23,8 @@ public class Collectable : MonoBehaviour {
 		if ((col.gameObject.CompareTag ("Blob") || col.gameObject.CompareTag ("Player")) && !collected) {
 			
 			script = GameObject.Find ("CollectedItems").GetComponent<CollectedItems> ();
-			script.AddItem (gameObject.name, description, image);
+			script.AddItem (gameObject.name, description, true, image);
+			script.increaseNumFound ();
 			setCollected(true);
 		}
 
@@ -37,6 +38,19 @@ public class Collectable : MonoBehaviour {
 		collected = x;
 		gameObject.GetComponent<SpriteRenderer> ().sprite = gray;
 		Destroy(gameObject.GetComponent<BoxCollider2D> ());
+	}
+
+	/// <summary>
+	/// gets collected.
+	/// </summary>
+	public bool isCollected() {
+		return collected;
+	}
+
+	void Awake() {
+		script = GameObject.Find ("CollectedItems").GetComponent<CollectedItems> ();
+		script.zeroNumFound ();
+		script.zeroNumInScene ();
 	}
 
     // Use this for initialization
@@ -59,10 +73,21 @@ public class Collectable : MonoBehaviour {
 		for (int i = 0; i < letters.Length; i++) {
 
 			// If the collectible is already in the list of collected items, set it as collected.
-			if (script.isCollected (letters [i].name)) {
+			if (script.getCollected (letters [i].name)) {
 				letters [i].GetComponent<Collectable>().setCollected(true);		
 			}
 		}
+
+		Collider2D col = GetComponent<Collider2D>();
+		col.isTrigger = true;
+
+		if (!script.isCollected (gameObject.name)) {
+			script.AddItem (gameObject.name, description, false, image);
+		}
+
+		script.increaseNumInScene ();
+		if (collected)
+			script.increaseNumFound();
 
 	}
 	
