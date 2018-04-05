@@ -17,6 +17,7 @@ public class Collectable : MonoBehaviour {
 	public float accel = 1;
 	public Sprite gray;
 	public Texture2D image;
+	public int day;
 
     private void OnTriggerEnter2D(Collider2D col) {
 
