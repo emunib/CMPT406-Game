@@ -6,9 +6,10 @@ using UnityEngine;
 [Serializable]
 public class ScenesInformation {
 	public readonly Dictionary<string, SceneInfo> SceneInfos;
-	public SortedDictionary<int, string> Collectables;
+	public Dictionary<int, string> Collectables;
 
 	public ScenesInformation() {
+		Collectables = new Dictionary<int, string>();
 		SceneInfos = new Dictionary<string, SceneInfo>();
 		
 		SceneInfo welcome = new SceneInfo();

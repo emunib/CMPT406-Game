@@ -312,9 +312,9 @@ public class CollectedItems : MonoBehaviour {
 				LinkedListNode<Item> cur = items.First;
 				Collectable c = obs [i].GetComponent<Collectable> ();
 
-				if (c.isCollected ()) {
-					numFound++;
-				}
+//				if (c.isCollected ()) {
+//					numFound++;
+//				}
 
 			}
 

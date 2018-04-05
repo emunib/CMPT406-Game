@@ -127,7 +127,7 @@ public class CollectableItems : Singleton<CollectableItems> {
   public void CollectedItem(int _day, string _desc) {
     ScenesInformation _information = MainScript.instance.GetScenesInformation();
     /* if dictionary is not allocated then do so */
-    if(_information.Collectables == null) _information.Collectables = new SortedDictionary<int, string>();
+    //if(_information.Collectables == null) _information.Collectables = new Dictionary<int, string>();
     
     /* if the day is already in the dictionary then let developers know its an error */
     if (_information.Collectables.ContainsKey(_day)) {

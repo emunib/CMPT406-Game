@@ -35,7 +35,7 @@ public class CollectedShowroomManager : MonoBehaviour {
 
   public void RefreshDays() {
     /* update the days sortedlist if a key does not exist */
-    SortedDictionary<int, string>.KeyCollection keys = MainScript.instance.GetScenesInformation().Collectables.Keys;
+    SortedDictionary<int, string>.KeyCollection keys = new SortedDictionary<int, string>(MainScript.instance.GetScenesInformation().Collectables).Keys;
     foreach (int day in keys) {
       if (!days.ContainsKey(day)) {        
         days.Add(day, null);
