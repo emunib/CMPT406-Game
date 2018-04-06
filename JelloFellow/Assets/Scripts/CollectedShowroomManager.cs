@@ -112,7 +112,7 @@ public class CollectedShowroomManager : MonoBehaviour {
         }
       }
 
-      yield return new WaitForSecondsRealtime(0.15f);
+      yield return new WaitForSecondsRealtime(0.14f);
     }
   }
   

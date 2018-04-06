@@ -12,7 +12,7 @@ using UnityEngine.UI;
 public class MenuSelector : MonoBehaviour {
   private const string menuchoosesound_path = "Sounds/menu_choose";
   private const string menuselectsound_path = "Sounds/menu_select2";
-  private const float force = 2f;
+  private const float force = 1f;
   
   [SerializeField] private Button[] buttonsArray;
   [SerializeField] private bool textColor;
@@ -30,7 +30,6 @@ public class MenuSelector : MonoBehaviour {
   private AudioSource _audio_source;
   private AudioClip _choose_sound;
   private AudioClip _scroll_sound;
-  private float annoyance_sign;
   
   public void Start() {
     highlight_color = new Color32(0xFF, 0xCA, 0x3A, 0xFF);
@@ -71,11 +70,6 @@ public class MenuSelector : MonoBehaviour {
     input = InputController.instance.input;
     float ver_m = input.GetVerticalLeftStick();
     
-    if (ver_m != 0f && ver_m != annoyance_sign) {
-      _audio_source.PlayOneShot(_scroll_sound, 1f);
-      annoyance_sign = Mathf.Sign(ver_m);
-    }
-
     if (Mathf.Abs(ver_m) > 0) {
       //Move Up
       if (ver_m > 0) {
@@ -92,7 +86,7 @@ public class MenuSelector : MonoBehaviour {
       
       if (textColor) {
         buttonsArray[old_index].GetComponentInChildren<Text>().color = old_color;
-        
+        if(old_index != index) _audio_source.PlayOneShot(_scroll_sound, 1f);
         old_index = index;
         old_color = buttonsArray[index].GetComponentInChildren<Text>().color;
         buttonsArray[index].GetComponentInChildren<Text>().color = highlight_color;
