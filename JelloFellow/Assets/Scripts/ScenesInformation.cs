@@ -12,29 +12,29 @@ public class ScenesInformation {
 		Collectables = new Dictionary<int, string>();
 		SceneInfos = new Dictionary<string, SceneInfo>();
 		
-		SceneInfo welcome = new SceneInfo();
-		welcome.name = "Welcome";
-		welcome.creator = "Sarah V.";
-		welcome.total_collectables = 5;
-		welcome.gold_boundary = new GoldBoundary { boundary = 5f};
-		welcome.silver_boundary = new SilverBoundary { boundary = 7f};
-		welcome.bronze_boundary = new BronzeBoundary { boundary = 15f};
-		welcome.category = Category.World1;
-		welcome.category_index = 1;
-		welcome.image_name = "Welcome";
-		SceneInfos.Add(welcome.name, welcome);
+		SceneInfo Welcome = new SceneInfo();
+		Welcome.name = "Welcome";
+		Welcome.creator = "Sarah V.";
+		Welcome.total_collectables = 5;
+		Welcome.gold_boundary = new GoldBoundary { boundary = 5f};
+		Welcome.silver_boundary = new SilverBoundary { boundary = 7f};
+		Welcome.bronze_boundary = new BronzeBoundary { boundary = 15f};
+		Welcome.category = Category.World1;
+		Welcome.category_index = 1;
+		Welcome.image_name = "Welcome";
+		SceneInfos.Add(Welcome.name, Welcome);
 		
-		SceneInfo easy_peezy = new SceneInfo();
-		easy_peezy.name = "Easy Peezy";
-		easy_peezy.creator = "Sarah V.";
-		easy_peezy.total_collectables = 2;
-		easy_peezy.gold_boundary = new GoldBoundary { boundary = 5f};
-		easy_peezy.silver_boundary = new SilverBoundary { boundary = 7f};
-		easy_peezy.bronze_boundary = new BronzeBoundary { boundary = 10f};
-		easy_peezy.category = Category.World1;
-		easy_peezy.category_index = 2;
-		easy_peezy.image_name = "Easy Peezy";
-		SceneInfos.Add(easy_peezy.name, easy_peezy);
+		SceneInfo EasyPeezy = new SceneInfo();
+		EasyPeezy.name = "Easy Peezy";
+		EasyPeezy.creator = "Sarah V.";
+		EasyPeezy.total_collectables = 2;
+		EasyPeezy.gold_boundary = new GoldBoundary { boundary = 5f};
+		EasyPeezy.silver_boundary = new SilverBoundary { boundary = 7f};
+		EasyPeezy.bronze_boundary = new BronzeBoundary { boundary = 10f};
+		EasyPeezy.category = Category.World1;
+		EasyPeezy.category_index = 2;
+		EasyPeezy.image_name = "Easy Peezy";
+		SceneInfos.Add(EasyPeezy.name, EasyPeezy);
 		
 		SceneInfo TheSpikeyWay = new SceneInfo();
 		TheSpikeyWay.name = "The Spikey Way";
@@ -184,9 +184,9 @@ public class ScenesInformation {
 		Ascension.name = "Ascension";
 		Ascension.creator = "Cody B.";
 		Ascension.total_collectables = 3;
-		Ascension.gold_boundary = new GoldBoundary { boundary = 2.5f};
-		Ascension.silver_boundary = new SilverBoundary { boundary = 5f};
-		Ascension.bronze_boundary = new BronzeBoundary { boundary = 10f};
+		Ascension.gold_boundary = new GoldBoundary { boundary = 20f};
+		Ascension.silver_boundary = new SilverBoundary { boundary = 30f};
+		Ascension.bronze_boundary = new BronzeBoundary { boundary = 40f};
 		Ascension.category = Category.World4;
 		Ascension.category_index = 3;
 		Ascension.image_name = "Ascension";
@@ -348,18 +348,101 @@ public class ScenesInformation {
 		QammersCavern.image_name = "Qammer's Cavern";
 		SceneInfos.Add(QammersCavern.name, QammersCavern);
 		
+		SceneInfo Chute = new SceneInfo();
+		Chute.name = "Chute";
+		Chute.creator = "Qammer G.";
+		Chute.total_collectables = 3;
+		Chute.gold_boundary = new GoldBoundary { boundary = 1000f};
+		Chute.silver_boundary = new SilverBoundary { boundary = 1001f};
+		Chute.bronze_boundary = new BronzeBoundary { boundary = 1002f};
+		Chute.category = Category.Bonus;
+		Chute.category_index = 1;
+		Chute.image_name = "Chute";
+		SceneInfos.Add(Chute.name, Chute);
 		
+		SceneInfo GoodLuck = new SceneInfo();
+		GoodLuck.name = "GoodLuck";
+		GoodLuck.creator = "Qammer G.";
+		GoodLuck.total_collectables = 3;
+		GoodLuck.gold_boundary = new GoldBoundary { boundary = 1000f};
+		GoodLuck.silver_boundary = new SilverBoundary { boundary = 1001f};
+		GoodLuck.bronze_boundary = new BronzeBoundary { boundary = 1002f};
+		GoodLuck.category = Category.Bonus;
+		GoodLuck.category_index = 2;
+		GoodLuck.image_name = "GoodLuck";
+		SceneInfos.Add(GoodLuck.name, GoodLuck);
 		
+		SceneInfo Hellscape = new SceneInfo();
+		Hellscape.name = "Hellscape";
+		Hellscape.creator = "Qammer G.";
+		Hellscape.total_collectables = 3;
+		Hellscape.gold_boundary = new GoldBoundary { boundary = 1000f};
+		Hellscape.silver_boundary = new SilverBoundary { boundary = 1001f};
+		Hellscape.bronze_boundary = new BronzeBoundary { boundary = 1002f};
+		Hellscape.category = Category.Bonus;
+		Hellscape.category_index = 3;
+		Hellscape.image_name = "Hellscape";
+		SceneInfos.Add(Hellscape.name, Hellscape);
 		
+		SceneInfo Medium = new SceneInfo();
+		Medium.name = "Medium";
+		Medium.creator = "Qammer G.";
+		Medium.total_collectables = 3;
+		Medium.gold_boundary = new GoldBoundary { boundary = 1000f};
+		Medium.silver_boundary = new SilverBoundary { boundary = 1001f};
+		Medium.bronze_boundary = new BronzeBoundary { boundary = 1002f};
+		Medium.category = Category.Bonus;
+		Medium.category_index = 4;
+		Medium.image_name = "Medium";
+		SceneInfos.Add(Medium.name, Medium);
 		
+		SceneInfo MoshPit = new SceneInfo();
+		MoshPit.name = "Mosh Pit";
+		MoshPit.creator = "Qammer G.";
+		MoshPit.total_collectables = 3;
+		MoshPit.gold_boundary = new GoldBoundary { boundary = 1000f};
+		MoshPit.silver_boundary = new SilverBoundary { boundary = 1001f};
+		MoshPit.bronze_boundary = new BronzeBoundary { boundary = 1002f};
+		MoshPit.category = Category.Bonus;
+		MoshPit.category_index = 5;
+		MoshPit.image_name = "Mosh Pit";
+		SceneInfos.Add(MoshPit.name, MoshPit);
 		
+		SceneInfo Newton = new SceneInfo();
+		Newton.name = "Newton";
+		Newton.creator = "Qammer G.";
+		Newton.total_collectables = 3;
+		Newton.gold_boundary = new GoldBoundary { boundary = 1000f};
+		Newton.silver_boundary = new SilverBoundary { boundary = 1001f};
+		Newton.bronze_boundary = new BronzeBoundary { boundary = 1002f};
+		Newton.category = Category.Bonus;
+		Newton.category_index = 6;
+		Newton.image_name = "Newton";
+		SceneInfos.Add(Newton.name, Newton);
 		
+		SceneInfo SawLand = new SceneInfo();
+		SawLand.name = "SawLand";
+		SawLand.creator = "Qammer G.";
+		SawLand.total_collectables = 3;
+		SawLand.gold_boundary = new GoldBoundary { boundary = 1000f};
+		SawLand.silver_boundary = new SilverBoundary { boundary = 1001f};
+		SawLand.bronze_boundary = new BronzeBoundary { boundary = 1002f};
+		SawLand.category = Category.Bonus;
+		SawLand.category_index = 7;
+		SawLand.image_name = "SawLand";
+		SceneInfos.Add(SawLand.name, SawLand);
 		
-		
-		
-		
-		
-		
+		SceneInfo TheVacuum = new SceneInfo();
+		TheVacuum.name = "The Vacuum";
+		TheVacuum.creator = "Qammer G.";
+		TheVacuum.total_collectables = 3;
+		TheVacuum.gold_boundary = new GoldBoundary { boundary = 1000f};
+		TheVacuum.silver_boundary = new SilverBoundary { boundary = 1001f};
+		TheVacuum.bronze_boundary = new BronzeBoundary { boundary = 1002f};
+		TheVacuum.category = Category.Bonus;
+		TheVacuum.category_index = 8;
+		TheVacuum.image_name = "The Vacuum";
+		SceneInfos.Add(TheVacuum.name, TheVacuum);
 	}
 
 	public SceneInfo[] GetAllInfo() {
