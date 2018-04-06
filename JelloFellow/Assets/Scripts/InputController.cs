@@ -47,29 +47,25 @@ public class InputController : Singleton<InputController> {
     CollectableItems _collectable_items = CollectableItems.instance;
   }
 
-  private void Update() {
-    /* get the valid controller in the joystick names */
-    foreach (string controller in Input.GetJoystickNames()) {
-      string lower_controller = controller.ToLower();
-
-      /* xbox support */
-      if (lower_controller.Contains("xbox") || lower_controller.Contains("microsoft")) {
-        info = gameObject.AddComponent<XBoxOneControllerInfo>();
-        break;
-      } 
-      
-      /* ps4 support */
-      if(lower_controller.Contains("sony")) {
-        info = gameObject.AddComponent<Ps4ControllerInfo>();
-        break;
-      }
-    }
-
-    if (info == null) {
-      no_input = true;
-    }
-    
+  private void Update() {    
     if (no_input) {
+      /* get the valid controller in the joystick names */
+      foreach (string controller in Input.GetJoystickNames()) {
+        string lower_controller = controller.ToLower();
+
+        /* xbox support */
+        if (lower_controller.Contains("xbox") || lower_controller.Contains("microsoft")) {
+          info = gameObject.AddComponent<XBoxOneControllerInfo>();
+          break;
+        } 
+      
+        /* ps4 support */
+        if(lower_controller.Contains("sony")) {
+          info = gameObject.AddComponent<Ps4ControllerInfo>();
+          break;
+        }
+      }
+      
       if (info != null) {
         /* output controller type */
         Debug.Log("Controller: " + info.controller_type());

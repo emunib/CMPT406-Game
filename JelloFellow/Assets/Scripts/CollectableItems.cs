@@ -27,7 +27,7 @@ public class CollectableItems : Singleton<CollectableItems> {
     current_scenename = SceneManager.GetActiveScene().name;
     MainScript.instance.OnSceneChange += SceneWasChanged;
 
-    inmenu = current_scenename == "MainMenu" || current_scenename == "SceneSelector" || current_scenename == "LevelSummary";
+    inmenu = current_scenename == "MainMenu" || current_scenename == "SceneSelector" || current_scenename == "LevelSummary" || current_scenename == "Credits";
     GameObject collected_canvas = Resources.Load<GameObject>(collectedui_path);
     collected_canvas = Instantiate(collected_canvas, transform);
     collected_text = collected_canvas.GetComponentInChildren<Text>();
@@ -49,7 +49,7 @@ public class CollectableItems : Singleton<CollectableItems> {
   
   private void SceneWasChanged(string scene_name, string prev_scene) {
     current_scenename = scene_name;
-    inmenu = current_scenename == "MainMenu" || current_scenename == "SceneSelector" || current_scenename == "LevelSummary";
+    inmenu = current_scenename == "MainMenu" || current_scenename == "SceneSelector" || current_scenename == "LevelSummary" || current_scenename == "Credits";
     if (inmenu && active_in_scene) {
       if (collected_canvasfader != null) {
         StopCoroutine(collected_canvasfader);

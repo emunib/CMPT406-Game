@@ -9,11 +9,8 @@ public class CollectedShowroomManager : MonoBehaviour {
   private readonly Color selected_color = new Color32(0xFF, 0xCA, 0x3A, 0xFF);
   private const float scroll_smooth_time = 0.08f;
   
-  private Image background;
   private GameObject days_parent;
   private Text note;
-  private Image daysview_background;
-  private Image notesview_background;
   private RectTransform scrolling_pane;
   private Vector3 vertical_position;
   
@@ -23,14 +20,11 @@ public class CollectedShowroomManager : MonoBehaviour {
   private LinkedListNode<GameObject> cursor;
   
   private void Awake() {
-    background = transform.Find("Background").gameObject.GetComponent<Image>();
     GameObject daysview = transform.Find("DaysView").gameObject;
     days_parent = daysview.transform.Find("Days").gameObject;
     scrolling_pane = days_parent.GetComponent<RectTransform>();
-    daysview_background = daysview.GetComponent<Image>();
     GameObject notetext = transform.Find("NotesView").Find("NoteText").gameObject;
     note = notetext.transform.Find("Text").gameObject.GetComponent<Text>();
-    notesview_background = notetext.GetComponent<Image>();
     note.text = "None Found";
 
     day_resource = Resources.Load<GameObject>(day_path);
