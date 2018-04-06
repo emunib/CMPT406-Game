@@ -24,7 +24,7 @@ public class SceneOrganizer : MonoBehaviour {
   private void Start() {
     scene_background = GetComponent<Image>();
     scene_image = transform.Find("Image").gameObject.GetComponent<Image>();
-    scene_text = transform.Find("Name").gameObject.GetComponent<Text>();
+    scene_text = transform.Find("Name").Find("Title").gameObject.GetComponent<Text>();
 
     scene_name = scene_text.text;
     scene_name_color = scene_text.color;

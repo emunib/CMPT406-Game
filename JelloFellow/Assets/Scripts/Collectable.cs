@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class Collectable : MonoBehaviour {
 	private const string collectedsprite_path = "Sprites/collected";
-
+	private const float amplitude = 1f;
+	private const float speed = 0.8f; 
+	
 	[CustomLabel("Day of note")] [Tooltip("The day the note was created.")] [SerializeField]
 	private int day;
   
@@ -12,19 +14,18 @@ public class Collectable : MonoBehaviour {
 	private string description;
 
 	private bool commited;
-	private bool collected;
-	private float dy = 0;
-
-	public float y_speed = 1.5f;
-	public float accel = 1;
-
+	private bool collected;	
+	private Vector3 tempPos;	
+	private float tempVal;
+	
 	private void Start() {
 		commited = false;
 		collected = false;
+		tempPos = transform.position;
+		tempVal = tempPos.y;
 	}
 
 	private void Update() {
-
 		/* check if we have been already collected */
 		if (CollectableItems.IsCollected(day) && !collected) {
 			/* destroy collider (trigger), change sprite to collected sprite */
@@ -35,19 +36,8 @@ public class Collectable : MonoBehaviour {
 		}
 
 		if (!collected) {
-			
-			// Movement effect, update y_speed by accel
-			dy = dy + accel * Time.deltaTime;
-
-			// If y speed exceeds max, reverse the acceleration
-			if (Mathf.Abs (dy) > y_speed) {
-				accel = -accel;
-			}
-
-			// Update y position according to speed
-			Vector3 pos = gameObject.transform.position;
-			gameObject.transform.position = new Vector3 (pos.x, pos.y + dy * Time.deltaTime, pos.z);
-
+			tempPos.y = tempVal +  amplitude * Mathf.Sin(speed * Time.time);
+			transform.position = tempPos;
 		}
 
 	}
