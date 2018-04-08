@@ -159,7 +159,7 @@ public class ScenesInformation {
 		SceneInfo Ram = new SceneInfo();
 		Ram.name = "Ram";
 		Ram.creator = "Sarah V.";
-		Ram.total_collectables = 3;
+		Ram.total_collectables = 1;
 		Ram.gold_boundary = new GoldBoundary { boundary = 5};
 		Ram.silver_boundary = new SilverBoundary { boundary = 8f};
 		Ram.bronze_boundary = new BronzeBoundary { boundary = 10f};
@@ -171,7 +171,7 @@ public class ScenesInformation {
 		SceneInfo TinyTest = new SceneInfo();
 		TinyTest.name = "Tiny Test";
 		TinyTest.creator = "Parker N.";
-		TinyTest.total_collectables = 3;
+		TinyTest.total_collectables = 1;
 		TinyTest.gold_boundary = new GoldBoundary { boundary = 2.5f};
 		TinyTest.silver_boundary = new SilverBoundary { boundary = 5f};
 		TinyTest.bronze_boundary = new BronzeBoundary { boundary = 10f};
@@ -183,7 +183,7 @@ public class ScenesInformation {
 		SceneInfo Ascension = new SceneInfo();
 		Ascension.name = "Ascension";
 		Ascension.creator = "Cody B.";
-		Ascension.total_collectables = 3;
+		Ascension.total_collectables = 2;
 		Ascension.gold_boundary = new GoldBoundary { boundary = 20f};
 		Ascension.silver_boundary = new SilverBoundary { boundary = 30f};
 		Ascension.bronze_boundary = new BronzeBoundary { boundary = 40f};
@@ -195,7 +195,7 @@ public class ScenesInformation {
 		SceneInfo RitaHayworth = new SceneInfo();
 		RitaHayworth.name = "Rita Hayworth";
 		RitaHayworth.creator = "Austin P.";
-		RitaHayworth.total_collectables = 3;
+		RitaHayworth.total_collectables = 1;
 		RitaHayworth.gold_boundary = new GoldBoundary { boundary = 63f};
 		RitaHayworth.silver_boundary = new SilverBoundary { boundary = 96f};
 		RitaHayworth.bronze_boundary = new BronzeBoundary { boundary = 139f};
