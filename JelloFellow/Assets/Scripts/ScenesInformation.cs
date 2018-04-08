@@ -207,7 +207,7 @@ public class ScenesInformation {
 		SceneInfo HeadsUp = new SceneInfo();
 		HeadsUp.name = "Heads Up!";
 		HeadsUp.creator = "Qammer G.";
-		HeadsUp.total_collectables = 3;
+		HeadsUp.total_collectables = 2;
 		HeadsUp.gold_boundary = new GoldBoundary { boundary = 26f};
 		HeadsUp.silver_boundary = new SilverBoundary { boundary = 43f};
 		HeadsUp.bronze_boundary = new BronzeBoundary { boundary = 60f};
@@ -219,7 +219,7 @@ public class ScenesInformation {
 		SceneInfo DeathAlley = new SceneInfo();
 		DeathAlley.name = "Death Alley";
 		DeathAlley.creator = "Qammer G.";
-		DeathAlley.total_collectables = 3;
+		DeathAlley.total_collectables = 1;
 		DeathAlley.gold_boundary = new GoldBoundary { boundary = 11f};
 		DeathAlley.silver_boundary = new SilverBoundary { boundary = 13f};
 		DeathAlley.bronze_boundary = new BronzeBoundary { boundary = 18f};
@@ -231,7 +231,7 @@ public class ScenesInformation {
 		SceneInfo MyBiggestFan = new SceneInfo();
 		MyBiggestFan.name = "My Biggest Fan";
 		MyBiggestFan.creator = "Austin P.";
-		MyBiggestFan.total_collectables = 3;
+		MyBiggestFan.total_collectables = 1;
 		MyBiggestFan.gold_boundary = new GoldBoundary { boundary = 25f};
 		MyBiggestFan.silver_boundary = new SilverBoundary { boundary = 35f};
 		MyBiggestFan.bronze_boundary = new BronzeBoundary { boundary = 45f};
@@ -243,7 +243,7 @@ public class ScenesInformation {
 		SceneInfo Endurance = new SceneInfo();
 		Endurance.name = "Endurance";
 		Endurance.creator = "Austin P.";
-		Endurance.total_collectables = 3;
+		Endurance.total_collectables = 2;
 		Endurance.gold_boundary = new GoldBoundary { boundary = 11f};
 		Endurance.silver_boundary = new SilverBoundary { boundary = 13f};
 		Endurance.bronze_boundary = new BronzeBoundary { boundary = 18f};
@@ -255,7 +255,7 @@ public class ScenesInformation {
 		SceneInfo TheTrek = new SceneInfo();
 		TheTrek.name = "The Trek";
 		TheTrek.creator = "Parker N.";
-		TheTrek.total_collectables = 3;
+		TheTrek.total_collectables = 2;
 		TheTrek.gold_boundary = new GoldBoundary { boundary = 25f};
 		TheTrek.silver_boundary = new SilverBoundary { boundary = 35f};
 		TheTrek.bronze_boundary = new BronzeBoundary { boundary = 45f};
