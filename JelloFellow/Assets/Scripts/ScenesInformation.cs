@@ -39,7 +39,7 @@ public class ScenesInformation {
 		SceneInfo TheSpikeyWay = new SceneInfo();
 		TheSpikeyWay.name = "The Spikey Way";
 		TheSpikeyWay.creator = "Qammer G.";
-		TheSpikeyWay.total_collectables = 3;
+		TheSpikeyWay.total_collectables = 1;
 		TheSpikeyWay.gold_boundary = new GoldBoundary { boundary = 8f};
 		TheSpikeyWay.silver_boundary = new SilverBoundary { boundary = 10f};
 		TheSpikeyWay.bronze_boundary = new BronzeBoundary { boundary = 12f};
@@ -51,7 +51,7 @@ public class ScenesInformation {
 		SceneInfo CloseQuarters = new SceneInfo();
 		CloseQuarters.name = "Close Quarters";
 		CloseQuarters.creator = "Parker N.";
-		CloseQuarters.total_collectables = 3;
+		CloseQuarters.total_collectables = 1;
 		CloseQuarters.gold_boundary = new GoldBoundary { boundary = 20f};
 		CloseQuarters.silver_boundary = new SilverBoundary { boundary = 47f};
 		CloseQuarters.bronze_boundary = new BronzeBoundary { boundary = 68f};
@@ -63,7 +63,7 @@ public class ScenesInformation {
 		SceneInfo Push = new SceneInfo();
 		Push.name = "Push";
 		Push.creator = "Sarah V.";
-		Push.total_collectables = 3;
+		Push.total_collectables = 1;
 		Push.gold_boundary = new GoldBoundary { boundary = 4f};
 		Push.silver_boundary = new SilverBoundary { boundary = 8f};
 		Push.bronze_boundary = new BronzeBoundary { boundary = 17f};
@@ -75,7 +75,7 @@ public class ScenesInformation {
 		SceneInfo Lift = new SceneInfo();
 		Lift.name = "Lift";
 		Lift.creator = "Cody B.";
-		Lift.total_collectables = 3;
+		Lift.total_collectables = 2;
 		Lift.gold_boundary = new GoldBoundary { boundary = 19f};
 		Lift.silver_boundary = new SilverBoundary { boundary = 30f};
 		Lift.bronze_boundary = new BronzeBoundary { boundary = 40f};
@@ -87,7 +87,7 @@ public class ScenesInformation {
 		SceneInfo LivingBreezy = new SceneInfo();
 		LivingBreezy.name = "Living Breezy";
 		LivingBreezy.creator = "Sarah V.";
-		LivingBreezy.total_collectables = 3;
+		LivingBreezy.total_collectables = 1;
 		LivingBreezy.gold_boundary = new GoldBoundary { boundary = 4.5f};
 		LivingBreezy.silver_boundary = new SilverBoundary { boundary = 6f};
 		LivingBreezy.bronze_boundary = new BronzeBoundary { boundary = 10f};
@@ -111,7 +111,7 @@ public class ScenesInformation {
 		SceneInfo Squeeeeze = new SceneInfo();
 		Squeeeeze.name = "Squeeeeze";
 		Squeeeeze.creator = "Sarah V.";
-		Squeeeeze.total_collectables = 3;
+		Squeeeeze.total_collectables = 1;
 		Squeeeeze.gold_boundary = new GoldBoundary { boundary = 5f};
 		Squeeeeze.silver_boundary = new SilverBoundary { boundary = 10f};
 		Squeeeeze.bronze_boundary = new BronzeBoundary { boundary = 15f};
@@ -123,7 +123,7 @@ public class ScenesInformation {
 		SceneInfo Jump = new SceneInfo();
 		Jump.name = "Jump";
 		Jump.creator = "Cody B.";
-		Jump.total_collectables = 3;
+		Jump.total_collectables = 2;
 		Jump.gold_boundary = new GoldBoundary { boundary = 15f};
 		Jump.silver_boundary = new SilverBoundary { boundary = 18f};
 		Jump.bronze_boundary = new BronzeBoundary { boundary = 25f};
@@ -135,7 +135,7 @@ public class ScenesInformation {
 		SceneInfo Breakout = new SceneInfo();
 		Breakout.name = "Breakout";
 		Breakout.creator = "Parker N.";
-		Breakout.total_collectables = 3;
+		Breakout.total_collectables = 2;
 		Breakout.gold_boundary = new GoldBoundary { boundary = 20f};
 		Breakout.silver_boundary = new SilverBoundary { boundary = 25f};
 		Breakout.bronze_boundary = new BronzeBoundary { boundary = 35f};
@@ -147,7 +147,7 @@ public class ScenesInformation {
 		SceneInfo DeathHallway = new SceneInfo();
 		DeathHallway.name = "Death Hallway";
 		DeathHallway.creator = "Cody B.";
-		DeathHallway.total_collectables = 3;
+		DeathHallway.total_collectables = 1;
 		DeathHallway.gold_boundary = new GoldBoundary { boundary = 25f};
 		DeathHallway.silver_boundary = new SilverBoundary { boundary = 32f};
 		DeathHallway.bronze_boundary = new BronzeBoundary { boundary = 42f};
