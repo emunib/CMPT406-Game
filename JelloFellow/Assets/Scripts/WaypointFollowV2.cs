@@ -71,7 +71,7 @@ public class WaypointFollowV2 : MonoBehaviour {
 		
 		
 		
-		float distance = Vector2.Distance(GlobalWaypoints[0], GlobalWaypoints[1])/getscale;
+		float distance = Vector2.Distance(GlobalWaypoints[0], GlobalWaypoints[1]);
 		sp.size = new Vector2(distance+track_size_offset_x,sp.size.y);
 
 	
@@ -129,7 +129,7 @@ public class WaypointFollowV2 : MonoBehaviour {
 			rotation = newTrack.transform.rotation.eulerAngles;
 			rotation.z = angle;
 			newTrack.transform.rotation = Quaternion.Euler(rotation);
-			distance = Vector2.Distance(p0, p1)/getscale;
+			distance = Vector2.Distance(p0, p1);
 			sp.size = new Vector2(distance+track_size_offset_x,sp.size.y);
 		}
 
