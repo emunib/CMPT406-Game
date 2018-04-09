@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class CollectableItems : Singleton<CollectableItems> {
   private const string collectedui_path = "Prefabs/UI/CollectedCanvas";
   private const string showroom_path = "Prefabs/UI/CollectedShowroom";
+  private const string controlimage_path = "Prefabs/UI/ControlCanvas";
   private const float fade_duration = 0.8f;
   
   private string current_scenename;
@@ -21,6 +22,8 @@ public class CollectableItems : Singleton<CollectableItems> {
   private CollectedShowroomManager showroom_manager;
   private bool showroom_inscene;
   private Coroutine showroom_canvasfader;
+
+  private CanvasGroup control_canvasgroup;
   
   
   private void Start() {
@@ -45,6 +48,11 @@ public class CollectableItems : Singleton<CollectableItems> {
     showroom_canvasfader = null;
     
     showroom_manager.RefreshDays();
+    
+    GameObject control_canvas = Resources.Load<GameObject>(controlimage_path);
+    control_canvas = Instantiate(control_canvas, transform);
+    control_canvasgroup = control_canvas.GetComponent<CanvasGroup>();
+    control_canvasgroup.alpha = 0f;
   }
   
   private void SceneWasChanged(string scene_name, string prev_scene) {
@@ -58,6 +66,22 @@ public class CollectableItems : Singleton<CollectableItems> {
 
       collected_canvasfader = StartCoroutine(Fade(collected_canvasgroup, 0f));
       active_in_scene = false;
+    } else if (inmenu && prev_scene == "MainMenu") {
+      if (showroom_canvasfader != null) {
+        StopCoroutine(showroom_canvasfader);
+        showroom_canvasfader = null;
+      }
+      
+      showroom_canvasfader = StartCoroutine(Fade(control_canvasgroup, 0f));
+      showroom_inscene = false;
+    } else if (inmenu && prev_scene == "SceneSelector") {
+      if (showroom_canvasfader != null) {
+        StopCoroutine(showroom_canvasfader);
+        showroom_canvasfader = null;
+      }
+      
+      showroom_canvasfader = StartCoroutine(Fade(showroom_canvasgroup, 0f));
+      showroom_inscene = false;
     } else if (!inmenu && showroom_inscene) {
       if (showroom_canvasfader != null) {
         StopCoroutine(showroom_canvasfader);
@@ -93,10 +117,14 @@ public class CollectableItems : Singleton<CollectableItems> {
         }
 
         if (showroom_inscene) {
-          showroom_canvasfader = StartCoroutine(Fade(showroom_canvasgroup, 0f));
+          showroom_canvasfader = StartCoroutine(current_scenename == "MainMenu" ? Fade(control_canvasgroup, 0f) : Fade(showroom_canvasgroup, 0f));
+
+//          showroom_canvasfader = StartCoroutine(Fade(showroom_canvasgroup, 0f));
           showroom_inscene = false;
         } else {
-          showroom_canvasfader = StartCoroutine(Fade(showroom_canvasgroup, 1f));
+          showroom_canvasfader = StartCoroutine(current_scenename == "MainMenu" ? Fade(control_canvasgroup, 1f) : Fade(showroom_canvasgroup, 1f));
+
+//          showroom_canvasfader = StartCoroutine(Fade(showroom_canvasgroup, 1f));
           showroom_inscene = true;
         }
       }
