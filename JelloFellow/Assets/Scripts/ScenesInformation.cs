@@ -303,7 +303,7 @@ public class ScenesInformation {
 		SceneInfo CakeWalk = new SceneInfo();
 		CakeWalk.name = "Cake Walk";
 		CakeWalk.creator = "Qammer G.";
-		CakeWalk.total_collectables = 3;
+		CakeWalk.total_collectables = 2;
 		CakeWalk.gold_boundary = new GoldBoundary { boundary = 21f};
 		CakeWalk.silver_boundary = new SilverBoundary { boundary = 25f};
 		CakeWalk.bronze_boundary = new BronzeBoundary { boundary = 30f};
@@ -315,7 +315,7 @@ public class ScenesInformation {
 		SceneInfo FrustrationStation = new SceneInfo();
 		FrustrationStation.name = "Frustration Station";
 		FrustrationStation.creator = "Qammer G.";
-		FrustrationStation.total_collectables = 3;
+		FrustrationStation.total_collectables = 2;
 		FrustrationStation.gold_boundary = new GoldBoundary { boundary = 38f};
 		FrustrationStation.silver_boundary = new SilverBoundary { boundary = 48f};
 		FrustrationStation.bronze_boundary = new BronzeBoundary { boundary = 60f};
@@ -327,7 +327,7 @@ public class ScenesInformation {
 		SceneInfo ChaosFactory = new SceneInfo();
 		ChaosFactory.name = "Chaos Factory";
 		ChaosFactory.creator = "Qammer G.";
-		ChaosFactory.total_collectables = 3;
+		ChaosFactory.total_collectables = 2;
 		ChaosFactory.gold_boundary = new GoldBoundary { boundary = 40f};
 		ChaosFactory.silver_boundary = new SilverBoundary { boundary = 79f};
 		ChaosFactory.bronze_boundary = new BronzeBoundary { boundary = 100f};
@@ -339,7 +339,7 @@ public class ScenesInformation {
 		SceneInfo QammersCavern = new SceneInfo();
 		QammersCavern.name = "Qammer's Cavern";
 		QammersCavern.creator = "Qammer G.";
-		QammersCavern.total_collectables = 3;
+		QammersCavern.total_collectables = 1;
 		QammersCavern.gold_boundary = new GoldBoundary { boundary = 75f};
 		QammersCavern.silver_boundary = new SilverBoundary { boundary = 118f};
 		QammersCavern.bronze_boundary = new BronzeBoundary { boundary = 180f};
