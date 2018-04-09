@@ -403,19 +403,19 @@ public class ScenesInformation {
 		MoshPit.gold_boundary = new GoldBoundary { boundary = 1000f};
 		MoshPit.silver_boundary = new SilverBoundary { boundary = 1001f};
 		MoshPit.bronze_boundary = new BronzeBoundary { boundary = 1002f};
-		MoshPit.category = Category.Bonus;
+		MoshPit.category = Category.Bonus2;
 		MoshPit.category_index = 5;
 		MoshPit.image_name = "Mosh Pit";
 		SceneInfos.Add(MoshPit.name, MoshPit);
 		
 		SceneInfo Newton = new SceneInfo();
 		Newton.name = "Newton";
-		Newton.creator = "Qammer G.";
+		Newton.creator = "Nick B.";
 		Newton.total_collectables = 1;
 		Newton.gold_boundary = new GoldBoundary { boundary = 1000f};
 		Newton.silver_boundary = new SilverBoundary { boundary = 1001f};
 		Newton.bronze_boundary = new BronzeBoundary { boundary = 1002f};
-		Newton.category = Category.Bonus;
+		Newton.category = Category.Bonus2;
 		Newton.category_index = 6;
 		Newton.image_name = "Newton";
 		SceneInfos.Add(Newton.name, Newton);
@@ -427,7 +427,7 @@ public class ScenesInformation {
 		SawLand.gold_boundary = new GoldBoundary { boundary = 1000f};
 		SawLand.silver_boundary = new SilverBoundary { boundary = 1001f};
 		SawLand.bronze_boundary = new BronzeBoundary { boundary = 1002f};
-		SawLand.category = Category.Bonus;
+		SawLand.category = Category.Bonus2;
 		SawLand.category_index = 7;
 		SawLand.image_name = "SawLand";
 		SceneInfos.Add(SawLand.name, SawLand);
@@ -439,7 +439,7 @@ public class ScenesInformation {
 		TheVacuum.gold_boundary = new GoldBoundary { boundary = 1000f};
 		TheVacuum.silver_boundary = new SilverBoundary { boundary = 1001f};
 		TheVacuum.bronze_boundary = new BronzeBoundary { boundary = 1002f};
-		TheVacuum.category = Category.Bonus;
+		TheVacuum.category = Category.Bonus2;
 		TheVacuum.category_index = 8;
 		TheVacuum.image_name = "The Vacuum";
 		SceneInfos.Add(TheVacuum.name, TheVacuum);
