@@ -279,7 +279,7 @@ public class ScenesInformation {
 		SceneInfo Dexterity = new SceneInfo();
 		Dexterity.name = "Dexterity";
 		Dexterity.creator = "Qammer G.";
-		Dexterity.total_collectables = 3;
+		Dexterity.total_collectables = 2;
 		Dexterity.gold_boundary = new GoldBoundary { boundary = 27f};
 		Dexterity.silver_boundary = new SilverBoundary { boundary = 62f};
 		Dexterity.bronze_boundary = new BronzeBoundary { boundary = 92f};
@@ -291,7 +291,7 @@ public class ScenesInformation {
 		SceneInfo Careful = new SceneInfo();
 		Careful.name = "Careful";
 		Careful.creator = "Qammer G.";
-		Careful.total_collectables = 3;
+		Careful.total_collectables = 1;
 		Careful.gold_boundary = new GoldBoundary { boundary = 18f};
 		Careful.silver_boundary = new SilverBoundary { boundary = 29f};
 		Careful.bronze_boundary = new BronzeBoundary { boundary = 42f};
