@@ -363,7 +363,7 @@ public class ScenesInformation {
 		SceneInfo GoodLuck = new SceneInfo();
 		GoodLuck.name = "GoodLuck";
 		GoodLuck.creator = "Qammer G.";
-		GoodLuck.total_collectables = 3;
+		GoodLuck.total_collectables = 5;
 		GoodLuck.gold_boundary = new GoldBoundary { boundary = 1000f};
 		GoodLuck.silver_boundary = new SilverBoundary { boundary = 1001f};
 		GoodLuck.bronze_boundary = new BronzeBoundary { boundary = 1002f};
@@ -375,7 +375,7 @@ public class ScenesInformation {
 		SceneInfo Hellscape = new SceneInfo();
 		Hellscape.name = "Hellscape";
 		Hellscape.creator = "Qammer G.";
-		Hellscape.total_collectables = 3;
+		Hellscape.total_collectables = 2;
 		Hellscape.gold_boundary = new GoldBoundary { boundary = 1000f};
 		Hellscape.silver_boundary = new SilverBoundary { boundary = 1001f};
 		Hellscape.bronze_boundary = new BronzeBoundary { boundary = 1002f};
@@ -399,7 +399,7 @@ public class ScenesInformation {
 		SceneInfo MoshPit = new SceneInfo();
 		MoshPit.name = "Mosh Pit";
 		MoshPit.creator = "Qammer G.";
-		MoshPit.total_collectables = 3;
+		MoshPit.total_collectables = 2;
 		MoshPit.gold_boundary = new GoldBoundary { boundary = 1000f};
 		MoshPit.silver_boundary = new SilverBoundary { boundary = 1001f};
 		MoshPit.bronze_boundary = new BronzeBoundary { boundary = 1002f};
@@ -411,7 +411,7 @@ public class ScenesInformation {
 		SceneInfo Newton = new SceneInfo();
 		Newton.name = "Newton";
 		Newton.creator = "Qammer G.";
-		Newton.total_collectables = 3;
+		Newton.total_collectables = 1;
 		Newton.gold_boundary = new GoldBoundary { boundary = 1000f};
 		Newton.silver_boundary = new SilverBoundary { boundary = 1001f};
 		Newton.bronze_boundary = new BronzeBoundary { boundary = 1002f};
@@ -423,7 +423,7 @@ public class ScenesInformation {
 		SceneInfo SawLand = new SceneInfo();
 		SawLand.name = "SawLand";
 		SawLand.creator = "Qammer G.";
-		SawLand.total_collectables = 3;
+		SawLand.total_collectables = 2;
 		SawLand.gold_boundary = new GoldBoundary { boundary = 1000f};
 		SawLand.silver_boundary = new SilverBoundary { boundary = 1001f};
 		SawLand.bronze_boundary = new BronzeBoundary { boundary = 1002f};
@@ -435,7 +435,7 @@ public class ScenesInformation {
 		SceneInfo TheVacuum = new SceneInfo();
 		TheVacuum.name = "The Vacuum";
 		TheVacuum.creator = "Qammer G.";
-		TheVacuum.total_collectables = 3;
+		TheVacuum.total_collectables = 1;
 		TheVacuum.gold_boundary = new GoldBoundary { boundary = 1000f};
 		TheVacuum.silver_boundary = new SilverBoundary { boundary = 1001f};
 		TheVacuum.bronze_boundary = new BronzeBoundary { boundary = 1002f};
