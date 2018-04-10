@@ -52,7 +52,7 @@ public class SceneSelector : MonoBehaviour {
 
       /* load all the preview images */
       foreach (Sprite _preview in resources_preview_images) {
-        if (_preview.name == "Test") {
+        if (_preview.name == "The Trek") {
           test_image = _preview;
           continue;
         }

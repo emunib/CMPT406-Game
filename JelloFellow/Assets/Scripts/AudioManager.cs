@@ -58,8 +58,8 @@ public class AudioManager : Singleton<AudioManager> {
   private void InitQueues() {
     mainMenuClipsQ = new Queue<AudioClip>();
     levelClipsQ = new Queue<AudioClip>();
-    worldClipsQ = new Queue<AudioClip>[8];
-    for (int i =0; i<8; i++){
+    worldClipsQ = new Queue<AudioClip>[9];
+    for (int i =0; i<9; i++){
       worldClipsQ[i] = new Queue<AudioClip>();
     }
     
@@ -105,8 +105,7 @@ public class AudioManager : Singleton<AudioManager> {
         worldClipsQ[5].Enqueue(song);
         worldClipsQ[6].Enqueue(song);
         worldClipsQ[7].Enqueue(song);
-
-
+        worldClipsQ[8].Enqueue(song);
       }
       
     }

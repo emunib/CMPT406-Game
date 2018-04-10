@@ -361,7 +361,7 @@ public class ScenesInformation {
 		SceneInfos.Add(Chute.name, Chute);
 		
 		SceneInfo GoodLuck = new SceneInfo();
-		GoodLuck.name = "GoodLuck";
+		GoodLuck.name = "Good Luck";
 		GoodLuck.creator = "Qammer G.";
 		GoodLuck.total_collectables = 5;
 		GoodLuck.gold_boundary = new GoldBoundary { boundary = 1000f};
